@@ -112,6 +112,7 @@
  
  .rank-shadow {
 	box-shadow:0px  2px 2px #333;
+
 	
 }
 .td_100{
@@ -121,6 +122,182 @@ border-bottom:2px solid gray;
 
 
 </style>
+
+	
+<script>
+
+$(function(){
+	// 기본 초기 화면에서 순위 테이블 불러오기
+	$.ajax({
+		url:"/semi/club_main_rank?league=SEOUL01",
+		type:"get",
+		success:function(data){
+			console.log(data);
+			
+			var $club_info_table = $("#club_info_table tbody");
+			
+			$club_info_table.html('');
+			
+			$.each(data,function(index,value){
+				var $tr = $('<tr class="td_100">');
+				
+				var $rankTd	= $("<td  style='text-align:center'>").text(value.rank);
+				var $clubNameTd = $("<td style='text-align:center'>").text(value.clubName);
+				var $roundTd = $("<td style='text-align:center'>").text(value.round);
+				var $winScoreTd = $("<td style='text-align:center'>").text(value.winScore);
+				var $winTd = $("<td style='text-align:center'>").text(value.win);
+				var $drawTd = $("<td style='text-align:center'>").text(value.draw);
+				var $loseTd = $("<td style='text-align:center'>").text(value.lose);
+				var $goalTd = $("<td style='text-align:center'>").text(value.goal);
+				var $loseGoalTd = $("<td style='text-align:center'>").text(value.loseGoal);
+				var $goalResultTd = $("<td style='text-align:center'>").text(value.goalResult);
+				var $hidden = $("<input type='hidden' id='teamNumber' value="+value.teamNumber+">")
+				
+				$tr.append($rankTd);
+				$tr.append($clubNameTd);
+				$tr.append($roundTd);
+				$tr.append($winScoreTd);
+				$tr.append($winTd);
+				$tr.append($drawTd);
+				$tr.append($loseTd);
+				$tr.append($goalTd);
+				$tr.append($loseGoalTd);
+				$tr.append($goalResultTd);
+				$tr.append($hidden);
+				
+				$club_info_table.append($tr);
+				
+				
+			});
+			$("#club_info_table tr").click(function(){
+				console.log("asd");
+				var str = "";
+				
+				var tr = $(this);
+				var td = tr.children();
+				var teamNumber = tr.children('#teamNumber').val();
+				
+				
+				console.log("클릭한 row의 모든 데이터 : " + td.text());
+				console.log("hidden : " + teamNumber);
+				
+				location.href="/semi/club_info?teamNumber="+teamNumber;
+			})
+			
+		},
+		error: function(err){
+			console.log("실패");
+		}
+	
+}); 
+	
+	
+	
+	
+});
+	
+
+$(function(){
+	$.ajax({
+		url:"/semi/club_main_league",
+		type:"get",
+		success:function(data){
+			console.log(data);
+			
+			var $club_info_league = $("#league");
+	
+			var $target = $("select[name='league']");
+			$target.append("<option value='5001' selected='selected' >리그를 선택해주세요.</option>")
+			$(data).each(function(i){
+				$target.append("<option value="+data[i].lgId + ">"+data[i].lgName+"</option>")	
+			});
+		
+		},
+		error: function(err){
+			console.log("실패");
+		}
+	
+});
+});
+
+$(function(){
+	$('#league').change(function(){
+		var league_id = $("#league option:selected").val();
+		alert(league_id);
+		
+		$.ajax({
+			url:"/semi/club_main_rank?league="+league_id,
+			type:"get",
+			success:function(data){
+				console.log(data);
+				
+				var $club_info_table = $("#club_info_table tbody");
+				
+				$club_info_table.html('');
+				
+				$.each(data,function(index,value){
+					var $tr = $('<tr class="td_100">');
+					
+					var $rankTd	= $("<td  style='text-align:center'>").text(value.rank);
+					var $clubNameTd = $("<td style='text-align:center'>").text(value.clubName);
+					var $roundTd = $("<td style='text-align:center'>").text(value.round);
+					var $winScoreTd = $("<td style='text-align:center'>").text(value.winScore);
+					var $winTd = $("<td style='text-align:center'>").text(value.win);
+					var $drawTd = $("<td style='text-align:center'>").text(value.draw);
+					var $loseTd = $("<td style='text-align:center'>").text(value.lose);
+					var $goalTd = $("<td style='text-align:center'>").text(value.goal);
+					var $loseGoalTd = $("<td style='text-align:center'>").text(value.loseGoal);
+					var $goalResultTd = $("<td style='text-align:center'>").text(value.goalResult);
+					var $hidden = $("<input type='hidden' id='teamNumber' value="+value.teamNumber+">")
+					
+					$tr.append($rankTd);
+					$tr.append($clubNameTd);
+					$tr.append($roundTd);
+					$tr.append($winScoreTd);
+					$tr.append($winTd);
+					$tr.append($drawTd);
+					$tr.append($loseTd);
+					$tr.append($goalTd);
+					$tr.append($loseGoalTd);
+					$tr.append($goalResultTd);
+					$tr.append($hidden);
+					
+					$club_info_table.append($tr);
+					
+					
+				});
+				$("#club_info_table tr").click(function(){
+					console.log("asd");
+					var str = "";
+					
+					var tr = $(this);
+					var td = tr.children();
+					var teamNumber = tr.children('#teamNumber').val();
+					
+					
+					console.log("클릭한 row의 모든 데이터 : " + td.text());
+					console.log("hidden : " + teamNumber);
+					
+					location.href="/semi/club_info?teamNumber="+teamNumber;
+				})
+				
+			},
+			error: function(err){
+				console.log("실패");
+			}
+		
+	}); 
+		
+	})
+	
+	
+
+	
+})
+
+
+</script>
+		
 </head>
 <body>
 	<jsp:include page="${ application.getContextPath() }/views/common/sideBar.jsp"></jsp:include>
@@ -138,58 +315,39 @@ border-bottom:2px solid gray;
 	  <div class="midTop">
 
 			<h4 class="rank">순위</h4>
+			
+			<select name="league" id="league" class="w3-input w3-border" stylel="float:right">
+		
+			</select>
+			
 			<table id="club_info_table" class="w3-table">
-				<thaed>
+				<thead>
 				<tr bgcolor="#2A3692"  class="rank-shadow">
-					<th width="100px"></th>
-					<th width="200px" height="50px">구단</th>
-					<th width="100px" height="50px">경기수</th>
-					<th width="100px" height="50px">승점</th>
-					<th width="100px" height="50px">승</th>
-					<th width="100px" height="50px">무</th>
-					<th width="100px" height="50px">패</th>
-					<th width="100px" height="50px">득점</th>
-					<th width="100px" height="50px">실점</th>
-					<th width="100px" height="50px">득실</th>
+					<th width="100px" height="50px" style="text-align: center;">순위</th>
+					<th width="200px" height="50px" style="text-align: center;">구단</th>
+					<th width="100px" height="50px" style="text-align: center;">경기수</th>
+					<th width="100px" height="50px" style="text-align: center;">승점</th>
+					<th width="100px" height="50px" style="text-align: center;">승</th>
+					<th width="100px" height="50px" style="text-align: center;">무</th>
+					<th width="100px" height="50px" style="text-align: center;">패</th>
+					<th width="100px" height="50px" style="text-align: center;">득점</th>
+					<th width="100px" height="50px" style="text-align: center;">실점</th>
+					<th width="100px" height="50px" style="text-align: center;">득실</th>
 				</tr>
 				</thaed>
-				<tbody>
-					<tr class="td_100">
-						<td>1</td>
-						<td>울산 현대 축구단</td>
-						<td>12R</td>
-						<td>22</td>
-						<td>8</td>
-						<td>2</td>
-						<td>2</td>
-						<td>12</td>
-						<td>2</td>
-						<td>10</td>
-						<input type="hidden" id="teamNumber" value="5001">
-					</tr>
+				<tbody class="w3-table">
+					
 				</tbody>
 			</table>
 
 		</div>
 
-<script type="text/javascript">
 
-$("#club_info_table tr").click(function(){
-		console.log("asd");
-		var str = "";
-		
-		var tr = $(this);
-		var td = tr.children();
-		var hi = tr.children().children();
-		var teamNumber =$("#teamNumber").val();
-		
-		console.log("클릭한 row의 모든 데이터 : " + td.text());
-		console.log("hidden : " + teamNumber);
-		
-		location.href="/semi/club_info?teamNumber="+teamNumber;
-	})
 	
-</script>
+	
+	
+	
+
 	  </div>
 
 	  <div class="footer">Footer</div>

@@ -1,4 +1,4 @@
-package com.kh.semi.league.vo;
+package com.kh.semi.league.model.vo;
 
 import java.io.Serializable;
 

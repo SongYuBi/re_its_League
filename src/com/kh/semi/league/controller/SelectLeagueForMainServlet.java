@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.kh.semi.league.model.service.LeagueService;
-import com.kh.semi.league.model.vo.Match_vo;
 
 @WebServlet("/selectMain.lg")
 public class SelectLeagueForMainServlet extends HttpServlet {
@@ -25,7 +24,9 @@ public class SelectLeagueForMainServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String fullDate = request.getParameter("fullDate");
+		String startNum = request.getParameter("startNum");
 		System.out.println(fullDate);
+		System.out.println(startNum);
 		
 		ArrayList<HashMap<String,Object>>list = new LeagueService().selectForMain(fullDate);
 		

@@ -1,4 +1,4 @@
-package com.kh.semi.league.vo;
+package com.kh.semi.league.model.vo;
 
 public class AreaCode_vo implements java.io.Serializable{
 	private String areaCode;

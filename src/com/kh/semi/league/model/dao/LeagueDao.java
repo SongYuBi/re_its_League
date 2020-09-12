@@ -13,8 +13,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 
+import com.kh.semi.league.model.vo.League_vo;
 import com.kh.semi.league.model.vo.Match_vo;
-import com.kh.semi.league.vo.League_vo;
+import com.sun.corba.se.spi.orbutil.fsm.State;
 
 public class LeagueDao {
 	private Properties prop = new Properties();
@@ -74,14 +75,13 @@ public class LeagueDao {
 		return list;
 	}
 
-
+	
+	//아약스 리그조인폼 셀렉트
 	public League_vo selectLeague(Connection con, String leagueName) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		HashMap<String, Object> hmap = null;
 		League_vo league = null;
 		
-		ArrayList<HashMap<String, Object>> list = null;
 		
 		String query = prop.getProperty("selectLeague");
 				
@@ -91,46 +91,98 @@ public class LeagueDao {
 			pstmt.setString(1, leagueName);
 			
 			rset = pstmt.executeQuery();
-			list = new ArrayList<HashMap<String, Object>>();
+			
 			league = new League_vo();
 			
-			while(rset.next()) {
-				hmap = new HashMap<String, Object>();
-				
-				league.setLgName(rset.getString("LG_NAME"));
-				league.setLgHost(rset.getString("LG_HOST"));
-				league.setLgMinPlayer(rset.getInt("LG_MIN_PLAYER"));
-				league.setLgMaxPlayer(rset.getInt("LG_MAX_PLAYER"));
-				league.setLgSubPlayer(rset.getInt("LG_SUB_PLAYER"));
-				league.setLgPlayer(rset.getInt("LG_PLAYER"));
-				league.setLgSDate(rset.getDate("LG_SDATE"));
-				league.setLgEDate(rset.getDate("LG_EDATE"));
-				//league.set
+			if(rset.next()) {
+			league.setLgId(rset.getString("LG_ID"));	
+			league.setLgHost(rset.getString("LG_HOST"));
+			league.setLgName(rset.getNString("LG_NAME"));
+			league.setLgMinPlayer(rset.getInt("LG_MIN_PLAYER"));
+			league.setLgMaxPlayer(rset.getInt("LG_MAX_PLAYER"));
+			league.setLgSubPlayer(rset.getInt("LG_SUB_PLAYER"));
+			league.setLgPlayer(rset.getInt("LG_PLAYER"));
+			league.setLgSDate(rset.getDate("LG_SDATE"));
+			league.setLgEDate(rset.getDate("LG_EDATE"));
+			league.setLgReward(rset.getString("LG_REWARD"));
+			league.setAreaCode(rset.getString("AREA_CODE"));
+			league.setStdFName(rset.getString(12));
+			league.setStdSName(rset.getString(13));
+			league.setRefFid(rset.getString(14));
+			league.setRefSid(rset.getString(15));
+			league.setRefTid(rset.getString(16));
 			
-				
-				
-				//list.add(hmap);
-				hmap.put("league", league);
 			}
 			
+	
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			
+			close(rset);
+			close(pstmt);
 		}
 		
-		return null;
+		return league;
+	}
+
+	
+	
+	
+	
+	public void selectLeagueForMain(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		League_vo league = null;
+		
+		String query = prop.getProperty("selectLeagueForMain");
+		
 	}
 
 
-	public void selectLeagueFirst(Connection con) {
-			Statement stmt = null;
-			ResultSet rset= null;
-			HashMap<String,Object> hmap = null;
+	public ArrayList<League_vo> selectAllLeague(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<League_vo> list = null;
+		String query = prop.getProperty("selectAllLeague");
+		
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			list = new ArrayList<League_vo>();
+		
+			while(rset.next()) {
+				League_vo league = new League_vo();
+				
+				league.setLgId(rset.getString("LG_ID"));
+				league.setLgName(rset.getString("LG_NAME"));
+				
+				list.add(league);
+				
+			}
 			
-			String query = prop.getProperty("selectLeagueFirst");
 			
-			
-			
-			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		return list;
+		
+		
+		
+	}
+
+
+	public void selectArea(String area) {
+		PreparedStatement pstmt = null;
+		ResultSet rset= null;
+		ArrayList<League_vo> list = null;
+		
+		
 	}
 
 }

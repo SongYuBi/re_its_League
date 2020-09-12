@@ -4,19 +4,19 @@ import java.io.Serializable;
 import java.sql.Date;
 
 public class Referee_vo implements Serializable{
-	private int refId;
-	private String refName;
-	private String refAddress;
-	private String refPhone;
-	private String refNumber;
-	private String refJob;
-	private String refCar;
-	private String refAccount;
-	private Date refDate;
-	private String license;
-	private Date getLicenseDate;
-	private Date endLicenseDate;
-	private String licenseRating;
+	private int refId;				// 심판 고유 번호
+	private String refName;			// 심판 이름
+	private String refAddress;		// 주소
+	private String refPhone;		// 연락처
+	private String refNumber;		// 주민등록번호
+	private String refJob;			// 현재 직업
+	private String refCar;			// 차량 유무
+	private String refAccount;		// 계좌 번호
+	private Date refDate;			// 가입일
+	private String license;			// 자격증 유무
+	private Date getLicenseDate;	// 자격증 취득일자
+	private Date endLicenseDate;	// 자격증 만료일
+	private String licenseRating;	// 자격증 급수
 	
     public Referee_vo() {}
 

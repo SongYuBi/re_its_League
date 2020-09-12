@@ -110,7 +110,7 @@ p {
 					<p class="sidebar-text">리그 관리</p>
 			</a>
 				<div class="dropdown-menu" aria-labelledby="pagesDropdown"></div> <br>
-			</span> <span class="nav-item"> <a class="nav-link" href="#"
+			</span> <span class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath }/views/admin/referee/refereeApply_admin.jsp"
 				style="margin-top: -90px; margin-left: -22px;"> <img
 					class="sidebar-image"
 					src="/semi/resources/image/chu/referee_un.png" width="60px">

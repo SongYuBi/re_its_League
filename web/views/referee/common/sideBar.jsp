@@ -1,11 +1,14 @@
 <jsp:directive.page language="java"
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" />
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="contextPath" value="${ pageContext.request.contextPath }" scope="application"/>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
+<script
+	src="${ pageContext.request.contextPath }/resources/js/bootstrap.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
@@ -65,7 +68,7 @@ p {
 	<nav class="navbar navbar-expand navbar-dark static-top"
 		style="background: skyblue;">
 
-		<a class="navbar-brand mr-1" href="index.html"> <img
+		<a class="navbar-brand mr-1" href="${pageContext.request.contextPath}/views/admin/main/index.jsp"> <img
 			src="/semi/resources/image/chu/logo.png" width="200px" height="75px"
 			style="margin-left: 10px;">
 		</a>
@@ -100,81 +103,55 @@ p {
 		<!-- Sidebar -->
 		<div class="sidebar" style="max-width: 150px;">
 			<span class="nav-item active"> <a class="nav-link"
-				href="index.html"> <img class="sidebar-image"
+				href="${pageContext.request.contextPath }"> <img class="sidebar-image"
 					src="/semi/resources/image/chu/home_un.png" width="60px"
 					style="margin-top: -10px;">
 					<p class="sidebar-text">HOME</p>
 			</a>
-			</span> <span class="nav-item"> <a class="nav-link" href="#"
+			</span>
+			 <span class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath }/views/referee/league/refereeGameEvalution.jsp"
 				id="pagesDropdown" role="button" style="margin-top: -120px;"> <img
 					class="sidebar-image" src="/semi/resources/image/chu/league_un.png"
 					width="40px" style="margin-left: 52px;">
-					<p class="sidebar-text">리그 관리</p>
+					<p class="sidebar-text">경기 평가 관리</p>	
 			</a>
-				<div class="dropdown-menu" aria-labelledby="pagesDropdown"></div> <br>
-			</span> <span class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath }/views/admin/referee/refereeApply_admin.jsp"
-				style="margin-top: -90px; margin-left: -22px;"> <img
+			<br>
+			</span>
+			 <span class="nav-item" onclick="schedule();"> 
+			 <a class="nav-link" href="${pageContext.request.contextPath }/views/referee/league/refereeSchedule.jsp"
+				style="margin-top: -90px; margin-left: -22px;" id="schedule"> <img
 					class="sidebar-image"
 					src="/semi/resources/image/chu/referee_un.png" width="60px">
-					<p class="sidebar-text">심판 관리</p>
+					<p class="sidebar-text">스케줄 관리</p>
 			</a>
-			</span> 
-			
-			<span class="nav-item dropdown"> 
-			<a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-top: -70px;"> 
-			<img class="sidebar-image" src="/semi/resources/image/chu/user_un.png" width="60px">
-					<p class="sidebar-text">회원 관리</p>
-			</a>
-			<div class="dropdown-menu" aria-labelledby="pagesDropdown" x-placement="bottom-start" style="position:absolute; width:50px;
-			will-change: transform; rop; 0px; left; 0px; margin-top:-20px; transform: translate3d(0px, 63px, 0px);">
-				<a class="dropdown-item" href="/semi/views/admin/member/user.jsp">회원관리</a>
-				<a class="dropdown-item" href="/semi/views/admin/member/exile.jsp">추방 관리</a>
-				<a class="dropdown-item" href="/semi/views/admin/member/withdraw.jsp">탈퇴 관리</a>
-				</div>
 			</span> 
 			
 			<span class="nav-item"> 
-			<a class="nav-link" href="#" style="margin-top: -70px;"> 
-			<img class="sidebar-image" src="/semi/resources/image/chu/add_user_un.png" width="60px">
-			<p class="sidebar-text" style="letter-spacing: -2px;">가입승인 관리</p>
-			</a>
-			</span> <span class="nav-item"> <a class="nav-link" href="#"
-				style="margin-top: -65px;"> <img class="sidebar-image"
-					src="/semi/resources/image/chu/board_un.png" width="45px"
-					style="margin-left: 50px;">
-					<p class="sidebar-text">게시판 관리</p>
-			</a>
-			</span> <span class="nav-item"> <a class="nav-link" href="#"
-				style="margin-top: -55px;"> <img class="sidebar-image"
-					src="/semi/resources/image/chu/ground_un.png" width="60px"
-					style="margin-left: 43px;">
-					<p class="sidebar-text">구장 관리</p>
-			</a>
-			</span> <span class="nav-item"> <a class="nav-link" href="#"
-				style="margin-top: -72px;"> <img class="sidebar-image"
-					src="/semi/resources/image/chu/profit_un.png" width="60px"
-					style="margin-left: 42px;">
-					<p class="sidebar-text">매출 관리</p>
-			</a>
-			</span> <span class="nav-item"> <a class="nav-link" href="#"
-				style="margin-top: -55px;"> <img class="sidebar-image"
-					src="/semi/resources/image/chu/my account_un.png" width="60px"
-					style="margin-left: 43px;">
-					<p class="sidebar-text">My Account</p>
+			<a class="nav-link" href="${pageContext.request.contextPath }/views/referee/league/refereeMyPage.jsp" style="margin-top: -70px;"> 
+			<img class="sidebar-image" src="/semi/resources/image/chu/user_un.png" width="60px">
+					<p class="sidebar-text">마이 페이지</p>
 			</a>
 			</span>
 		</div>
-		
-		        <!-- Bootstrap core JavaScript-->
+<!-- 		
+		        Bootstrap core JavaScript
 				<script src="/semi/resources/js/jquery.min.js"></script>
 				<script src="/semi/resources/js/bootstrap.bundle.min.js"></script>
 
 		
-				<!-- Custom scripts for all pages-->
+				Custom scripts for all pages
 				<script src="/semi/resources/js/sb-admin.min.js"></script>
 
-				<!-- Demo scripts for this page-->
+				Demo scripts for this page
 				<script src="/semi/resources/js/datatables-demo.js"></script>
 				<script src="/semi/resources/js/chart-area-demo.js"></script>
+ -->				
+		<script>
+			function schedule() {
+				location.href="${ applicationScope.contextPath }/selectReferee.rf";
+				console.log("버튼! 눌림!")
+				
+			}
+		</script>
 </body>
 </html>

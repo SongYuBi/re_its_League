@@ -6,6 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet"
 	href="${ pageContext.request.contextPath }/resources/css/adminDefaultLayout.css">
+	
 <title>Insert title here</title>
 </head>
 <style>
@@ -39,9 +40,9 @@ input.underline {
 </style>
 <body>
 	<jsp:include
-		page="/views/referee/common/adminSideBar.jsp"></jsp:include>
+		page="/views/referee/common/sideBar.jsp"></jsp:include>
 
-	<div class="wrapper" style="margin-left: 225px">
+	<div class="wrapper_admin">
 		<div class="header">
 			<h2>
 				안녕하세요<br>

@@ -1,14 +1,14 @@
 package com.kh.semi.board.model.vo;
-
+ 
 import java.io.Serializable;
 import java.util.Date;
 
 public class Board_vo implements Serializable{
-
+ 
 	private int bid;						//게시판 분류 번호)PK_
 	private int bType;						//게시판 분류
 	private int bNo;						//게시판별 번호
-	private int bWriter;					//게시판 작성자
+	private int bWriter;
 	private String bTitle;					//게시글  제목
 	private String bContent;				//내용
 	private int bCount;						//조회수
@@ -17,28 +17,8 @@ public class Board_vo implements Serializable{
 	private String bStatus;					//삭제 상태
 	private int pfId;						//사용자 고유 번호(FK)
 
-	public Board_vo() {}
 	
 	
-	
-	public Board_vo(int bid, int bType, int bNo, int bWriter, String bTitle, String bContent, int bCount, Date bDate,
-			Date modifyDate, String bStatus, int pfId) {
-		super();
-		this.bid = bid;
-		this.bType = bType;
-		this.bNo = bNo;
-		this.bWriter = bWriter;
-		this.bTitle = bTitle;
-		this.bContent = bContent;
-		this.bCount = bCount;
-		this.bDate = bDate;
-		this.modifyDate = modifyDate;
-		this.bStatus = bStatus;
-		this.pfId = pfId;
-	}
-
-
-
 	public int getbWriter() {
 		return bWriter;
 	}
@@ -127,15 +107,35 @@ public class Board_vo implements Serializable{
 		this.pfId = pfId;
 	}
 
+	
+	public Board_vo(int bid, int bType, int bNo, int bWriter, String bTitle, String bContent, int bCount, Date bDate,
+			Date modifyDate, String bStatus, int pfId) {
+		super();
+		this.bid = bid;
+		this.bType = bType;
+		this.bNo = bNo;
+		this.bWriter = bWriter;
+		this.bTitle = bTitle;
+		this.bContent = bContent;
+		this.bCount = bCount;
+		this.bDate = bDate;
+		this.modifyDate = modifyDate;
+		this.bStatus = bStatus;
+		this.pfId = pfId;
+	}
 
-
+	
+	
 	@Override
 	public String toString() {
 		return "Board_vo [bid=" + bid + ", bType=" + bType + ", bNo=" + bNo + ", bWriter=" + bWriter + ", bTitle="
 				+ bTitle + ", bContent=" + bContent + ", bCount=" + bCount + ", bDate=" + bDate + ", modifyDate="
 				+ modifyDate + ", bStatus=" + bStatus + ", pfId=" + pfId + "]";
 	}
-	
-	
 
+	public Board_vo() {
+	}
+	
+	
+	
 }

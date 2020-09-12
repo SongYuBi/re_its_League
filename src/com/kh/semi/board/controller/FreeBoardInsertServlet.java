@@ -1,5 +1,5 @@
 package com.kh.semi.board.controller;
-
+ 
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -38,7 +38,7 @@ public class FreeBoardInsertServlet extends HttpServlet {
 		
 		//작성자는 로그인해있는 상태에서 사용이 가능하기 때문에 세션에 있는 사용이 가능
 		//서블릿에서 세션사용이 가능HttpSession에 request.getSession
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(); 
 		//로그인 유저정보를 session에서 꺼내가지구옴 
 		Profile_vo loginUser = (Profile_vo) session.getAttribute("loginUser");
 		System.out.println("ㅇㅇㄹ" + loginUser);

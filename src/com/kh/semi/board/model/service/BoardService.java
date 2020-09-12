@@ -6,7 +6,8 @@ import java.util.ArrayList;
 
 import com.kh.semi.board.model.dao.BoardDao;
 import com.kh.semi.board.model.vo.Board_vo;
-
+import com.kh.semi.board.model.vo.PageInfo;
+ 
 public class BoardService {
 
 	public int insertBoard(Board_vo newBoard) {
@@ -14,7 +15,7 @@ public class BoardService {
 		Connection con = getConnection();
 		
 		int result = new BoardDao().insertBoard(con, newBoard);
-		
+		 
 		//1이상일 경우는 정보한행이 담김거이므로  commit
 		if(result > 0) {
 			commit(con);
@@ -25,20 +26,23 @@ public class BoardService {
 		
 		return result;
 	}
-	public ArrayList<Board_vo> selectList() {
+	public ArrayList<Board_vo> selectListWithPaging(PageInfo pi) {
 	      Connection con = getConnection();
 	      
-	      ArrayList<Board_vo> list = new BoardDao().selectList(con);
+	      ArrayList<Board_vo> list = new BoardDao().selectListWithPaging(con, pi);
 	      
 	      close(con);
 	      
 	      return list;
 	   }
 	public int getListCount() {
-		
-		
-		return 0;
-	}
+	      Connection con = getConnection();
+	      
+	      int listCount = new BoardDao().getListCount(con);
+	      
+	      close(con);
+	      return listCount;
+	   }
 }
 
 

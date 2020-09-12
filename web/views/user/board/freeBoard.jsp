@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html> 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
@@ -10,9 +11,9 @@
 	display: grid;
 	grid-template-columns: 1fr 3fr 1fr;
 	grid-gap: 10px;
-	height: 100% 
+	height: 100%
 }
-
+ 
 @media ( max-width : 100px) {
 	#default-div {
 		display: block;
@@ -60,17 +61,17 @@ select {
 	font-family: inherit;
 	margin-top: 10px;
 }
-.wrap {
 
-position:static;
+.wrap {
+	position: static;
 }
-.checkbox-container{
-float:left;
+
+.checkbox-container {
+	float: left;
 }
 </style>
 </head>
-<header> 
-<br>
+<header> <br>
 <br>
 <div id="headWrapper" align="center">
 	<div id="logo">
@@ -107,63 +108,79 @@ float:left;
 					style="font-weight: 900; font-size: 50px; margin: 0 auto; margin-top: 40px">자유게시판</div>
 				<br clear="both">
 
-			
 
-				<div class="wrap" style="margin-left:1100px;">
-					<div class="checkbox-container" style="margin-top:7px;">
+
+				<div class="wrap" style="margin-left: 1100px;">
+					<!--<div class="checkbox-container" style="margin-top:7px;">
 						<input type="checkbox" id="a"> <label for="a"
 							style="font-size: 20px;">공지 숨기기</label>
-					</div>
-					<select style="margin-left:20px;">
+					</div> -->
+					<!-- <select style="margin-left:20px;">
 						<option>10개씩 보기</option>
 						<option>15개씩 보기</option>
 						<option>20개씩 보기</option>
-					</select>
+					</select>  -->
 				</div>
 				<br clear="both">
 				<hr width="1440px"
 					style="margin-top: 19px; height: 1px; background: gray;">
-				<div class="container" style="width:1440px;" align="center">
+				<div class="container" style="width: 1440px;" align="center">
 					<table class="table table-hover">
-						<thead>
-							<tr>
-								<th style="width:200px;">글번호</th>
-								<th style="width:800px;">제목</th>
-								<th style="width:200px;">작성자</th>
-								<th style="width:300px;">날짜</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>00003</td>
-								<td>다들취준이신가요?</td>
-								<td>인생이쓰다</td>
-								<td>2020.09.05</td>
-							</tr>
-						</tbody>
-						<tbody>
-							<tr>
-								<td>00002</td>
-								<td>가입인사입니다.</td>
-								<td>와이시리어스</td>
-								<td>2020.09.05</td>
-							</tr>
-						</tbody>
-						<tbody>
-							<tr>
-								<td>00001</td>
-								<td>가입인사입니다.</td>
-								<td>인생이쓰다</td>
-								<td>2020.09.05</td>
-							</tr>
-						</tbody>
-					</table>
-				
-				
-					<hr style="margin-top:-15px;">
-					<a class="btn btn-default pull-right" href="post00001.html" >글쓰기</a>
 
-					<div class="text-center">
+						<tr>
+							<th style="width: 200px;">글번호</th>
+							<th style="width: 800px;">제목</th>
+							<th style="width: 200px;">작성자</th>
+							<th style="width: 300px;">날짜</th>
+						</tr>
+						<c:forEach var="b" items="${ requestScope.list }">
+							<tr>
+								<td><c:out value="${ b.bNo }" /></td>
+								<td><c:out value="${ b.bTitle }" /></td>
+								<td><c:out value="${ b.bWriter }" /></td>
+								<td><c:out value="${ b.bDate }" /></td>
+							</tr>
+						</c:forEach>
+
+
+					</table>
+
+
+					<hr style="margin-top: -15px;">
+					<a class="btn btn-default pull-right" href="${pageContext.request.contextPath }/views/user/board/freeBoardWritingForm.jsp">글쓰기</a>
+
+
+	<div class="pagination" align="center">
+         <button onclick="location.href='${applicationScope.contextPath}/selectList.bo?currentPage=1'"><<</button>
+         
+         <c:if test="${ requestScope.pi.currentPage <= 1 }">
+            <button disabled><</button>
+         </c:if>
+         <c:if test="${ requestScope.pi.currentPage > 1 }">
+            <button onclick="location.href='${applicationScope.contextPath}/selectList.bo?currentPage=<c:out value="${ requestScope.pi.currentPage - 1 }"/>'"><</button>
+         </c:if>
+         
+         <c:forEach var="p" begin="${ requestScope.pi.startPage }" end="${ requestScope.pi.endPage }" step="1">
+            <c:if test="${ requestScope.pi.currentPage eq p }">
+               <button disabled><c:out value="${ p }"/></button>
+            </c:if>
+            <c:if test="${ requestScope.pi.currentPage ne p }">
+               <button onclick="location.href='${applicationScope.contextPath}/selectList.bo?currentPage=<c:out value="${ p }"/>'"><c:out value="${ p }"/></button>
+            </c:if>
+         </c:forEach>
+         
+         
+         
+         <c:if test="${ requestScope.pi.currentPage >= requestScope.pi.maxPage }">
+            <button disabled>></button>
+         </c:if>
+         <c:if test="${ requestScope.pi.currentPage < requestScope.pi.maxPage }">
+            <button onclick="location.href='${applicationScope.contextPath}/selectList.bo?currentPage=<c:out value="${ requestScope.pi.currentPage + 1 }"/>'">></button>
+         </c:if>
+         
+         <button onclick="location.href='${applicationScope.contextPath}/selectList.bo?currentPage=<c:out value="${ requestScope.pi.maxPage }"/>'">>></button>
+      </div>
+					<!-- <div class="text-center">
 						<ul class="pagination">
 							<li><a href="#">1</a></li>
 							<li><a href="#">2</a></li>
@@ -171,7 +188,7 @@ float:left;
 							<li><a href="#">4</a></li>
 							<li><a href="#">5</a></li>
 						</ul>
-					</div>
+					</div> -->
 				</div>
 			</body>
 			<br> <br> <br>

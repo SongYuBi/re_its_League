@@ -55,9 +55,9 @@ public class LoginUserServlet extends HttpServlet {
 			response.sendRedirect(path);
 	
 		}else {
-			request.setAttribute("message","로그인 실패");
+			request.setAttribute("login","아이디 또는 비밀번호를 확인해주세요.");
 			
-			path = "views/common/errorPage.jsp";
+			path = "views/user/mainPage/mainPage.jsp";
 			request.getRequestDispatcher(path).forward(request, response);
 		}
 	}

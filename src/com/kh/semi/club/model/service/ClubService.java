@@ -59,5 +59,38 @@ public class ClubService {
 		
 		return list;
 	}
+	public ArrayList club_info_rank(int club_id) {
+		ArrayList club_info_rank_list = new ArrayList();
+		Connection con = getConnection();
+		
+		String league_id = dao.search_league_id(con,club_id);
+		if(league_id != null) {
+			club_info_rank_list = dao.club_info_rank(con,league_id);
+			if(club_info_rank_list != null) {
+				close(con);
+				System.out.println("클럽 id에 따른 리그 순위 반환 완료");
+			}
+		}
+		
+		return club_info_rank_list;
+	}
+	public ArrayList leagueLst() {
+		Connection con = getConnection();
+		ArrayList leagueList = dao.leagueList(con);
+		
+		close(con);
+
+		return leagueList;
+	}
+	public ArrayList club_main(String league_id) {
+		ArrayList club_main_rank_list = new ArrayList();
+		Connection con = getConnection();
+		
+		club_main_rank_list = dao.club_info_rank(con,league_id);
+		
+		close(con);
+		
+		return club_main_rank_list;
+	}
 
 }

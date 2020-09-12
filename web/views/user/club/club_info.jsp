@@ -41,13 +41,13 @@
 	grid-area: midTop;
 }
 
- .img_back {
+.img_back {
 	width: 80%;
 	height: 300px;
 	background-image: url("club_info.png");
 	background-repeat: no-repeat;
 	back
-} 
+}
 
 .midBottom {
 	grid-area: midBottom;
@@ -55,7 +55,7 @@
 
 .footer {
 	grid-area: footer;
-	background-color: lightgreen;
+	
 }
 
 .wrapper {
@@ -91,6 +91,7 @@
 	position: relative;
 	left: 5%;
 	top: 0%;
+	margin: 10px;
 }
 
 .rank_table {
@@ -99,6 +100,7 @@
 
 .rank-shadow {
 	box-shadow: 0px 2px 2px #333;
+	text-align: center;
 }
 
 .font-white {
@@ -185,17 +187,18 @@
 		<div class="leftCol">LeftCol</div>
 		<div class="rightCol">이런곳에 수정ㅎ면되</div>
 		<div class="midTop">
-			 <div class="img_back">
+			<div class="img_back">
 				<p class="team_name">${club_info.clubName }</p>
-				
+
 				<!-- 		<p class="font-white">공식 홈페이지 :</p> -->
-		<!-- 		<p>온라인 샵 :</p> -->
-		
-			
-				</div> 
+				<!-- 		<p>온라인 샵 :</p> -->
+
+
+			</div>
 			<div style="position: relative;">
 
-				<img src="${ application.getContextPath() }/resources/image/club/club_info.png">
+				<img
+					src="${ application.getContextPath() }/resources/image/club/club_info.png">
 
 				<div
 					style="left: 100px; width: 450px; bottom: 0px; font-size: 1.8em; font-weight: bold; position: absolute;">
@@ -210,13 +213,12 @@
 			<input type="hidden" id="clubId" value="${club_info.clubId }">
 			<p class="team_result_value">구단 인원 : 6명</p>
 			<p class="team_result_value">참가 중인 리그 : it's ManLeague busan</p>
-			<br>
-			<br>
+			<br> <br>
 
 			<h4>
 				선수 리스트
 				</h2>
-				<table id="club_info_table" class="w3-table" border="1" width="300">
+				<table id="club_info_table_member" class="w3-table" border="1" width="300">
 					<thaed>
 					<tr bgcolor="lightgray" border="1" class="rank-shadow">
 						<th width="100px">이름</th>
@@ -237,41 +239,30 @@
 		<div class="midBottom">
 			<h4 class="rank">순위</h4>
 			<table id="club_info_table" class="w3-table" border="1">
-				<thaed>
+				<thead  style="text-align:center">
 				<tr bgcolor="lightgray" border="1" class="rank-shadow">
-					<th width="100px">순위</th>
-					<th width="200px">구단</th>
-					<th width="100px">경기수</th>
-					<th width="100px">승점</th>
-					<th width="100px">승</th>
-					<th width="100px">무</th>
-					<th width="100px">패</th>
-					<th width="100px">득점</th>
-					<th width="100px">실점</th>
-					<th width="100px">득실</th>
+					<th width="100px"  style="text-align:center">순위</th>
+					<th width="200px"  style="text-align:center">구단</th>
+					<th width="100px"  style="text-align:center">경기수</th>
+					<th width="100px"  style="text-align:center">승점</th>
+					<th width="100px"  style="text-align:center">승</th>
+					<th width="100px"  style="text-align:center">무</th>
+					<th width="100px"  style="text-align:center">패</th>
+					<th width="100px"  style="text-align:center">득점</th>
+					<th width="100px"  style="text-align:center">실점</th>
+					<th width="100px"  style="text-align:center">득실</th>
 				</tr>
 				</thaed>
-				<tbody>
-					<tr>
-						<td>1</td>
-						<td>울산 현대 축구단</td>
-						<td>12R</td>
-						<td>22</td>
-						<td>8</td>
-						<td>2</td>
-						<td>2</td>
-						<td>12</td>
-						<td>2</td>
-						<td>10</td>
-						<input type="hidden" id="teamNumber" value="5001">
-					</tr>
+				
+				<tbody >
+				
 				</tbody>
 			</table>
-			<button id="delete_clue
- " class="w3-btn w3-round memBer">구단
-				삭제</button>
+	
 
 
+		
+			<h4 class="rank">경기 일정</h4>
 			<!-- stlye 은 slick 영역 확인용 -->
 			<div style="padding: 50px 100px; background-color: gray;">
 				<div id="slider-div">
@@ -293,12 +284,12 @@
 			<table id="LeagueInfoTable" border="1" class="w3-table">
 				<thead>
 					<tr>
-						<th width="100px">리그명</th>
-						<th width="200px">일시</th>
-						<th width="200px">팀 1</th>
-						<th width="200px">팀 2</th>
-						<th width="200px">구장</th>
-						<th width="200px">심판</th>
+						<th width="100px" style='text-align:center'>리그명</th>
+						<th width="200px" style='text-align:center'>일시</th>
+						<th width="200px" style='text-align:center'>팀 1</th>
+						<th width="200px" style='text-align:center'>팀 2</th>
+						<th width="200px" style='text-align:center'>구장</th>
+						<th width="200px" style='text-align:center'>심판</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -307,13 +298,67 @@
 			</table>
 
 			<script>
-	
-	
+	// 기본 초기 화면에서 순위 테이블 불러오기
+	var teamNumber =$("#clubId").val();
+		$(function(){
+			$.ajax({
+				url:"club_info_rank?teamNumber="+teamNumber,
+				type:"get",
+				success:function(data){
+					console.log(data);
+					
+					var $club_info_table = $("#club_info_table tbody");
+					
+					$club_info_table.html('');
+					
+					$.each(data,function(index,value){
+						var $tr = $('<tr>');
+						
+						var $rankTd	= $("<td  style='text-align:center'>").text(value.rank);
+						var $clubNameTd = $("<td style='text-align:center'>").text(value.clubName);
+						var $roundTd = $("<td style='text-align:center'>").text(value.round);
+						var $winScoreTd = $("<td style='text-align:center'>").text(value.winScore);
+						var $winTd = $("<td style='text-align:center'>").text(value.win);
+						var $drawTd = $("<td style='text-align:center'>").text(value.draw);
+						var $loseTd = $("<td style='text-align:center'>").text(value.lose);
+						var $goalTd = $("<td style='text-align:center'>").text(value.goal);
+						var $loseGoalTd = $("<td style='text-align:center'>").text(value.loseGoal);
+						var $goalResultTd = $("<td style='text-align:center'>").text(value.goalResult);
+						
+						$tr.append($rankTd);
+						$tr.append($clubNameTd);
+						$tr.append($roundTd);
+						$tr.append($winScoreTd);
+						$tr.append($winTd);
+						$tr.append($drawTd);
+						$tr.append($loseTd);
+						$tr.append($goalTd);
+						$tr.append($loseGoalTd);
+						$tr.append($goalResultTd);
+						
+						$club_info_table.append($tr);
+					});
+					
+					
+				},
+				error: function(err){
+					console.log("실패");
+				}
+			
+		});
+			
+			
+		})
+			
+			
+			
+			
+	//선수 관리창 띄우기
 	function member_management(){
 		window.open('club_member_management_view.jsp','선수관리','resizeable=no width=500 height=500');
 	}
 	
-	
+	// 월 을 넘기면 테이블 바뀌게
 	$("#slider-div").children().click(function(){
 		var teamNumber =$("#clubId").val();
 		var tema = "<%=request.getParameter("clubId")%>";
@@ -339,12 +384,12 @@
 						$.each(data,function(index,value){
 							var $tr = $('<tr>');
 							
-							var $lgNameTd = $("<td>").text(value.lgName);
-							var $matchDateTd = $("<td>").text(value.matchDate);
-							var $clubFNameTd = $("<td>").text(value.clubFName);
-							var $clubSNameTd = $("<td>").text(value.clubSName);
-							var $stdNameTd = $("<td>").text(value.stdName);
-							var $RefNameTd = $("<td>").text(value.ref_name);
+							var $lgNameTd = $("<td style='text-align:center'>").text(value.lgName);
+							var $matchDateTd = $("<td style='text-align:center'>").text(value.matchDate);
+							var $clubFNameTd = $("<td style='text-align:center'>").text(value.clubFName);
+							var $clubSNameTd = $("<td style='text-align:center'>").text(value.clubSName);
+							var $stdNameTd = $("<td style='text-align:center'>").text(value.stdName);
+							var $RefNameTd = $("<td style='text-align:center'>").text(value.ref_name);
 							
 							$tr.append($lgNameTd);
 							$tr.append($matchDateTd);
@@ -373,72 +418,36 @@
 		var month = today.getMonth() + 1;
 		var teamNumber =$("#clubId").val();
 		var tema = "<%=request.getParameter("clubId")%>";
-
 					for (var i = 1; i < 13; i++) {
 						if (month == i) {
-							$
-									.ajax({
-										url : "searchTeamMatch?month=" + month
-												+ "&teamNumber=" + teamNumber,
-										type : "get",
-										success : function(data) {
-											console.log(data);
-
-											var $LeagueInfoTable = $("#LeagueInfoTable tbody");
+							$.ajax({
+									url : "searchTeamMatch?month=" + month+ "&teamNumber=" + teamNumber,
+								   type : "get",
+								success : function(data) {
+										console.log(data);
+                                        var $LeagueInfoTable = $("#LeagueInfoTable tbody");
 
 											$LeagueInfoTable.html('');
 
-											$
-													.each(
-															data,
-															function(index,
-																	value) {
-																var $tr = $('<tr>');
+											$.each(data,function(index,value) {
+																var $tr = $("<tr style='text-align:center'>");
+																var $lgNameTd = $("<td style='text-align:center'>").text(value.lgName);
+																var $matchDateTd = $("<td style='text-align:center'>").text(value.matchDate);
+																var $clubFNameTd = $("<td style='text-align:center'>").text(value.clubFName);
+																var $clubSNameTd = $("<td style='text-align:center'>").text(value.clubSName);
+																var $stdNameTd = $("<td style='text-align:center'>").text(value.stdName);
+																var $RefNameTd = $("<td style='text-align:center'>").text(value.ref_name);
 
-																var $lgNameTd = $(
-																		"<td>")
-																		.text(
-																				value.lgName);
-																var $matchDateTd = $(
-																		"<td>")
-																		.text(
-																				value.matchDate);
-																var $clubFNameTd = $(
-																		"<td>")
-																		.text(
-																				value.clubFName);
-																var $clubSNameTd = $(
-																		"<td>")
-																		.text(
-																				value.clubSName);
-																var $stdNameTd = $(
-																		"<td>")
-																		.text(
-																				value.stdName);
-																var $RefNameTd = $(
-																		"<td>")
-																		.text(
-																				value.ref_name);
+																$tr.append($lgNameTd);
+																$tr.append($matchDateTd);
+																$tr.append($clubFNameTd);
+																$tr.append($clubSNameTd);
+																$tr.append($stdNameTd);
+																$tr.append($RefNameTd);
 
-																$tr
-																		.append($lgNameTd);
-																$tr
-																		.append($matchDateTd);
-																$tr
-																		.append($clubFNameTd);
-																$tr
-																		.append($clubSNameTd);
-																$tr
-																		.append($stdNameTd);
-																$tr
-																		.append($RefNameTd);
-
-																$LeagueInfoTable
-																		.append($tr);
-
+																$LeagueInfoTable.append($tr);
 															});
-
-										},
+											},
 										error : function(err) {
 											console.log("실패");
 										}
@@ -455,8 +464,7 @@
 							var month = today.getMonth() + 1;
 							console.log(month);
 
-							$('#slider-div')
-									.slick(
+							$('#slider-div').slick(
 											{
 												slide : 'div', //슬라이드 되어야 할 태그 ex) div, li 
 												infinite : true, //무한 반복 옵션	 
@@ -492,7 +500,7 @@
 											});
 						})
 			</script>
-
+			<button id="delete_clue" class="w3-btn w3-round memBer">구단삭제</button>
 			<div class="footer">Footer</div>
 		</div>
 
@@ -540,8 +548,7 @@
 					</table>
 
 				</div>
-				<br>
-				<br>
+				<br> <br>
 				<button class="w3-input w3-border" id="member_out" name="member_out"
 					style="width: 100px; float: right" onclick="member_out();">방출</button>
 			</div>
@@ -579,5 +586,8 @@
 
 			})
 		</script>
+		
+		
+				
 </body>
 </html>

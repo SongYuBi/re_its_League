@@ -132,6 +132,29 @@ th {
 
 </head>
 <body>
+
+	<!-- 로그인 아이디 또는 비밀번호가 틀렸을때 나타나는 다이얼로그 박스 -->
+	<c:if test="${ !empty requestScope.login }">
+
+	<!-- The Modal -->
+    <div id="myModal" class="modal">
+ 
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="close">&times;</span>    
+        <br>
+        <br>                                                           
+        	<h4> ${login }</h4>
+	
+	</div>
+
+      </div>
+ 
+</c:if>
+
+
+
+
 	<jsp:include
 		page="${ application.contextPath }/views/common/sideBar.jsp"/>
 		
@@ -441,6 +464,42 @@ th {
          });  
        
       };
+      
+      
+      
+      /* 다이얼로그 박스 함수  */
+      
+      
+	$(function (){
+
+		// Get the modal
+	    var modal = document.getElementById('myModal');
+
+	    // Get the button that opens the modal
+	    var btn = document.getElementById("myBtn");
+
+	    // Get the <span> element that closes the modal
+	    var span = document.getElementsByClassName("close")[0];                                          
+
+	    // When the user clicks on the button, open the modal 
+	   
+	        modal.style.display = "block";
+	 
+
+	    // When the user clicks on <span> (x), close the modal
+	    span.onclick = function() {
+	        modal.style.display = "none";
+	        location.href="views/user/mainPage/mainPage.jsp";
+
+	    }
+
+	    // When the user clicks anywhere outside of the modal, close it
+	    window.onclick = function(event) {
+	        if (event.target == modal) {
+	            modal.style.display = "none";
+	        }
+	    }
+	})
    </script>
 
 </body>

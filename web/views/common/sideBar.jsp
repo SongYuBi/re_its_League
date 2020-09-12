@@ -38,7 +38,7 @@
                     <a href="${pageContext.request.contextPath }/views/user/comman/intro.jsp">소개</a>
                 </li>
                 <li>
-                    <a href="${pageContext.request.contextPath }/views/user/league/leagueMainPage.jsp">리그</a>
+                    <a href="${pageContext.request.contextPath }/leagueMain.lg">리그</a>
                 </li>
                 <li>
                     <a href="${pageContext.request.contextPath }/views/user/club/club_Main.jsp">구단</a>

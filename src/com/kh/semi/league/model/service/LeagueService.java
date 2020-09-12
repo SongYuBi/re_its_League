@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.kh.semi.league.model.dao.LeagueDao;
+import com.kh.semi.league.model.vo.League_vo;
 import com.kh.semi.league.model.vo.Match_vo;
-import com.kh.semi.league.vo.League_vo;
 
 public class LeagueService {
 
@@ -24,17 +24,35 @@ public class LeagueService {
 		return list;
 	}
 
-	public void selectLeague(String leagueName) {
+	public League_vo selectLeague(String leagueName) {
 		Connection con = getConnection();
 		
-		League_vo league = new LeagueDao().selectLeague(con, leagueName);
+		League_vo league= new LeagueDao().selectLeague(con, leagueName);
+		
+		close(con);
+		
+		return league;
 		
 	}
 
-	public void selectLeagueFirst() {
+
+	public ArrayList<League_vo> selectAllLeague() {
 		Connection con = getConnection();
 		
-			new LeagueDao().selectLeagueFirst(con);
+		ArrayList<League_vo> list = new LeagueDao().selectAllLeague(con);
+			
+		
+		close(con);
+		return list;
+		
+	}
+
+	public void selectArea(String area) {
+		Connection con = getConnection();
+		
+		//new LeagueDao().selectArea(con,area);
+			
+		
 		
 	}
 

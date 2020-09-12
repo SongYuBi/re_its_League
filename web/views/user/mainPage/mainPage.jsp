@@ -13,7 +13,7 @@
 <script type="text/javascript"
 	src="http://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <link rel="stylesheet"
-	href="${ pageContext.request.contextPath }/resources/css/defaultLayout.css">
+	href="${ pageContext.request.contextPath }/resources/css/userDefaultLayout.css">
 <link rel="stylesheet" type="text/css"
 	href="http://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
 <link rel="stylesheet"
@@ -219,13 +219,10 @@ th {
 
 					<!-- table div -->
 					<div style="margin-top: 70px;">
-						<select id="selS">
+						<select id="selectArea" onchange="selectAreaF(this);">
 							<option>서울</option>
 							<option>경기</option>
 							<option>인천</option>
-							<option>대구</option>
-							<option>대전</option>
-							<option>부산</option>
 						</select>
 
 						<!-- 1 -->
@@ -241,12 +238,10 @@ th {
 											<p></th>
 									</tr>
 								</thead>
-								<tbody>
+								<tbody id="matchList">
 								</tbody>
 							</table>
 						</div>
-						<!-- 삭제됨 -->
-						
 					</div>
 				</div>
 			</div>
@@ -388,8 +383,8 @@ th {
 	            
 	         });  
       });
-   
       
+      //날짜선택 function
       function chioe1(val) {
          var day = $(val).children("h3").text();
          var date = new Date();
@@ -441,6 +436,25 @@ th {
          });  
        
       };
+      
+   </script>
+   
+   
+   <script type="text/javascript">
+   	function selectAreaF(val){
+   		var selectArea = $(val).find(":selected").text()
+   		
+   		$.ajax({
+   			url : "${applicationScope.contextPath}/selectArea.lg",
+   			data : {selectArea : selectArea},
+   			type: "get",
+   			success : function(data){
+   				console.log(data);
+   			}
+   			
+   		});
+   	}
+   
    </script>
 
 </body>

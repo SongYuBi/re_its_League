@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -52,7 +53,7 @@
 		float:left;
 		margin-left:40px;
 	}
-	.league-text{
+	.league-text1, .league-text2{
 		display:block;
 		float:left;
 		font-size:25px;
@@ -65,7 +66,7 @@
 		font-weight:550;
 	}
 	ul li span{
-		margin:5px;
+		margin:3px;
 	}
 	ol li span{
 		margin:5px;
@@ -96,22 +97,26 @@
 	  			<option value="SEOUL01">SEOUL01(서울지역)</option>
 	  			<option value="SEOUL02">SEOUL02(서울지역)</option>
 	  			<option value="SEOUL03">SEOUL03(서울지역)</option>
-	  			<option value="SEOUL04">SEOUL04(서울지역)</option>
-	  			<option value="SEOUL05">SEOUL05(서울지역)</option>
+	  			<option value="GYEONGGI01">GYEONGGI01(경기지역)</option>
+	  			<option value="GYEONGGI02">GYEONGGI02(경기지역)</option>
+	  			<option value="GYEONGGI03">GYEONGGI03(경기지역)</option>
+	  			<option value="INCHEON01">INCHEON01(인천지역)</option>
+	  			<option value="INCHEON02">INCHEON02(인천지역)</option>
+	  			<option value="INCHEON03">INCHEON03(인천지역)</option>
 	  		</select>		
 	  	</div>
 	  	
 	  	<div class="container-my">
         <div class="table-wrapper">
             <div class="table-title" style="border:1px solid blue;width:100%; background:#F8F8F8; height:350px; margin-top:50px;">
-               	<ul class="league-text" style="margin-left:60px;">
+               	<ul class="league-text1" style="margin-left:40px;">
                		<li class="liline">리그명 : <span>lt's Man League Seoul 20</span></li>
                		<li class="liline">주관 : <span>주식회사 It's League</span></li>
                		<li class="liline">심판 : <span>김근엄, 김진지, 김상식</span></li>
                		<li class="liline">최소 인원 수 : <span>6명</span></li>
                		<li class="liline">교체선수 : <span>5명</span></li>
                	</ul>
-               	<ul class="league-text" style="margin-left:50px;">
+               	<ul class="league-text2" style="margin-left:40px;">
                		<li class="liline">리그 기간 : <span>2020-06-01</span>&nbsp;~ &nbsp;<span>2020-08-31</span></li>
                		<li class="liline">경기장 : <span>강북 이내 제휴 경기장</span></li>
                		<li class="liline">총원 : <span>10명</span></li>
@@ -124,7 +129,7 @@
 	  
 	  </div>
 	  <div class="midBottom">
-	 	 <div style="border:1px solid blue;width:100%; background:#F8F8F8; height:340px; margin-top:30px;">
+	 	 <div style="border:1px solid blue;width:100%; background:#F8F8F8; height:340px; margin-top:60px;">
 	 	 	<p class="refundtext">환급 규정</p>
 	 	 	<ol style="clear:both">
 	 	 		<li class="lis"><span class="textspan">신청 후 일주일 이내 취소 시 : 전액환급</span></li>
@@ -134,13 +139,22 @@
 	 	 		<li class="lis"><span class="textspan">리그 시작 후 : 환불불가</span></li>
 	 	 	</ol>
 	  	</div>
+	  	<c:if test="${sessionScope.loginUser.pfGrade  eq '구단주' }">
 	  	<button class="lgBtn" style="margin-left:480px; margin-top:50px;">리그신청</button>
-	 
+	  	</c:if>
+	 	<c:if test="${sessionScope.loginUser.pfGrade ne '구단주' }">
+	 	<div style="height:250px;">
+	 		
+	 	</div>
+	 	</c:if>
 	  </div>
 	  <div class="footer" align="center" style="margin-top:20px; height:300px;">
-	  	<img src="../../../resources/image/footer.png">
+	  	<img src="${applicationScope.contextPath }/resources/image/chu/footer.png">
 	  </div>
 	</div>
+	
+	
+	
 	
 	<script type="text/javascript">
 	
@@ -165,7 +179,31 @@
 				data : {leagueName : txt[0]},
 				type: "get",
 				success : function(data) {
-					console.log("성공");
+					console.log(data);
+					var lgHost = data.lgHost;
+					var lgMaxPlayer = data.lgMaxPlayer;
+					var lgMinPlayer = data.lgMinPlayer;
+					var lgName = data.lgName;
+					var lgPlayer = data.lgPlayer;
+					var lgSDate = data.lgSDate;
+					var lgEDate = data.lgEDate;
+					var lgSubPlayer =data.lgSubPlayer;
+					
+					var stadium = "";
+					stadium = data.stdFName +", "+ data.stdSName;
+			
+					var referee = "";
+					referee = data.refFid + ", " + data.refSid + ", " + data.refTid;
+					$(".league-name").text(lgName);
+					
+					$(".league-text1").children().eq(0).children("span").text(lgName);
+					$(".league-text1").children().eq(1).children("span").text(lgHost);
+					$(".league-text1").children().eq(2).children("span").text(referee);
+					$(".league-text1").children().eq(3).children("span").text(lgMinPlayer);
+					$(".league-text1").children().eq(4).children("span").text(lgSubPlayer);
+					$(".league-text2").children().eq(1).children("span").text(stadium);
+					$(".league-text2").children().eq(2).children("span").text(lgMaxPlayer);
+					$(".league-text2").children().eq(3).children("span").text(lgPlayer);
 				},
 				error : function(err) {
 						console.log("리그정보조회실패!");

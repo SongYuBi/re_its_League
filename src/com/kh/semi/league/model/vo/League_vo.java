@@ -1,4 +1,4 @@
-package com.kh.semi.league.vo;
+package com.kh.semi.league.model.vo;
 
 import java.sql.Date;
 
@@ -15,15 +15,21 @@ public class League_vo implements java.io.Serializable{
 	private Date lgEDate;		//리그 종료일(LG_EDATE)
 	private String lgReward;	//우승상품(LG_REWARD)
 	private String areaCode;	//지역코드(AREA_CODE) (FK)
+	private String refFid;		//첫 번째 심판 번호(REF_FID) (FK)
+	private String refSid;		//두 번째 심판 번호(REF_SID) (FK)
+	private String refTid;		//세 번째 심판 번호(REF_TID) (FK)
 	private int stdFid;			//첫 번째 구장 고유 번호(STD_FID)(FK)
 	private int stdSid;			//두 번째 구장 고유 번호(STD_SID)(FK)
+	private String stdFName;	//join 시 사용할 STD_FID 에 해당하는 STD_NAME (JOIN / FK);
+	private String stdSName;	//join 시 사용할 STD_SID 에 해당하는 STD_NAME (JOIN / FK); 
 	
 	public League_vo() {
 		
 	}
 
-	public League_vo(String lgId, String lgHost,String lgName ,int lgMinPlayer, int lgSubPlayer, int lgMaxPlayer, int lgPlayer,
-			Date lgSDate, Date lgEDate, String lgReward, String areaCode, int stdFid, int stdSid) {
+	public League_vo(String lgId, String lgHost, String lgName, int lgMinPlayer, int lgSubPlayer, int lgMaxPlayer,
+			int lgPlayer, Date lgSDate, Date lgEDate, String lgReward, String areaCode, String refFid, String refSid,
+			String refTid, int stdFid, int stdSid, String stdFName, String stdSName) {
 		super();
 		this.lgId = lgId;
 		this.lgHost = lgHost;
@@ -36,16 +42,13 @@ public class League_vo implements java.io.Serializable{
 		this.lgEDate = lgEDate;
 		this.lgReward = lgReward;
 		this.areaCode = areaCode;
+		this.refFid = refFid;
+		this.refSid = refSid;
+		this.refTid = refTid;
 		this.stdFid = stdFid;
 		this.stdSid = stdSid;
-	}
-
-	@Override
-	public String toString() {
-		return "League_vo [lgId=" + lgId + ", lgHost=" + lgHost +",lgName= " + lgName + ", lgMinPlayer=" + lgMinPlayer + ", lgSubPlayer="
-				+ lgSubPlayer + ", lgMaxPlayer=" + lgMaxPlayer + ", lgPlayer=" + lgPlayer + ", lgSDate=" + lgSDate
-				+ ", lgEDate=" + lgEDate + ", lgReward=" + lgReward + ", areaCode=" + areaCode + ", stdFid=" + stdFid
-				+ ", stdSid=" + stdSid + "]";
+		this.stdFName = stdFName;
+		this.stdSName = stdSName;
 	}
 
 	public String getLgId() {
@@ -59,16 +62,17 @@ public class League_vo implements java.io.Serializable{
 	public String getLgHost() {
 		return lgHost;
 	}
-	public String getLgName() {
-		return lgName;
-	}
-	
-	public void setLgName(String lgName) {
-		 this.lgName = lgName;
-	}
 
 	public void setLgHost(String lgHost) {
 		this.lgHost = lgHost;
+	}
+
+	public String getLgName() {
+		return lgName;
+	}
+
+	public void setLgName(String lgName) {
+		this.lgName = lgName;
 	}
 
 	public int getLgMinPlayer() {
@@ -135,6 +139,30 @@ public class League_vo implements java.io.Serializable{
 		this.areaCode = areaCode;
 	}
 
+	public String getRefFid() {
+		return refFid;
+	}
+
+	public void setRefFid(String refFid) {
+		this.refFid = refFid;
+	}
+
+	public String getRefSid() {
+		return refSid;
+	}
+
+	public void setRefSid(String refSid) {
+		this.refSid = refSid;
+	}
+
+	public String getRefTid() {
+		return refTid;
+	}
+
+	public void setRefTid(String refTid) {
+		this.refTid = refTid;
+	}
+
 	public int getStdFid() {
 		return stdFid;
 	}
@@ -150,6 +178,34 @@ public class League_vo implements java.io.Serializable{
 	public void setStdSid(int stdSid) {
 		this.stdSid = stdSid;
 	}
+
+	public String getStdFName() {
+		return stdFName;
+	}
+
+	public void setStdFName(String stdFName) {
+		this.stdFName = stdFName;
+	}
+
+	public String getStdSName() {
+		return stdSName;
+	}
+
+	public void setStdSName(String stdSName) {
+		this.stdSName = stdSName;
+	}
+
+	@Override
+	public String toString() {
+		return "League_vo [lgId=" + lgId + ", lgHost=" + lgHost + ", lgName=" + lgName + ", lgMinPlayer=" + lgMinPlayer
+				+ ", lgSubPlayer=" + lgSubPlayer + ", lgMaxPlayer=" + lgMaxPlayer + ", lgPlayer=" + lgPlayer
+				+ ", lgSDate=" + lgSDate + ", lgEDate=" + lgEDate + ", lgReward=" + lgReward + ", areaCode=" + areaCode
+				+ ", refFid=" + refFid + ", refSid=" + refSid + ", refTid=" + refTid + ", stdFid=" + stdFid
+				+ ", stdSid=" + stdSid + ", stdFName=" + stdFName + ", stdSName=" + stdSName + "]";
+	}
+
+	
+	
 	
 	
 	

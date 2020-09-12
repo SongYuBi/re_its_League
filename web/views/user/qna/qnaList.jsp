@@ -1,9 +1,12 @@
- <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+    <jsp:directive.page language="java" contentType="text/html; charset=UTF-8"
+    	pageEncoding="UTF-8"/>
+    
+    <%@  taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
 <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap" rel="stylesheet">
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -11,177 +14,151 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <title>Insert title here</title>
 <style>
-	
 	.outer{
-		margin-left:90px;
-		margin-right:90px;
-	}
-	
-	#box1{
-		text-align:center;
-		 width:700px;
-		 height:50px;
-		 font-size:20px;
-		 font-weight:bold;
-		 border:2px solid lightgrey;
-		 font-family: 'Gothic A1', sans-serif;
-		 letter-spacing:5px;
-		 box-shadow:0 1px 2px #5e5d5d;
-	}
-	.buttonboxes{
-	
-		border:2px solid lightgrey;
-		 width:700px;
-		 height:50px;
-		 padding:5px;
-		 box-shadow:0 1px 2px #5e5d5d;
-		 text-align:center;
-		 line-height:35px;
-		
-		
-		 
-		
+	width: 800px;
+	height:500px;
+	margin-top:20px;
+	margin-left:auto;
+	margin-right:auto;
 	}
 	#btn{
 		width:80px;
 		height:35px;
 		color:white;
-		/* padding:15px; */
 		align:center;
 		margin-left:auto;
 		margin-right:30px;
 		text-align:center;
 		font-weight:medium;
-		
-		
+	}
+	.table-head{
+		background:#111B39;
+		color:white;
+	}
+	 h2{
+	margin:100px;
+	
+	}
+	table{
+		width:700px;
+		height:30px;
+	}
+	#listArea{
+		width:100%;
+		border-collapse: collapse;
+		font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 		
 	}
-	.ref{
-		font-size:20px;
-		padding:5px;
+	#listArea td, #listArea th{
+		border-bottom:1px solid #ddd;
+		 padding: 8px;
 	}
-	#list-area{
-		 border:2px solid lightgrey;
-		 font-size:20px;
-		 padding:10px;
+	#listArea th{
+		padding-top: 12px;
+		padding-bottom: 12px;
+		text-align:left;
+		backgound-color:111B39;
+		color:white;
 	}
-	#row{
-		
-		border-bottom:2px solid lightgrey;
+	.button{
+		text-align:right;
 	}
 	
-
 </style>
 </head>
 <body>
 
 	<jsp:include page="${ application.getContextPath() }/views/common/sideBar.jsp"></jsp:include>
+		
+		
+		<h2>QnA</h2>
 	
 	<div class="outer">
-	
-	
-	
-	<div class="logo" align="center">
-		<img alt="" src="../../../resources/image/logo_jess.png" style="width:20%">
-	</div>
-	
-	
-	  <!-- 	 <div class="header">Header</div> 
-	   <div class="leftCol">L</div>
-	  <div class="rightCol">이런곳에 수정ㅎ면되</div>  -->
-	  
-	  
-	  <div class="midTop">
-	  	<br>
-	  	 
-	  	 <div class="tableArea">
-	  	 	<form action="${ applicationScope.contextPath }" method="post">
-	  	 	
-	  	 		<h2 font-weight="bold">QnA</h2>
-	  	 		
-	  	 		<!-- <div class="firstbox" align="center" >
-	  	 		<input id="box1" type="text" style="color:darkgrey" placeholder="키워드로 질문하기">
-	  	 		</div>
-	  	 		<br> -->
-	  	 		<br>
-	  	 		
-	  	 		<div class="buttonboxes" align="center">
+		<br>
+			<form action="${ applicationScope.contextPath }/insert.qna" method="post">
+		<div class="table-area">
+		
+		
+		<br>
+			<div class="buttonboxes" align="center">
 	  	 			<button id="btn" type="button" class="btn btn-secondary" style="text-align:center">매치취소</button>
 	  	 			<button id="btn" type="button" class="btn btn-secondary" value="kjk">매치진행</button>
 	  	 			<button id="btn" type="button" class="btn btn-secondary">서비스</button>
 	  	 			<button id="btn" type="button" class="btn btn-secondary">매칭신청</button>
 	  	 			<button id="btn" type="button" class="btn btn-secondary">구장관련</button>
 	  	 		</div>
+	  	 		<br>
 	  	 		
-	  	 		 <br>
-	  	 		 
-	  	 		<div id="list-area">
-	  	 		
-	  	 		<table border="0" width="670px">
-	  	 		
-	  	 			<tr id="row">
-	  	 			<td class="ref">8</td>
-	  	 			<td ><a href=""></a>
-	  	 			<font>매치 취소시 유의사항</font>
-	  	 			</td>
-	  	 			</tr>
-	  	 			
-						
-					<tr id="row">
-	  	 			<td class="ref">7</td>
-	  	 			<td ><a href=""></a>
-	  	 			<font>매치 취소 시점</font>
-	  	 			</td>
-	  	 			</tr>
-	  	 				
-	  	 			<tr id="row">
-	  	 			<td class="ref">6</td>
-	  	 			<td ><a href=""></a>
-	  	 			<font>매치 취소시 유의사항</font>
-	  	 			</td>
-	  	 			</tr>	
-	  	 				
-	  	 			<tr id="row">
-	  	 			<td class="ref">5</td>
-	  	 			<td ><a href=""></a>
-	  	 			<font>매치 취소시 유의사항</font>
-	  	 			</td>
-	  	 			</tr> 
-	  	 			
-	  	 			<tr >
-	  	 			<td class="ref">4</td>
-	  	 			<td ><a href=""></a>
-	  	 			<font>매치 취소시 유의사항</font>
-	  	 			</td>
-	  	 			</tr>
-	  	 			 	 			
-	  	 		</table>
-	  	 		</div>
-	  	 		
-	  	 	</form>
-	  	 </div>
-	  
-	  </div>
-	  
-	  <br>
-	  <br>
-	  
-	 <div class="footer">
-	 	<img alt="" src="../../../resources/image/footer_jess.png" style="width:100%">
-	 </div>
-	  
+			<table align="center" id="listArea">
+			
+				<tr class="table-head">
+					<th width="50px">글번호</th>
+					<th width="300px">글제목</th>
+					<th width="100px">조회수</th>
+					<th width="100px">작성일</th>
+				</tr>
+				<tr>
+					<td>0</td>
+					<td>공지사항입니다.</td>
+					<td>12</td>
+					<td>2020-09-14</td>
+				</tr>
+				<tr>
+					<td>1</td>
+					<td>공지사항입니다.</td>
+					<td>12</td>
+					<td>2020-09-14</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>공지사항입니다.</td>
+					<td>12</td>
+					<td>2020-09-14</td>
+				</tr>
+				
+				<c:forEach var="n" items="">
+					<tr >
+						<td><c:out value=""/><label>1</label></td>
+						<td><c:out value=""/>공지사항입니다</td>
+						<td><c:out value=""/>0</td>
+						<td><c:out value=""/>20200908</td>
+					</tr>
+				</c:forEach>
+			</table>
+		</div>
+			<br>
+		 <div class="button">
+		 	<button id="submitBotton" type="button" class="btn btn-secondary" onclick="">작성하기</button>
+		 </div>
+	</form>
+	
 	</div>
+	
+	 <script>
+	 	$(function(){
+	 		$("#listArea td").mouseenter(function(){
+	 			$(this).parent().css({"background":"darkgrey","cursor":"pointer"});	
+	 		}).mouseout(function(){
+	 			$(this).parent().css({"background":"white"});
+	 		}).click(function(){
+	 			var num = $(this).parent().children().eq(0).text();
+	 			console.log(num);
+	 			
+	 			//상세정보를 하기위해서 모든 행의 정보를 조회할 것
+	 			//각각행의 식별은 PK 글번호 -> Server에 전달
+	 			//url이용해서 쿼리스트링을 만들어서 전송 
+	 			
+	 			//url을 만들어서 요청
+	 			//get방식적합 /SelectOne.no서블릿을 요청하면소 
+	 			location.href = "${applicationScope.contextPath}/selectOne.qna?num=" + num;
+	 		//리스트에 보여진 게시물을 클릭했을때 url에 숫자가 나오면은 전송되는거를 확인/*  */
+	 			
+	 		});
+	 	});
+	 </script>
+	 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
 
 
 

@@ -3,15 +3,17 @@ package com.kh.semi.board.model.vo;
 public class Qna_vo implements java.io.Serializable {
 	private int qnaId;
 	private int bid;
-	private String qnaItems;
+	private String cateType;
 	
-	Qna_vo () {}
+	public Qna_vo() {
+		
+	}
 
-	public Qna_vo(int qnaId, int bid, String qanItems) {
+	public Qna_vo(int qnaId, int bid, String cateType) {
 		super();
 		this.qnaId = qnaId;
 		this.bid = bid;
-		this.qnaItems = qanItems;
+		this.cateType = cateType;
 	}
 
 	public int getQnaId() {
@@ -30,18 +32,21 @@ public class Qna_vo implements java.io.Serializable {
 		this.bid = bid;
 	}
 
-	public String getQanItems() {
-		return qnaItems;
+	public String getCateType() {
+		return cateType;
 	}
 
-	public void setQanItems(String qanItems) {
-		this.qnaItems = qanItems;
+	public void setCateType(String cateType) {
+		this.cateType = cateType;
 	}
 
 	@Override
 	public String toString() {
-		return "Qna_vo [qnaId=" + qnaId + ", bid=" + bid + ", qanItems=" + qnaItems + "]";
-	};
+		return "Qna_vo [qnaId=" + qnaId + ", bid=" + bid + ", cateType=" + cateType + "]";
+	}
+	
+	
+	
 	
 	
 }

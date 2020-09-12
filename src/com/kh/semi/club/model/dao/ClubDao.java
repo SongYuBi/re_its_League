@@ -13,6 +13,8 @@ import java.util.Properties;
 
 import com.kh.semi.club.model.vo.Club_vo;
 import com.kh.semi.common.vo.match_view_vo;
+import com.kh.semi.common.vo.rank_vo;
+import com.kh.semi.league.vo.League_vo;
 import com.kh.semi.user.model.dao.UserDao;
 
 public class ClubDao {
@@ -122,6 +124,97 @@ public class ClubDao {
 		}
 		
 		return list;
+	}
+
+
+	public String search_league_id(Connection con, int club_id) {
+		String league_id = "";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String sql = prop.getProperty("search_league_id");
+
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, club_id);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				league_id = rs.getString(1);
+			}
+			System.out.println("리그 id : " + league_id);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return league_id;
+	}
+
+
+	public ArrayList club_info_rank(Connection con, String league_id) {
+		ArrayList club_info_rank = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String sql = prop.getProperty("club_info_rank");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, league_id);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				rank_vo vo = new rank_vo();
+				vo.setRank(rs.getInt("rank"));
+				vo.setClubName(rs.getString("club_name"));
+				vo.setRound(rs.getInt("round"));
+				vo.setWinScore(rs.getInt("winScore"));
+				vo.setWin(rs.getInt("win"));
+				vo.setDraw(rs.getInt("draw"));
+				vo.setLose(rs.getInt("lose"));
+				vo.setGoal(rs.getInt("goal"));
+				vo.setLoseGoal(rs.getInt("losegoal"));
+				vo.setGoalResult(rs.getInt("goalpoint"));
+				vo.setTeamNumber(rs.getInt("club_id"));
+				club_info_rank.add(vo);
+				System.out.println(vo);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		return club_info_rank;
+	}
+
+
+	public ArrayList leagueList(Connection con) {
+		Statement stmt = null;
+		ArrayList league_list = new ArrayList();
+		String sql = prop.getProperty("leagueList");
+		ResultSet rs = null;
+		
+		try {
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(sql);
+			
+			while(rs.next()) {
+				League_vo vo = new League_vo();
+				vo.setLgId(rs.getString(1));
+				vo.setLgName(rs.getString(2));
+				
+				league_list.add(vo);
+				System.out.println(vo);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return league_list;
 	}
 
 }

@@ -1,23 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath }"
+	scope="application" />
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <link rel="stylesheet"
 	href="${ pageContext.request.contextPath }/resources/css/adminDefaultLayout.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+<!-- <script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script> -->
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<!-- <script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
+<script
+	src="${ pageContext.request.contextPath }/resources/js/bootstrap.js"></script>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link href="/semi/resources/css/bootstrap.min.css" rel="stylesheet">
+<!-- Custom fonts for this template-->
+<link href="/semi/resources/css/all.min.css" rel="stylesheet"
+	type="text/css">
 <title>Insert title here</title>
 <style>
-.wrapper {
-	margin-left: 225px;
+.carousel-control-next,
+.carousel-control-prev {
+    filter: invert(100%);
 }
 
 .header {
@@ -51,15 +62,14 @@
 	border: 2px solid black;
 	padding: 15px;
 }
-
-
-
 </style>
 </head>
 <body>
-	<jsp:include page="/views/referee/common/adminSideBar.jsp"></jsp:include>
-	
-	<div class="wrapper">
+	<%-- <jsp:include page="/views/referee/common/adminSideBar.jsp"></jsp:include> --%>
+	<jsp:include
+		page="${ application.contextPath }/views/referee/common/sideBar.jsp"></jsp:include>
+
+	<div class="wrapper_admin">
 		<div class="header">
 			<h1>경기 평가</h1>
 		</div>
@@ -67,67 +77,57 @@
 		<div class="rightCol"></div>
 		<div class="midTop">
 			<hr>
-			<div id="myCarousel" class="carousel slide" data-ride="carousel"
-				data-interval="false">
-				<!-- Indicators -->
-				<!-- <ol class="carousel-indicators">
-					<li data-target="#myCarousel" data-slide-to="" class="active"></li>
-					<li data-target="#myCarousel" data-slide-to=""></li>
-					<li data-target="#myCarousel" data-slide-to=""></li>
-				</ol> -->
-
-				<!-- Wrapper for slides -->
-
-				<div class="carousel-inner">
-					<div class="item" id="carouselVal1">
+			<div id="carouselExampleControls" class="carousel slide"
+				data-ride="false">
+				<div class="carousel-inner" >
+					<div class="carousel-item" id="carouselVal1">
 						<h1 id="carouselValue1" align="center">1</h1>
 					</div>
-					<div class="item" id="carouselVal2">
+					<div class="carousel-item" id="carouselVal2">
 						<h1 id="carouselValue2" align="center">2</h1>
 					</div>
-					<div class="item" id="carouselVal3">
+					<div class="carousel-item" id="carouselVal3">
 						<h1 id="carouselValue3" align="center">3</h1>
 					</div>
-					<div class="item" id="carouselVal4">
+					<div class="carousel-item" id="carouselVal4">
 						<h1 id="carouselValue4" align="center">4</h1>
 					</div>
-					<div class="item" id="carouselVal5">
+					<div class="carousel-item" id="carouselVal5">
 						<h1 id="carouselValue5" align="center">5</h1>
 					</div>
-					<div class="item" id="carouselVal6">
+					<div class="carousel-item" id="carouselVal6">
 						<h1 id="carouselValue6" align="center">6</h1>
 					</div>
-					<div class="item" id="carouselVal7">
+					<div class="carousel-item" id="carouselVal7">
 						<h1 id="carouselValue7" align="center">7</h1>
 					</div>
-					<div class="item" id="carouselVa8">
+					<div class="carousel-item" id="carouselVal8">
 						<h1 id="carouselValue8" align="center">8</h1>
 					</div>
-					<div class="item" id="carouselVal9">
+					<div class="carousel-item" id="carouselVal9">
 						<h1 id="carouselValue9" align="center">9</h1>
 					</div>
-					<div class="item" id="carouselVal10">
+					<div class="carousel-item" id="carouselVal10">
 						<h1 id="carouselValue10" align="center">10</h1>
 					</div>
-					<div class="item" id="carouselVal11">
+					<div class="carousel-item" id="carouselVal11">
 						<h1 id="carouselValue11" align="center">11</h1>
 					</div>
-					<div class="item" id="carouselVal12">
+					<div class="carousel-item" id="carouselVal12">
 						<h1 id="carouselValue12" align="center">12</h1>
 					</div>
 				</div>
-
-				<!-- Left and right controls -->
-				<a class="left carousel-control" href="#myCarousel" id="downCount"
-					data-slide="prev" style="background: white"> <span
-					class="glyphicon glyphicon-chevron-left"></span> <span
+				<a class="carousel-control-prev" href="#carouselExampleControls"
+					role="button" data-slide="prev"> <span
+					class="carousel-control-prev-icon" aria-hidden="true"></span> <span
 					class="sr-only">Previous</span>
-				</a> <a class="right carousel-control" href="#myCarousel"
-					data-slide="next" style="background: white"> <span
-					class="glyphicon glyphicon-chevron-right"></span> <span
+				</a> <a class="carousel-control-next" href="#carouselExampleControls"
+					role="button" data-slide="next"> <span
+					class="carousel-control-next-icon" aria-hidden="true"></span> <span
 					class="sr-only">Next</span>
 				</a>
 			</div>
+
 			<div class="table_area">
 				<div class="matchDate"></div>
 				<div>
@@ -144,8 +144,10 @@
 							<td>A리그</td>
 							<td><span>1팀</span>:<span>2팀</span></td>
 							<td>종합운동장</td>
-							<td class="text-center"><a class='btn btn-info btn-xs' id="myModalbtn">
-							<span class="glyphicon glyphicon-edit"></span> Edit</a>
+							<td class="text-center"><a class='btn btn-info btn-xs'
+								id="myModalbtn"> <span class="glyphicon glyphicon-edit"></span>
+									Edit
+							</a>
 						</tr>
 						<tr>
 							<td>B리그</td>
@@ -180,7 +182,8 @@
 							<td><span>1팀</span>:<span>2팀</span></td>
 							<td>종합운동장</td>
 							<td class="text-center"><a class='btn btn-info btn-xs'
-								href="#"><span class="glyphicon glyphicon-edit" id="modal_btn"></span> Edit</a>
+								href="#"><span class="glyphicon glyphicon-edit"
+									id="modal_btn"></span> Edit</a>
 						</tr>
 						<tr>
 							<td>B리그</td>
@@ -204,7 +207,7 @@
 		</div>
 		<div class="midBottom"></div>
 		<div class="footer"></div>
-		
+
 	</div>
 	<jsp:include page="/views/referee/common/matchCreate_Modal.jsp"></jsp:include>
 	<script>
@@ -215,7 +218,7 @@
 			for (var i = 1; i < 13; i++) {
 				var $carouselValue = $("#carouselValue" + i);
 				if (month == $carouselValue.text()) {
-					$("#carouselVal" + i).attr("class", "item active");
+					$("#carouselVal" + i).attr("class", "carousel-item active");
 					console.log($("#carouselVal" + i).text());
 
 				}
@@ -244,7 +247,14 @@
 					+ ("0" + day).slice(-2);
 			return formatDate;
 		}
-
+		
+		
+		$(function(){
+			$("#carouselExampleControls").carousel({
+				interval:false
+				
+			});
+		});
 	</script>
 </body>
 </html>

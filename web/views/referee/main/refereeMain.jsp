@@ -11,7 +11,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<jsp:include page="/views/referee/common/adminSideBar.jsp"></jsp:include>
+	<%-- <jsp:include page="/views/referee/common/adminSideBar.jsp"></jsp:include> --%>
+	<jsp:include page="/views/referee/common/sideBar.jsp"></jsp:include>
 	<div class="wrapper" style="margin-left:225px">
 	<div class="header"><h1>심판 메인 페이지</h1></div>
 	<div class="leftCol"></div>

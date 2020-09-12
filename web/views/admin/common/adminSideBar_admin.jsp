@@ -6,10 +6,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Document</title>
-	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script> -->
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <script
 	src="${ pageContext.request.contextPath }/resources/js/bootstrap.js"></script>
+<!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script> -->
 <script
 	src="${ pageContext.request.contextPath }/resources/js/adminSideBar.js"></script>
 <link

@@ -1,6 +1,7 @@
 <jsp:directive.page language="java"
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" />
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="contextPath" value="${ pageContext.request.contextPath }" scope="application"/>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -112,9 +113,9 @@ p {
 					<p class="sidebar-text">리그 관리</p>
 			</a>
 				<div class="dropdown-menu" aria-labelledby="pagesDropdown"></div> <br>
-			</span> <span class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath }/views/admin/referee/refereeApply_admin.jsp"
-				style="margin-top: -90px; margin-left: -22px;"> <img
-					class="sidebar-image"
+			</span> <span class="nav-item"> <a class="nav-link" href="${ applicationScope.contextPath }/selectReferee.rf"
+				style="margin-top: -90px; margin-left: -22px;"> 
+				<img class="sidebar-image"
 					src="/semi/resources/image/chu/referee_un.png" width="60px">
 					<p class="sidebar-text">심판 관리</p>
 			</a>
@@ -176,5 +177,11 @@ p {
 				<!-- Demo scripts for this page-->
 				<script src="/semi/resources/js/datatables-demo.js"></script>
 				<script src="/semi/resources/js/chart-area-demo.js"></script>
+				
+<script>
+	function applyReferee(){
+		console.log("하위!")
+	}
+</script>
 </body>
 </html>

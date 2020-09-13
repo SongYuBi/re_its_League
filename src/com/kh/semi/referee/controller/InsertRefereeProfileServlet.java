@@ -1,8 +1,6 @@
 package com.kh.semi.referee.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,19 +8,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.semi.referee.model.service.RefereeService;
-import com.kh.semi.referee.model.vo.Referee_vo;
 
 /**
- * Servlet implementation class SelectAllRefereeServlet
+ * Servlet implementation class InsertRefereeProfileServlet
  */
-@WebServlet("/selectReferee.rf")
-public class SelectAllRefereeServlet extends HttpServlet {
+@WebServlet("/insertProfile.rf")
+public class InsertRefereeProfileServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectAllRefereeServlet() {
+    public InsertRefereeProfileServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,19 +28,24 @@ public class SelectAllRefereeServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<Referee_vo> list = new RefereeService().selectAllReferee();
-		
-		String path = "";
-		if(list != null) {
-			path = "views/admin/referee/refereeApply_admin.jsp";
-			request.setAttribute("list", list);
-		} else {
-			path = "views/common/errorPage.jsp";
-			request.setAttribute("message", "심판 관리 페이지 조회 실패!");
+		String[] applyRefId = request.getParameterValues("check");
+		int result = 0;
+		for(String val : applyRefId) {
+			System.out.println("val :" + val);
 		}
 		
-		request.getRequestDispatcher(path).forward(request, response);
+		result = new RefereeService().insertRefProfile(applyRefId);
 		
+		String page = "";
+		if(result > 0) {
+			System.out.println("profile 에 입력완료");
+			page = "views/admin/main/index.jsp";
+		} else {
+			page = "views/common/error.jsp";
+			request.setAttribute("message", "승인 실패!");
+		}
+		
+		request.getRequestDispatcher(page).forward(request, response);
 	}
 
 	/**

@@ -25,6 +25,7 @@
 <!-- Page level plugin CSS-->
 <link href="/semi/resources/css/dataTables.bootstrap4.css" rel="stylesheet">
 <link href="/semi/resources/css/sb-admin.css" rel="stylesheet">
+
 <style>
 #wrapper ul {
 	
@@ -133,19 +134,19 @@ p {
 			</a>
 			</span>
 		</div>
-<!-- 		
-		        Bootstrap core JavaScript
+ 		
+		        <!-- Bootstrap core JavaScript -->
 				<script src="/semi/resources/js/jquery.min.js"></script>
 				<script src="/semi/resources/js/bootstrap.bundle.min.js"></script>
 
 		
-				Custom scripts for all pages
-				<script src="/semi/resources/js/sb-admin.min.js"></script>
+				<!-- Custom scripts for all pages -->
+				<!-- <script src="/semi/resources/js/sb-admin.min.js"></script> -->
 
-				Demo scripts for this page
-				<script src="/semi/resources/js/datatables-demo.js"></script>
-				<script src="/semi/resources/js/chart-area-demo.js"></script>
- -->				
+				<!-- Demo scripts for this page -->
+				<!-- <script src="/semi/resources/js/datatables-demo.js"></script>
+				<script src="/semi/resources/js/chart-area-demo.js"></script> -->
+				
 		<script>
 			function schedule() {
 				location.href="${ applicationScope.contextPath }/selectReferee.rf";

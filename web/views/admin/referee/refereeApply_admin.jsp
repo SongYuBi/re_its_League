@@ -1,3 +1,5 @@
+<%@page import="com.kh.semi.referee.model.vo.Referee_vo"%>
+<%@page import="java.util.ArrayList"%>
 <jsp:directive.page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"/>
 	
@@ -25,9 +27,12 @@
 		<div class="leftCol"></div>
 		<div class="rightCol"></div>
 		<div class="midTop">
+		<form action="${applicationScope.contextPath}/insertProfile.rf" method="post">
 		<div class="table_area">
-				<div class="matchDate"></div>
+			<div class="matchDate"></div>
 				<div>
+					
+				
 					<table class="table table-striped custab">
 						<thead>
 							<tr>
@@ -36,31 +41,23 @@
 								<th class="myTh">주소</th>
 							</tr>
 						</thead>
-						<tr>
-							<td><input type="checkbox" id="referee_check"/></td>
-							<td>홍길동</td>
-							<td>용인</td>
-						</tr>
-						<tr>
-							<td><input type="checkbox" id="referee_check"/></td>
-							<td>홍길동</td>
-							<td>용인</td>
-						</tr>
-						<tr>
-							<td><input type="checkbox" id="referee_check"/></td>
-							<td>홍길동</td>
-							<td>용인</td>
-						</tr>
-						<tr>
-							<td><input type="checkbox" id="referee_check"/></td>
-							<td>홍길동</td>
-							<td>용인</td>
-						</tr>
+						<tbody>
+						<c:forEach var="ref" items="${ requestScope.list }">
+							<tr>
+								<td><input type="checkBox" id="referee_check" name="check" value="${ref.refId }"></td>
+								<td><c:out value="${ ref.refName }"></c:out></td>
+								<td><c:out value="${ ref.refAddress}"></c:out></td>
+							</tr>
+						</c:forEach>
+						</tbody>
 					</table>
-
+					<div class="applyBtn">
+						<button type="submit">승인</button>
+						<button type="reset">취소</button>
+					</div>
 				</div>
-			
-		</div>
+			</div>
+		</form>
 		<div class="midBottom"></div>
 		<div class="footer"></div>
 	</div>

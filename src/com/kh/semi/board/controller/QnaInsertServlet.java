@@ -39,8 +39,8 @@ public class QnaInsertServlet extends HttpServlet {
 		//board 
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
-		int bWriter = ((Profile_vo) request.getSession().getAttribute("loginUser")).getPfId();
-		
+		//int bWriter = ((Profile_vo) request.getSession().getAttribute("loginUser")).getPfId();
+		int bWriter = 113;
 		Board_vo board = new Board_vo();
 		board.setbTitle(title);
 		board.setbContent(content);
@@ -56,7 +56,7 @@ public class QnaInsertServlet extends HttpServlet {
 		Qna_vo qna = new Qna_vo();
 	
 		//qna
-		int category = Integer.parseInt(request.getParameter("category"));
+		String category = request.getParameter("category");
 	
 		
 		
@@ -67,7 +67,20 @@ public class QnaInsertServlet extends HttpServlet {
 		
 		System.out.println("보드랑 큐엔에이 이거되면 크러쉬할트 : "  + requestData);
 		
- 		new BoardService().insertBoth(requestData);
+ 		int result = new BoardService().insertBoth(requestData);
+ 		
+ 		String path ="";
+ 		
+ 		if(result > 0) {
+ 			path = "SelectBoardListServlet";
+ 			response.sendRedirect(path);
+ 			
+ 			System.out.println("썽꽁");
+ 		}else {
+ 			System.out.println("야 정상진");
+ 		}
+ 		
+ 		
 		
 		
 		

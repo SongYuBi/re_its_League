@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.semi.board.model.service.BoardService;
+import com.kh.semi.board.model.vo.Board_vo;
 import com.kh.semi.board.model.vo.Qna_vo;
 
 /**
@@ -31,13 +32,16 @@ public class QnaSelectOneServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int num = Integer.parseInt(request.getParameter("num"));
+		//int num = Integer.parseInt(request.getParameter("num"));
+		
+		int num = 113;
 		
 		//nno를 이용해서 조회함
 		//num값 전달 
 		//notice를 셀렉트한거는 조회한거 조회수가 없음 
-		Qna_vo qna = new BoardService().selectOneByBid(num);
+		Board_vo qna = new BoardService().selectOneByBid(num);
 	
+		
 		
 		
 	}

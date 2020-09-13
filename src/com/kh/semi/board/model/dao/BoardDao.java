@@ -33,7 +33,7 @@ public class BoardDao {
 		
 		
 	}
-
+	//재서
 	public int insertBoadForQna(Connection con, Board_vo newBoard) {
 
 		PreparedStatement pstmt = null;
@@ -151,7 +151,7 @@ public class BoardDao {
 		ResultSet rset = null;
 		ArrayList<Board_vo> list = null;
 		
-		String query = prop.getProperty("selectList");
+		String query = prop.getProperty("selectList1");
 		
 		try {
 			stmt = con.createStatement();
@@ -163,16 +163,16 @@ public class BoardDao {
 			while(rset.next()) {
 				Board_vo b = new Board_vo();
 				
-				b.setBid(rset.getInt("bid"));
+				b.setBid(rset.getInt("BID"));
 				b.setbType(rset.getInt("bType"));
 				b.setbNo(rset.getInt("bNo"));
-				b.setPfId(rset.getInt("pfId"));
+				b.setPfId(rset.getInt("pf_Id"));
 				b.setbTitle(rset.getString("bTitle"));
-				b.setbContent(rset.getString("bTitle"));
+				b.setbContent(rset.getString("bContent"));
 				b.setbCount(rset.getInt("bCount"));
 				b.setbDate(rset.getDate("bDate"));
-				b.setModifyDate(rset.getDate("modifyDate"));
-				b.setbStatus(rset.getString("bStatus"));
+				b.setModifyDate(rset.getDate("modify_Date"));
+				b.setbStatus(rset.getString("b_Status"));
 				
 				list.add(b);
 				
@@ -194,7 +194,7 @@ public class BoardDao {
 	}
 
 	
-
+	//재서
 	public int selectCurrval(Connection con) {
 		
 		//쿼리전달하는 값없어ㅓ서 stmt 
@@ -231,7 +231,7 @@ public class BoardDao {
 	}
 	
 	
-
+	//재서
 	public int insertBoadForQna(Connection con, Qna_vo qv) {
 
 		PreparedStatement pstmt = null;
@@ -242,13 +242,17 @@ public class BoardDao {
 		
 		
 		try {
+			
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, qv.getBid());
-			pstmt.setString(2, qv.getCateType());
+		//	pstmt.setString(2, qv.getCateType());
 			//title
 		//	pstmt.setString(parameterIndex, x);
 			//content
 		//	pstmt.setString(parameterIndex, x);
+			
+			result = pstmt.executeUpdate();
+			
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -261,17 +265,116 @@ public class BoardDao {
 		return result;
 		
 	}
+	
+	//재서
+	public int selectBid(Connection con, int num) {
 
-//	public int insertBoadForQna(Connection con, Board_vo board) {
-//
-//		PreparedStatement pstmt = null;
-//		int result = 0;
-//		
-//		String query = prop.getProperty("insertBoardForQna");
-//		
-//		
-//		return 0;
-//	}
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		
+		int bid = 0;
+		
+		String query = prop.getProperty("selectBid");
+	
+		try {
+			
+			pstmt = con.prepareStatement(query);
+			rset = pstmt.executeQuery();
+			
+			
+			if(rset.next()) {
+				bid = rset.getInt("bid");
+						
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+			
+		}
+		
+		return bid;
+	}
+	public int updateCount(Connection con, int num) {
+
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, num);
+			pstmt.setInt(2, num);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			
+		}
+		
+		return result;
+	}
+	
+	
+	public Board_vo selectOneQnaByBno(Connection con, int num) {
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		Board_vo board = null;
+		
+		String query = prop.getProperty("selectOne");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, num);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				
+				board = new Board_vo();
+				board.setbNo(rset.getInt("BNO"));
+				board.setbTitle(rset.getString("BTITLE"));
+				board.setbCount(rset.getInt("BCOUNT"));
+				board.setbDate(rset.getDate("BDATE"));
+				board.setBid(rset.getInt("BID"));
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+			
+		}
+		
+		
+		
+		
+		
+		return board;
+	}
+	
+	
+
+	
+	
+
 
 }
 

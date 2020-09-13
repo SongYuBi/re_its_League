@@ -52,7 +52,7 @@ public class BoardService {
 	
 	
 	//재서
-	public ArrayList<Board_vo> selectList() {
+	public ArrayList<Board_vo> selectList1() {
 
 		Connection con = getConnection();
 		
@@ -81,9 +81,11 @@ public class BoardService {
 		
 		//보드 인설트부터 ! bid가져오기위해서 	
 		int result1 = bd.insertBoadForQna(con, board);
+	System.out.println("result1 번 값 :" + result1);
+	
 		
 		if(result1 > 0) {
-			
+			System.out.println("r아무것낭 :" + result1);
 			//qna넣기전에 번호를 부여해주는거 ,최근에한 인설트 시퀀스 값을 가져오는거 
 			int bid = bd.selectCurrval(con);
 			
@@ -92,7 +94,10 @@ public class BoardService {
 			
 			int result2 = bd.insertBoadForQna(con, qv);
 			
+			System.out.println("result2 : " + result2);
+			
 			if(result2 > 0) {
+				
 				commit(con);
 				result = 1; //실행내용이 성공했음을 알리기위해서 1로 바꿔줌	
 			}else {
@@ -107,27 +112,39 @@ public class BoardService {
 		
 	}
 
-	public Qna_vo selectOneByBid(int num) {
+	//재서
+	public Board_vo selectOneByBid(int num) {
 
 		Connection con = getConnection();
 		
 		BoardDao bd = new BoardDao();
 		
-		Qna_vo qv = null;
+		Board_vo Board = null;
 		
-		//조회를 해야함
-		//조회수를 증가시키는거 해야
+		int result = bd.updateCount(con, num);
 		
-		//updateCount 
-		//currval
-		//selectOneQnaByBid 
+	
+		if(result > 0) {
+			Board = bd.selectOneQnaByBno(con, num);
+			
+		}else {
+			rollback(con);
+			
+		}
 		
-		//QNa를 이용해서 bid를 찾아내는 커리문 select bid from board where qna_Id = ?
+		close(con);
+		
+		
+		//bno게시물의 번호를 update
+		//update를 selectOne 
 		//updateCount하고 
 		//bid 통해서 상세페이지를 보여지는거  
 		//viewPage에 RequestScope
 		
-		return null;
+		//
+		
+		
+		return Board;
 	}
 
 }

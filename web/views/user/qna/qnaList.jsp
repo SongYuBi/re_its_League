@@ -97,7 +97,19 @@
 					<th width="100px">조회수</th>
 					<th width="100px">작성일</th>
 				</tr>
-				<tr>
+				
+			 
+				<c:forEach var="q" items="${ requestScope.list }">
+					<tr>
+						<input type="" value="<c:out value="${ q.bid }"/>"/>
+						<td><c:out value="${ q.bNo }"/></td>
+						<td><c:out value="${ q.bTitle }"/></td>
+						<td><c:out value="${ q.bCount }"/></td>
+						<td><c:out value="${ q.bDate }"/></td>
+					</tr>
+				</c:forEach> 
+			
+				<!-- <tr>
 					<td>0</td>
 					<td>공지사항입니다.</td>
 					<td>12</td>
@@ -114,21 +126,12 @@
 					<td>공지사항입니다.</td>
 					<td>12</td>
 					<td>2020-09-14</td>
-				</tr>
-				
-				<c:forEach var="n" items="">
-					<tr >
-						<td><c:out value=""/><label>1</label></td>
-						<td><c:out value=""/>공지사항입니다</td>
-						<td><c:out value=""/>0</td>
-						<td><c:out value=""/>20200908</td>
-					</tr>
-				</c:forEach>
-			</table>
+				</tr> -->
+				</table>
 		</div>
 			<br>
 		 <div class="button">
-		 	<button id="submitBotton" type="button" class="btn btn-secondary" onclick="">작성하기</button>
+		 	<button id="submitBotton" type="button" class="btn btn-secondary" onclick="writingForm();">작성하기</button>
 		 </div>
 	</form>
 	
@@ -150,12 +153,18 @@
 	 			
 	 			//url을 만들어서 요청
 	 			//get방식적합 /SelectOne.no서블릿을 요청하면소 
-	 			location.href = "${applicationScope.contextPath}/selectOne.qna?num=" + num;
+	 			location.href = "${applicationScope.contextPath}/selectOne.qna?num="+num;
 	 		//리스트에 보여진 게시물을 클릭했을때 url에 숫자가 나오면은 전송되는거를 확인/*  */
 	 			
 	 		});
 	 	});
+	 	
+	 	function writingForm(){
+	 		
+	 		location.href = "${applicationScope.contextPath}/views/user/qna/writingForm.jsp";
+	 	}
 	 </script>
+	 
 	 
 </body>
 </html>

@@ -15,6 +15,7 @@ import com.kh.semi.board.model.vo.Board_vo;
 /**
  * Servlet implementation class SelectBoardListServlet
  */
+//재서
 @WebServlet("/SelectBoardListServlet")
 public class SelectBoardListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -28,13 +29,13 @@ public class SelectBoardListServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<Board_vo> list = new BoardService().selectList();
+		ArrayList<Board_vo> list = new BoardService().selectList1();
 		
 		System.out.println("select board list : " + list);
 		
 		String path="";
 		if(list != null) {
-			path = "views/board/boardList.jsp";
+			path = "views/user/qna/qnaList.jsp";
 			request.setAttribute("list", list);
 		} else {
 			path="view/common/errorPage.jsp";

@@ -139,8 +139,8 @@
 	 	 		<li class="lis"><span class="textspan">리그 시작 후 : 환불불가</span></li>
 	 	 	</ol>
 	  	</div>
+	  	<button class="lgBtn" style="margin-left:480px; margin-top:50px;" onclick="leagueApply();">리그신청</button>
 	  	<c:if test="${sessionScope.loginUser.pfGrade  eq '구단주' }">
-	  	<button class="lgBtn" style="margin-left:480px; margin-top:50px;">리그신청</button>
 	  	</c:if>
 	 	<c:if test="${sessionScope.loginUser.pfGrade ne '구단주' }">
 	 	<div style="height:250px;">
@@ -212,6 +212,21 @@
 			});	
 			
 		};
+	</script>
+	
+	
+	<script type="text/javascript">
+		function leagueApply() {
+			
+			if(window.confirm("접수하시겠습니까?")){
+				alert("접수되었습니다.");
+				//console.log($(".selectSt").find(":selected").val());
+				var lgName = $(".selectSt").find(":selected").val()
+				location.href = "${applicationScope.contextPath}/leagueApply.lg?lgName="+lgName;
+				
+			}
+			
+		}
 	</script>
 </body>
 </html>

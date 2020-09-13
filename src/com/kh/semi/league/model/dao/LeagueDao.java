@@ -11,11 +11,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import com.kh.semi.league.model.vo.League_vo;
 import com.kh.semi.league.model.vo.Match_vo;
 import com.sun.corba.se.spi.orbutil.fsm.State;
+import com.sun.org.glassfish.external.statistics.annotations.Reset;
 
 public class LeagueDao {
 	private Properties prop = new Properties();
@@ -31,7 +33,7 @@ public class LeagueDao {
 		
 	}
 	
-	
+	//처음화면 테이블 ajax
 	public ArrayList<HashMap<String, Object>> selectForMain(Connection con, String fullDate) {
 		PreparedStatement pstmt = null;
 		ArrayList<HashMap<String, Object>> list = null;
@@ -54,9 +56,10 @@ public class LeagueDao {
 				
 				hmap.put("LG_NAME", rset.getString("LG_NAME"));
 				hmap.put("MATCH_DATE", rset.getDate("MATCH_DATE"));
-				hmap.put("CLUB_FID", rset.getNString(3));
+				hmap.put("CLUB_FID", rset.getString(3));
 				hmap.put("CLUB_SID", rset.getString(4));
-				
+				hmap.put("STD_FID", rset.getString(5));
+				hmap.put("STD_SID", rset.getString(6));
 				
 				list.add(hmap);
 				
@@ -177,12 +180,205 @@ public class LeagueDao {
 	}
 
 
-	public void selectArea(String area) {
+	public ArrayList<HashMap<String, Object>> selectArea(Connection con, String area, String fullDate) {
 		PreparedStatement pstmt = null;
 		ResultSet rset= null;
-		ArrayList<League_vo> list = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		
+		String query = prop.getProperty("selectArea");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, fullDate);
+			pstmt.setString(2, area);
+			
+			rset = pstmt.executeQuery();
+			list = new ArrayList<HashMap<String,Object>>();
+			HashMap<String, Object> hmap = null;
+			while(rset.next()) {
+				hmap = new HashMap<String, Object>();
+				
+				hmap.put("LG_NAME", rset.getString("LG_NAME"));
+				hmap.put("MATCH_DATE", rset.getDate("MATCH_DATE"));
+				hmap.put("CLUB_FID", rset.getString(3));
+				hmap.put("CLUB_SID", rset.getString(4));
+				hmap.put("STD_FID", rset.getString(5));
+				hmap.put("STD_SID", rset.getString(6));
+				
+				
+				
+				list.add(hmap);
+				
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		System.out.println("dao : " + list);
+		
+		return list;
+	}
+
+	
+	
+	//리그메인 스케줄 with leagueId
+	public void selectScheduleWithId(Connection con, String month, String league) {
+		PreparedStatement pstmt = null;
+		ResultSet rset= null;
+		//ArrayList<>
+		
+	}
+
+	
+	//리그메인페이지 rank with leagudId
+	public ArrayList<HashMap<String, Object>> SelectRankWithId(Connection con, String leagueId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset= null;
+		ArrayList<HashMap<String, Object>> list = null;
+		
+		String query = prop.getProperty("selectRankWithId");
+		System.out.println("dao : " + leagueId);
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, leagueId);
+			
+			rset  = pstmt.executeQuery();
+			list = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()) {
+				HashMap<String, Object> hmap = new HashMap<String, Object>();
+				hmap.put("clubName", rset.getString(2));
+				hmap.put("round", rset.getInt(3));
+				hmap.put("winScore", rset.getInt(4));
+				hmap.put("win", rset.getInt(5));
+				hmap.put("draw", rset.getInt(6));
+				hmap.put("lose", rset.getInt(7));
+				hmap.put("goal", rset.getInt(8));
+				hmap.put("loseGoal", rset.getInt(9));
+				hmap.put("goalPoint", rset.getInt(10));
+				hmap.put("lgName", rset.getString(11));
+				hmap.put("lgId", rset.getString(12));
+				
+				list.add(hmap);
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return list;
+		
+	}
+
+	public ArrayList<HashMap<String, Object>> selectRankWithName(Connection con, String leagueName) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		
+		String query = prop.getProperty("selectRanckWithName");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, leagueName);
+			
+			rset = pstmt.executeQuery();
+			list = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()) {
+				
+				HashMap<String, Object> hmap = new HashMap<String, Object>();
+				hmap.put("clubName", rset.getString(2));
+				hmap.put("round", rset.getInt(3));
+				hmap.put("winScore", rset.getInt(4));
+				hmap.put("win", rset.getInt(5));
+				hmap.put("draw", rset.getInt(6));
+				hmap.put("lose", rset.getInt(7));
+				hmap.put("goal", rset.getInt(8));
+				hmap.put("loseGoal", rset.getInt(9));
+				hmap.put("goalPoint", rset.getInt(10));
+				hmap.put("lgName", rset.getString(11));
+				hmap.put("lgId", rset.getString(12));
+				
+				list.add(hmap);
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
 		
 		
+		
+		return list;
+	}
+
+	
+
+	public int selectClubId(Connection con, int num) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int clubId = 0;
+		String query = prop.getProperty("selectClubId");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, num);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				clubId = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return clubId;
+	}
+
+	
+	
+	public int ApplyLeague(Connection con, HashMap<String, Object> hmap) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		
+		String query = prop.getProperty("applyLeague");
+		
+		
+		int clubId = (int) hmap.get("clubId");
+		String lgName = (String) hmap.get("lgName");
+		int num = (int) hmap.get("num");
+		
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1,clubId);
+			pstmt.setString(2, lgName);
+				
+			
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return result;
 	}
 
 }

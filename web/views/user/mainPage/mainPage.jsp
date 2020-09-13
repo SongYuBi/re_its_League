@@ -243,25 +243,23 @@ th {
 					<!-- table div -->
 					<div style="margin-top: 70px;">
 						<select id="selectArea" onchange="selectAreaF(this);">
-							<option>서울</option>
-							<option>경기</option>
-							<option>인천</option>
+							<option value="S1">서울</option>
+							<option value="G1">경기</option>
+							<option value="I1">인천</option>
 						</select>
 
 						<!-- 1 -->
 						<div class="hidediv">
-							<table class="table table-bordered ta tb1"
-								style="margin-top: 40px;" align="center">
+							<table class="table table-bordered ta tb1"style="margin-top: 40px;" align="center">
 								<thead>
 									<tr>
 										<th style="padding: 10px 10px;"><p>시간</p></th>
 										<th style="padding: 10px 10px;"><p>리그</p></th>
 										<th style="padding: 0 0 30px 0;"><span>팀1</span> vs <span>팀2</span></th>
-										<th style="padding: 10px 10px;"><p>추가,삭제
-											<p></th>
+										<th style="padding: 10px 10px;"><p>경기장<p></th>
 									</tr>
 								</thead>
-								<tbody id="matchList">
+								<tbody id="matchList" align="center" style="font-size:20px; font-weight:450;">
 								</tbody>
 							</table>
 						</div>
@@ -390,10 +388,13 @@ th {
 	            	   $mDateTd = $("<td>").text(data[key].MATCH_DATE);
 	            	   $mLeagueTd = $("<td>").text(data[key].LG_NAME);
 	            	   $mClubNameTd = $("<td>").text(data[key].CLUB_FID + " VS " + data[key].CLUB_SID);
+	            	   $mStadiumTd = $("<td>").text(data[key].STD_FID + ", " + data[key].STD_SID);
+	            	   
 	            	   
 	            	   $tr.append($mDateTd);
 	            	   $tr.append($mLeagueTd);
 	            	   $tr.append($mClubNameTd);
+	            	   $tr.append($mStadiumTd);
 	            	   
 	            	   $tbody.append($tr);
 	            	   
@@ -442,10 +443,12 @@ th {
             	   $mDateTd = $("<td>").text(data[key].MATCH_DATE);
             	   $mLeagueTd = $("<td>").text(data[key].LG_NAME);
             	   $mClubNameTd = $("<td>").text(data[key].CLUB_FID + " VS " + data[key].CLUB_SID);
+            	   $mStadiumTd = $("<td>").text(data[key].STD_FID + ", " + data[key].STD_SID);
             	   
             	   $tr.append($mDateTd);
             	   $tr.append($mLeagueTd);
             	   $tr.append($mClubNameTd);
+            	   $tr.append($mStadiumTd);
             	   
             	   $tbody.append($tr);
             	   
@@ -497,6 +500,68 @@ th {
 	    }
 	})
 
+   </script>
+   
+   		<!-- SELECT -->
+      <script type="text/javascript">
+   	function selectAreaF(val){
+   		var selectArea = $(val).find(":selected").val();
+   		
+   		var day = $(".datedivB").children("h3").text();
+   		 var date = new Date();
+    	 var year = date.getFullYear();
+    	 var month = date.getMonth() + 1;
+    	 if(month < 10) {
+   	     month = '0' + month;
+   			  }
+         if(day < 10) {
+        
+   		     day = "0"  + day;
+  	 	  }
+   		  if(day == 1) {
+   		     month = month*1 + 1;
+    		 month +="";
+    	    
+  			   }
+  		   var fullDate = year + month + day;
+    	   console.log(fullDate);
+   		
+   		
+   		$.ajax({
+   			url : "${applicationScope.contextPath}/selectArea.lg",
+   			data : {selectArea : selectArea, fullDate : fullDate},
+   			type: "get",
+   			success : function(data){
+   				$tbody = $("table tbody");
+                
+                $tbody.html("");
+                
+                for(var key in data){
+             	   $tr = $("<tr>");
+             	   $mDateTd = $("<td>").text(data[key].MATCH_DATE);
+             	   $mLeagueTd = $("<td>").text(data[key].LG_NAME);
+             	   $mClubNameTd = $("<td>").text(data[key].CLUB_FID + " VS " + data[key].CLUB_SID);
+             	   $mStadiumTd = $("<td>").text(data[key].STD_FID + ", " + data[key].STD_SID);
+             	   
+             	   $tr.append($mDateTd);
+             	   $tr.append($mLeagueTd);
+             	   $tr.append($mClubNameTd);
+             	  $tr.append($mStadiumTd);
+             	   
+             	   
+             	   $tbody.append($tr);
+             	   
+                }
+                
+                
+   			},
+   			error : function(err) {
+   				console.log("지역조회실패!");
+   			}
+   			
+   		});
+   	}
+   
    </script>
 
 </body>

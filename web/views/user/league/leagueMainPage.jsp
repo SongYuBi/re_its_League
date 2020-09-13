@@ -114,7 +114,7 @@
 					<li class="lil" style="color: #4169E1; font-size: 20px;">회원가입</li>
 				</ul>
 				<div align="center">
-					<img src="../../../resources/image/banner.png"
+					<img src="${applicationScope.contextPath }/resources/image/chu/logo.png"
 						style="cursor: pointer">
 				</div>
 		</div> 
@@ -126,7 +126,7 @@
 	  	<!-- 리그 -->
 	  	<div style="float:left; margin-left:100px; margin-top:20px; text-align:center; margin-right:150px;">
 	  		<h2>리그</h2>
-	  		<select class="selop" name="league">
+	  		<select class="selop" name="league" id="league-select" onchange="leagueSelect(this);">
 	  			<option value="allLrankLeague">전체</option>
      				<c:forEach var="l" items="${requestScope.list}">
      					<option  value="${l.lgId }">${l.lgId }</option>
@@ -135,12 +135,9 @@
 	  	</div>
 	  	<!-- 구단 -->
 		<div align="center" style="float:left;margin-top:20px;">
-			<h2>구단</h2>
-			<select class="selop" name="team">
-				<option value="seoul">서울</option>
-				<option value="pohang">포항</option>
-				<option value="ulsan">울산</option>
-				<option value="busan">부산</option>
+			<h2>날짜</h2>
+			<select class="selop" name="dateSchedule" id="dateSchedule">
+				 <option>선택</option>
 			</select>
 		</div>	  	
 		<!-- 버튼 -->
@@ -336,8 +333,8 @@
      	<div style="background:#F8F8F8; border:1px solid blue; width:100%; height:150px;" align="center" >
      		<div style="float:left; margin-right:100px;margin-left:220px; margin-top:20px;">
      		<h2>리그</h2>
-     			<select class="selop" name="rankLeague">
-     				<option value="allLrankLeague">전체</option>
+     			<select class="selop" name="rankLeague" onchange="rankLeague(this);">		
+     				<option>선택</option>
      				<c:forEach var="li" items="${requestScope.list }">
      					<option value="${li.lgId }">${li.lgId }</option>
      				</c:forEach>
@@ -346,8 +343,8 @@
      		
      		<div style="margin-left:300px; margin-top:20px; float:left;margin-right:0px;">
      			<h2>대회명</h2>
-     			<select class="selop" name="rankName" onchange="test1();">
-     				<option value="allLrankLeague">전체</option>
+     			<select class="selop" name="rankName" onchange="rankName(this);">
+     				<option>선택</option>
      				<c:forEach var="leagueName" items="${requestScope.list }">
      					<option value="${leagueName.lgName }">${leagueName.lgName }</option>
      				</c:forEach>
@@ -357,47 +354,28 @@
      	<!-- 조회끝 -->
      	<!--순위 테이블 -->
      	<div style="overflow:auto; height:1264px;" align="center" id="rank">
-     	<h1 style="margin-top:50px;" id="namet";>이름 </h1>
+     	<h1 style="margin-top:50px;" id="namet"></h1>
      		<table style="width:100%; height:1000px; margin-top:50px; border-top:1px solid black; text-align:center; font-size:22px;" id ="ranktable">
      			<thead style="border-bottom:1px solid black;"  class="thd">
      				<th>순위</th>
-     				<th>구단</th>
      				<th>경기수</th>
+     				<th>구단</th>
      				<th>승점</th>
      				<th>승</th>
      				<th>무</th>
+     				<th>패</th>
      				<th>득점</th>
      				<th>실점</th>
      				<th>득실</th>
      			</thead>
-     			<tbody>
-     			<c:forEach var="m" begin="1" end="10" step="1">
-     				<tr>
-     				<c:if test="${m == 1 }">
-     					<td style="border-bottom:1px solid black;"><i class="xi-trophy"></i></td>
-     				</c:if>
-     				<c:if test="${m eq 2 or m eq 3}">
-     					<td style="border-bottom:1px solid black;"><i class="xi-crown"></i></td>
-     				</c:if>
-     				<c:if test="${m ne 1 and m ne 2 and m ne 3 }">
-     				<td style="border-bottom:1px solid black;">${m }</td>
-     				</c:if>
-     					<td style="border-bottom:1px solid black;">1</td>
-     					<td style="border-bottom:1px solid black;">1</td>
-     					<td style="border-bottom:1px solid black;">1</td>
-     					<td style="border-bottom:1px solid black;">1</td>
-     					<td style="border-bottom:1px solid black;">1</td>
-     					<td style="border-bottom:1px solid black;">1</td>
-     					<td style="border-bottom:1px solid black;">1</td>
-     					<td style="border-bottom:1px solid black;">1</td>
-     			</c:forEach>
+     			<tbody id="rankbody">
      			</tbody>
      		</table>
      	</div>
      	<!-- 순위테이블끝 -->
      </div>
 	  <div class="footer" align="center" style="margin-top:100px;">
-	  	<img src="../../../resources/image/footer_jess.png">
+	  	<img src="${applicationScope.contextPath }/resources/image/footer_jess.png">
 	  </div>
 	</div>
 	
@@ -405,26 +383,213 @@
 	<!-- method -->
 	<script type="text/javascript">
 		function joinLeague() {
-			//location.href="${applicationScope.contextPath}/leagueJoin.lg";
 			location.href="${applicationScope.contextPath}/views/user/league/leagueJoinForm.jsp";
 		}
-		function test1(){
+		
+		
+		/* function test1(){
 			$("#namet").show();	
-			$("#ranktable tbody").show();
 			$("#ScheduleList").show();
+		} */
+	</script>
+	
+	<script type="text/javascript">
+		/* $(function(){
+			$("#namet").hide();
+			$("#ScheduleList").hide();
+		}); */
+	
+	
+	</script>
+	
+	<%-- id로 검색 --%>
+	<script type="text/javascript">
+			function leagueSelect(val){
+				var league = $(val).find(":selected").val();
+				console.log(league);
+				
+				var date = new Date();
+				var month = date.getMonth() + 1;
+				if(month < 10) {
+					month = '0' + month;
+				}
+				
+				$.ajax({
+					url : "${applicationScope.contextPath}/selectMatchWithId.lg",
+					data : {month : month, league : league},
+					type : "get",
+					success : function(data){
+						console.log(data);
+					},
+					error : function(err){
+						console.log("리그메인 경기조회 실패!")
+					}
+					
+				});
+				
+			}
+	</script>
+	
+	<%--달추가 --%>>
+	<script type="text/javascript">
+		$(function (){
+			
+			var date = new Date();
+			//현재 달
+			var month = date.getMonth();
+			
+			//추가할 body 영역
+			$select =  $("#dateSchedule");
+			
+			for(var i = 0; i < 3; i ++) {
+				var mon = $("<option>").text(month + i +"월");
+				$select.append(mon);
+			}
+		});
+	</script>
+	
+	
+	
+	<!-- 순위 -->
+	<script type="text/javascript">
+		
+		function rankLeague(val) {
+		 var leagueI = $(val).children(":selected").val();
+		 
+		 
+		 $.ajax({
+			url :  "${applicationScope.contextPath}/selectRankWithId.lg",
+			data : {leagueI : leagueI},
+			type : "post",
+			success : function(data){
+				$tbody = $("#rankbody");
+				$tbody.html("");
+				console.log("id")
+				console.log(data);
+				$("#namet").text(data[0].lgId);
+				
+				
+				for(key in data) {
+					$tr = $("<tr>");
+					$tdt = $("<td>");
+					if(key == 0) {
+					$icona = $("<i>").addClass("xi-trophy");
+					$tdt.append($icona);
+						
+					}else if(key ==1) {
+					$icona = $("<i>").addClass("xi-crown");
+					$tdt.append($icona);
+					}else{
+						
+					$icona = Number(key) + 1;
+					$tdt.append($icona);
+					}
+					
+					$clubNameTd = $("<td>").text(data[key].clubName);
+					$drawTd = $("<td>").text(data[key].draw);
+					$goalTd = $("<td>").text(data[key].goal);
+					$goalPointTd = $("<td>").text(data[key].goalPoint);
+					$lostTd = $("<td>").text(data[key].lose);
+					$loseGoalTd = $("<td>").text(data[key].loseGoal);
+					$roundTd = $("<td>").text(data[key].round);
+					$winTd = $("<td>").text(data[key].win);
+					$winScoreTd = $("<td>").text(data[key].winScore);
+					
+					$tr.append($tdt);
+					$tr.append($roundTd);
+					$tr.append($clubNameTd);
+					$tr.append($winScoreTd);
+					$tr.append($winTd);
+					$tr.append($drawTd);
+					$tr.append($lostTd);
+					$tr.append($goalTd);
+					$tr.append($loseGoalTd);
+					$tr.append($goalPointTd);
+					
+					$tbody.append($tr);
+					
+				}	
+			},
+			error : function(err){
+				console.log(err);
+			}
+			
+			 
+		 });
+		 
+		 
 		}
 	</script>
 	
-	<!-- 페이지시작 -->
+	
+	
+	<!-- 리그 이름으로 -->
 	<script type="text/javascript">
-		$(function(){
-			$("#namet").hide();
-			$("#ranktable tbody").hide();
-			$("#ScheduleList").hide();
-		});
-	
-	
+		function rankName(val) {
+			var leagueName = $(val).children(":selected").val();
+			console.log(leagueName);
+			
+			
+			$.ajax({
+				url : "${applicationScope.contextPath}/selectRankWithName.lg",
+				data : {leagueName:leagueName},
+				type : "get",
+				success: function(data) {
+					console.log("name");
+					console.log(data);
+					$tbody = $("#rankbody");
+					$tbody.html("");
+					console.log(data);
+					$("#namet").text(data[0].lgName);
+					
+					for(key in data) {
+						$tr = $("<tr>");
+						$tdt = $("<td>");
+						if(key == 0) {
+						$icona = $("<i>").addClass("xi-trophy");
+						$tdt.append($icona);
+							
+						}else if(key ==1) {
+						$icona = $("<i>").addClass("xi-crown");
+						$tdt.append($icona);
+						}else{
+							
+						$icona = Number(key) + 1;
+						$tdt.append($icona);
+						}
+						$clubNameTd = $("<td>").text(data[key].clubName);
+						$drawTd = $("<td>").text(data[key].draw);
+						$goalTd = $("<td>").text(data[key].goal);
+						$goalPointTd = $("<td>").text(data[key].goalPoint);
+						$lostTd = $("<td>").text(data[key].lose);
+						$loseGoalTd = $("<td>").text(data[key].loseGoal);
+						$roundTd = $("<td>").text(data[key].round);
+						$winTd = $("<td>").text(data[key].win);
+						$winScoreTd = $("<td>").text(data[key].winScore);
+						
+						$tr.append($tdt);
+						$tr.append($roundTd);
+						$tr.append($clubNameTd);
+						$tr.append($winScoreTd);
+						$tr.append($winTd);
+						$tr.append($drawTd);
+						$tr.append($lostTd);
+						$tr.append($goalTd);
+						$tr.append($loseGoalTd);
+						$tr.append($goalPointTd);
+						
+						$tbody.append($tr);
+						
+					}	
+					
+					
+				},
+				error : function(err) {
+					console.log("랭크 네임 조회 실패!");
+				}
+				
+			});
+		}
 	</script>
-	
 </body>
 </html>

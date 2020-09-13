@@ -1,7 +1,9 @@
 package com.kh.semi.league.model.service;
 
 import static com.kh.semi.common.JDBCTemplate.close;
+import static com.kh.semi.common.JDBCTemplate.commit;
 import static com.kh.semi.common.JDBCTemplate.getConnection;
+import static com.kh.semi.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -47,14 +49,73 @@ public class LeagueService {
 		
 	}
 
-	public void selectArea(String area) {
+	public ArrayList<HashMap<String,Object>> selectArea(String area, String fullDate) {
 		Connection con = getConnection();
 		
-		//new LeagueDao().selectArea(con,area);
-			
+		ArrayList<HashMap<String, Object>> list = new LeagueDao().selectArea(con,area, fullDate);
 		
+		close(con);
+			System.out.println("service : " + list);
+		return list;
 		
 	}
+
+
+	public void SelectScheduleWithId(String month, String league) {
+		Connection con = getConnection();
+		
+		new LeagueDao().selectScheduleWithId(con, month, league);
+				
+		
+	}
+
+	public ArrayList<HashMap<String,Object>> SelectRankWithId(String leagueId) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String,Object>> list = new LeagueDao().SelectRankWithId(con, leagueId);
+		
+		close(con);
+		
+		return list;
+				
+		
+	}
+
+	public ArrayList<HashMap<String,Object>> selectRankWithName(String leagueName) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String,Object>> list = new LeagueDao().selectRankWithName(con, leagueName);
+		
+		close(con);
+		
+		return list;
+		
+	}
+
+	public int leagueApply(HashMap<String,Object> hmap) {
+		Connection con = getConnection();
+		
+		int num  = (int) hmap.get("num");
+		LeagueDao ld = new LeagueDao();
+		
+		int clubId = ld.selectClubId(con, num);
+		
+		hmap.put("clubId", clubId);
+		
+		
+		int result = ld.ApplyLeague(con, hmap);
+		
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		return result;
+	}
+
+	
 
 
 }

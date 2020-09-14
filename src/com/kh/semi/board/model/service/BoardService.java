@@ -26,7 +26,7 @@ public class BoardService {
 			rollback(con);
 		}
 		close(con);
-		
+		 
 		return result;
 	}
 	//민경

@@ -18,7 +18,7 @@ public class Board_vo implements java.io.Serializable{
 	private int pfId;						//사용자 고유 번호(FK)
 	private int refBid;
 	private int replyLevel;
-	
+	 
 
 	
 	public Board_vo() {

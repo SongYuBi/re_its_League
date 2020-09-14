@@ -101,7 +101,7 @@ public class BoardDao {
               b.setbDate(rset.getDate(8));
               b.setModifyDate(rset.getDate(9));
               b.setbStatus(rset.getString(10));
-              
+               
               list.add(b);
            }
         

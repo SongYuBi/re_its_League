@@ -20,7 +20,7 @@ import com.kh.semi.board.model.vo.PageInfo;
 @WebServlet("/selectList.bo")
 public class BoardSelectListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+        
     /**
      * @see HttpServlet#HttpServlet()
      */

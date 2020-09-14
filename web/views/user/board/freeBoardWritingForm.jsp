@@ -16,7 +16,7 @@
 		grid-gap :10px;
 		height:100%
 		 
-	}
+	} 
 	
 	@media (max-width: 100px){
 		#default-div {
@@ -110,7 +110,7 @@
 
 		<div class="row">
 
-			<form method="post" action="${ applicationScope.contextPath }">
+			<form id="insertForm" method="post" action="${ applicationScope.contextPath }/insert2.bo">
 
 				<table class="table table-striped"
 
@@ -124,10 +124,10 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td><input type="text" class="form-control" placeholder="글 제목" name="bbsTitle" style="width:100%; height: 40px; font-size: 20px;" maxlength="50"/></td>
+							<td><input type="text" class="form-control" placeholder="글 제목" name="title" style="width:100%; height: 40px; font-size: 20px;" maxlength="50"/></td>
 						</tr>
 						<tr>
-							<td><textarea class="form-control" placeholder="글 내용" name="bbsContent" maxlength="2048" style="width:100%; height: 650px; font-size: 20px;"></textarea></td>
+							<td><textarea class="form-control" placeholder="글 내용" name="content" maxlength="2048" style="width:100%; height: 650px; font-size: 20px;"></textarea></td>
 
 						</tr>
 
@@ -137,8 +137,8 @@
                 <br>
                 <br>
                 <div align="center">
-					<button type="button" class="btn" >취소하기</button>
-					<button type="button" class="btn" >등록하기</button>
+					<button type="button" class="btn" onclick="goBack();">취소하기</button>
+					<button type="button" class="btn" onclick="submitForm();" >등록하기</button>
 				</div>	  
 			</form>
  
@@ -160,6 +160,13 @@
 			
 		</div>
 	</div>
-	
+	<script>
+	function submitForm(){
+ 		$("#insertForm").submit();
+		}
+	function goBack(){
+		location.href="javascript:history.back()"
+		}
+	</script>
 </body>
 </html>

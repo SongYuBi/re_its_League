@@ -26,7 +26,7 @@ public class BoardService {
 			rollback(con);
 		}
 		close(con);
-		
+		 
 		return result;
 	}
 	//민경
@@ -160,7 +160,46 @@ public class BoardService {
 		
 		return null;
 	}
-
+	
+	//민경 게시판 상세보기
+	public Board_vo selectOne(int num) {
+		Connection con = getConnection();
+        
+        BoardDao bd = new BoardDao();
+        int result = bd.updateCount(con, num);
+        
+        Board_vo board = null;
+        if(result > 0) {
+           board = bd.selectOne(con, num);
+           
+           if(board != null) {
+              commit(con);
+           } else {
+              rollback(con);
+           }
+        } else {
+           rollback(con);
+        }
+        
+        close(con);
+        
+        return board;
+     }
+	public int insertBoard2(Board_vo newBoard) {
+		Connection con = getConnection();
+		
+		int result = new BoardDao().insertBoardForCommu(con, newBoard);
+		 System.out.println("service-result:"+result);
+		//1이상일 경우는 정보한행이 담김거이므로  commit
+		if(result > 0) {
+			commit(con);
+		}else { //0일 경우에는 rollback	
+			rollback(con);
+		}
+		close(con);
+		
+		return result;
+	}
 }
 
 

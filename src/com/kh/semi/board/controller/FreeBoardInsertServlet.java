@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 import com.kh.semi.board.model.service.BoardService;
 import com.kh.semi.board.model.vo.Board_vo;
 import com.kh.semi.user.model.vo.Profile_vo;
-
+ 
 /**
  * Servlet implementation class FreeBoardInsertServlet
  */

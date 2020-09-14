@@ -8,7 +8,7 @@ public class Board_vo implements java.io.Serializable{
 	private int bid;						//게시판 분류 번호)PK_
 	private int bType;						//게시판 분류
 	private int bNo;						//게시판별 번호
-	private int bWriter;
+	private String bWriter;
 	private String bTitle;					//게시글  제목
 	private String bContent;				//내용
 	private int bCount;						//조회수
@@ -18,7 +18,7 @@ public class Board_vo implements java.io.Serializable{
 	private int pfId;						//사용자 고유 번호(FK)
 	private int refBid;
 	private int replyLevel;
-	
+	 
 
 	
 	public Board_vo() {
@@ -28,7 +28,7 @@ public class Board_vo implements java.io.Serializable{
 
 
 
-	public Board_vo(int bid, int bType, int bNo, int bWriter, String bTitle, String bContent, int bCount, Date bDate,
+	public Board_vo(int bid, int bType, int bNo, String bWriter, String bTitle, String bContent, int bCount, Date bDate,
 			Date modifyDate, String bStatus, int pfId, int refBid, int replyLevel) {
 		super();
 		this.bid = bid;
@@ -84,13 +84,13 @@ public class Board_vo implements java.io.Serializable{
 
 
 
-	public int getbWriter() {
+	public String getbWriter() {
 		return bWriter;
 	}
 
 
 
-	public void setbWriter(int bWriter) {
+	public void setbWriter(String bWriter) {
 		this.bWriter = bWriter;
 	}
 
@@ -211,8 +211,7 @@ public class Board_vo implements java.io.Serializable{
 				+ modifyDate + ", bStatus=" + bStatus + ", pfId=" + pfId + ", refBid=" + refBid + ", replyLevel="
 				+ replyLevel + "]";
 	}
+
 	
-	
-	
-	
-}
+
+	}

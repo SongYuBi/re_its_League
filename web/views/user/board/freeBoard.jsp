@@ -5,6 +5,10 @@
 <html> 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <script>
+   src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+   </script>
+ 
 <title>Insert title here</title>
 <style>
 #default-div {
@@ -107,25 +111,12 @@ select {
 				<div class="menu" align="center"
 					style="font-weight: 900; font-size: 50px; margin: 0 auto; margin-top: 40px">자유게시판</div>
 				<br clear="both">
-
-
-
-				<div class="wrap" style="margin-left: 1100px;">
-					<!--<div class="checkbox-container" style="margin-top:7px;">
-						<input type="checkbox" id="a"> <label for="a"
-							style="font-size: 20px;">공지 숨기기</label>
-					</div> -->
-					<!-- <select style="margin-left:20px;">
-						<option>10개씩 보기</option>
-						<option>15개씩 보기</option>
-						<option>20개씩 보기</option>
-					</select>  -->
-				</div>
-				<br clear="both">
+				
 				<hr width="1440px"
 					style="margin-top: 19px; height: 1px; background: gray;">
+					
 				<div class="container" style="width: 1440px;" align="center">
-					<table class="table table-hover">
+					<table class="table table-hover" id="listArea">
 
 						<tr>
 							<th style="width: 200px;">글번호</th>
@@ -135,6 +126,7 @@ select {
 						</tr>
 						<c:forEach var="b" items="${ requestScope.list }">
 							<tr>
+							<input type="hidden" value="<c:out value="${ b.bid }"/>"> 
 								<td><c:out value="${ b.bNo }" /></td>
 								<td><c:out value="${ b.bTitle }" /></td>
 								<td><c:out value="${ b.bWriter }" /></td>
@@ -144,7 +136,6 @@ select {
 
 
 					</table>
-
 
 					<hr style="margin-top: -15px;">
 					<a class="btn btn-default pull-right" href="${pageContext.request.contextPath }/views/user/board/freeBoardWritingForm.jsp">글쓰기</a>
@@ -205,6 +196,17 @@ select {
 			</h3>
 		</div>
 	</div>
-
+<script>
+$("#listArea td").mouseenter(function(){
+			$(this).parent().css({"background":"darkgrey","cursor":"pointer"});	
+		}).mouseout(function(){
+			$(this).parent().css({"background":"white"});
+		}).click(function(){
+			var num = $(this).parent().children("input").val();
+			console.log(num);
+			
+         location.href="${applicationScope.contextPath}/selectOne.bo?num=" + num;
+      });
+</script>
 </body>
 </html>

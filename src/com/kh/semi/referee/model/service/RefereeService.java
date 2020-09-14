@@ -36,11 +36,11 @@ public class RefereeService {
 		return list;
 	}
 
-	public int insertRefProfile(String[] applyRefId) {
+	public int refChangeStatus(String[] applyRefId) {
 		// TODO Auto-generated method stub
 		Connection con = getConnection();
 		
-		int result = new RefereeDao().insertRefProfile(con, applyRefId);
+		int result = new RefereeDao().refChangeStatus(con, applyRefId);
 		
 		if(result > 0) {
 			commit(con);

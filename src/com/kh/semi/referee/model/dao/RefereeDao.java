@@ -35,8 +35,6 @@ public class RefereeDao {
 		int result = 0;
 		
 		String query = prop.getProperty("insertReferee");
-		System.out.println(query);
-		System.out.println("refRefName : " + ref.getRefName());
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, ref.getRefName());
@@ -69,7 +67,7 @@ public class RefereeDao {
 		ArrayList<Referee_vo> list = null;
 		ResultSet rset = null;
 		
-		String query = prop.getProperty("selectAllReferee");
+		String query = prop.getProperty("selectApplyReferee");
 		try {
 			stmt = con.createStatement();
 			rset = stmt.executeQuery(query);
@@ -106,12 +104,12 @@ public class RefereeDao {
 		return list;
 	}
 
-	public int insertRefProfile(Connection con, String[] applyRefId) {
+	public int refChangeStatus(Connection con, String[] applyRefId) {
 		// TODO Auto-generated method stub
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
-		String query = prop.getProperty("insertRefProfile");
+		String query = prop.getProperty("refChangeStatus");
 		try {
 			pstmt = con.prepareStatement(query);
 			for(int i = 0; i < applyRefId.length; i++) {
@@ -121,6 +119,8 @@ public class RefereeDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
 		
 		return result;

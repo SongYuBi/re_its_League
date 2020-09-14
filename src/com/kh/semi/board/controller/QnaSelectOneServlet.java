@@ -32,16 +32,30 @@ public class QnaSelectOneServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//int num = Integer.parseInt(request.getParameter("num"));
+		int num = Integer.parseInt(request.getParameter("num"));
 		
-		int num = 113;
+	//	int num = 113;
 		
 		//nno를 이용해서 조회함
 		//num값 전달 
 		//notice를 셀렉트한거는 조회한거 조회수가 없음 
 		Board_vo qna = new BoardService().selectOneByBid(num);
 	
+		System.out.println("뷰 페이지로 보여져라 뿅 : " + qna);
 		
+		String path = "";
+		
+		if(path != null) {
+			path = "views/user/qna/qnaDetail.jsp";
+			request.setAttribute("board", qna);
+			
+		}else {
+//			path = "views/commmon/errorPage.jsp";
+//			request.setAttribute("message", "게시판 상세 조회 실패");
+			System.out.println("실패₩");
+		}
+		
+		request.getRequestDispatcher(path).forward(request, response);
 		
 		
 	}

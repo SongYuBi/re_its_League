@@ -41,6 +41,8 @@ public class LeagueDao {
 		
 		String query = prop.getProperty("selectForMain");
 		
+		System.out.println("뭘까요 " + fullDate);
+		
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, fullDate);

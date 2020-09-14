@@ -14,8 +14,9 @@ import java.util.Properties;
 import com.kh.semi.club.model.vo.Club_vo;
 import com.kh.semi.common.vo.match_view_vo;
 import com.kh.semi.common.vo.rank_vo;
-import com.kh.semi.league.vo.League_vo;
+import com.kh.semi.league.model.vo.League_vo;
 import com.kh.semi.user.model.dao.UserDao;
+import com.kh.semi.user.model.vo.Profile_vo;
 
 public class ClubDao {
 	private Properties prop = new Properties();
@@ -215,6 +216,37 @@ public class ClubDao {
 		
 		
 		return league_list;
+	}
+
+
+	public ArrayList club_member_info(Connection con, int teamNumber) {
+		ArrayList club_member = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String sql = prop.getProperty("club_member_info");
+
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, teamNumber);
+			
+			System.out.println("어디까지 넘어오는거야?" + sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Profile_vo vo = new Profile_vo();
+				vo.setPfName(rs.getString("PF_NAME"));
+				vo.setPrAssist(rs.getInt("PR_ASSIST"));
+				vo.setPrGoal(rs.getInt("PR_GOAL"));
+				vo.setPfEmail(rs.getString("PF_EMAIL"));
+				System.out.println("선수들  :" + vo);
+				club_member.add(vo);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return club_member;
 	}
 
 }

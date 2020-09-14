@@ -118,8 +118,8 @@ p {
 			</a>
 			<br>
 			</span>
-			 <span class="nav-item" onclick="schedule();"> 
-			 <a class="nav-link" href="${pageContext.request.contextPath }/views/referee/league/refereeSchedule.jsp"
+			 <span class="nav-item"> 
+			 <a class="nav-link" href="${ applicationScope.contextPath }/refSchedule.rf"
 				style="margin-top: -90px; margin-left: -22px;" id="schedule"> <img
 					class="sidebar-image"
 					src="/semi/resources/image/chu/referee_un.png" width="60px">

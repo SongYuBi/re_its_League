@@ -12,8 +12,18 @@ public class UserService {
 	//회원 가입하는 메소드
 	public int InsertUserMember(Profile_vo vo) {
 	 Connection con = getConnection();
+	 int result = 0;
 	 
-	 int result  = dao.insertUser(con, vo);
+	 int doublecheck = dao.doublecheck(con,vo.getPfEmail());
+	 if(doublecheck == 0) {
+		 result  = dao.insertUser(con, vo);
+		 if(result> 0 ) {
+			 commit(con);
+		 }
+	 }else {
+		 
+	 }
+	
 	 
 	 close(con);
 	 

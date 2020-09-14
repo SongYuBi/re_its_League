@@ -218,20 +218,16 @@
 			<h4>
 				선수 리스트
 				</h2>
-				<table id="club_info_table_member" class="w3-table" border="1" width="300">
-					<thaed>
-					<tr bgcolor="lightgray" border="1" class="rank-shadow">
-						<th width="100px">이름</th>
-						<th width="200px">실력</th>
-						<th width="100px">골</th>
+				<table id="club_info_table_member" class="w3-table" border="1" style="width:500px; text-align: center;">
+					<thead>
+					<tr bgcolor="lightgray" border="1" class="rank-shadow" >
+						<th width="100px" style="text-align:center">이름</th>
+						<th width="200px" style="text-align:center">어시스트</th>
+						<th width="100px" style="text-align:center">골</th>
 					</tr>
 					</thaed>
 					<tbody>
-						<tr>
-							<td>박지성</td>
-							<td>중</td>
-							<td>12</td>
-						</tr>
+						 
 					</tbody>
 				</table>
 				<button id="member" class="w3-btn w3-round memBer">선수관리</button>
@@ -298,6 +294,48 @@
 			</table>
 
 			<script>
+			//구단 선수들 초기화면에 뿌려주기
+			
+			$(function(){
+				var teamNumber =$("#clubId").val();
+				$.ajax({
+					url:"/semi/club_info_member?teamNumber="+teamNumber,
+					type:"get",
+					success:function(data){
+						console.log(data);
+						
+						var $club_info_table_member = $("#club_info_table_member tbody");
+						
+						$club_info_table_member.html('');
+						
+						$.each(data,function(index,value){
+							var $tr = $('<tr>');
+							
+							var $pfName	= $("<td  style='text-align:center'>").text(value.pfName);
+							var $prAssist = $("<td style='text-align:center'>").text(value.prAssist);
+							var $prGoal = $("<td style='text-align:center'>").text(value.prGoal);
+						
+							
+							$tr.append($pfName);
+							$tr.append($prAssist);
+							$tr.append($prGoal);
+							
+							
+							$club_info_table_member.append($tr);
+						});
+						
+						
+					},
+					error: function(err){
+						console.log("실패");
+					}
+				
+			});
+				
+				
+			})
+			
+			
 	// 기본 초기 화면에서 순위 테이블 불러오기
 	var teamNumber =$("#clubId").val();
 		$(function(){
@@ -527,35 +565,23 @@
 						</thead>
 						<tbody class="member_list">
 							<!-- 임의 값 넣기 -->
-							<tr>
-								<td style="padding: 10px;">asada@naver.com</td>
-								<td style="padding: 10px;">김*호</td>
-								<td style="padding: 10px;"><input type="checkbox" id=""
-									class="check_box_size"></td>
-							</tr>
-							<tr>
-								<td style="padding: 10px;">asada@naver.com</td>
-								<td style="padding: 10px;">김*호</td>
-								<td style="padding: 10px;"><input type="checkbox" id=""
-									class="check_box_size"></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
+							
 						</tbody>
 					</table>
 
 				</div>
 				<br> <br>
 				<button class="w3-input w3-border" id="member_out" name="member_out"
-					style="width: 100px; float: right" onclick="member_out();">방출</button>
+					style="width: 100px; float: right" >방출</button>
 			</div>
 
 		</div>
 
 		<script>
+	
+			
+		
+	
 			$(function() {
 
 				// Get the modal
@@ -583,8 +609,57 @@
 						modal.style.display = "none";
 					}
 				}
-
+				
+				var teamNumber =$("#clubId").val();
+				$.ajax({
+					url:"/semi/club_info_member?teamNumber="+teamNumber,
+					type:"get",
+					success:function(data){
+						console.log(data);
+						
+						var $userListTable = $("#userListTable tbody");
+						
+						$userListTable.html('');
+						
+						$.each(data,function(index,value){
+							var $tr = $('<tr>');
+							
+							var $pfName	= $("<td  style='text-align:center'>").text(value.pfName);
+							var $pfEmail = $("<td style='text-align:center'>").text(value.pfEmail);
+							var $checkbox = $("<input type='checkbox' value="+value.pfName+" id='teamcheck' name='teamcheck'>");
+						
+							$tr.append($pfEmail);
+							$tr.append($pfName);
+							$tr.append($checkbox);
+							
+							
+							$userListTable.append($tr);
+						});
+						
+						
+						
+						
+					},
+					error: function(err){
+						console.log("실패");
+					}
+				
+			});
+				
+			/* $("#member_out").click(function(){
+				var checkbox_all_value = "";
+				
+				$("input[name=teamcheck]:checked").each(function(){
+					var test = $(this)val();
+					checkbox_all_value += test;
+					
+				});
+				console.log(checkbox_all_value);
+			}); */
+				
 			})
+			
+				
 		</script>
 		
 		

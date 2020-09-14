@@ -128,18 +128,18 @@ $(function (){
 
 function insert_clue(){
 self.close();
-location.href="../login/insert_member.jsp";
+location.href="${ application.contextPath }/semi/views/user/login/insert_member.jsp";
 }
 
 function search_password(){
 self.close();
-location.href="../login/search_member.jsp";
+location.href="${ application.contextPath }/semi/views/user/login/search_member.jsp";
 
 }
 
 function search_email(){
 	self.close();
-	location.href="../login/search_Email.jsp";
+	location.href="${ application.contextPath }/semi/views/user/login/search_Email.jsp";
 }
 
 function logout(){

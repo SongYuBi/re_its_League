@@ -111,7 +111,6 @@ function validate() {
     var phone2 = document.getElementById("phone2");
     var phone3 = document.getElementById("phone3");
     var email_check = document.getElementById("email_check");
-    
    /*  if(!check(regul3,name,"이름을 제대로 입력하세요.")){
     	return false;
     }
@@ -123,6 +122,12 @@ function validate() {
     if(!check(re,password,"패스워드는 4 ~ 12 글자사이의 숫자와 영어 대소문자를 입력해주세요.")){
     	return false;
     }  */
+    
+    if (( email_check.value=="")){
+        alert("이메일을 입력해주세요");
+        email_check.focus();
+        return false;
+    }
     
     if ((email.value=="")){
         alert("이메일을 입력해주세요");
@@ -195,36 +200,27 @@ function validate() {
         return false;
     }
     
-    if ((email.value=="")){
-        alert("이메일을 입력해주세요");
-        email.focus();
-        return false;
-    }
+ 
+  
     
     
-	var index = false;
+	var index_gender = false;
 	
-	for (var i = 0; i < gender.length; i++) {
+	for (var i = 0; i <gender.length; i++) {
 		//성별을 검사하면서 한개라도 체크가되어있다면
 		if (gender[i].checked) {
-			index = true;
+			index_gender = true;
 			
 		}
 	}
 	
 	
-	if(index == false){
+	if(index_gender == false){
 		alert("성별을 눌러주세요.");
 	}
-	var pass = false;
 	
-   if(pass === true){
-	   alert("true");
-	   return true;
-   }else{
-	   alert("아이디 중복확인을 눌러주세요.")
-	   return false;
-   }
+	
+  
 	
 }
 
@@ -247,6 +243,21 @@ function validate() {
 	</div>
 
       </div>
+<c:if test="${!empty requestScope.doublecheck }">
+<!-- The Modal -->
+    <div id="doubleccheck_modal" class="modal">
+ 
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="close">&times;</span>    
+        <br>
+        <br>                                                           
+        	<h4 id="ment"> ${doublecheck}</h4>
+	
+	</div>
+
+      </div>
+</c:if>
 
 <input type="hidden" value="false" id="email_double_check">
 	<jsp:include page="${ application.getContextPath() }/views/common/sideBar.jsp"></jsp:include>
@@ -304,14 +315,7 @@ function validate() {
 <label style="float:left;">주소</label>
 <input type="text" id="address" name="address" class="w3-input w3-border w3-border-black">
 
-<label style="float:left;">사용자 실력</label>
 
-<select name="Grade" class="w3-input w3-border">
-	<option value="defualt" selected="selected" >실력을 선택해주세요.</option>
-	<option value="상">상</option>
-	<option value="중">중</option>
-	<option value="하">하</option>
-</select><br>
 
 <label style="float:left;">전화번호</label><br><br>
 <input type='tel' name='phone1' id='phone1'  size="4" maxlength="3" class=" w3-border w3-border-black" style="width:100px; height:35px;"/> &nbsp&nbsp - &nbsp&nbsp
@@ -325,7 +329,7 @@ function validate() {
 
 <div>
 <button class="w3-btn w3-red" id="check">인증번호 받기</button><br>
-<input type="hidden" value="false" id="email_check">
+<input type="hidden" value="false" id="email_check_btn">
 </div>
 	
 	</div>
@@ -340,10 +344,10 @@ function validate() {
 	<!-- 중복확인 창 -->
 	<script>
 
-	/* $(function (){
+	 $(function (){
 
 		// Get the modal
-	    var modal = document.getElementById('myModal');
+	    var modal = document.getElementById('doubleccheck_modal');
 
 	    // Get the button that opens the modal
 	    var btn = document.getElementById("myBtn");
@@ -370,7 +374,7 @@ function validate() {
 	        }
 	    }
 	})
-	 */
+	 
 	
 	
 	

@@ -51,13 +51,13 @@ public class LoginUserServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", loginUser);
 			
-			path = "views/user/mainPage/mainPage.jsp";
+			path = "index.jsp";
 			response.sendRedirect(path);
 	
 		}else {
 			request.setAttribute("login","아이디 또는 비밀번호를 확인해주세요.");
 			
-			path = "views/user/mainPage/mainPage.jsp";
+			path = "index.jsp";
 			request.getRequestDispatcher(path).forward(request, response);
 		}
 	}

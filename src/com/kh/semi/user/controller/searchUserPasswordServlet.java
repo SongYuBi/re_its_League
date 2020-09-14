@@ -44,7 +44,7 @@ public class searchUserPasswordServlet extends HttpServlet {
 		String page = "";
 		
 		if(result > 0) {
-			page ="views/user/mainPage/mainPage.jsp";
+			page ="index.jsp";
 			response.sendRedirect(page);
 			System.out.println("유저 비밀 번호 변경  완료");
 		}else {

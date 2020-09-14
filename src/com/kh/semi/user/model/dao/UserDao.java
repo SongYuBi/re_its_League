@@ -44,6 +44,7 @@ public class UserDao {
 			pstmt.setString(5, vo.getPfAddress());
 			pstmt.setString(6, vo.getPfPhone());
 			pstmt.setString(7, vo.getPfGender());
+			pstmt.setString(8, vo.getPfGrade());
 			result = pstmt.executeUpdate();
 			
 		}catch (SQLException e) {

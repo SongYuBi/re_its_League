@@ -101,7 +101,7 @@
 			 
 				<c:forEach var="q" items="${ requestScope.list }">
 					<tr>
-						<input type="" value="<c:out value="${ q.bid }"/>"/>
+						<!--  -->
 						<td><c:out value="${ q.bNo }"/></td>
 						<td><c:out value="${ q.bTitle }"/></td>
 						<td><c:out value="${ q.bCount }"/></td>

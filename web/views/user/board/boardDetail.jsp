@@ -36,27 +36,27 @@ th {
         <tbody style="font-size:20px;">
             <tr>
                 <th>제목</th>
-                <td>불러올 제목</td>
-                <th>글번호</th>
-                <td>몇번이게</td>
+                <td><c:out value="${requestScope.board.bTitle }" /></td>
+                <th>조회수</th>
+                <td><c:out value="${ requestScope.board.bCount }" /></td>
             </tr>
             <tr>
                 <th>작성자</th>
-                <td>들어갈 작성자</td>
+                <td><c:out value="${ requestScope.board.bWriter }" /></td>
                 <th>작성시간</th>
-                <td>작성한 시간</td>
+                <td><c:out value="${ requestScope.board.bDate }" /></td>
             </tr>
             <tr>
                 <th>내용</th>
                 <td colspan="3" style="height:300px;"
-                  >내용이다 내용내용
+                  ><c:out value="${ requestScope.board.bContent }" />
                 </td>
             </tr>
         </tbody>
           </table>
    <br><br>
-    <a href="#this" id="list" class="btn btn-secondary">목록으로</a>
-    <a href="#this" id="modify" class="btn btn-secondary">수정하기</a>
+    <a href="javascript:history.back()" id="list" class="btn btn-secondary">목록으로</a>
+    <a href="#" id="modify" class="btn btn-secondary">수정하기</a>
     
       </table>
       

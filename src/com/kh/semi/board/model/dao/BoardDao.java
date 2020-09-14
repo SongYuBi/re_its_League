@@ -87,21 +87,20 @@ public class BoardDao {
            rset = pstmt.executeQuery();
            
            list = new ArrayList<Board_vo>();
-           
+         //RNUM , BID , BTYPE , BNO , PF_NAME , BTITLE , BCONTENT , BCOUNT, BDATE , MODIFY_DATE , B_STATUS
            while(rset.next()) {
               Board_vo b = new Board_vo();
-              
-              b.setBid(rset.getInt(1));
-              b.setbType(rset.getInt(2));
-              b.setbNo(rset.getInt(3));
-              b.setbWriter(rset.getInt(4));
-              b.setbTitle(rset.getString(5));
-              b.setbContent(rset.getString(6));
-              b.setbCount(rset.getInt(7));
-              b.setbDate(rset.getDate(8));
-              b.setModifyDate(rset.getDate(9));
-              b.setbStatus(rset.getString(10));
-              
+              b.setBid(rset.getInt(2));
+              b.setbType(rset.getInt(3));
+              b.setbNo(rset.getInt(4));
+              b.setbWriter(rset.getString(5));
+              b.setbTitle(rset.getString(6));
+              b.setbContent(rset.getString(7));
+              b.setbCount(rset.getInt(8));
+              b.setbDate(rset.getDate(9));
+              b.setModifyDate(rset.getDate(10));
+              b.setbStatus(rset.getString(11));
+              System.out.println(b.getbWriter());
               list.add(b);
            }
         
@@ -370,7 +369,80 @@ public class BoardDao {
 		return board;
 	}
 	
+	//민경 자유게시판 상세보기
+	public Board_vo selectOne(Connection con, int num) {
+	      PreparedStatement pstmt = null;
+	      ResultSet rset = null;
+	      Board_vo b = null;
+	      
+	      String query = prop.getProperty("selectOneFB");
+	      
+	      try {
+	         pstmt = con.prepareStatement(query);
+	         pstmt.setInt(1, num);
+	         
+	         rset = pstmt.executeQuery();
+	         
+	 
+//	         B.BID ,B.BTYPE ,B.BNO ,P.PF_NAME ,B.BTITLE ,B.BCONTENT ,B.REF_BID ,
+//	         B.REPLY_LEVEL ,B.BDATE ,B.MODIFY_DATE ,B.BCOUNT ,B.B_STATUS	
+				while(rset.next()) {
+					 b = new Board_vo();
+					
+					b.setBid(rset.getInt(1));
+					b.setbType(rset.getInt(2));
+					b.setbNo(rset.getInt(3));
+					b.setbWriter(rset.getString(4));
+					b.setbTitle(rset.getString(5));
+					b.setbContent(rset.getString(6));
+					b.setRefBid(rset.getInt(7));
+					b.setReplyLevel(rset.getInt(8));
+					b.setbDate(rset.getDate(9));
+					b.setModifyDate(rset.getDate(10));
+					b.setbCount(rset.getInt(11));
+					b.setbStatus(rset.getString(12));
+				}
+	         
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	      } finally {
+	         close(rset);
+	         close(pstmt);
+	      }
+	      
+	      return b;
+	   }
 	
+	//민경 자유게시판 인설트
+	public int insertBoardForCommu(Connection con, Board_vo newBoard) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		
+		String query = prop.getProperty("insertBoard2");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			//이거 순서 쿼리문에서 들어가는 순서 맞게해야함 ^^ 
+			pstmt.setInt(1, newBoard.getPfId());
+			pstmt.setString(2, newBoard.getbTitle());
+			pstmt.setString(3, newBoard.getbContent());
+			
+			result = pstmt.executeUpdate();
+			System.out.println("dao-result="+result);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			
+		}
+		
+		return result;
+		
+		
+	
+	}
 
 	
 	

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,6 +20,46 @@
 <!------ Include the above in your HEAD tag ---------->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.js"></script>
 </head>
+<style>
+	#open {
+	display: none;
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	z-index: 100;
+	padding: 52px 60px 60px;
+	width: 820px;
+	height: 500px;
+	transform: translate(-50%, -50%);
+	box-sizing: border-box;
+	background: #fff;
+	/* margin-top: 10%; */
+}
+
+.close {
+	color: black;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close:hover, .close:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.back {
+	display: none;
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: 99;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+}
+</style>
 <body>
 
 
@@ -61,13 +102,26 @@
                 <li>
                     <a href="${pageContext.request.contextPath }/views/user/qna/qnaList.jsp">QnA</a>
                 </li>
-                <li>
-                    <a href="${pageContext.request.contextPath }/views/user/referee/referee_insert_form.jsp">심판 지원</a>
-                </li>
+                <c:if test="${ !empty sessionScope.loginUser }">
+	                <li>
+	                    <a href="${pageContext.request.contextPath }/views/user/referee/referee_insert_form.jsp">심판 지원</a>
+	                </li>
+                </c:if>
+                <c:if test="${ empty sessionScope.loginUser }">
+	                <li>
+	                    <a id="myModalbtn">심판 지원</a>
+	                </li>
+                </c:if>
             </ul>
         </nav>
         <!-- /#sidebar-wrapper -->
-
+		<div id="open" class="openModal">
+			<div class="open_back">
+				<span class="close">&times;</span>
+				<div><h1>회원 가입 후 심판 지원이 가능합니다!</h1></div>
+			</div>
+		</div>
+		<div class="back"></div>
         <!-- Page Content -->
         <div id="page-content-wrapper">
             <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
@@ -76,3 +130,23 @@
 				<span class="hamb-bottom"></span>
             </button>
         </div>
+        </div>
+        
+        <script>
+        	$(document).ready(function(){
+        		$("#myModalbtn").on("click", function(){
+        			$("#open").show();
+        			$(".back").show();
+        		});
+        		
+        		$(".close").on("click", function(){
+        			var url = ""
+        			$("#open").hide();
+        			$(".back").hide();
+        			console.log("뭔데 시펄")
+        		});
+        	});
+        </script>
+    </body>
+</html>
+        

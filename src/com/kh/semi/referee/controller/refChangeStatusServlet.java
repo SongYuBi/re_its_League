@@ -13,13 +13,13 @@ import com.kh.semi.referee.model.service.RefereeService;
  * Servlet implementation class InsertRefereeProfileServlet
  */
 @WebServlet("/insertProfile.rf")
-public class InsertRefereeProfileServlet extends HttpServlet {
+public class refChangeStatusServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InsertRefereeProfileServlet() {
+    public refChangeStatusServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,9 +34,10 @@ public class InsertRefereeProfileServlet extends HttpServlet {
 			System.out.println("val :" + val);
 		}
 		
-		result = new RefereeService().insertRefProfile(applyRefId);
+		result = new RefereeService().refChangeStatus(applyRefId);
 		
 		String page = "";
+		System.out.println("result : " + result);
 		if(result > 0) {
 			System.out.println("profile 에 입력완료");
 			page = "views/admin/main/index.jsp";

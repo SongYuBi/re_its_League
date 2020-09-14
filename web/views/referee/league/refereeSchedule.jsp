@@ -71,7 +71,7 @@
 
 	<div class="wrapper_admin">
 		<div class="header">
-			<h1>경기 평가</h1>
+			<h1>스케줄 관리</h1>
 		</div>
 		<div class="leftCol"></div>
 		<div class="rightCol"></div>

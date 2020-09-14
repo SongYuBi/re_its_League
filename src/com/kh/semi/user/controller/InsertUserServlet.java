@@ -40,7 +40,7 @@ public class InsertUserServlet extends HttpServlet {
 		String jumin1 = request.getParameter("Jumin_1");
 		String jumin2 = request.getParameter("Jumin_2");
 		String gender = request.getParameter("gender");
-		String Grade = request.getParameter("Grade");
+		String Grade = "일반회원";
 		String phone1 = request.getParameter("phone1");
 		String phone2 = request.getParameter("phone2");
 		String phone3 = request.getParameter("phone3");
@@ -63,12 +63,12 @@ public class InsertUserServlet extends HttpServlet {
 		
 		String page = "";
 		if(result > 0) {
-			page ="views/user/mainPage/mainPage.jsp";
+			page ="index.jsp";
 			response.sendRedirect(page);
 			System.out.println("유저 회원 가입 완료");
 		}else {
-			page="views/user/comman/errorPage.jsp";
-			request.setAttribute("message", "회원 가입 실패!");
+			page="views/user/login/insert_member_view.jsp";
+			request.setAttribute("doublecheck", "올바른 정보를 입력해주세요.");
 			request.getRequestDispatcher(page).forward(request, response);
 		}
 	}

@@ -137,7 +137,7 @@ th {
 	<c:if test="${ !empty requestScope.login }">
 
 	<!-- The Modal -->
-    <div id="myModal" class="modal">
+    <div id="myModal_login" class="modal">
  
       <!-- Modal content -->
       <div class="modal-content">
@@ -168,7 +168,7 @@ th {
 				<ul class="toplo">
 					<li class="lil" style="color: #4169E1; font-size: 20px;"><div id="myBtn">로그인</div></li>
 					<li style="font-size: 18px;">또는</li>
-					<li class="lil" style="color: #4169E1; font-size: 20px;"><div><a href="../login/insert_member.jsp">회원가입</a></div></li>
+					<li class="lil" style="color: #4169E1; font-size: 20px;"><div><a href="${ application.contextPath }/semi/views/user/login/insert_member.jsp">회원가입</a></div></li>
 
 				</ul>
 			</c:if>
@@ -472,7 +472,7 @@ th {
 	$(function (){
 
 		// Get the modal
-	    var modal = document.getElementById('myModal');
+	    var modal = document.getElementById('myModal_login');
 
 	    // Get the button that opens the modal
 	    var btn = document.getElementById("myBtn");
@@ -488,7 +488,7 @@ th {
 	    // When the user clicks on <span> (x), close the modal
 	    span.onclick = function() {
 	        modal.style.display = "none";
-	        location.href="views/user/mainPage/mainPage.jsp";
+	        location.href="${ application.contextPath }/semi/index.jsp";
 
 	    }
 

@@ -133,21 +133,45 @@ public class BoardService {
 		}
 		
 		close(con);
-		
-		
-		//bno게시물의 번호를 update
-		//update를 selectOne 
-		//updateCount하고 
-		//bid 통해서 상세페이지를 보여지는거  
-		//viewPage에 RequestScope
-		
-		//
+	
 		
 		
 		return Board;
 	}
+	//재서 qnaviewPaging qna전체 목록 갯수 조회용메소드
+	public int getQnaListCount() {
+
+		Connection con = getConnection();
+		
+		int listCount = new BoardDao().getQnaListCount(con);
+		
+		close(con);		
+		return listCount;
+	}
+	
+	//페이징 처리를 이용한 게시물 목록 조회용 메소드	
+	public ArrayList<Board_vo> selectQnaListWithPaging(PageInfo infos) {
+
+		Connection con = getConnection();
+		
+		ArrayList<Board_vo> qnaList = new BoardDao().selectQnaListWithPaging(con, infos);
+		
+		close(con);
+		
+		return null;
+	}
 
 }
+
+
+
+
+
+
+
+
+
+
 
 
 

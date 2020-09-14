@@ -56,6 +56,9 @@
   width: 130%; 
      height: 100px;  
     background-color:#111B39; }
+    .tableArea{
+    	width:100%;
+    }
 	
 </style>
 </head>
@@ -80,8 +83,22 @@
 	  	 <div class="tableArea" align="center">
 	  	 <br>
 				 <div class="text-area">
-	  	 	<form action="${ applicationScope.contextPath }" method="post">
+	  	 	<form action="/semi/insert.qna" method="post">
 				<table class="area-box">
+					<tr>
+						<td>
+							<select name="category">
+								
+								<option value="Q1">매치취소</option>
+								<option value="Q2">매치진행</option>
+								<option value="Q3">서비스</option>
+								<option value="Q4">매칭신청</option>
+								<option value="Q5">구장관련</option>
+							</select>
+						</td>
+					
+					</tr>
+				
 					<tr>
 						<tr></tr>
 						<td colspan="6"><input type="text" size="" style="width:1071px; height:50px;" name="title" ></td>
@@ -98,17 +115,17 @@
 				</div>
 					<br>
 				<div align="center">
-					<button type="button" class="btn btn-secondary">취소하기</button>
-					<button type="button" class="btn btn-secondary">등록하기</button>
+					<button type="rset" class="btn btn-secondary">취소하기</button>
+					<button type="submit" class="btn btn-secondary">등록하기</button>
 				</div>	  	 	
 	  	 	</form>
 	  	 </div>
-	  </div>
-	 	 <br>		
-	 	 <br>
 	 <div class="footer">
 	 	<img alt="" src="../../../resources/image/footer_jess.png" style="width:100%">
 	 </div>
+	  </div>
+	 	 <br>		
+	 	 <br>
 	</div>
 </body>
 </html>

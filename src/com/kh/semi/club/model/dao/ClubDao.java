@@ -249,4 +249,7 @@ public class ClubDao {
 		return club_member;
 	}
 
+
+	
+
 }

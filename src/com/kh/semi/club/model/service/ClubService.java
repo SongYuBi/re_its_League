@@ -9,6 +9,7 @@ import java.util.Calendar;
 
 import com.kh.semi.club.model.dao.ClubDao;
 import com.kh.semi.club.model.vo.Club_vo;
+import com.kh.semi.common.vo.rank_vo;
 
 public class ClubService {
 
@@ -106,5 +107,7 @@ public class ClubService {
 		return club_member_info;
 		
 	}
+
+	
 
 }

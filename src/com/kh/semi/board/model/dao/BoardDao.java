@@ -536,7 +536,7 @@ public class BoardDao {
 	      
 	   
 	   }
-	
+
 	 //재서 버튼 5개 ajax
 		public ArrayList<Board_vo> qnaCate(Connection con, String qnaCate) {
 
@@ -581,6 +581,7 @@ public class BoardDao {
 			
 			
 		}
+
 
 
 

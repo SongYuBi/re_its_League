@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.semi.club.model.service.ClubService;
 import com.kh.semi.club.model.vo.Club_vo;
+import com.kh.semi.common.vo.rank_vo;
 
 /**
  * Servlet implementation class clubInfoServlet
@@ -34,7 +35,7 @@ public class clubInfoServlet extends HttpServlet {
 		System.out.println("teamnumber : "+teamNumber);
 		
 		Club_vo club_info = new ClubService().getClub_info(teamNumber);
-		
+	
 		System.out.println("club vo :" + club_info );
 		
 		String path="";

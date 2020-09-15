@@ -34,7 +34,7 @@ public class InsertUserServlet extends HttpServlet {
 	
 		request.setCharacterEncoding("UTF-8");
 		
-		String Email = request.getParameter("email_check");
+		String Email = request.getParameter("result_email");
 		String password = request.getParameter("password");
 		String name = request.getParameter("name");
 		String jumin1 = request.getParameter("Jumin_1");

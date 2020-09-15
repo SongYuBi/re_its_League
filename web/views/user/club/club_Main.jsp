@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -28,12 +29,12 @@
   }
  .leftCol{
    grid-area: leftCol;
-   background-color: orange;
+  
  }
   
  .rightCol{
    grid-area: rightCol;
-   background-color: lightblue;
+   
  }
   
   .midTop{
@@ -43,12 +44,12 @@
   
  .midBottom{
    grid-area: midBottom;
-   background-color: pink;
+  
  }
   
  .footer{
    grid-area: footer;
-   background-color: lightgreen;
+  
  }
  .wrapper {
   display: grid;
@@ -120,7 +121,24 @@ height:75px;
 border-bottom:2px solid gray;
 }
 
-
+ .lil,.banner{
+ 	cursor:pointer;
+ 	pont-size:20px;
+ 	float: right;
+ 	margin : 2px;
+ }
+  .toplo{
+ 	list-style:none;
+    margin:0;
+    padding:0;
+ }
+  ul li{
+ 	float: right;
+ 	margin : 2px;
+ 	}
+ 	#userInfo{
+ 	float:right;
+ 	}
 </style>
 
 	
@@ -301,17 +319,37 @@ $(function(){
 </head>
 <body>
 	<jsp:include page="${ application.getContextPath() }/views/common/sideBar.jsp"></jsp:include>
+	<jsp:include page="${ application.contextPath }/views/user/comman/login.jsp"/>
+	
+	<input type="hidden" value="club_main" id="location_web"/>
 	
 	<div class="wrapper">
 	  <div class="header">
-	  <p id="text_header_login" onclick="login_click();">로그인</p>
-	  	<p id="text_header_insertMember">회원가입</p>
+	 <c:if test="${ empty sessionScope.loginUser }">
+				<ul class="toplo">
+					<li class="lil" style="color: #4169E1; font-size: 20px;"><div id="myBtn">로그인</div></li>
+					<li style="font-size: 18px;">또는</li>
+					<li class="lil" style="color: #4169E1; font-size: 20px;"><div><a href="${ application.contextPath }/semi/views/user/login/insert_member.jsp">회원가입</a></div></li>
+
+				</ul>
+			</c:if>
+			<c:if test="${!empty sessionScope.loginUser }">
+			<div id="userInfo">
+				<label><c:out value="${sessionScope.loginUser.pfName }" />
+					님의 방문을 환영합니다.</label>
+				<div class="btn" align="right">
+					<div id="changeInfo" onclick="updateMember();">정보수정</div>
+					<div id="logoutBtn" onclick="logout();">로그아웃</div>
+				</div>
+			</div>
+		</c:if>
+		<br><br><br><br>
 	  	<p id="text_header">구단 정보 조회</p>
 	  	<p id="text_header_date">2020.07.31 기준</p>
 	  	
 	  </div>
-	  <div class="leftCol">LeftCol</div>
-	  <div class="rightCol">이런곳에 수정ㅎ면되</div>
+	  <div class="leftCol"></div>
+	  <div class="rightCol"></div>
 	  <div class="midTop">
 
 			<h4 class="rank">순위</h4>
@@ -350,7 +388,7 @@ $(function(){
 
 	  </div>
 
-	  <div class="footer">Footer</div>
+	  <div class="footer"></div>
 	</div>
 </body>
 </html>

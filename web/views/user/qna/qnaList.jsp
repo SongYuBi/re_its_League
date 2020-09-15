@@ -81,11 +81,11 @@
 		
 		<br>
 			<div class="buttonboxes" align="center">
-	  	 			<button id="btn" type="button" class="btn btn-secondary" style="text-align:center">매치취소</button>
-	  	 			<button id="btn" type="button" class="btn btn-secondary" value="kjk">매치진행</button>
-	  	 			<button id="btn" type="button" class="btn btn-secondary">서비스</button>
-	  	 			<button id="btn" type="button" class="btn btn-secondary">매칭신청</button>
-	  	 			<button id="btn" type="button" class="btn btn-secondary">구장관련</button>
+	  	 			<button name="qnaCate" id="qnaCate1" type="button" class="btn btn-secondary" style="text-align:center">매치취소</button>
+	  	 			<button name="qnaCate" id="qnaCate2" type="button" class="btn btn-secondary" value="kjk">매치진행</button>
+	  	 			<button name="qnaCate" id="qnaCate3" type="button" class="btn btn-secondary">서비스</button>
+	  	 			<button name="qnaCate" id="qnaCate4" type="button" class="btn btn-secondary">매칭신청</button>
+	  	 			<button name="qnaCate" id="qnaCate5" type="button" class="btn btn-secondary">구장관련</button>
 	  	 		</div>
 	  	 		<br>
 	  	 		
@@ -109,24 +109,7 @@
 					</tr>
 				</c:forEach> 
 			
-				<!-- <tr>
-					<td>0</td>
-					<td>공지사항입니다.</td>
-					<td>12</td>
-					<td>2020-09-14</td>
-				</tr>
-				<tr>
-					<td>1</td>
-					<td>공지사항입니다.</td>
-					<td>12</td>
-					<td>2020-09-14</td>
-				</tr>
-				<tr>
-					<td>2</td>
-					<td>공지사항입니다.</td>
-					<td>12</td>
-					<td>2020-09-14</td>
-				</tr> -->
+			
 				</table>
 		</div>
 			<br>
@@ -163,6 +146,58 @@
 	 		
 	 		location.href = "${applicationScope.contextPath}/views/user/qna/writingForm.jsp";
 	 	}
+	 	
+	 
+	 	$(".btn").click(function(){
+	 		console.log($(this).val());	
+	 		/* 
+	 		var qnaCate1 = $("#qnaCate1").val();
+	 		var qnaCate2 = $("#qnaCate2").val();
+	 		var qnaCate3 = $("#qnaCate3").val();
+	 		var qnaCate4 = $("#qnaCate4").val();
+	 		var qnaCate5 = $("#qnaCate5").val();
+	 		
+	 		
+	 		var one = document.getElementById("qnaCate1");
+	 		var one1 = document.getElementById("qnaCate2");
+	 		var one2 = document.getElementById("qnaCate3");
+	 		var one3 = document.getElementById("qnaCate4");
+	 		var one4 = document.getElementById("qnaCate5"); */
+	 		
+	 		/* 
+	 		console.log(one);
+	 		console.log(one1);
+	 		console.log(one2);
+	 		console.log(one3);
+	 		console.log(one4); 
+ */
+
+ 			var qnaCate = $(this).val();
+ 			
+ 
+ 			$.ajax({
+ 				url:"qnaCate",
+ 				//변수명으로 들어가서 	키값	
+ 				data:{ qnaCate: qnaCate },
+ 				type:"get",
+ 				success: function(data){
+ 					
+ 					//success data는 나중에 서블릿애서 조회한후에 값은json을 넘기고 view뿌려줌
+ 					var $
+ 					
+ 					
+ 					
+ 					
+ 				},
+ 				error:function(data){
+ 					
+ 					
+ 				}
+ 				
+ 			});
+ 			
+ 
+	 	});
 	 </script>
 	 
 	 

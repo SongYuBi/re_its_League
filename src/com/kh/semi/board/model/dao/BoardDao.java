@@ -94,14 +94,14 @@ public class BoardDao {
               b.setBid(rset.getInt(1));
               b.setbType(rset.getInt(2));
               b.setbNo(rset.getInt(3));
-              b.setbWriter(rset.getString(4));
+              b.setPfName(rset.getString(4));
               b.setbTitle(rset.getString(5));
               b.setbContent(rset.getString(6));
               b.setbCount(rset.getInt(7));
               b.setbDate(rset.getDate(8));
               b.setModifyDate(rset.getDate(9));
               b.setbStatus(rset.getString(10));
-               
+              
               list.add(b);
            }
         
@@ -381,90 +381,6 @@ public class BoardDao {
 		
 		String query = prop.getProperty("qnaListCount");
 
-
-		try {
-			stmt = con.createStatement();
-			rset = stmt.executeQuery(query);
-			
-			if(rset.next()) {
-				QnaListCount = rset.getInt(1);
-				
-			}
-					
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			close(stmt);
-			close(rset);
-			
-		}
-		
-		return QnaListCount;
-	}
-	//재서
-	public ArrayList<Board_vo> selectQnaListWithPaging(Connection con, PageInfo infos) {
-
-			PreparedStatement pstmt = null;
-			ResultSet rset = null;
-			ArrayList<Board_vo> qnaList = null;
-			
-			String query = prop.getProperty("selectQnaListWithPaging");
-			
-			//물음표가 2개 BETWEEN ? AND ?
-			try {
-				pstmt = con.prepareStatement(query);
-				
-				//2개의물음표에 값전달 시작줄과 종료줄을 계산하고 계산한값을 이용해서 쿼리문을 만들어줌 	
-				
-				//startrow는시작행임 현재가 3페이지면 2의리미드 20이 되고 21의 조회가 되는 3페이지 
-				int startRow = (infos.getCurrentPage()-1) * infos.getLimit() + 1;
-				//-1d은 엔드로우 
-				int endRow = startRow + infos.getLimit() - 1;
-				
-				pstmt.setInt(1, startRow);
-				pstmt.setInt(2, endRow);
-				
-				rset = pstmt.executeQuery();
-				
-				//객체생성
-				qnaList = new ArrayList<Board_vo>();
-				//한행식꺼내서 보드에 담고 리스트에 추가는 select랑 같음 
-				while(rset.next()) {
-					Board_vo b = new Board_vo();
-					
-					b.setBid(rset.getInt("BID"));
-					b.setbType(rset.getInt("bType"));
-					b.setbNo(rset.getInt("bNo"));
-					b.setPfId(rset.getInt("pf_Id"));
-					b.setbContent(rset.getString("bContent"));
-					b.setbCount(rset.getInt("bCount"));
-					b.setbDate(rset.getDate("bDate"));
-					b.setModifyDate(rset.getDate("modify_Date"));
-					b.setbStatus(rset.getString("b_Status"));
-					
-					qnaList.add(b);
-					
-				 
-				}
-				
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}finally {
-				close(pstmt);
-				close(rset);
-				
-			}
-			
-		
-			
-		return qnaList;
-	}
-	
-	
-
 		try {
 			stmt = con.createStatement();
 			rset = stmt.executeQuery(query);
@@ -569,7 +485,7 @@ public class BoardDao {
 	               b.setBid(rset.getInt(1));
 	               b.setbType(rset.getInt(2));
 	               b.setbNo(rset.getInt(3));
-	               b.setbWriter(rset.getString(4));
+	               b.setPfName(rset.getString(4));
 	               b.setbTitle(rset.getString(5));
 	               b.setbContent(rset.getString(6));
 	               b.setRefBid(rset.getInt(7));
@@ -625,16 +541,3 @@ public class BoardDao {
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

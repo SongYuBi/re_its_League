@@ -12,7 +12,7 @@
 <style>
 th {
 	font-weight:600;
-}
+} 
 .btn {
 	background:navy;
 	color:white;

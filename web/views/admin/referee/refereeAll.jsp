@@ -27,7 +27,7 @@
 		<div class="leftCol"></div>
 		<div class="rightCol"></div>
 		<div class="midTop">
-		<form action="${applicationScope.contextPath}/insertProfile.rf" method="post">
+		<form action="${applicationScope.contextPath}/deleteReferee.rf" method="post">
 		<div class="table_area">
 			<div class="matchDate"></div>
 				<div>
@@ -54,8 +54,8 @@
 						</tbody>
 					</table>
 					<div class="applyBtn">
-						<button type="submit">승인</button>
-						<button type="reset">취소</button>
+						<button type="submit">추가</button>
+						<button type="reset">삭제</button>
 					</div>
 				</div>
 			</div>

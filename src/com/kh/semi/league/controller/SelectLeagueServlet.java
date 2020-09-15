@@ -13,6 +13,8 @@ import com.google.gson.Gson;
 import com.kh.semi.league.model.service.LeagueService;
 import com.kh.semi.league.model.vo.League_vo;
 
+
+//리그조인페이지 신청 ajax
 @WebServlet("/selectLeague.lg")
 public class SelectLeagueServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

@@ -185,21 +185,35 @@ public class BoardService {
         
         return board;
      }
-   public int insertBoard2(Board_vo newBoard) {
-      Connection con = getConnection();
-      
-      int result = new BoardDao().insertBoardForCommu(con, newBoard);
-       System.out.println("service-result:"+result);
-      //1이상일 경우는 정보한행이 담김거이므로  commit
-      if(result > 0) {
-         commit(con);
-      }else { //0일 경우에는 rollback   
-         rollback(con);
-      }
-      close(con);
-      
-      return result;
-   }
+
+	public int insertBoard2(Board_vo newBoard) {
+		Connection con = getConnection();
+		
+		int result = new BoardDao().insertBoardForCommu(con, newBoard);
+		 System.out.println("service-result:"+result);
+		//1이상일 경우는 정보한행이 담김거이므로  commit
+		if(result > 0) {
+			commit(con);
+		}else { //0일 경우에는 rollback	
+			rollback(con);
+		}
+		close(con);
+		
+		return result;
+	}
+	
+	//재서버튼 5개 ajax	
+			public ArrayList<Board_vo> qnaCate(String qnaCate) {
+
+				Connection con = getConnection();
+				
+				ArrayList<Board_vo> list = new BoardDao().qnaCate(con, qnaCate);
+				
+				close(con);
+				
+				return list;
+			}
+
 }
 
 

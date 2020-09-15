@@ -183,8 +183,7 @@ th {
 			</div>
 		</c:if>
 				<div align="center">
-					<img src="resources/image/chu/logo.png"
-						style="cursor: pointer">
+					<img src="resources/image/chu/logo.png" style="cursor: pointer" onclick="reHome();">
 				</div>
 			</div>
 		</div>
@@ -244,7 +243,7 @@ th {
 					<div style="margin-top: 70px;">
 						<select id="selectArea" onchange="selectAreaF(this);">
 							<option value="S1">서울</option>
-							<option value="G1">경기</option>
+							<option value="GG1">경기</option>
 							<option value="I1">인천</option>
 						</select>
 
@@ -350,6 +349,8 @@ th {
 
 			}
 		});
+		
+		
 	</script>
 
   <script type="text/javascript">
@@ -521,7 +522,7 @@ th {
    		  if(day == 1) {
    		     month = month*1 + 1;
     		 month +="";
-    	    
+    	    	
   			   }
   		   var fullDate = year + month + day;
     	   console.log(fullDate);
@@ -562,6 +563,12 @@ th {
    		});
    	}
    
+   </script>
+   <script type="text/javascript">
+   	function reHome(){
+   		location.href = "${applicationScope.contextPath}/index.jsp";
+   		
+   	}
    </script>
 
 </body>

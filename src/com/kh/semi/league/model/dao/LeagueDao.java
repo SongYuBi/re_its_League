@@ -227,13 +227,6 @@ public class LeagueDao {
 
 	
 	
-	//리그메인 스케줄 with leagueId
-	public void selectScheduleWithId(Connection con, String month, String league) {
-		PreparedStatement pstmt = null;
-		ResultSet rset= null;
-		//ArrayList<>
-		
-	}
 
 	
 	//리그메인페이지 rank with leagudId
@@ -381,6 +374,46 @@ public class LeagueDao {
 		
 		
 		return result;
+	}
+
+	public ArrayList<HashMap<String,Object>> selectSchedule(Connection con, String date, String league) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String, Object>>list = null;
+		
+		String query = prop.getProperty("selectSchedule");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, league);
+			pstmt.setString(2, date);
+			
+			rset = pstmt.executeQuery();
+			list = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()) {
+			HashMap<String, Object> hmap = new HashMap<String,Object>();	
+			
+			hmap.put("stdName", rset.getString("STD_NAME"));
+			hmap.put("matchDate", rset.getString("MATCH_DATE"));
+			hmap.put("REFNAME", rset.getString("REF_NAME"));
+			hmap.put("clubNameF", rset.getString(4));
+			hmap.put("clubNameS", rset.getString(5));
+			
+			list.add(hmap);
+				
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return list;
+		
 	}
 
 }

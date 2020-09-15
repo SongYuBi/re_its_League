@@ -16,58 +16,58 @@ import com.kh.semi.board.model.vo.PageInfo;
 import com.kh.semi.board.model.vo.Qna_vo;
 
 public class BoardDao {
-	
-	private Properties prop = new Properties();
-	
-	public BoardDao() {
-		
-		String fileName = BoardDao.class.getResource("/sql/board/board-query.properties").getPath();
-		
-		try {
-			prop.load(new FileReader(fileName));
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-	}
-	//재서
-	public int insertBoadForQna(Connection con, Board_vo newBoard) {
+   
+   private Properties prop = new Properties();
+   
+   public BoardDao() {
+      
+      String fileName = BoardDao.class.getResource("/sql/board/board-query.properties").getPath();
+      
+      try {
+         prop.load(new FileReader(fileName));
+         
+      } catch (IOException e) {
+         // TODO Auto-generated catch block
+         e.printStackTrace();
+      }
+      
+      
+   }
+   //재서
+   public int insertBoadForQna(Connection con, Board_vo newBoard) {
 
-		PreparedStatement pstmt = null;
-		int result = 0;
-		
-		
-		String query = prop.getProperty("insertBoard");
-		
-		try {
-			pstmt = con.prepareStatement(query);
-			//이거 순서 쿼리문에서 들어가는 순서 맞게해야함 ^^ 
-			pstmt.setInt(1, newBoard.getPfId());
-			pstmt.setString(2, newBoard.getbTitle());
-			pstmt.setString(3, newBoard.getbContent());
-			
-			result = pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			close(pstmt);
-			
-		}
-		
-		return result;
-		
-		
-		
-		
-	}
+      PreparedStatement pstmt = null;
+      int result = 0;
+      
+      
+      String query = prop.getProperty("insertBoard");
+      
+      try {
+         pstmt = con.prepareStatement(query);
+         //이거 순서 쿼리문에서 들어가는 순서 맞게해야함 ^^ 
+         pstmt.setInt(1, newBoard.getPfId());
+         pstmt.setString(2, newBoard.getbTitle());
+         pstmt.setString(3, newBoard.getbContent());
+         
+         result = pstmt.executeUpdate();
+         
+      } catch (SQLException e) {
+         // TODO Auto-generated catch block
+         e.printStackTrace();
+      }finally {
+         close(pstmt);
+         
+      }
+      
+      return result;
+      
+      
+      
+      
+   }
 
-	//민경이꺼 
-	public ArrayList<Board_vo> selectListWithPaging(Connection con, PageInfo pi) {
+   //민경이꺼 
+   public ArrayList<Board_vo> selectListWithPaging(Connection con, PageInfo pi) {
         PreparedStatement pstmt = null;
         ResultSet rset = null;
         ArrayList<Board_vo> list = null;
@@ -94,7 +94,7 @@ public class BoardDao {
               b.setBid(rset.getInt(1));
               b.setbType(rset.getInt(2));
               b.setbNo(rset.getInt(3));
-              b.setbWriter(rset.getString(4));
+              b.setPfName(rset.getString(4));
               b.setbTitle(rset.getString(5));
               b.setbContent(rset.getString(6));
               b.setbCount(rset.getInt(7));
@@ -114,7 +114,7 @@ public class BoardDao {
         System.out.println(list);
         return list;
      }
-	
+
 	//민경
 	  public int getListCount(Connection con) {
 	       Statement stmt  = null;
@@ -485,7 +485,7 @@ public class BoardDao {
 	               b.setBid(rset.getInt(1));
 	               b.setbType(rset.getInt(2));
 	               b.setbNo(rset.getInt(3));
-	               b.setbWriter(rset.getString(4));
+	               b.setPfName(rset.getString(4));
 	               b.setbTitle(rset.getString(5));
 	               b.setbContent(rset.getString(6));
 	               b.setRefBid(rset.getInt(7));
@@ -536,8 +536,53 @@ public class BoardDao {
 	      
 	   
 	   }
-	
-	
+
+	 //재서 버튼 5개 ajax
+		public ArrayList<Board_vo> qnaCate(Connection con, String qnaCate) {
+
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			//Qna_vo qv = null;
+			
+			ArrayList<Board_vo>list = null;
+			
+			String query =prop.getProperty("cateType");
+			
+			try {
+				pstmt = con.prepareStatement(query);
+				pstmt.setString(1, qnaCate);
+				
+				rset = pstmt.executeQuery();
+				//객체생성
+				list = new ArrayList<Board_vo>();
+				while(rset.next()) {
+					Board_vo b = new Board_vo();
+					b.setbNo(rset.getInt("BNO"));
+					b.setbTitle(rset.getString("BTITLE"));
+					b.setbCount(rset.getInt("BCOUNT"));
+					b.setbDate(rset.getDate("BDATE"));
+					
+					list.add(b);
+					
+					
+				}
+				
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+				close(rset);
+				
+			}
+			
+			return list;
+			
+			
+		}
+
+
 
 
 }

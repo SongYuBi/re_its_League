@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.kh.semi.league.model.service.LeagueService;
 
+
+//메인페이지 지역으로 ajax
 @WebServlet("/selectArea.lg")
 public class SelectAreaForMainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

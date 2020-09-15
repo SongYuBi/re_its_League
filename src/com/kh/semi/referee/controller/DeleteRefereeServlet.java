@@ -1,29 +1,23 @@
 package com.kh.semi.referee.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import com.kh.semi.referee.model.service.RefereeService;
-import com.kh.semi.user.model.vo.Profile_vo;
 
 /**
- * Servlet implementation class ScheduleSearchServlet
+ * Servlet implementation class DeleteRefereeServlet
  */
-@WebServlet("/refSchedule.rf")
-public class ScheduleSearchServlet extends HttpServlet {
+@WebServlet("/deleteReferee.rf")
+public class DeleteRefereeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ScheduleSearchServlet() {
+    public DeleteRefereeServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,25 +26,8 @@ public class ScheduleSearchServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		
-		Profile_vo loginUser = (Profile_vo)session.getAttribute("loginUser");
-		System.out.println("loginUser : " + loginUser);
-		int pfId = loginUser.getPfId();
-		ArrayList schList = null;
-		
-		schList = new RefereeService().searchSchedule(pfId);
-		
-		String page = "";
-		
-		if(schList != null) {
-			page ="views/referee/league/refereeSchedule.jsp";
-			request.setAttribute("list", schList);
-			
-		}
-		request.getRequestDispatcher(page).forward(request, response);
-		
-		
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**

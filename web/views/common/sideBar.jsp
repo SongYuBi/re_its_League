@@ -103,9 +103,11 @@
                     <a href="${pageContext.request.contextPath }/views/user/qna/qnaList.jsp">QnA</a>
                 </li>
                 <c:if test="${ !empty sessionScope.loginUser }">
-	                <li>
-	                    <a href="${pageContext.request.contextPath }/views/user/referee/referee_insert_form.jsp">심판 지원</a>
-	                </li>
+                	<c:if test="${ sessionScope.loginUser.pfGrade != 'G4' }">
+		                <li>
+		                    <a href="${pageContext.request.contextPath }/views/user/referee/referee_insert_form.jsp">심판 지원</a>
+		                </li>
+	                </c:if>
                 </c:if>
                 <c:if test="${ empty sessionScope.loginUser }">
 	                <li>

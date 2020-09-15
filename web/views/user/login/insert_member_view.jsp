@@ -23,7 +23,7 @@ pageEncoding="UTF-8"/>
   
  .rightCol{
    grid-area: rightCol;
-   background-color: lightblue;
+  
  }
   
   .midTop{
@@ -35,8 +35,9 @@ pageEncoding="UTF-8"/>
   
  .midBottom{
    grid-area: midBottom;
-  
+  	height:200px;
    text-align:center;
+  
    
  }
  #insert_member{
@@ -45,8 +46,9 @@ pageEncoding="UTF-8"/>
   
  .footer{
    grid-area: footer;
-   background-color: lightgreen;
+  
  }
+ 
  .wrapper {
   display: grid;
   grid-template-columns: 1fr 4fr 4fr 1fr;
@@ -111,6 +113,10 @@ function validate() {
     var phone2 = document.getElementById("phone2");
     var phone3 = document.getElementById("phone3");
     var email_check = document.getElementById("email_check");
+   
+    var  certification_number = document.getElementById("certification_number");
+    var certification = document.getElementById("certification");
+    
    /*  if(!check(regul3,name,"이름을 제대로 입력하세요.")){
     	return false;
     }
@@ -174,6 +180,18 @@ function validate() {
         return false;
     }
 	
+	 if((certification.value=="false")){
+	    	alert("이메일 인증을 실시해주세요");
+	    	email_check.focus();
+	    	return false;
+	    }
+	    
+	    
+	    if((certification_number.value=="")){
+	    	alert("인증번호를 입력하세요.");
+	    	certification_number.focus();
+	    	return false;
+	    }
 	
 	 
     if ((addess.value=="")){
@@ -182,13 +200,13 @@ function validate() {
         return false;
     }
     
-    if ((phone1.value=="")){
+    if ((phone1.value==""&&phone2.value==""&&phone3.value=="")){
         alert("번호  입력해주세요");
         phone1.focus();
         return false;
     }
     
-    if ((phone2.value=="")){
+ /*    if ((phone2.value=="")){
         alert("번호  입력해주세요");
         phone2.focus();
         return false;
@@ -199,7 +217,8 @@ function validate() {
         phone3.focus();
         return false;
     }
-    
+     */
+   
  
   
     
@@ -276,9 +295,28 @@ function validate() {
 
 <div>
 <button class="w3-btn w3-red" id="double_check" onclick="double_check_();">중복 확인</button><br>
+<br>
+<label style="float:left;">이메일 인증</label><br><br>
+<div style="float:left;">
+<input type="Email" id="email_check" name="email_check" class="w3-input w3-border" style="width:250px;">
+</div >
+
+<div>
+<button class="w3-btn w3-red" id="check" onclick="email_certification();">인증번호 받기</button><br>
+<br>
+<div style="float:left;">
+<label style="float:left;">인증번호 확인</label><br><br>
+<input type="hidden" value="false" id="email_check_btn">
+	<input type="hidden" value="" id="email_certification_result">
+	<input type="hidden" value="false" id="certification">
+<input type="text" id="certification_number" class="w3-input w3-border" style="width:250px;"></div>
+<div><br><br>
+<button class="w3-btn w3-red" id="check" style="width: 125px;" onclick="email_certification_result();">확인</button><br>
+</div>
 
  <form name="insertUser" action="<%= request.getContextPath() %>/insertUser.me" method="post" onsubmit="return validate();">
 </div>
+<input type="hidden" value="" id="result_email" name="result_email">
 <br>
 <label style="float:left;">비밀번호</label>
 <input type="password" id="password" name="password" class="w3-input w3-border w3-border-black"  maxlength="12">
@@ -322,24 +360,23 @@ function validate() {
         <input type='tel' name='phone2' id='phone1' size="4" maxlength="4" class=" w3-border w3-border-black"  style="width:100px; height:35px;" />&nbsp&nbsp  - &nbsp&nbsp
         <input type='tel' name='phone3' id='phone1'  size="4" maxlength="4" class=" w3-border w3-border-black"  style="width:100px; height:35px;" />
 <br><br>
-<label style="float:left;">이메일 인증</label><br><br>
-<div style="float:left;">
-<input type="Email" id="email_check" name="email_check" class="w3-input w3-border" style="width:250px;">
-</div >
 
-<div>
-<button class="w3-btn w3-red" id="check">인증번호 받기</button><br>
-<input type="hidden" value="false" id="email_check_btn">
 </div>
-	
+
 	</div>
 	  </div>
 	  <div class="midBottom">
+  
+	  
+
+	  <div class="footer">
+	  <br><br><br>
+	  
 	  <input type="submit" value="가입하기" class="w3-btn w3-red" id="insert_member">
-	  <!-- <button class="w3-btn w3-red" id="insert_member">가입하기</button></div> -->
-</form>
-	  <div class="footer">Footer</div>
+	  </form>
+	  <!-- <button class="w3-btn w3-red" id="insert_member">가입하기</button></div> --></div>
 	</div>
+</div>
 	
 	<!-- 중복확인 창 -->
 	<script>
@@ -375,8 +412,37 @@ function validate() {
 	    }
 	})
 	 
+function email_certification(){
+		 var email =$("#email_check").val();
+		 console.log("이메일 인증 받을 이메일 : "+email);
+		 
+		 $.ajax({
+			 url :"/semi/Email",
+			 type:"get",
+			 data:{email:email},
+			 success: function(data){
+				 $('#email_certification_result').val(data);
+				 console.log($('#email_certification_result').val())
+			 }
+		 })
+		 
+	 }
 	
-	
+function email_certification_result(){
+	  var number =  $('#email_certification_result').val();
+	  var text_number = $('#certification_number').val();
+	  var Email  = $('#Email').val();
+	  var result_email = $('#result_email').val();
+	  
+	  if(number==text_number){
+		  $('#certification').val("true");
+		  alert("인정번호가 일치힙니다.");
+		  $('#result_email').val(Email);
+		  console.log(result_email = $('#result_email').val());
+	  }else{
+		  alert("인증번호가 일치하지 않습니다. 다시 입력해주세요.");
+	  }
+}
 	
 function double_check_(){
 	var email =$("#Email").val();

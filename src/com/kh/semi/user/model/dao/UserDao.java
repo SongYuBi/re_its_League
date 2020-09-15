@@ -41,8 +41,8 @@ public class UserDao {
 			pstmt.setString(2, vo.getPfNumber());
 			pstmt.setString(3, vo.getPfName());
 			pstmt.setString(4, vo.getPfEmail());
-			pstmt.setString(5, vo.getPfAddress());
-			pstmt.setString(6, vo.getPfPhone());
+			pstmt.setString(6, vo.getPfAddress());
+			pstmt.setString(5, vo.getPfPhone());
 			pstmt.setString(7, vo.getPfGender());
 			pstmt.setString(8, vo.getPfGrade());
 			result = pstmt.executeUpdate();

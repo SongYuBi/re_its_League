@@ -160,7 +160,7 @@ th {
 		
 	<jsp:include
 		page="${ application.contextPath }/views/user/comman/login.jsp"/>
-		
+		<input type="hidden" value="main" id="location_web">
 	<div class="wrapper">
 		<div class="head">
 			<div align="right">

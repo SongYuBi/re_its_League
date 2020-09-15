@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.kh.semi.league.model.service.LeagueService;
 
+
+//메인페이지 매치 아약스 서블릿
 @WebServlet("/selectMain.lg")
 public class SelectLeagueForMainServlet extends HttpServlet {
 	

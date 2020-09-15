@@ -200,6 +200,18 @@ public class BoardService {
 		
 		return result;
 	}
+	
+	//재서버튼 5개 ajax	
+			public ArrayList<Board_vo> qnaCate(String qnaCate) {
+
+				Connection con = getConnection();
+				
+				ArrayList<Board_vo> list = new BoardDao().qnaCate(con, qnaCate);
+				
+				close(con);
+				
+				return list;
+			}
 }
 
 

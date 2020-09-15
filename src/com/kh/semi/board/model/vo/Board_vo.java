@@ -4,11 +4,11 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Board_vo implements java.io.Serializable{
- 
+  
 	private int bid;						//게시판 분류 번호)PK_
 	private int bType;						//게시판 분류
 	private int bNo;						//게시판별 번호
-	private String bWriter;
+	private int bWriter;
 	private String bTitle;					//게시글  제목
 	private String bContent;				//내용
 	private int bCount;						//조회수
@@ -18,7 +18,7 @@ public class Board_vo implements java.io.Serializable{
 	private int pfId;						//사용자 고유 번호(FK)
 	private int refBid;
 	private int replyLevel;
-	 
+	private String pfName;
 
 	
 	public Board_vo() {
@@ -27,9 +27,8 @@ public class Board_vo implements java.io.Serializable{
 	}
 
 
-
-	public Board_vo(int bid, int bType, int bNo, String bWriter, String bTitle, String bContent, int bCount, Date bDate,
-			Date modifyDate, String bStatus, int pfId, int refBid, int replyLevel) {
+	public Board_vo(int bid, int bType, int bNo, int bWriter, String bTitle, String bContent, int bCount, Date bDate,
+			Date modifyDate, String bStatus, int pfId, int refBid, int replyLevel, String pfName) {
 		super();
 		this.bid = bid;
 		this.bType = bType;
@@ -44,8 +43,8 @@ public class Board_vo implements java.io.Serializable{
 		this.pfId = pfId;
 		this.refBid = refBid;
 		this.replyLevel = replyLevel;
+		this.pfName = pfName;
 	}
-
 
 
 	public int getBid() {
@@ -53,11 +52,9 @@ public class Board_vo implements java.io.Serializable{
 	}
 
 
-
 	public void setBid(int bid) {
 		this.bid = bid;
 	}
-
 
 
 	public int getbType() {
@@ -65,11 +62,9 @@ public class Board_vo implements java.io.Serializable{
 	}
 
 
-
 	public void setbType(int bType) {
 		this.bType = bType;
 	}
-
 
 
 	public int getbNo() {
@@ -77,23 +72,19 @@ public class Board_vo implements java.io.Serializable{
 	}
 
 
-
 	public void setbNo(int bNo) {
 		this.bNo = bNo;
 	}
 
 
-
-	public String getbWriter() {
+	public int getbWriter() {
 		return bWriter;
 	}
 
 
-
-	public void setbWriter(String bWriter) {
+	public void setbWriter(int bWriter) {
 		this.bWriter = bWriter;
 	}
-
 
 
 	public String getbTitle() {
@@ -101,11 +92,9 @@ public class Board_vo implements java.io.Serializable{
 	}
 
 
-
 	public void setbTitle(String bTitle) {
 		this.bTitle = bTitle;
 	}
-
 
 
 	public String getbContent() {
@@ -113,11 +102,9 @@ public class Board_vo implements java.io.Serializable{
 	}
 
 
-
 	public void setbContent(String bContent) {
 		this.bContent = bContent;
 	}
-
 
 
 	public int getbCount() {
@@ -125,11 +112,9 @@ public class Board_vo implements java.io.Serializable{
 	}
 
 
-
 	public void setbCount(int bCount) {
 		this.bCount = bCount;
 	}
-
 
 
 	public Date getbDate() {
@@ -137,11 +122,9 @@ public class Board_vo implements java.io.Serializable{
 	}
 
 
-
 	public void setbDate(Date bDate) {
 		this.bDate = bDate;
 	}
-
 
 
 	public Date getModifyDate() {
@@ -149,11 +132,9 @@ public class Board_vo implements java.io.Serializable{
 	}
 
 
-
 	public void setModifyDate(Date modifyDate) {
 		this.modifyDate = modifyDate;
 	}
-
 
 
 	public String getbStatus() {
@@ -161,11 +142,9 @@ public class Board_vo implements java.io.Serializable{
 	}
 
 
-
 	public void setbStatus(String bStatus) {
 		this.bStatus = bStatus;
 	}
-
 
 
 	public int getPfId() {
@@ -173,11 +152,9 @@ public class Board_vo implements java.io.Serializable{
 	}
 
 
-
 	public void setPfId(int pfId) {
 		this.pfId = pfId;
 	}
-
 
 
 	public int getRefBid() {
@@ -185,11 +162,9 @@ public class Board_vo implements java.io.Serializable{
 	}
 
 
-
 	public void setRefBid(int refBid) {
 		this.refBid = refBid;
 	}
-
 
 
 	public int getReplyLevel() {
@@ -197,11 +172,19 @@ public class Board_vo implements java.io.Serializable{
 	}
 
 
-
 	public void setReplyLevel(int replyLevel) {
 		this.replyLevel = replyLevel;
 	}
 
+
+	public String getPfName() {
+		return pfName;
+	}
+
+
+	public void setPfName(String pfName) {
+		this.pfName = pfName;
+	}
 
 
 	@Override
@@ -209,9 +192,11 @@ public class Board_vo implements java.io.Serializable{
 		return "Board_vo [bid=" + bid + ", bType=" + bType + ", bNo=" + bNo + ", bWriter=" + bWriter + ", bTitle="
 				+ bTitle + ", bContent=" + bContent + ", bCount=" + bCount + ", bDate=" + bDate + ", modifyDate="
 				+ modifyDate + ", bStatus=" + bStatus + ", pfId=" + pfId + ", refBid=" + refBid + ", replyLevel="
-				+ replyLevel + "]";
+				+ replyLevel + ", pfName=" + pfName + "]";
 	}
+
 
 	
 
-	}
+	
+}

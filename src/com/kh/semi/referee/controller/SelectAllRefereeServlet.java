@@ -35,7 +35,7 @@ public class SelectAllRefereeServlet extends HttpServlet {
 		
 		String path = "";
 		if(list != null) {
-			path = "views/admin/referee/refereeApply_admin.jsp";
+			path = "views/admin/referee/refereeAll.jsp";
 			request.setAttribute("list", list);
 		} else {
 			path = "views/common/errorPage.jsp";

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.kh.semi.league.model.service.LeagueService;
 
+//리그 메인페이지 이름으로 rank 검색 ajax
 @WebServlet("/selectRankWithName.lg")
 public class SelectRankWithNameServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

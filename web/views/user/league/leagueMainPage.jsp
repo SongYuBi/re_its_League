@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/userDefaultLayout.css">
 <link rel="stylesheet" href="http://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="${pageContext.request.contextPath }/resources/js/moment.min.js"></script>
 
 <title>Insert title here</title>
 <style type="text/css">
@@ -99,6 +100,10 @@
  	width:100px;
  	margin-left:50px;
  }
+ 
+ .underLine{
+ 	border-bottom:1px solid black;
+ }
 </style>
 
 </head>
@@ -126,7 +131,7 @@
 	  	<!-- 리그 -->
 	  	<div style="float:left; margin-left:100px; margin-top:20px; text-align:center; margin-right:150px;">
 	  		<h2>리그</h2>
-	  		<select class="selop" name="league" id="league-select" onchange="leagueSelect(this);">
+	  		<select class="selop" name="league" id="league-select">
 	  			<option value="allLrankLeague">전체</option>
      				<c:forEach var="l" items="${requestScope.list}">
      					<option  value="${l.lgId }">${l.lgId }</option>
@@ -136,7 +141,7 @@
 	  	<!-- 구단 -->
 		<div align="center" style="float:left;margin-top:20px;">
 			<h2>날짜</h2>
-			<select class="selop" name="dateSchedule" id="dateSchedule">
+			<select class="selop" name="dateSchedule" id="dateSchedule" onchange="dateSchedule(this);">
 				 <option>선택</option>
 			</select>
 		</div>	  	
@@ -386,49 +391,9 @@
 			location.href="${applicationScope.contextPath}/views/user/league/leagueJoinForm.jsp";
 		}
 		
-		
-		/* function test1(){
-			$("#namet").show();	
-			$("#ScheduleList").show();
-		} */
 	</script>
 	
-	<script type="text/javascript">
-		/* $(function(){
-			$("#namet").hide();
-			$("#ScheduleList").hide();
-		}); */
 	
-	
-	</script>
-	
-	<%-- id로 검색 --%>
-	<script type="text/javascript">
-			function leagueSelect(val){
-				var league = $(val).find(":selected").val();
-				console.log(league);
-				
-				var date = new Date();
-				var month = date.getMonth() + 1;
-				if(month < 10) {
-					month = '0' + month;
-				}
-				
-				$.ajax({
-					url : "${applicationScope.contextPath}/selectMatchWithId.lg",
-					data : {month : month, league : league},
-					type : "get",
-					success : function(data){
-						console.log(data);
-					},
-					error : function(err){
-						console.log("리그메인 경기조회 실패!")
-					}
-					
-				});
-				
-			}
-	</script>
 	
 	<%--달추가 --%>>
 	<script type="text/javascript">
@@ -450,7 +415,7 @@
 	
 	
 	
-	<!-- 순위 -->
+	<!-- 아이디순위 -->
 	<script type="text/javascript">
 		
 		function rankLeague(val) {
@@ -471,7 +436,8 @@
 				
 				for(key in data) {
 					$tr = $("<tr>");
-					$tdt = $("<td>");
+					$tdt = $("<td>").addClass("underLine");
+					
 					if(key == 0) {
 					$icona = $("<i>").addClass("xi-trophy");
 					$tdt.append($icona);
@@ -485,15 +451,15 @@
 					$tdt.append($icona);
 					}
 					
-					$clubNameTd = $("<td>").text(data[key].clubName);
-					$drawTd = $("<td>").text(data[key].draw);
-					$goalTd = $("<td>").text(data[key].goal);
-					$goalPointTd = $("<td>").text(data[key].goalPoint);
-					$lostTd = $("<td>").text(data[key].lose);
-					$loseGoalTd = $("<td>").text(data[key].loseGoal);
-					$roundTd = $("<td>").text(data[key].round);
-					$winTd = $("<td>").text(data[key].win);
-					$winScoreTd = $("<td>").text(data[key].winScore);
+					$clubNameTd = $("<td>").text(data[key].clubName).addClass("underLine");
+					$drawTd = $("<td>").text(data[key].draw).addClass("underLine");
+					$goalTd = $("<td>").text(data[key].goal).addClass("underLine");
+					$goalPointTd = $("<td>").text(data[key].goalPoint).addClass("underLine");
+					$lostTd = $("<td>").text(data[key].lose).addClass("underLine");
+					$loseGoalTd = $("<td>").text(data[key].loseGoal).addClass("underLine");
+					$roundTd = $("<td>").text(data[key].round).addClass("underLine");
+					$winTd = $("<td>").text(data[key].win).addClass("underLine");
+					$winScoreTd = $("<td>").text(data[key].winScore).addClass("underLine");
 					
 					$tr.append($tdt);
 					$tr.append($roundTd);
@@ -523,7 +489,7 @@
 	
 	
 	
-	<!-- 리그 이름으로 -->
+	<!-- 리그 이름으로순위 -->
 	<script type="text/javascript">
 		function rankName(val) {
 			var leagueName = $(val).children(":selected").val();
@@ -544,7 +510,8 @@
 					
 					for(key in data) {
 						$tr = $("<tr>");
-						$tdt = $("<td>");
+						$tdt = $("<td>").addClass("underLine");
+						
 						if(key == 0) {
 						$icona = $("<i>").addClass("xi-trophy");
 						$tdt.append($icona);
@@ -557,15 +524,16 @@
 						$icona = Number(key) + 1;
 						$tdt.append($icona);
 						}
-						$clubNameTd = $("<td>").text(data[key].clubName);
-						$drawTd = $("<td>").text(data[key].draw);
-						$goalTd = $("<td>").text(data[key].goal);
-						$goalPointTd = $("<td>").text(data[key].goalPoint);
-						$lostTd = $("<td>").text(data[key].lose);
-						$loseGoalTd = $("<td>").text(data[key].loseGoal);
-						$roundTd = $("<td>").text(data[key].round);
-						$winTd = $("<td>").text(data[key].win);
-						$winScoreTd = $("<td>").text(data[key].winScore);
+						
+						$clubNameTd = $("<td>").text(data[key].clubName).addClass("underLine");
+						$drawTd = $("<td>").text(data[key].draw).addClass("underLine");
+						$goalTd = $("<td>").text(data[key].goal).addClass("underLine");
+						$goalPointTd = $("<td>").text(data[key].goalPoint).addClass("underLine");
+						$lostTd = $("<td>").text(data[key].lose).addClass("underLine");
+						$loseGoalTd = $("<td>").text(data[key].loseGoal).addClass("underLine");
+						$roundTd = $("<td>").text(data[key].round).addClass("underLine");
+						$winTd = $("<td>").text(data[key].win).addClass("underLine");
+						$winScoreTd = $("<td>").text(data[key].winScore).addClass("underLine");
 						
 						$tr.append($tdt);
 						$tr.append($roundTd);
@@ -591,5 +559,157 @@
 			});
 		}
 	</script>
+	
+	
+	<!-- 일정 -->
+	<script type="text/javascript">
+	 function dateSchedule(val) {
+		var month = parseInt($(val).find(":selected").val()); 
+		var league  = $("#league-select").find(":selected").val();
+		
+		var date = new Date();
+		//현재 년도
+		var year = date.getFullYear();
+		
+		if(month < 10) {
+			month = "0" + month;
+		}
+		else{
+			month = "" +month;
+		}
+		var fullDate = year + month;
+		
+		
+		console.log(fullDate);
+		console.log(league);
+		
+		$.ajax({
+			url:"${applicationScope.contextPath}/selectSchedule.lg",
+			type: "get",
+			data: {league:league, fullDate:fullDate},
+			success : function(data) {
+					console.log(data);
+					
+					
+				
+					//list 날짜 왼쪽 붙일 거 
+					for(key in data) {
+							
+						var form = moment(data[key].matchDate);
+						var date = form.format("MM-DD");
+						var month = date.split("-")[0];
+						console.log(month);
+						console.log();
+						console.log(date);
+						
+						//리스트 맨 위 날짜 08 09 10
+						$(".fixed-top").text(month +"월");
+												
+						
+						
+						
+						
+						
+						
+						
+						
+						
+					}
+					
+			},
+			error : function(err){
+				console.log(err);
+			}
+			
+		});
+		
+		
+		
+		
+	 };
+		
+	</script>
+	
+	
+	
+	
+	
+	<!-- <script type="text/javascript">
+		//데이트 포맷
+		function dateFormat(date){
+			var de = new Date(date);
+			var  da = de.format("yyyy-MM-dd(KL)");
+			return da;
+		}
+	</script> -->
+	
+	
+	
+	<!-- <script type="text/javascript">
+	 Date.prototype.format = function (f) {
+	        if (!this.valueOf()) return " ";
+	 
+	        var weekKorName = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
+	 
+	        var weekKorShortName = ["일", "월", "화", "수", "목", "금", "토"];
+	 
+	        var weekEngName = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+	 
+	        var weekEngShortName = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+	 
+	        var d = this;
+	 
+	 
+	 
+	        return f.replace(/(yyyy|yy|MM|dd|KS|KL|ES|EL|HH|hh|mm|ss|a\/p)/gi, function ($1) {
+	 
+	            switch ($1) {
+	 
+	                case "yyyy": return d.getFullYear(); // 년 (4자리)
+	 
+	                case "yy": return (d.getFullYear() % 1000).zf(2); // 년 (2자리)
+	 
+	                case "MM": return (d.getMonth() + 1).zf(2); // 월 (2자리)
+	 
+	                case "dd": return d.getDate().zf(2); // 일 (2자리)
+	 
+	                case "KS": return weekKorShortName[d.getDay()]; // 요일 (짧은 한글)
+	 
+	                case "KL": return weekKorName[d.getDay()]; // 요일 (긴 한글)
+	 
+	                case "ES": return weekEngShortName[d.getDay()]; // 요일 (짧은 영어)
+	 
+	                case "EL": return weekEngName[d.getDay()]; // 요일 (긴 영어)
+	 
+	                case "HH": return d.getHours().zf(2); // 시간 (24시간 기준, 2자리)
+	 
+	                case "hh": return ((h = d.getHours() % 12) ? h : 12).zf(2); // 시간 (12시간 기준, 2자리)
+	 
+	                case "mm": return d.getMinutes().zf(2); // 분 (2자리)
+	 
+	                case "ss": return d.getSeconds().zf(2); // 초 (2자리)
+	 
+	                case "a/p": return d.getHours() < 12 ? "오전" : "오후"; // 오전/오후 구분
+	 
+	                default: return $1;
+	 
+	            }
+	 
+	        });
+	 
+	    };
+	 
+	    String.prototype.string = function (len) { var s = '', i = 0; while (i++ < len) { s += this; } return s; };
+	 
+	    String.prototype.zf = function (len) { return "0".string(len - this.length) + this; };
+	 
+	    Number.prototype.zf = function (len) { return this.toString().zf(len); };
+
+
+	
+	</script> -->
+	
+	
+	
 </body>
 </html>

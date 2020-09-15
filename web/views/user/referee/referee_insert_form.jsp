@@ -22,7 +22,9 @@
 		<div class="midTop">
 		<form id="joinForm" action="${ applicationScope.contextPath }/insertReferee.pf" method="post">
 			<div class="referee_div">
-				<p class="referee_p">이름 : <br><input type="text" name="refName"></p>
+				<p class="referee_p">이름 : <br><input type="text" name="refName">
+					<input type="hidden" name="pfId" value=${ sessionScope.loginUser.pfId }>
+				</p>
 			</div>
 			<div class="referee_div">
 				<p class="referee_p">주소 : <br><input type="text" name="refAdd"></p>
@@ -46,8 +48,8 @@
 				<p class="referee_p">자격증 유무 : 
 					<br>
 					<select name="refLicense">
-						<option value="1">유</option>
-						<option value="0">무</option>
+						<option value="Y">유</option>
+						<option value="N">무</option>
 					</select>
 				</p>
 			</div>

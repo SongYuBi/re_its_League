@@ -91,10 +91,12 @@ p {
 		<!-- search icon -->
 		<ul class="navbar-nav ml-auto ml-md-0">
 
-			<li class="nav-item dropdown no-arrow"><a class="nav-link"
-				href="#" id="userDropdown" role="button"> <i
-					class="fas fa-user-circle fa-fw"></i>
-			</a></li>
+			<li class="nav-item dropdown no-arrow">
+				<a class="nav-link"	href="#" id="userDropdown" role="button"> 
+					<i class="fas fa-user-circle fa-fw"></i>
+					<c:out value="${ sessionScope.loginUser.pfName } 님"></c:out>
+				</a>	
+			</li>
 		</ul>
 
 	</nav>
@@ -105,7 +107,7 @@ p {
 		<div class="sidebar" style="max-width: 150px;">
 			<span class="nav-item active"> <a class="nav-link"
 				href="${pageContext.request.contextPath }"> <img class="sidebar-image"
-					src="/semi/resources/image/chu/home_un.png" width="60px"
+					src="${pageContext.request.contextPath }/resources/image/chu/home_un.png" width="60px"
 					style="margin-top: -10px;">
 					<p class="sidebar-text">HOME</p>
 			</a>

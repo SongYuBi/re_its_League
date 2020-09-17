@@ -96,7 +96,20 @@ pageEncoding="UTF-8"/>
     	
     	
     }
-   
+    .buttonLogo{
+    	background-color:white;
+    	outline:none;
+    	border:0px
+    	
+    	
+    }
+   *:focus{
+   	outline:none;
+   }
+   .outer{
+   		margin:300px;
+   		margin-top:-20px;
+   }
    
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -108,10 +121,9 @@ pageEncoding="UTF-8"/>
 	<br>
 	<br>
 <div class="logo" align="center">
-	<!-- <h4 align="center">It's LEAGUE</h4> -->
-<!-- 	<img alt="" src="imgs/logo.png" style="width:20%"> -->
-	
-	<img alt="" src="../../../resources/image/logo_jess.png" style="width:20%">
+
+	<button class="buttonLogo" type="button" onclick="goMain();"><img  src="../../../resources/image/logo_jess.png" style="width:80%"></button>
+
 </div>
 	
 	<br>
@@ -119,16 +131,17 @@ pageEncoding="UTF-8"/>
 
     </nav>
     <br>
+    <div class="outer">
     <div class="row">
     
     
+
     	
-    	<!-- <img alt="" src="../../../resources/image/main2_jess.png" style="width:100%"> -->
-    	
-    	<img alt="" src="../../../resources/image/main1_jess.png" style="width:100%">
+    	<img alt="" src="../../../resources/image/main1_jess.png" style="width:100%" onclick="goMain();">
     </div>
 	<br>
 	<br>
+	
 	<div class="text">
 		<h2 align="center">LET'S LEAGUE<p></h2>
 		<h5 align="center">이제는 동네에서 LET'S LET'S PLAY!<p>IT'S LEAGUE</h5>
@@ -191,7 +204,8 @@ pageEncoding="UTF-8"/>
 	</div>
 	<div class="last">
 		<h1>지금 바로 리그경기에<p>참여해 경기를 즐기세요!</h1>
-		  <button type="button" class="btn btn-primary btn-lg btn-block">가입하고 시작!</button>
+		  <button type="button" class="btn btn-primary btn-lg btn-block" onclick="goLogin();">가입하고 시작!</button>
+	</div>
 	</div>
 	
 	 <br>
@@ -204,6 +218,19 @@ pageEncoding="UTF-8"/>
 	 </div>
 </div>
       
+      <script>
+      	function goMain(){
+      		
+      		location.href="${applicationScope.contextPath}/index.jsp";
+      		
+      	};
+      	
+      	function goLogin(){
+      		
+      		location.href="${applicationScope.contextPath}/views/user/login/insert_member.jsp";	
+      	};
+      
+      </script>
 </body>
 
 

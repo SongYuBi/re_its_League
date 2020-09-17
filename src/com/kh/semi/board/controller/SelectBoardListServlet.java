@@ -30,6 +30,7 @@ public class SelectBoardListServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		ArrayList<Board_vo> list = new BoardService().selectList1();
 		
 		System.out.println("select board list : " + list);
@@ -38,6 +39,7 @@ public class SelectBoardListServlet extends HttpServlet {
 		if(list != null) {
 			path = "views/user/qna/qnaList.jsp";
 			request.setAttribute("list", list);
+			
 		} else {
 			path="view/common/errorPage.jsp";
 			request.setAttribute("message", "게시판 조회 실패!");

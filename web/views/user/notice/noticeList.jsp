@@ -103,24 +103,8 @@
 	</div>
 
 	
-	<div class="wrapper">
-		<div class="head">
-		<div align="center"></div>
-		<div align="right">
-			<span></span>
-			<span></span>
-			<span></span>
-		</div> 
-		</div>
-		<div class="header"></div>
-		<div class="leftCol"></div>
-		<div class="rightCol"></div>
-		<div class="midtop">
 		<div class="scontA">
 			<div class="bbsTopArea"></div>
-		<br>
-		<br>
-		<br>
 		<br>
 		<h2 id="container_title">공지사항<span class="sound_only"> 목록</span></h2>
 	
@@ -282,8 +266,5 @@
 		<div class="midBottom"></div>
 		<div class="footer"></div>
 		</div>
-	</div>
-	
-</div>
 </body>
 </html>

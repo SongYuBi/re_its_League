@@ -69,10 +69,15 @@
 						data-target="#submenu-1"> <i class="fa fa-fw fa-home"></i> 관리자
 							메인 <!-- <i class="fa fa-fw fa-angle-down pull-right"></i> -->
 					</a></li>
-					<li><a href="../league/refereeGameEvalution.jsp"
+					
+					<li><a href="../league/LeagueManagement.jsp"
 						data-toggle="collapse" data-target="#submenu-2"> <i
 							class="fa fa-fw fas fa-edit"></i>리그 관리
-					</a> <!--                     <ul id="submenu-2" class="collapse">
+					</a>
+					
+					
+					
+					 <!--                     <ul id="submenu-2" class="collapse">
                         <li><a href="#"><i class="fa fa-angle-double-right"></i> SUBMENU 2.1</a></li>
                         <li><a href="#"><i class="fa fa-angle-double-right"></i> SUBMENU 2.2</a></li>
                         <li><a href="#"><i class="fa fa-angle-double-right"></i> SUBMENU 2.3</a></li>

@@ -168,7 +168,7 @@ ul, li {
 				<div align="center">
 					<img
 						src="${applicationScope.contextPath }/resources/image/chu/logo.png"
-						style="cursor: pointer">
+						style="cursor: pointer" style="width:100%;" onclick="location.href='${applicationScope.contextPath}/index.jsp'">
 				</div>
 			</div>
 		</div>
@@ -182,7 +182,6 @@ ul, li {
 					style="float: left; margin-left: 50px; margin-top: 20px; text-align: center; margin-right: 100px;">
 					<h2>리그</h2>
 					<select class="selop" name="league" id="league-select">
-						<option value="allLrankLeague">전체</option>
 						<c:forEach var="l" items="${requestScope.list}">
 							<c:if test="${l.lgId ne 'INCHEON03' }">
 								<option value="${l.lgId }">${l.lgId }</option>
@@ -194,11 +193,10 @@ ul, li {
 				<div align="center" style="float: left; margin-top: 20px;">
 					<h2>날짜</h2>
 					<select class="selop" name="dateSchedule" id="dateSchedule">
-						<option>선택</option>
 					</select>
 				</div>
 				<button id="searchSchedule" class="searchBtn"
-					onclick="dateSchedule();">클릭</button>
+					onclick="dateSchedule();">검색</button>
 				<!-- 버튼 -->
 				<div
 					style="float: right; margin-right: 50px; margin-top: 50px; margin-left: 20px;">
@@ -218,7 +216,7 @@ ul, li {
 				<div class="table-wrapper">
 					<div class="table-title" style="overflow: auto; height: 1000px;">
 						<div id="ScheduleList">
-							<h1 class="fixed-top">9월</h1>
+							<h1 class="fixed-top"></h1>
 							<!-- 토요일 -->
 							<div class="dateList">
 
@@ -291,7 +289,7 @@ ul, li {
 		</div>
 		<div class="footer" align="center" style="margin-top: 100px;">
 			<img
-				src="${applicationScope.contextPath }/resources/image/footer_jess.png">
+				src="${applicationScope.contextPath }/resources/image/footer_jess.png" style="width:100%;">
 		</div>
 	</div>
 

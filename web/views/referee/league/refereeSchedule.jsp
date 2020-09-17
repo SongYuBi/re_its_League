@@ -131,39 +131,13 @@
 			<div class="table_area">
 				<div class="matchDate"></div>
 				<div>
-					<table class="table table-striped custab">
+					<table class="table table-striped custab" id="scheduleTb">
 						<thead>
 							<tr>
+								<th>날짜</th>
 								<th>리그</th>
-								<th>경기</th>
-								<th>구장</th>
-							</tr>
-						</thead>
-						<tr>
-							<td>A리그</td>
-							<td><span>1팀</span>:<span>2팀</span></td>
-							<td>종합운동장</td>
-						</tr>
-						<tr>
-							<td>B리그</td>
-							<td><span>1팀</span>:<span>2팀</span></td>
-							<td>용산 아이파크</td>
-						</tr>
-						<tr>
-							<td>C리그</td>
-							<td><span>1팀</span>:<span>2팀</span></td>
-							<td>용인 참스포츠</td>
-						</tr>
-					</table>
-
-				</div>
-				<div class="matchDate"></div>
-				<div>
-					<table class="table table-striped custab">
-						<thead>
-							<tr>
-								<th>리그</th>
-								<th>경기</th>
+								<th>home</th>
+								<th>away</th>
 								<th>구장</th>
 							</tr>
 						</thead>
@@ -194,7 +168,7 @@
 	</div>
 	<jsp:include page="/views/referee/common/matchCreate_Modal.jsp"></jsp:include>
 	<script>
-		// 현재 달로 변경해주는 함수
+		// carousel 현재 달로 변경해주는 함수
 		$(document).ready(function() {
 			var month = getMonthDate() + 1;
 
@@ -208,7 +182,7 @@
 			}
 		});
 
-		// 현재 날짜로 변환
+		// 페이지 시작 시 현재 날짜로 변환
 		$(document).ready(function() {
 			var date = getDate();
 			console.log(date);
@@ -218,6 +192,14 @@
 		// 날짜 구하기
 		function getMonthDate() {
 			var date = new Date().getMonth();
+			return date
+		};
+		function getDayDate() {
+			var date = new Date().getDay();
+			return date
+		};
+		function getYearDate() {
+			var date = new Date().getFullYear();
 			return date
 		};
 
@@ -236,6 +218,73 @@
 			$("#carouselExampleControls").carousel({
 				interval:false
 				
+			});
+		});
+		
+		
+		var defaultDateMonth = getMonthDate();
+		var date = getDate();
+		var nextMonth = defaultDateMonth + 1;
+ 		$(".carousel-control-next").click(function(){
+ 			nextMonth = nextMonth + 1;
+ 			if(nextMonth > 12) {
+ 				nextMonth = 1;
+ 			}
+ 			console.log(nextMonth);
+			$.ajax({
+				url:"${pageContext.request.contextPath}/refSchedule_filter.rf",
+				type:"get",
+				data:{date:date, nextMonth:nextMonth},
+				success: function(data){
+					var $tableBody = $("#scheduleTb tbody");
+					var $matchDate = $(".matchDate");
+					var nowDate = getDate();
+					$tableBody.html('');
+					$matchDate.html('');
+					console.log(data[1].matchDate.split("-"));
+					
+					// 날짜 중복 제거
+					var listDate =[];
+					$matchDate.text(data[0].matchDate);
+					for(var i=0; i < data.length; i++){
+						listDate.push(data[i].matchDate);
+					}
+					var dupleListDate = [];
+					$.each(listDate, function(i, el){
+						if($.inArray(el, dupleListDate) === -1) {
+							dupleListDate.push(el);
+						}
+					});
+					console.log(dupleListDate);
+					
+					
+					for(var j=0; j < dupleListDate.length; j++){
+						$matchDate.text(dupleListDate[j]);
+						for(var i=0; i < data.length; i++) {
+							if(dupleListDate[j] == data[i].matchDate){
+								var $matchDate = $(".matchDate");
+								var $tr = $('<tr>');
+								var $dateTd = $('<td>').text(data[i].matchDate);
+								var $lgTd = $('<td>').text(data[i].lgName);
+								var $fNameTd = $('<td>').text(data[i].fName);
+								var $sNameTd = $('<td>').text(data[i].sName);
+								var $stdName = $('<td>').text(data[i].stdName);
+								
+								$tr.append($dateTd);
+								$tr.append($lgTd);
+								$tr.append($fNameTd);
+								$tr.append($sNameTd);
+								$tr.append($stdName);
+								
+								$tableBody.append($tr);
+							} else {
+								continue;
+							}
+							
+						}
+				};
+					
+				}
 			});
 		});
 	</script>

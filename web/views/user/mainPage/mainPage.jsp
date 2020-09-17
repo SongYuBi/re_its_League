@@ -48,7 +48,7 @@
 }
 
 .wBtn button.slick-prev {
-	left: -250px;
+	left: -130px;
 	font-size: 0;
 	color: transparent;
 }
@@ -278,8 +278,8 @@ td {
 				</div>
 			</div>
 		</div>
-		<div class="footer" align="center">
-			<img src="resources/image/chu/footer.png">
+		<div class="footer" align="center" >
+			<img src="resources/image/chu/footer.png" style="width:100%;">
 		</div>
 	</div>
 

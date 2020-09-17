@@ -45,7 +45,8 @@ public class searchUserPasswordServlet extends HttpServlet {
 		
 		if(result > 0) {
 			page ="index.jsp";
-			response.sendRedirect(page);
+			request.setAttribute("login", "유저의 비밀번호가 변경되었습니다.");
+			request.getRequestDispatcher(page).forward(request, response);
 			System.out.println("유저 비밀 번호 변경  완료");
 		}else {
 			page="views/user/login/search_member.jsp";

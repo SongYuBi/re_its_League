@@ -142,8 +142,9 @@ border-bottom:2px solid gray;
  	
  #search_club{
  	position:relative;
- 	left:69%;
+ 	left:72%;
  	top: 40%;
+ 	margin-bottom: 5px;
  }
 </style>
 
@@ -175,7 +176,7 @@ $(function(){
 				var $goalTd = $("<td style='text-align:center'>").text(value.goal);
 				var $loseGoalTd = $("<td style='text-align:center'>").text(value.loseGoal);
 				var $goalResultTd = $("<td style='text-align:center'>").text(value.goalResult);
-				var $hidden = $("<input type='hidden' id='teamNumber' value="+value.teamNumber+">")
+				var $hidden = $("<input type='hidden' id='teamNumber' value="+value.teamNumber+">");
 				
 				$tr.append($rankTd);
 				$tr.append($clubNameTd);
@@ -193,21 +194,32 @@ $(function(){
 				
 				
 			});
+			
 			$("#club_info_table tr").click(function(){
 				console.log("asd");
 				var str = "";
 				
 				var tr = $(this);
-				var td = tr.children();
+				
 				var teamNumber = tr.children('#teamNumber').val();
 				
 				
-				console.log("클릭한 row의 모든 데이터 : " + td.text());
 				console.log("hidden : " + teamNumber);
 				
 				location.href="/semi/club_info?teamNumber="+teamNumber;
 			})
 			
+				$('#club_info_table tr').hover(function(){
+     			   $(this).css('background','gray');
+     			  $(this).css('color','white');
+     			   $('#main').css('background','#2A3692');
+  				  }, function() {
+   			     $(this).css('background','white');
+   			  $(this).css('color','black');
+   			  $('#main').css('background','#2A3692');
+  				  });
+
+
 		},
 		error: function(err){
 			console.log("실패");
@@ -300,12 +312,19 @@ $(function(){
 					var teamNumber = tr.children('#teamNumber').val();
 					
 					
-					console.log("클릭한 row의 모든 데이터 : " + td.text());
 					console.log("hidden : " + teamNumber);
 					
 					location.href="/semi/club_info?teamNumber="+teamNumber;
 				})
-				
+				$('#club_info_table tr').hover(function(){
+	     			   $(this).css('background','gray');
+	     			  $(this).css('color','white');
+	     			   $('#main').css('background','#2A3692');
+	  				  }, function() {
+	   			     $(this).css('background','white');
+	   			  $(this).css('color','black');
+	   			  $('#main').css('background','#2A3692');
+	  				  });
 			},
 			error: function(err){
 				console.log("실패");
@@ -376,12 +395,19 @@ $(function(){
 					var teamNumber = tr.children('#teamNumber').val();
 					
 					
-					console.log("클릭한 row의 모든 데이터 : " + td.text());
 					console.log("hidden : " + teamNumber);
 					
 					location.href="/semi/club_info?teamNumber="+teamNumber;
 				})
-				
+				$('#club_info_table tr').hover(function(){
+	     			   $(this).css('background','gray');
+	     			  $(this).css('color','white');
+	     			   $('#main').css('background','#2A3692');
+	  				  }, function() {
+	   			     $(this).css('background','white');
+	   			  $(this).css('color','black');
+	   			  $('#main').css('background','#2A3692');
+	  				  });
 			},
 			error: function(err){
 				console.log("실패");
@@ -442,7 +468,7 @@ $(function(){
 			 <input type="text" id="search_club" class="w3-input w3-border" style="width:250px;" placeholder="구단 명 검색">
 			<table id="club_info_table" class="w3-table">
 				<thead>
-				<tr bgcolor="#2A3692"  class="rank-shadow">
+				<tr bgcolor="#2A3692"  class="rank-shadow" id="main">
 					<th width="100px" height="50px" style="text-align: center;">순위</th>
 					<th width="200px" height="50px" style="text-align: center;">구단</th>
 					<th width="100px" height="50px" style="text-align: center;">경기수</th>

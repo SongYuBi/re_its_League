@@ -52,6 +52,7 @@
 
 .midBottom {
 	grid-area: midBottom;
+	
 }
 
 .footer {
@@ -149,7 +150,7 @@
 	padding: 20px;
 	border: 1px solid #888;
 	width: 40%; /* Could be more or less, depending on screen size */
-	height: 40%;
+	height: 60%;
 }
 /* The Close Button */
 
@@ -161,7 +162,10 @@
 }
 
 .member_list {
-	font-size: 150%;
+	font-size: 140%;
+}
+.member_list_search{
+	font-size: 120%;
 }
 
 .check_box_size {
@@ -189,6 +193,12 @@
  	}
  	#userInfo{
  	float:right;
+ 	}
+ 	
+ 	#member_out{
+ 		position: relative;
+	left: 0%;
+	top: 50%;
  	}
 </style>
 
@@ -374,6 +384,7 @@
 					}
 				
 			});
+				
 				
 				
 			})
@@ -619,21 +630,56 @@
 					<button name="member_management" id="member_management"
 						class="w3-input w3-border" style="width: 100px;">검색</button>
 				</div>
-				<div>
-					<table id="userListTable">
+				<div style="float:left; width:53%; height:380px; overflow:auto;">
+					<table id="searchListTable">
 						<thead>
-
+						
 						</thead>
-						<tbody class="member_list">
+						<tbody class="member_list_search">
 							<!-- 임의 값 넣기 -->
 							
 						</tbody>
 					</table>
 
 				</div>
+				<div style="float:left; width:47%; height:150px; overflow:auto;">
+				<div style="float:right">
+					<table id="userListTable">
+					<caption>구단 선수</caption>
+						<thead>
+						
+						</thead>
+						<tbody class="member_list">
+							<!-- 임의 값 넣기 -->
+							
+						</tbody>
+					</table>
+					</div>
+				</div>
+				<div style="width:47%; height:150px; overflow:auto;">
+				<div>
+					<table id="inviteListTable">
+					<caption>초대한 선수</caption>
+						<thead>
+						
+						</thead>
+						<tbody class="member_list_search">
+							<!-- 임의 값 넣기 -->
+							
+						</tbody>
+					</table>
+					</div>
+				</div>
 				<br> <br>
+			<div>
+				
 				<button class="w3-input w3-border" id="member_out" name="member_out"
 					style="width: 100px; float: right" >방출</button>
+					<button class="w3-input w3-border" id="member_in" name="member_in"
+					style="width: 100px; float: right; margin-right: 20px;" >초대</button>
+				</div>
+				<br><br>
+				
 			</div>
 
 		</div>
@@ -687,7 +733,7 @@
 							
 							var $pfName	= $("<td  style='text-align:center'>").text(value.pfName);
 							var $pfEmail = $("<td style='text-align:center'>").text(value.pfEmail);
-							var $checkbox = $("<input type='checkbox' value="+value.pfName+" id='teamcheck' name='teamcheck'>");
+							var $checkbox = $("<input type='checkbox' value="+value.pfId+" id='teamcheck' name='teamcheck'>");
 						
 							$tr.append($pfEmail);
 							$tr.append($pfName);
@@ -706,6 +752,52 @@
 					}
 				
 			});
+				//초대한 선수 목록 띄우기
+				$.ajax({
+					url:"/semi/invite_member_list?teamNumber="+teamNumber,
+					type:"get",
+					success:function(data){
+						console.log(data);
+						
+						var $inviteListTable = $("#inviteListTable tbody");
+						
+						$inviteListTable.html('');
+						
+						$.each(data,function(index,value){
+							var $tr = $('<tr>');
+							
+							var $pfName	= $("<td  style='text-align:center'>").text(value.pfName);
+							var $pfEmail = $("<td style='text-align:center'>").text(value.pfEmail);
+							var $pfCancle = $("<button style='text-align:center' class='w3-btn w3-round' id='membercancle'>X</button>")
+							var $pfhidden = $("<input type='hidden' id='hiiden_value' value="+value.pfId+">");
+							
+							$tr.append($pfEmail);
+							$tr.append($pfName);
+							$tr.append($pfCancle);
+							$tr.append($pfhidden);
+							
+							$inviteListTable.append($tr);
+						});
+						 $("#inviteListTable tr ").click(function(){
+							console.log("취소버튼 클릭");
+	
+							var tr = $(this);
+							var td = tr.children();
+							var hidden_pfId = tr.children('#hiiden_value').val();
+							
+							console.log("hidden : " + hidden_pfId);
+							
+							if(confirm("초대를 취소하시겠습니까?")){
+								
+							}
+						}) 
+						
+					},
+					error: function(err){
+						console.log("실패");
+					}
+				
+			});
 				
 			/* $("#member_out").click(function(){
 				var checkbox_all_value = "";
@@ -717,7 +809,190 @@
 				});
 				console.log(checkbox_all_value);
 			}); */
+			
+			
+			// 멤버 초대하기
+		 	$("#member_in").click(function(){
+		 		var checkbox_all_value = "";
+		 		$("input[name=member_check]:checked").each(function(){
+					var test = $(this).val();
+					checkbox_all_value += test+"/";
+					
+				}); 
+		 		console.log("체크된 값들 : "+checkbox_all_value);
+		 		
+		 		$.ajax({
+					url:"/semi/club_invite?checkbox_all_value="+checkbox_all_value+"&teamNumber="+teamNumber,
+					type:"get",
+					success:function(data){
+						alert(data);
 				
+						
+						
+	
+					},
+					error: function(err){
+						console.log("실패");
+					}
+				
+			}); 
+		 		
+			});
+			// 멤버 추방하기
+			 $("#member_out").click(function(){
+				 var confirm_ok = confirm("체크한 선수를 추방하시겠습니까?");
+				 if(confirm_ok){
+		 		var checkbox_all_value = "";
+		 		$("input[name=teamcheck]:checked").each(function(){
+					var test = $(this).val();
+					checkbox_all_value += test+"/";
+					
+				}); 
+		 		console.log("체크된 값들 : "+checkbox_all_value);
+		 		
+		 		$.ajax({
+					url:"/semi/member_remvoe?checkbox_all_value="+checkbox_all_value+"&teamNumber="+teamNumber,
+					type:"get",
+					success:function(data){
+						alert(data);
+						
+						
+	
+					},
+					error: function(err){
+						console.log("실패");
+					}
+				
+			}); 
+		 		$.ajax({
+					url:"/semi/club_info_member?teamNumber="+teamNumber,
+					type:"get",
+					success:function(data){
+						console.log(data);
+						
+						var $userListTable = $("#userListTable tbody");
+						
+						$userListTable.html('');
+						
+						$.each(data,function(index,value){
+							var $tr = $('<tr>');
+							
+							var $pfName	= $("<td  style='text-align:center'>").text(value.pfName);
+							var $pfEmail = $("<td style='text-align:center'>").text(value.pfEmail);
+							var $checkbox = $("<input type='checkbox' value="+value.pfId+" id='teamcheck' name='teamcheck'>");
+						
+							$tr.append($pfEmail);
+							$tr.append($pfName);
+							$tr.append($checkbox);
+							
+							
+							$userListTable.append($tr);
+						});
+						
+						
+						
+						
+					},
+					error: function(err){
+						console.log("실패");
+					}
+				
+			});
+		 		
+				var club_member_size = document.getElementById("club_member_size");
+				var club_member = $('#club_member_size');
+				console.log(club_member);
+				var team_count = 0;
+		 		$.ajax({
+					url:"/semi/club_info_member?teamNumber="+teamNumber,
+					type:"get",
+					success:function(data){
+						console.log(data);
+						
+						var $club_info_table_member = $("#club_info_table_member tbody");
+						
+						$club_info_table_member.html('');
+						
+						$.each(data,function(index,value){
+							team_count++;
+							var $tr = $('<tr>');
+							
+							var $pfName	= $("<td  style='text-align:center'>").text(value.pfName);
+							var $prAssist = $("<td style='text-align:center'>").text(value.prAssist);
+							var $prGoal = $("<td style='text-align:center'>").text(value.prGoal);
+						
+							
+							$tr.append($pfName);
+							$tr.append($prAssist);
+							$tr.append($prGoal);
+							
+							
+							$club_info_table_member.append($tr);
+					
+							club_member.attr('html',team_count);
+							$('#club_member_size').text("구단 인원 : "+team_count + " 명");
+						});
+						
+						
+					},
+					error: function(err){
+						console.log("실패");
+					}
+				
+			});
+				 }
+		 		
+			}); 
+			
+			
+			
+			
+			//유저 검색 기능
+			var oldVal;
+				$("#search_member").on("propertychange change keyup paste input", function(){
+					var currentVal = $(this).val();
+					if(currentVal == oldVal){
+						return;
+					}
+					oldVal = currentVal;
+					console.log(oldVal);
+					
+					$.ajax({
+						url:"/semi/club_search_member?oldVal="+oldVal,
+						type:"get",
+						success:function(data){
+							console.log(data);
+							
+							var $searchListTable = $("#searchListTable tbody");
+							
+							$searchListTable.html('');
+							
+							$.each(data,function(index,value){
+								var $tr = $('<tr>');
+								
+								var $pfName	= $("<td  style='text-align:center'>").text(value.pfName);
+								var $pfEmail = $("<td style='text-align:center'>").text(value.pfEmail);
+								var $checkbox = $("<input type='checkbox' value="+value.pfId+" id='member_check' name='member_check'>");
+							
+								$tr.append($pfEmail);
+								$tr.append($pfName);
+								$tr.append($checkbox);
+								
+								
+								$searchListTable.append($tr);
+							});
+							
+							
+							
+							
+						},
+						error: function(err){
+							console.log("실패");
+						}
+					
+				});
+			
+				});
 			})
 			
 				

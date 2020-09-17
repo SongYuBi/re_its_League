@@ -139,6 +139,12 @@ border-bottom:2px solid gray;
  	#userInfo{
  	float:right;
  	}
+ 	
+ #search_club{
+ 	position:relative;
+ 	left:69%;
+ 	top: 40%;
+ }
 </style>
 
 	
@@ -225,7 +231,7 @@ $(function(){
 			var $club_info_league = $("#league");
 	
 			var $target = $("select[name='league']");
-			$target.append("<option value='5001' selected='selected' >리그를 선택해주세요.</option>")
+			$target.append("<option value='SEOUL01' selected='selected' >리그를 선택해주세요.</option>")
 			$(data).each(function(i){
 				$target.append("<option value="+data[i].lgId + ">"+data[i].lgName+"</option>")	
 			});
@@ -239,6 +245,7 @@ $(function(){
 });
 
 $(function(){
+	
 	$('#league').change(function(){
 		var league_id = $("#league option:selected").val();
 		alert(league_id);
@@ -308,7 +315,81 @@ $(function(){
 		
 	})
 	
+	var oldVal;
 	
+	$("#search_club").on("propertychange change keyup paste input", function(){
+		var currentVal = $(this).val();
+		var league_id = $("#league option:selected").val();
+		if(currentVal == oldVal){
+			return;
+		}
+		oldVal = currentVal;
+		console.log(oldVal);
+		
+		$.ajax({
+			url:"/semi/search_club_name?oldVal="+oldVal+"&league_id="+league_id,
+			type:"get",
+			success:function(data){
+				console.log(data);
+				
+				var $club_info_table = $("#club_info_table tbody");
+				
+				$club_info_table.html('');
+				
+				$.each(data,function(index,value){
+					var $tr = $('<tr class="td_100">');
+					
+					var $rankTd	= $("<td  style='text-align:center'>").text(value.rank);
+					var $clubNameTd = $("<td style='text-align:center'>").text(value.clubName);
+					var $roundTd = $("<td style='text-align:center'>").text(value.round);
+					var $winScoreTd = $("<td style='text-align:center'>").text(value.winScore);
+					var $winTd = $("<td style='text-align:center'>").text(value.win);
+					var $drawTd = $("<td style='text-align:center'>").text(value.draw);
+					var $loseTd = $("<td style='text-align:center'>").text(value.lose);
+					var $goalTd = $("<td style='text-align:center'>").text(value.goal);
+					var $loseGoalTd = $("<td style='text-align:center'>").text(value.loseGoal);
+					var $goalResultTd = $("<td style='text-align:center'>").text(value.goalResult);
+					var $hidden = $("<input type='hidden' id='teamNumber' value="+value.teamNumber+">")
+					
+					$tr.append($rankTd);
+					$tr.append($clubNameTd);
+					$tr.append($roundTd);
+					$tr.append($winScoreTd);
+					$tr.append($winTd);
+					$tr.append($drawTd);
+					$tr.append($loseTd);
+					$tr.append($goalTd);
+					$tr.append($loseGoalTd);
+					$tr.append($goalResultTd);
+					$tr.append($hidden);
+					
+					$club_info_table.append($tr);
+					
+					
+				});
+				$("#club_info_table tr").click(function(){
+					console.log("asd");
+					var str = "";
+					
+					var tr = $(this);
+					var td = tr.children();
+					var teamNumber = tr.children('#teamNumber').val();
+					
+					
+					console.log("클릭한 row의 모든 데이터 : " + td.text());
+					console.log("hidden : " + teamNumber);
+					
+					location.href="/semi/club_info?teamNumber="+teamNumber;
+				})
+				
+			},
+			error: function(err){
+				console.log("실패");
+			}
+		
+	}); 
+	
+	})
 
 	
 })
@@ -346,6 +427,7 @@ $(function(){
 		<br><br><br><br>
 	  	<p id="text_header">구단 정보 조회</p>
 	  	<p id="text_header_date">2020.07.31 기준</p>
+	 
 	  	
 	  </div>
 	  <div class="leftCol"></div>
@@ -357,7 +439,7 @@ $(function(){
 			<select name="league" id="league" class="w3-input w3-border" stylel="float:right">
 		
 			</select>
-			
+			 <input type="text" id="search_club" class="w3-input w3-border" style="width:250px;" placeholder="구단 명 검색">
 			<table id="club_info_table" class="w3-table">
 				<thead>
 				<tr bgcolor="#2A3692"  class="rank-shadow">

@@ -31,8 +31,6 @@
 		<div class="table_area">
 			<div class="matchDate"></div>
 				<div>
-					
-				
 					<table class="table table-striped custab">
 						<thead>
 							<tr>
@@ -47,7 +45,7 @@
 							<tr>
 								<td><input type="checkBox" id="referee_check" name="check" value="${ref.refId }"></td>
 								<td><c:out value="${ ref.refName }"></c:out></td>
-								<td><c:out value="${ ref.refAddress}"></c:out></td>
+								<td><c:out value="${ ref.refAddress }"></c:out></td>
 								<td><input type="hidden" id="referee_check" name="pfId" value="${ref.pfId }"></td>
 							</tr>
 						</c:forEach>

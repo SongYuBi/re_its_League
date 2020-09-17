@@ -10,6 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.kh.semi.referee.model.vo.RefereeSchedule_vo;
 import com.kh.semi.referee.model.vo.Referee_vo;
 
 import static com.kh.semi.common.JDBCTemplate.*;
@@ -154,20 +155,26 @@ public class RefereeDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList schList = null;
-		
 		String query = prop.getProperty("selectSchedule");
 		
+		System.out.println(query);
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, pfId);
-			
+		/*	pstmt.setInt(1, pfId);*/
+			schList = new ArrayList<>();
 			rset = pstmt.executeQuery();
-			int i = 1;
 			while(rset.next()) {
-		
-				schList.add(rset.get));
-				System.out.println(i);
-				i++;
+				RefereeSchedule_vo refV = new RefereeSchedule_vo();
+				refV.setMatchDate(rset.getDate("MATCH_DATE"));
+				refV.setfName(rset.getString("FNAME"));
+				refV.setsName(rset.getString("SNAME"));
+				refV.setRefId(rset.getInt("REF_ID"));
+				refV.setMatchId(rset.getInt("MATCH_ID"));
+				refV.setLgName(rset.getString("LG_NAME"));
+				refV.setPfId(rset.getInt("PF_ID"));
+				refV.setStdName(rset.getString("STD_NAME"));
+				schList.add(refV);
+			
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -176,7 +183,6 @@ public class RefereeDao {
 			close(rset);
 			close(pstmt);
 		}
-		System.out.println("schList : " + schList);
 		
  		return schList;
 	}
@@ -290,6 +296,44 @@ public class RefereeDao {
 		}
 		
 		return result;
+	}
+
+	public ArrayList searchScheduleFilter(int pfId, String firstDate, String lastDate, Connection con) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList schList = null;
+		String query = prop.getProperty("selectScheduleFilter");
+		
+		System.out.println(query);
+		try {
+			pstmt = con.prepareStatement(query);
+		/*	pstmt.setInt(1, pfId);*/
+			pstmt.setString(1, firstDate);
+			pstmt.setString(2, lastDate);
+			schList = new ArrayList<>();
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				RefereeSchedule_vo refV = new RefereeSchedule_vo();
+				refV.setMatchDate(rset.getDate("MATCH_DATE"));
+				refV.setfName(rset.getString("FNAME"));
+				refV.setsName(rset.getString("SNAME"));
+				refV.setRefId(rset.getInt("REF_ID"));
+				refV.setMatchId(rset.getInt("MATCH_ID"));
+				refV.setLgName(rset.getString("LG_NAME"));
+				refV.setPfId(rset.getInt("PF_ID"));
+				refV.setStdName(rset.getString("STD_NAME"));
+				schList.add(refV);
+			
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+ 		return schList;
 	}
 
 }

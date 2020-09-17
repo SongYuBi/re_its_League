@@ -133,5 +133,15 @@ public class RefereeService {
 		return result;
 	}
 
+	public ArrayList searchScheduleFilter(int pfId, String firstDate, String lastDate) {
+		// TODO Auto-generated method stub
+		Connection con = getConnection();
+		
+		ArrayList schList = new RefereeDao().searchScheduleFilter(pfId, firstDate, lastDate, con);
+		
+		close(con);
+ 		return schList;
+	}
+
 
 }

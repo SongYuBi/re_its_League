@@ -54,8 +54,7 @@
 						</tbody>
 					</table>
 					<div class="applyBtn">
-						<button type="submit">추가</button>
-						<button type="reset">삭제</button>
+						<button type="submit">삭제</button>
 					</div>
 				</div>
 			</div>

@@ -9,6 +9,6 @@ pageEncoding="UTF-8"/>
 <title>Insert title here</title>
 </head>
 <body>
-
+	<h1 align="center"><c:out value="${ requestScope.message }"></c:out></h1>
 </body>
 </html>

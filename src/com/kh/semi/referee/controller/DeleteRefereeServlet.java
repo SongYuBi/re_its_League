@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.semi.referee.model.service.RefereeService;
+
 /**
  * Servlet implementation class DeleteRefereeServlet
  */
@@ -26,10 +28,24 @@ public class DeleteRefereeServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		String[] refId = request.getParameterValues("check");
+		String[] pfId = request.getParameterValues("pfId");
+		
+		int result_ref = new RefereeService().deleteRef(refId);
+		int result_pf = new RefereeService().pfChangeGrade(pfId);
+		
+		
+		
+		String page="";
+		if(result_ref > 0 && result_pf > 0 ) {
+			page="/selectReferee.rf";
+		} else {
+			page="views/comman/errorPage.jsp";
+		}
+		request.getRequestDispatcher(page).forward(request, response);
 	}
 
+	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

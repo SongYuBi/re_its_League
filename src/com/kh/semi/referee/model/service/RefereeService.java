@@ -89,4 +89,49 @@ public class RefereeService {
 		return list;
 	}
 
+	public int refApplydel(String[] applyRefId) {
+		// TODO Auto-generated method stub
+		Connection con = getConnection();
+	
+		int result = new RefereeDao().refApplydel(applyRefId, con);
+		if(result > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		close(con);
+		return result;
+	}
+
+	public int deleteRef(String[] refId) {
+		// TODO Auto-generated method stub
+		Connection con = getConnection();
+		
+		int result = new RefereeDao().deleteRef(refId, con);
+		
+		if(result > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		close(con);
+		return result;
+	}
+
+	public int pfChangeGrade(String[] pfId) {
+		// TODO Auto-generated method stub
+		Connection con = getConnection();
+		
+		int result = new RefereeDao().pfChangeGrade(pfId, con);
+		
+		if(result > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		close(con);
+		return result;
+	}
+
+
 }

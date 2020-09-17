@@ -16,24 +16,24 @@
 </head>
 <body>
 	<div class="wrapper">
-		<div class="header">로고</div>
+		<div class="header">${ sessionScope.loginUser.pfName }</div>
 		<div class="leftCol"></div>
 		<div class	="rightCol"></div>
 		<div class="midTop">
 		<form id="joinForm" action="${ applicationScope.contextPath }/insertReferee.pf" method="post">
 			<div class="referee_div">
-				<p class="referee_p">이름 : <br><input type="text" name="refName">
+				<p class="referee_p"><br>이름 : <input type="text" id="" name="refName" value="${ sessionScope.loginUser.pfName }">
 					<input type="hidden" name="pfId" value=${ sessionScope.loginUser.pfId }>
 				</p>
 			</div>
 			<div class="referee_div">
-				<p class="referee_p">주소 : <br><input type="text" name="refAdd"></p>
+				<p class="referee_p">주소 : <br><input type="text" name="refAdd" value="${ sessionScope.loginUser.pfAddress }"></p>
 			</div>
 			<div class="referee_div">
-				<p class="referee_p">연락처 : <br><input type="text" name="refPhone"></p>
+				<p class="referee_p">연락처 : <br><input type="text" name="refPhone" value="${ sessionScope.loginUser.pfPhone }"></p>
 			</div>
 			<div class="referee_div">
-				<p class="referee_p">주민등록번호 : <br><input type="text" name="refNumber"></p>
+				<p class="referee_p">주민등록번호 : <br><input type="text" name="refNumber" value="${ sessionScope.loginUser.pfNumber }"></p>
 			</div>
 			<div class="referee_div">
 				<p class="referee_p">현재 직업 : <br><input type="text" name="refJob"></p>
@@ -86,8 +86,65 @@
 		};
 		
 		function insert_ref() {
-			$("#joinForm").submit();
+			
+			var name = $('input[name=refName]').val();
+			var address = $('input[name=refAdd]').val();
+			var phone = $('input[name=refPhone]').val();
+			var number = $('input[name=refNumber]').val();
+			var job = $('input[name=refJob]').val();
+			var account = $('input[name=refAccount]').val();
+			var license = $('select[name=refLicense]').val();
+			var getLicense = $('input[name=refGetLicense]').val();
+			var endLicense = $('input[name=refEndLicense]').val();
+			var rating = $('select[name=refRating]').val();
+			
+			var check = "true";
+			
+			if(name == "") {
+				alert("이름을 입력해주세요");
+				check ="false";
+			}
+			
+			if(address == "") {
+				alert("주소를 입력해주세요");
+				check ="false";
+			}
+			
+			if(phone == "") {
+				alert("전화번호를 입력해주세요");
+				check ="false";
+			} 
+			
+			if(number == "") {
+				alert("주민등록번호를 입력해주세요");
+				check ="false";
+			} 
+			
+			if(job == "") {
+				alert("직업을 입력해주세요");
+				check ="false";
+			} 
+			
+			if(account == "") {
+				alert("계좌번호를 입력해주세요");
+				check ="false";
+			} 
+			if(getLicense == "") {
+				alert("자격증 취득일을 입력해주세요");
+				check ="false";
+			} 
+			if(endLicense == "") {
+				alert("자격증 만료일 입력해주세요");
+				check ="false";
+			}
+					
+			if(check == "true") {			
+				$("#joinForm").submit();
+			} 
+				
 		};
+		
+		
 	</script>
 </body>
 </html>

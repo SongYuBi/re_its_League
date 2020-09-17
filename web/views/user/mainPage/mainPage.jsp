@@ -584,6 +584,18 @@ td {
    		
    	}
    </script>
+   <script>
+   		function updateMember(){
+   			
+   			location.href = "${applicationScope.contextPath}/selectInfo.myPage";
+   		}
+   </script>
+   
 
 </body>
 </html>
+
+
+
+
+

@@ -201,4 +201,71 @@ public class UserDao {
 		return result;
 	}
 
+	public Profile_vo selectMyPage(Connection con, int writer) {
+
+		PreparedStatement pstmt = null;
+		ResultSet rset= null;
+		Profile_vo pv = null;
+		
+		String sql = prop.getProperty("selectMyPage");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, writer);
+			
+			rset = pstmt.executeQuery();
+			
+			
+			//IF문을 써줘야하지 
+			//한행이여서 
+			//담을 행이 많을때는 while
+			if(rset.next()) {
+				//마이페이지 야스
+				//아니요 행나옴 뭐
+				//예는 한사람의 정보 그거를 담을라면 객체를 써야함 
+				//ResultSet에 컬럼으로 rset.get해서 꺼내서 vo에 담는거다 
+				pv = new Profile_vo();
+				
+				pv.setPfId(rset.getInt("PF_ID"));
+				pv.setPfPwd(rset.getString("PF_PWD"));
+				pv.setPfNumber(rset.getString("PF_NUMBER"));
+				pv.setPfName(rset.getString("PF_NAME"));
+				pv.setPfDate(rset.getDate("PF_DATE"));
+				pv.setPfEmail(rset.getString("PF_EMAIL"));
+				pv.setPfPhone(rset.getString("PF_PHONE"));
+				pv.setPfAddress(rset.getString("PF_ADDRESS"));
+				pv.setPfGender(rset.getString("PF_GENDER"));
+				pv.setPfGrade(rset.getString("PF_GRADE"));
+				pv.setPfModifyDate(rset.getDate("PF_MODIFY_DATE"));
+				
+				
+				//한행이여서 add이런 거 없음 
+				//딱하나 조회해서 객체에 담겨서 보내느거 
+				
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+			
+		}
+		
+		return pv;
+		
+		
+	}
+
 }
+
+
+
+
+
+
+
+
+

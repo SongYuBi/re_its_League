@@ -81,4 +81,16 @@ public class UserService {
 		return result;
 	}
 
+	public Profile_vo selectMyPage(int writer) {
+
+		Connection con = getConnection();
+		
+		Profile_vo pv = dao.selectMyPage(con, writer);
+		
+		close(con);
+		
+		return pv;
+		
+	}
+
 }

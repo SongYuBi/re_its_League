@@ -1,7 +1,7 @@
-    <jsp:directive.page language="java" contentType="text/html; charset=UTF-8"
+<jsp:directive.page language="java" contentType="text/html; charset=UTF-8"
     	pageEncoding="UTF-8"/>
     
-    <%@  taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@  taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     
 <!DOCTYPE html>
 <html>
@@ -14,12 +14,14 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <title>Insert title here</title>
 <style>
+
 	.outer{
 	width: 800px;
 	height:500px;
 	margin-top:20px;
 	margin-left:auto;
 	margin-right:auto;
+	
 	}
 	#btn{
 		width:80px;
@@ -30,6 +32,7 @@
 		margin-right:30px;
 		text-align:center;
 		font-weight:medium;
+		
 	}
 	.table-head{
 		background:#111B39;
@@ -42,6 +45,7 @@
 	table{
 		width:700px;
 		height:30px;
+		
 	}
 	#listArea{
 		width:100%;
@@ -52,6 +56,7 @@
 	#listArea td, #listArea th{
 		border-bottom:1px solid #ddd;
 		 padding: 8px;
+		 
 	}
 	#listArea th{
 		padding-top: 12px;
@@ -59,9 +64,11 @@
 		text-align:left;
 		backgound-color:111B39;
 		color:white;
+		
 	}
 	.button{
 		text-align:right;
+		
 	}
 	
 </style>
@@ -81,14 +88,15 @@
 		
 		<br>
 			<div class="buttonboxes" align="center">
-	  	 			<button name="qnaCate" id="qnaCate1" type="button" class="btn btn-secondary" value="Q1" style="text-align:center">매치취소</button>
-	  	 			<button name="qnaCate" id="qnaCate2" type="button" class="btn btn-secondary" value="Q2">매치진행</button>
-	  	 			<button name="qnaCate" id="qnaCate3" type="button" class="btn btn-secondary" value="Q3">서비스</button>
-	  	 			<button name="qnaCate" id="qnaCate4" type="button" class="btn btn-secondary" value="Q4">매칭신청</button>
-	  	 			<button name="qnaCate" id="qnaCate5" type="button" class="btn btn-secondary" value="Q5">구장관련</button>
+	  	 			<button name="qnaCate" id="qnaCate" type="button" class="btn btn-secondary" value="Q1" style="text-align:center">매치취소</button>
+	  	 			<button name="qnaCate" id="qnaCate" type="button" class="btn btn-secondary" value="Q2">매치진행</button>
+	  	 			<button name="qnaCate" id="qnaCate" type="button" class="btn btn-secondary" value="Q3">서비스</button>
+	  	 			<button name="qnaCate" id="qnaCate" type="button" class="btn btn-secondary" value="Q4">매칭신청</button>
+	  	 			<button name="qnaCate" id="qnaCate" type="button" class="btn btn-secondary" value="Q5">구장관련</button>
 	  	 		</div>
 	  	 		<br>
 	  	 		
+	  	 	<!-- table의 id값은 listArea -->
 			<table align="center" id="listArea">
 			
 			<thead>
@@ -99,18 +107,6 @@
 					<th width="100px">작성일</th>
 				</tr>
 				</thead>
-			 <%-- 
-				 <c:forEach var="q" items="${ requestScope.list }">
-					<tr>
-						<!--  -->
-						<td><c:out value="${ q.bNo }"/></td>
-						<td><c:out value="${ q.bTitle }"/></td>
-						<td><c:out value="${ q.bCount }"/></td>
-						<td><c:out value="${ q.bDate }"/></td>
-					</tr>
-				</c:forEach> 
-			 --%>
-			 
 				<tbody>
 				</tbody>
 				</table>
@@ -125,34 +121,42 @@
 	
 	 <script>
 	 	
-	 	
+	 	//이거는 jquery 버튼 onclick 함수호출해서 이어지게 하는거 	
 	 	function writingForm(){
 	 		
+	 		//페이지이동~
 	 		location.href = "${applicationScope.contextPath}/views/user/qna/writingForm.jsp";
+	 		
 	 	};
 	 	
-	 
 	 	
+	 	
+	 	//이 버튼을 눌렀을때 
 	 	$(".btn").click(function(){
 	 		console.log($(this).val());	
-	 		
 
+	 		//선택되는 행의 값을 가져온거를 qnaCate라는 변수에 넣어줌 
  			var qnaCate = $(this).val();
  			
- 
  			$.ajax({
+ 				//절대경로로 설정을 함 
  				url:"/semi/qnaCate",
- 				//변수명으로 들어가서 	키값	
+ 				//변수명으로 넣어 키값을 가져옴 	
  				data:{ qnaCate:qnaCate },
+ 				
  				type:"get",
+ 				
  				success: function(data){
  					
  					console.log(data);
  					
+ 					
  					//success data는 나중에 서블릿애서 조회한후에 값은json을 넘기고 view뿌려줌
+ 					//이거는 값을 뿌려주는거여서 tobody를 이용해 담는거 , 영역설정
  					var $tableBody = $("#listArea tbody");
  					
- 					$tableBody.html('');
+ 					//이게 누적되는거를 막아줌 
+ 					 $tableBody.html(''); 
  				 	
  					$.each(data, function(index, value){
  						
@@ -161,56 +165,65 @@
  						var $bTitle = $("<td>").text(value.bTitle);
  						var $bCount = $("<td>").text(value.bCount);
  						var $bDate = $("<td>").text(value.bDate);
+ 						//??
+ 						//아ㄷ이디값을 ㅈ써줘야한다 와따 어려워 
+ 						//value값을 넣어주기위해 그리고 숨기기	
+ 						var $hidden = $("<input type='hidden' id='qnaBno' value="+value.bNo+">");
  						
  						$tr.append($bno);
  						$tr.append($bTitle);
  						$tr.append($bCount);
  						$tr.append($bDate);
+ 						$tr.append($hidden);
  						
  						$tableBody.append($tr);
  						
- 						
  					});
- 			
- 					
- 					 
- 					
- 					
+ 					//아약스롤통해서 불러와서 써지는거 
+ 					//움...ㅅ대상이없어 , 
+ 					//뭐
+ 					$("#listArea tr").click(function(){
+ 			 			console.log("dfsdfsd");
+ 			 			
+ 			 			var tr = $(this);
+ 			 			var button = tr.children("#qnaBno").val();
+ 			 			
+ 			 			console.log(button);
+ 			 			
+ 			 			//이거를 눌렀을때 location을 줘야함
+ 			 			location.href = "/semi/selectOne.qna?button="+button;
+ 			 			
+ 			 		});
  					
  				},
  				error:function(err){
  					console.log("떙");
  					
- 					
  				}
  				
  			});
- 			
  
 	 	});
-	 	
-	 	$(function(){
-	 		$("#listArea tr").mouseenter(function(){
-	 			$(this).parent().css({"background":"darkgrey","cursor":"pointer"});	
-	 		}).mouseout(function(){
-	 			$(this).parent().css({"background":"white"});
-	 		}).click(function(){
-	 			var num = $(this).parent().children().eq(0).text();
-	 			console.log(num);
+	 		
+	 		$(function(){
 	 			
-	 			//상세정보를 하기위해서 모든 행의 정보를 조회할 것
-	 			//각각행의 식별은 PK 글번호 -> Server에 전달
-	 			//url이용해서 쿼리스트링을 만들어서 전송 
+	 			$("#listArea tr").click(function(){
+		 			console.log("dfsdfsd");
+		 			
+		 			var tr = $(this);
+		 			var button = tr.children("#qnaBno").val();
+		 			
+		 			console.log(button);
+		 			
+		 			
+		 		});
 	 			
-	 			//url을 만들어서 요청
-	 			//get방식적합 /SelectOne.no서블릿을 요청하면소 
-	 			location.href = "${applicationScope.contextPath}/selectOne.qna?bno="+bno;
-	 		//리스트에 보여진 게시물을 클릭했을때 url에 숫자가 나오면은 전송되는거를 확인/*  */
 	 			
 	 		});
-	 	});
-	 </script>
+	 		
 	 
+	 	
+	 </script>
 	 
 </body>
 </html>

@@ -91,16 +91,16 @@ public class BoardDao {
            while(rset.next()) {
               Board_vo b = new Board_vo();
               
-              b.setBid(rset.getInt(1));
-              b.setbType(rset.getInt(2));
-              b.setbNo(rset.getInt(3));
-              b.setPfName(rset.getString(4));
-              b.setbTitle(rset.getString(5));
-              b.setbContent(rset.getString(6));
-              b.setbCount(rset.getInt(7));
-              b.setbDate(rset.getDate(8));
-              b.setModifyDate(rset.getDate(9));
-              b.setbStatus(rset.getString(10));
+              b.setBid(rset.getInt(2));
+              b.setbType(rset.getInt(3));
+              b.setbNo(rset.getInt(4));
+              b.setPfName(rset.getString(5));
+              b.setbTitle(rset.getString(6));
+              b.setbContent(rset.getString(7));
+              b.setbCount(rset.getInt(8));
+              b.setbDate(rset.getDate(9));
+              b.setModifyDate(rset.getDate(10));
+              b.setbStatus(rset.getString(11));
               
               list.add(b);
            }
@@ -461,6 +461,32 @@ public class BoardDao {
 		return qnaList;
 	}
 	
+	
+	//민경
+		public int updateCountMK(Connection con, int num) {
+
+			PreparedStatement pstmt = null;
+			int result = 0;
+			
+			String query = prop.getProperty("updateCountMK");
+			
+			try {
+				pstmt = con.prepareStatement(query);
+				
+				pstmt.setInt(1, num);
+				pstmt.setInt(2, num);
+				
+				result = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+				
+			}
+			System.out.println("Result=" + result);
+			return result;
+		}
 	//민경 자유게시판 상세보기
 	   public Board_vo selectOne(Connection con, int num) {
 	         PreparedStatement pstmt = null;
@@ -589,6 +615,67 @@ public class BoardDao {
 	 			
 	 			
 	 		}
+			public int insertReply(Connection con, Board_vo reply) {
+				PreparedStatement pstmt = null;
+			      int result = 0;
+			      
+			      String query= prop.getProperty("insertReply");
+			      
+			      try {
+			         pstmt = con.prepareStatement(query);
+			         pstmt.setString(2, reply.getbContent());
+			         pstmt.setString(1, reply.getPfName());
+			         pstmt.setInt(3, reply.getRefBid());
+			         result = pstmt.executeUpdate();
+			         
+			      } catch (SQLException e) {
+			         // TODO Auto-generated catch block
+			         e.printStackTrace();
+			      }finally {
+			         close(pstmt);
+			      }
+			      
+			      
+			      return result;
+
+			}
+			public ArrayList<Board_vo> selectReplyList(Connection con, int refBid) {
+				  PreparedStatement pstmt = null;
+			      ResultSet rset = null;
+			      ArrayList<Board_vo> list = null;
+			      
+			      String query = prop.getProperty("selectReplyList");
+			      
+			      try {
+			         pstmt = con.prepareStatement(query);
+			         pstmt.setInt(1, refBid);
+			         
+			         rset = pstmt.executeQuery();
+			         
+			         list = new ArrayList<Board_vo>();
+			         while(rset.next()) {
+			            Board_vo b = new Board_vo();
+			            b.setBid(rset.getInt("BID"));
+			            b.setbContent(rset.getString("BCONTENT"));
+			            b.setPfName(rset.getString("PF_NAME"));
+			            b.setRefBid(rset.getInt("REF_BID"));
+			            b.setReplyLevel(rset.getInt("REPLY_LEVEL"));
+			            b.setbDate(rset.getDate("BDATE"));
+			            
+			            list.add(b);
+			         }
+			      
+			      } catch (SQLException e) {
+			         e.printStackTrace();
+			      } finally {
+			         close(pstmt);
+			         close(rset);
+			      }
+			      
+			      return list;
+
+			}
+			
 
 
 

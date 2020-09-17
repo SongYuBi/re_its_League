@@ -166,7 +166,7 @@ public class BoardService {
       Connection con = getConnection();
         
         BoardDao bd = new BoardDao();
-        int result = bd.updateCount(con, num);
+        int result = bd.updateCountMK(con, num);
         
         Board_vo board = null;
         if(result > 0) {
@@ -214,6 +214,30 @@ public class BoardService {
 				
 				return list;
 			}
+	public ArrayList<Board_vo> insertReply(Board_vo reply) {
+ Connection con = getConnection();
+         
+         BoardDao bd = new BoardDao();
+         
+         int result = bd.insertReply(con, reply);
+         
+         ArrayList<Board_vo> replyList = null;
+         if(result > 0) {
+            replyList = bd.selectReplyList(con, reply.getRefBid());
+            if(replyList != null) {
+               commit(con);
+            } else {
+               rollback(con);
+            }
+         } else {
+            rollback(con);
+         }
+         
+         close(con);
+         
+         return replyList;
+
+	}
 
 
 }

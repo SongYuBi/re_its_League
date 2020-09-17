@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.semi.board.model.service.BoardService;
 import com.kh.semi.board.model.vo.Board_vo;
 import com.kh.semi.board.model.vo.Qna_vo;
@@ -40,17 +41,16 @@ public class QnaCateServlet extends HttpServlet {
 //			String qnaCate4 = request.getParameter("qnaCate4");
 			String qnaCate = request.getParameter("qnaCate");
 			
+			System.out.println("나오십니꾜 : " + qnaCate);
+			
+			
 			//name속성만 가져오는데 ....
 			ArrayList<Board_vo> list= new BoardService().qnaCate(qnaCate);
 			//내가 뭘 조회해야하는지 , 뭘 뿌려줘야하느지 ..> 다 담을수 있는 쪽으로 
 			
-			String path = "";
-			
-			if(list != null) {
-				System.out.println("성공");
-			}else {
-				System.out.println("실패!");
-			}
+			System.out.println("뽑아보십꾜	 : " + list);
+			response.setContentType("application/json; charset=UTF-8"); 
+			new Gson().toJson(list, response.getWriter());
 			
 			
 			}

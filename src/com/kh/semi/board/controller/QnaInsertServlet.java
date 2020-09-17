@@ -39,12 +39,15 @@ public class QnaInsertServlet extends HttpServlet {
 		//board 
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
+//		String cateType = request.getParameter("cateType");
+		
 		//int bWriter = ((Profile_vo) request.getSession().getAttribute("loginUser")).getPfId();
 		int bWriter = 113;
 		Board_vo board = new Board_vo();
 		board.setbTitle(title);
 		board.setbContent(content);
 		board.setPfId(bWriter);
+	
 		
 		
 		//내가 이미 넣었어 
@@ -57,8 +60,8 @@ public class QnaInsertServlet extends HttpServlet {
 	
 		//qna
 		String category = request.getParameter("category");
-	
-		
+		System.out.println("category value 값 : " + category);
+		qna.setCateType(category);
 		
 		Map<String, Object> requestData = new HashMap<String , Object>();
 		
@@ -72,6 +75,8 @@ public class QnaInsertServlet extends HttpServlet {
  		String path ="";
  		
  		if(result > 0) {
+ 			
+ 			
  			path = "SelectBoardListServlet";
  			response.sendRedirect(path);
  			

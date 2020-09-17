@@ -88,7 +88,6 @@
 					<tr>
 						<td>
 							<select name="category">
-								
 								<option value="Q1">매치취소</option>
 								<option value="Q2">매치진행</option>
 								<option value="Q3">서비스</option>

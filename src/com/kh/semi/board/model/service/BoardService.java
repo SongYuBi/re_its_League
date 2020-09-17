@@ -201,9 +201,10 @@ public class BoardService {
 		
 		return result;
 	}
-	
+  
 	//재서버튼 5개 ajax	
-			public ArrayList<Board_vo> qnaCate(String qnaCate) {
+	public ArrayList<Board_vo> qnaCate(String qnaCate) {
+
 
 				Connection con = getConnection();
 				
@@ -213,6 +214,7 @@ public class BoardService {
 				
 				return list;
 			}
+
 
 }
 

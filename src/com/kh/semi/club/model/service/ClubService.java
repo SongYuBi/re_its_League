@@ -163,6 +163,17 @@ public class ClubService {
 		return inviteMemberList;
 	}
 
+	public int removeinvite(String hidden_pfId, String teamNumber) {
+		Connection con= getConnection();
+		ArrayList result_list = new ArrayList();
+		
+		int result = dao.removeInviteMember(con,hidden_pfId,teamNumber);
+		
+		close(con);
+		
+		return result;
+	}
+
 	
 
 }

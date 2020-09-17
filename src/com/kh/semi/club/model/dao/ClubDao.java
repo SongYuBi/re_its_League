@@ -382,7 +382,7 @@ public class ClubDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList inviteMemberList = new ArrayList();
-		
+	
 		String sql = prop.getProperty("inviteMemberList");
 		
 		try {
@@ -405,6 +405,33 @@ public class ClubDao {
 			close(rs);
 		}
 		return inviteMemberList;
+	}
+
+
+	public int removeInviteMember(Connection con,String hidden_pfId, String teamNumber) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int all_result = 0;
+		int result = 0;
+		String sql = prop.getProperty("removeInviteMember");
+		
+			try {
+				
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1,Integer.parseInt(hidden_pfId));
+				pstmt.setInt(2, Integer.parseInt(teamNumber));
+				result =pstmt.executeUpdate();
+				all_result ++;
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+		close(rs);
+		close(pstmt);
+		
+		
+		return all_result;
 	}
 
 

@@ -111,6 +111,10 @@ public class EmailCertificationServlet extends HttpServlet {
 
 		} catch (Exception e) {
 			e.printStackTrace();// TODO: handle exception
+			
+			String msg = "이메일 주소를 정확하게 입력해주세요";
+			response.setContentType("application/json; charset=UTF-8");
+			new Gson().toJson(msg,response.getWriter());
 		}
 		HttpSession saveKey = request.getSession();
 		saveKey.setAttribute("AuthenticationKey", AuthenticationKey);

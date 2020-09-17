@@ -150,7 +150,7 @@
 	padding: 20px;
 	border: 1px solid #888;
 	width: 40%; /* Could be more or less, depending on screen size */
-	height: 60%;
+	height: 55%;
 }
 /* The Close Button */
 
@@ -162,10 +162,10 @@
 }
 
 .member_list {
-	font-size: 140%;
+	font-size: 120%;
 }
 .member_list_search{
-	font-size: 120%;
+	font-size: 100%;
 }
 
 .check_box_size {
@@ -626,10 +626,7 @@
 					<input type="text" id="search_member" name="search_member"
 						class="w3-input w3-border" style="width: 400px;">
 				</div>
-				<div style="float: right;">
-					<button name="member_management" id="member_management"
-						class="w3-input w3-border" style="width: 100px;">검색</button>
-				</div>
+				
 				<div style="float:left; width:53%; height:380px; overflow:auto;">
 					<table id="searchListTable">
 						<thead>
@@ -778,6 +775,7 @@
 							
 							$inviteListTable.append($tr);
 						});
+						
 						 $("#inviteListTable tr ").click(function(){
 							console.log("취소버튼 클릭");
 	
@@ -788,7 +786,131 @@
 							console.log("hidden : " + hidden_pfId);
 							
 							if(confirm("초대를 취소하시겠습니까?")){
+								$.ajax({
+									url:"/semi/clubinviteremove?hidden_pfId="+hidden_pfId+"&teamNumber="+teamNumber,
+									type:"get",
+									success:function(data){
+										alert(data);
+
+										$.ajax({
+											url:"/semi/invite_member_list?teamNumber="+teamNumber,
+											type:"get",
+											success:function(data){
+												console.log(data);
+												
+												var $inviteListTable = $("#inviteListTable tbody");
+												
+												$inviteListTable.html('');
+												
+												$.each(data,function(index,value){
+													var $tr = $('<tr>');
+													
+													var $pfName	= $("<td  style='text-align:center'>").text(value.pfName);
+													var $pfEmail = $("<td style='text-align:center'>").text(value.pfEmail);
+													var $pfCancle = $("<button style='text-align:center' class='w3-btn w3-round' id='membercancle'>X</button>")
+													var $pfhidden = $("<input type='hidden' id='hiiden_value' value="+value.pfId+">");
+													
+													$tr.append($pfEmail);
+													$tr.append($pfName);
+													$tr.append($pfCancle);
+													$tr.append($pfhidden);
+													
+													$inviteListTable.append($tr);
+												});
+												
+												 $("#inviteListTable tr ").click(function(){
+													console.log("취소버튼 클릭");
+							
+													var tr = $(this);
+													var td = tr.children();
+													var hidden_pfId = tr.children('#hiiden_value').val();
+													
+													console.log("hidden : " + hidden_pfId);
+													
+													if(confirm("초대를 취소하시겠습니까?")){
+														$.ajax({
+															url:"/semi/clubinviteremove?hidden_pfId="+hidden_pfId+"&teamNumber="+teamNumber,
+															type:"get",
+															success:function(data){
+																alert(data);
+																$.ajax({
+																	url:"/semi/invite_member_list?teamNumber="+teamNumber,
+																	type:"get",
+																	success:function(data){
+																		console.log(data);
+																		
+																		var $inviteListTable = $("#inviteListTable tbody");
+																		
+																		$inviteListTable.html('');
+																		
+																		$.each(data,function(index,value){
+																			var $tr = $('<tr>');
+																			
+																			var $pfName	= $("<td  style='text-align:center'>").text(value.pfName);
+																			var $pfEmail = $("<td style='text-align:center'>").text(value.pfEmail);
+																			var $pfCancle = $("<button style='text-align:center' class='w3-btn w3-round' id='membercancle'>X</button>")
+																			var $pfhidden = $("<input type='hidden' id='hiiden_value' value="+value.pfId+">");
+																			
+																			$tr.append($pfEmail);
+																			$tr.append($pfName);
+																			$tr.append($pfCancle);
+																			$tr.append($pfhidden);
+																			
+																			$inviteListTable.append($tr);
+																		});
+																		
+																		 $("#inviteListTable tr ").click(function(){
+																			console.log("취소버튼 클릭");
+													
+																			var tr = $(this);
+																			var td = tr.children();
+																			var hidden_pfId = tr.children('#hiiden_value').val();
+																			
+																			console.log("hidden : " + hidden_pfId);
+																			
+																			if(confirm("초대를 취소하시겠습니까?")){
+																				$.ajax({
+																					url:"/semi/clubinviteremove?hidden_pfId="+hidden_pfId+"&teamNumber="+teamNumber,
+																					type:"get",
+																					success:function(data){
+																						alert(data);
+																						location.reload();
+																					},
+																					error: function(err){
+																						console.log("실패");
+																					}
+																				
+																			}); 
+																			}
+																		}) 
+																		
+																	},
+																	error: function(err){
+																		console.log("실패");
+																	}
+																
+															});
+															},
+															error: function(err){
+																console.log("실패");
+															}
+														
+													}); 
+													}
+												}) 
+												
+											},
+											error: function(err){
+												console.log("실패");
+											}
+										
+									});
+									},
+									error: function(err){
+										console.log("실패");
+									}
 								
+							}); 
 							}
 						}) 
 						
@@ -826,11 +948,121 @@
 					type:"get",
 					success:function(data){
 						alert(data);
-				
 						
+						$.ajax({
+							url:"/semi/invite_member_list?teamNumber="+teamNumber,
+							type:"get",
+							success:function(data){
+								console.log(data);
+								
+								var $inviteListTable = $("#inviteListTable tbody");
+								
+								$inviteListTable.html('');
+								
+								$.each(data,function(index,value){
+									var $tr = $('<tr>');
+									
+									var $pfName	= $("<td  style='text-align:center'>").text(value.pfName);
+									var $pfEmail = $("<td style='text-align:center'>").text(value.pfEmail);
+									var $pfCancle = $("<button style='text-align:center' class='w3-btn w3-round' id='membercancle'>X</button>")
+									var $pfhidden = $("<input type='hidden' id='hiiden_value' value="+value.pfId+">");
+									
+									$tr.append($pfEmail);
+									$tr.append($pfName);
+									$tr.append($pfCancle);
+									$tr.append($pfhidden);
+									
+									$inviteListTable.append($tr);
+								});
+								$("#inviteListTable tr ").click(function(){
+									console.log("취소버튼 클릭");
+			
+									var tr = $(this);
+									var td = tr.children();
+									var hidden_pfId = tr.children('#hiiden_value').val();
+									
+									console.log("hidden : " + hidden_pfId);
+									
+									if(confirm("초대를 취소하시겠습니까?")){
+										$.ajax({
+											url:"/semi/clubinviteremove?hidden_pfId="+hidden_pfId+"&teamNumber="+teamNumber,
+											type:"get",
+											success:function(data){
+												alert(data);
+												$.ajax({
+													url:"/semi/invite_member_list?teamNumber="+teamNumber,
+													type:"get",
+													success:function(data){
+														console.log(data);
+														
+														var $inviteListTable = $("#inviteListTable tbody");
+														
+														$inviteListTable.html('');
+														
+														$.each(data,function(index,value){
+															var $tr = $('<tr>');
+															
+															var $pfName	= $("<td  style='text-align:center'>").text(value.pfName);
+															var $pfEmail = $("<td style='text-align:center'>").text(value.pfEmail);
+															var $pfCancle = $("<button style='text-align:center' class='w3-btn w3-round' id='membercancle'>X</button>")
+															var $pfhidden = $("<input type='hidden' id='hiiden_value' value="+value.pfId+">");
+															
+															$tr.append($pfEmail);
+															$tr.append($pfName);
+															$tr.append($pfCancle);
+															$tr.append($pfhidden);
+															
+															$inviteListTable.append($tr);
+														});
+														
+														 $("#inviteListTable tr ").click(function(){
+															console.log("취소버튼 클릭");
+									
+															var tr = $(this);
+															var td = tr.children();
+															var hidden_pfId = tr.children('#hiiden_value').val();
+															
+															console.log("hidden : " + hidden_pfId);
+															
+															if(confirm("초대를 취소하시겠습니까?")){
+																$.ajax({
+																	url:"/semi/clubinviteremove?hidden_pfId="+hidden_pfId+"&teamNumber="+teamNumber,
+																	type:"get",
+																	success:function(data){
+																		alert(data);
+																		location.reload();
+																	},
+																	error: function(err){
+																		console.log("실패");
+																	}
+																
+															}); 
+															}
+														}) 
+														
+													},
+													error: function(err){
+														console.log("실패");
+													}
+												
+											});
+											},
+											error: function(err){
+												console.log("실패");
+											}
+										
+									}); 
+									}
+								}) 
+								
+							},
+							error: function(err){
+								console.log("실패");
+							}
 						
-	
+					});
 					},
+					
 					error: function(err){
 						console.log("실패");
 					}

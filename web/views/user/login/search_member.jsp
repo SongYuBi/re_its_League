@@ -70,7 +70,7 @@ pageEncoding="UTF-8"/>
   
  .footer{
    grid-area: footer;
-   background-color: lightgreen;
+  
  }
  #password_search{
  	width:400px;
@@ -110,7 +110,8 @@ function validate() {
     var password_re = document.getElementById("password_re");
     var email = document.getElementById("Email");
     var name = document.getElementById("name");
-  
+    var  certification_number = document.getElementById("certification_number");
+    var certification = document.getElementById("certification");
     var Jumin_1 = document.getElementById("Jumin_1");
     var Jumin_2 = document.getElementById("Jumin_2");
     
@@ -159,7 +160,18 @@ function validate() {
         Jumin_2.focus();
         return false;
     }
-	
+	 if((certification.value=="false")){
+	    	alert("이메일 인증을 실시해주세요");
+	    	email_check.focus();
+	    	return false;
+	    }
+	    
+	    
+	    if((certification_number.value=="")){
+	    	alert("인증번호를 입력하세요.");
+	    	certification_number.focus();
+	    	return false;
+	    }
 	
     
 
@@ -188,7 +200,7 @@ function validate() {
     </div>
 </c:if>
 
-<form name="searchPassword" action="<%= request.getContextPath() %>/search_password.me" method="post" onsubmit="return validate();">
+
 	<jsp:include page="${ application.getContextPath() }/views/common/sideBar.jsp"></jsp:include>
 	
 	<div class="wrapper">
@@ -197,7 +209,26 @@ function validate() {
 	  <div class="rightCol">이런곳에 수정ㅎ면되</div>
 	  <div class="midTop"><h2>비밀 번호 변경</h2>
 	  <div id="div_1">
-
+	  
+<label style="float:left;">이메일 인증</label><br><br>
+<div style="float:left;">
+<input type="Email" id='Email' name="email_check" class="w3-input w3-border">
+</div >
+<div>
+<button class="w3-btn w3-red" id="check" onclick="email_certification();">인증번호 받기</button><br><input type="hidden" value="false" id="email_check">
+</div>
+<br>
+<div style="float:left;">
+<label style="float:left;">인증번호 확인</label><br><br>
+<input type="hidden" value="false" id="email_check_btn">
+	<input type="hidden" value="" id="email_certification_result">
+	<input type="hidden" value="false" id="certification">
+<input type="text" id="certification_number" class="w3-input w3-border" style="width:250px;"></div>
+<div><br><br>
+<button class="w3-btn w3-red" id="check" style="width: 125px;" onclick="email_certification_result();">확인</button><br>
+</div>
+<form name="searchPassword" action="<%= request.getContextPath() %>/search_password.me" method="post" onsubmit="return validate();">
+<br>
 <label style="float:left;">이름</label>
 <input type="text" id="name" name="name" class="w3-input w3-border w3-border-black" maxlength="20">
 <br>
@@ -216,18 +247,12 @@ function validate() {
 </div>
 <br><br><br>
 
-<label style="float:left;">이메일 인증</label><br><br>
-<div style="float:left;">
-<input type="Email" id='Email' name="email_check" class="w3-input w3-border">
-</div >
-<div>
-<button class="w3-btn w3-red" id="check">인증번호 받기</button><br><input type="hidden" value="false" id="email_check">
-</div>
+
 <br>
-<label style="float:left;">비밀번호</label>
+<label style="float:left;">새로운 비밀번호</label>
 <input type="password" id="password" name="password" class="w3-input w3-border w3-border-black" maxlength="12">
 <br>
-<label style="float:left;">비밀번호 확인</label>
+<label style="float:left;">새로운 비밀번호 확인</label>
 <input type="password" id="password_re" name="password_re" class="w3-input w3-border w3-border-black" maxlength="12">	
 <br><br>
 
@@ -236,7 +261,7 @@ function validate() {
 	</div>
 	  </div>
 	  <div class="midBottom">
-	  <div class="footer">Footer</div>
+	  <div class="footer"></div>
 	</div>
 	</form>
 	
@@ -244,8 +269,7 @@ function validate() {
 	<script>
 
 	$(function (){
-
-		// Get the modal
+	// Get the modal
 	    var modal = document.getElementById('myModal');
 
 	    // Get the button that opens the modal
@@ -273,6 +297,38 @@ function validate() {
 	        }
 	    }
 	})
+	
+	function email_certification(){
+		 var email =$("#Email").val();
+		 console.log("이메일 인증 받을 이메일 : "+email);
+		 
+		 $.ajax({
+			 url :"/semi/Email",
+			 type:"get",
+			 data:{email:email},
+			 success: function(data){
+				 $('#email_certification_result').val(data);
+				 console.log($('#email_certification_result').val())
+			 }
+		 })
+		 
+	 }
+	
+function email_certification_result(){
+	  var number =  $('#email_certification_result').val();
+	  var text_number = $('#certification_number').val();
+	  var Email  = $('#Email').val();
+	  var result_email = $('#result_email').val();
+	  
+	  if(number==text_number){
+		  $('#certification').val("true");
+		  alert("인정번호가 일치힙니다.");
+		  $('#result_email').val(Email);
+		  console.log(result_email = $('#result_email').val());
+	  }else{
+		  alert("인증번호가 일치하지 않습니다. 다시 입력해주세요.");
+	  }
+}
 	</script>
 </body>
 </html>

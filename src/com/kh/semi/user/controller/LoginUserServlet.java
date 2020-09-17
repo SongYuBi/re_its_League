@@ -32,10 +32,10 @@ public class LoginUserServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		//String location_web = request.getParameter("location_web");
 		String userId = request.getParameter("user_id");
 		String userPwd = request.getParameter("password");
-		
+		//System.out.println("위치 : "+location_web);
 		System.out.println("userId : " + userId);
 		System.out.println("userPwd : " + userPwd);
 		
@@ -52,6 +52,16 @@ public class LoginUserServlet extends HttpServlet {
 			session.setAttribute("loginUser", loginUser);
 			
 			path = "index.jsp";
+			
+//			if(location_web.equals("club_main")) {
+//				path = request.getContextPath()+"/views/user/club/club_Main.jsp";
+//			}else if(location_web.equals("club_info")) {
+//				path = request.getContextPath()+"/views/user/club/club_info.jsp";
+//			}
+//			else {
+//				 path = "index.jsp";
+//			}
+			 path = "index.jsp";
 			response.sendRedirect(path);
 	
 		}else {

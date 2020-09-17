@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import com.kh.semi.league.model.service.LeagueService;
 import com.kh.semi.user.model.vo.Profile_vo;
 
+//리그조인폼 리그 신청  controller
 @WebServlet("/leagueApply.lg")
 public class LeagueApplyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

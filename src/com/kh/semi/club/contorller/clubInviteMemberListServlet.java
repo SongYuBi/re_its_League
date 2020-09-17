@@ -1,27 +1,28 @@
 package com.kh.semi.club.contorller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.semi.club.model.service.ClubService;
-import com.kh.semi.club.model.vo.Club_vo;
-import com.kh.semi.common.vo.rank_vo;
 
 /**
- * Servlet implementation class clubInfoServlet
+ * Servlet implementation class clubInviteMemberListServlet
  */
-@WebServlet("/club_info")
-public class clubInfoServlet extends HttpServlet {
+@WebServlet("/invite_member_list")
+public class clubInviteMemberListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public clubInfoServlet() {
+    public clubInviteMemberListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,25 +31,13 @@ public class clubInfoServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String club_id = request.getParameter("teamNumber");
 		
-		int teamNumber = Integer.parseInt(request.getParameter("teamNumber"));
-		System.out.println("teamnumber : "+teamNumber);
+		ArrayList inviteMember = new ClubService().inviteMemberList(club_id);
 		
-		Club_vo club_info = new ClubService().getClub_info(teamNumber);
-	
-		System.out.println("club vo :" + club_info );
 		
-		String path="";
-		if(club_info != null) {
-			request.setAttribute("club_info", club_info);
-			path = "views/user/club/club_info.jsp";
-			request.getRequestDispatcher(path).forward(request, response);
-		}else {
-			request.setAttribute("message","로그인 실패");
-			path = "views/common/errorPage.jsp";
-			request.getRequestDispatcher(path).forward(request, response);
-		}
-		
+		response.setContentType("application/json; charset=UTF-8");
+		new Gson().toJson(inviteMember,response.getWriter());
 	}
 
 	/**

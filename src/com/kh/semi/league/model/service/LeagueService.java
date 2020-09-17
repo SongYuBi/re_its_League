@@ -61,13 +61,7 @@ public class LeagueService {
 	}
 
 
-	public void SelectScheduleWithId(String month, String league) {
-		Connection con = getConnection();
-		
-		new LeagueDao().selectScheduleWithId(con, month, league);
-				
-		
-	}
+
 
 	public ArrayList<HashMap<String,Object>> SelectRankWithId(String leagueId) {
 		Connection con = getConnection();
@@ -113,6 +107,18 @@ public class LeagueService {
 		}
 		
 		return result;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectSchedule(String date, String league) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list = new LeagueDao().selectSchedule(con, date, league);
+		
+		close(con);
+		
+		return list;
+			
+		
 	}
 
 	

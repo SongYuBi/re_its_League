@@ -9,6 +9,7 @@ import java.util.Calendar;
 
 import com.kh.semi.club.model.dao.ClubDao;
 import com.kh.semi.club.model.vo.Club_vo;
+import com.kh.semi.common.vo.rank_vo;
 
 public class ClubService {
 
@@ -106,5 +107,62 @@ public class ClubService {
 		return club_member_info;
 		
 	}
+
+	public ArrayList searchTeamName(String club_name,String league_id) {
+		Connection con = getConnection();
+		ArrayList club_name_info = dao.searchTeamName(con,club_name,league_id);
+		close(con);
+		
+		return club_name_info;
+	}
+
+	public ArrayList searchMemberEmail(String email) {
+		Connection con = getConnection();
+		ArrayList member_list = dao.searchMemberEmail(con, email);
+		
+		close(con);
+		
+		return member_list;
+	}
+
+	public int inviteMember(String[] pfid,int club_id) {
+		Connection con = getConnection();
+		
+		int result = dao.inviteMember(con,pfid,club_id);
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		return result;
+	}
+
+	public int removeMember(String[] pfid, int club_id) {
+		Connection con = getConnection();
+		
+		int result = dao.removeMember(con,pfid,club_id);
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		return result;
+	}
+
+	public ArrayList inviteMemberList(String club_id) {
+		Connection con = getConnection();
+		ArrayList inviteMemberList = dao.inviteMemberList(con, club_id);
+		
+		close(con);
+		
+		
+		return inviteMemberList;
+	}
+
+	
 
 }

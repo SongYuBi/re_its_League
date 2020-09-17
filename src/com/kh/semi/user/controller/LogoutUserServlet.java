@@ -30,7 +30,17 @@ public class LogoutUserServlet extends HttpServlet {
 		/*
 		 * String path = request.getContextPath()+"/views/user/mainPage/mainPage.jsp";
 		 */
+		String location_web = request.getParameter("loaction_web");
+		System.out.println("위치 : "+location_web);
 		String path = "index.jsp";
+		if(location_web.equals("club_main")) {
+			path = request.getContextPath()+"/views/user/club/club_Main.jsp";
+		}else if(location_web.equals("club_info")) {
+			path = request.getContextPath()+"/views/user/club/club_Main.jsp";
+		}else {
+			 path = "index.jsp";
+		}
+		
 		response.sendRedirect(path);
 	}
 

@@ -31,6 +31,10 @@ public class RefereeInsertServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
+		int pfId = Integer.parseInt(request.getParameter("pfId"));
+		
 		String refName = request.getParameter("refName");
 		String refAdd = request.getParameter("refAdd");
 		String refPhone = request.getParameter("refPhone");
@@ -39,7 +43,7 @@ public class RefereeInsertServlet extends HttpServlet {
 		String refCar = request.getParameter("refCar");
 		String refAccount = request.getParameter("refAccount");
 		String refLicense = request.getParameter("refLicense");
-	
+		
 		String refGetLicense = request.getParameter("refGetLicense");
 		Date refGetLicenseDate = Date.valueOf(refGetLicense);
 		String refEndLicense = request.getParameter("refEndLicense");
@@ -58,14 +62,15 @@ public class RefereeInsertServlet extends HttpServlet {
 		ref.setGetLicenseDate(refGetLicenseDate);
 		ref.setEndLicenseDate(refEndLicenseDate);
 		ref.setLicenseRating(refRating);
+		ref.setPfId(pfId);
 		
 		System.out.println(ref);
 		
-		int result = new RefereeService().insertReferee(ref);
+		int result_insert = new RefereeService().insertReferee(ref);
 		
 		String page = "";
 		
-		if(result > 0) {
+		if(result_insert > 0) {
 			page = "index.jsp";
 			response.sendRedirect(page);
 		} else {

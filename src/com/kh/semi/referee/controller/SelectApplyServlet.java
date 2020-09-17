@@ -8,22 +8,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.kh.semi.referee.model.service.RefereeService;
-import com.kh.semi.user.model.vo.Profile_vo;
+import com.kh.semi.referee.model.vo.Referee_vo;
 
 /**
- * Servlet implementation class ScheduleSearchServlet
+ * Servlet implementation class SelectApplyServlet
  */
-@WebServlet("/refSchedule.rf")
-public class ScheduleSearchServlet extends HttpServlet {
+@WebServlet("/selectApply.rf")
+public class SelectApplyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ScheduleSearchServlet() {
+    public SelectApplyServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,28 +31,20 @@ public class ScheduleSearchServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	/*	HttpSession session = request.getSession();
-		
-		Profile_vo loginUser = (Profile_vo)session.getAttribute("loginUser");
-		System.out.println("loginUser : " + loginUser);*/
-		/*int pfId = loginUser.getPfId();*/
-		int pfId = 500;
-		ArrayList schList = null;
-		System.out.println("뭔데이거!!!!!!!!!!!!");
-		schList = new RefereeService().searchSchedule(pfId);
-		
-		String page = "";
-		
-		if(schList != null) {
-			page ="views/referee/league/refereeSchedule.jsp";
-			request.setAttribute("list", schList);
-			
+		// TODO Auto-generated method stub
+		ArrayList<Referee_vo> list = new RefereeService().selectApplyReferee();
+		String path = "";
+		if(list != null) {
+			path = "views/admin/referee/refereeApply_admin.jsp";
+			request.setAttribute("list", list);
 		} else {
-			page ="views/common/errorPage.jsp";
+			path = "views/common/errorPage.jsp";
+			request.setAttribute("message", "심판 관리 페이지 조회 실패!");
 		}
-		request.getRequestDispatcher(page).forward(request, response);
 		
+		request.getRequestDispatcher(path).forward(request, response);
 		
+
 	}
 
 	/**

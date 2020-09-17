@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <link rel="stylesheet"
@@ -25,12 +26,12 @@
 <style>
 .header {
 	grid-area: header;
-	background-color: LightSeaGreen;
+	
 }
 
 .leftCol {
 	grid-area: leftCol;
-	background-color: orange;
+
 }
 
 .rightCol {
@@ -42,15 +43,16 @@
 }
 
 .img_back {
-	width: 80%;
-	height: 300px;
-	background-image: url("club_info.png");
+
+	background-image: url("../../../resources/image/club/club_info.png");
 	background-repeat: no-repeat;
-	back
+	background-image: cover;
+
 }
 
 .midBottom {
 	grid-area: midBottom;
+	
 }
 
 .footer {
@@ -70,8 +72,8 @@
 }
 
 .team_name {
-	font-size: 200%;
-	color: white;
+	font-size: 300%;
+	color: black;
 	position: relative;
 	left: 5%;
 	top: 20%;
@@ -142,21 +144,16 @@
 }
 
 /* Modal Content/Box */
-.modal-content {
+.member_modal-content {
 	background-color: #fefefe;
 	margin: 15% auto; /* 15% from the top and centered */
 	padding: 20px;
 	border: 1px solid #888;
 	width: 40%; /* Could be more or less, depending on screen size */
-	height: 40%;
+	height: 60%;
 }
 /* The Close Button */
-.close {
-	color: #aaa;
-	float: right;
-	font-size: 28px;
-	font-weight: bold;
-}
+
 
 .close:hover, .close:focus {
 	color: black;
@@ -165,7 +162,10 @@
 }
 
 .member_list {
-	font-size: 150%;
+	font-size: 140%;
+}
+.member_list_search{
+	font-size: 120%;
 }
 
 .check_box_size {
@@ -175,17 +175,66 @@
 .list_margin {
 	
 }
+
+ .lil,.banner{
+ 	cursor:pointer;
+ 	pont-size:20px;
+ 	float: right;
+ 	margin : 2px;
+ }
+  .toplo{
+ 	list-style:none;
+    margin:0;
+    padding:0;
+ }
+  ul li{
+ 	float: right;
+ 	margin : 2px;
+ 	}
+ 	#userInfo{
+ 	float:right;
+ 	}
+ 	
+ 	#member_out{
+ 		position: relative;
+	left: 0%;
+	top: 50%;
+ 	}
 </style>
 
 </head>
 <body>
 	<jsp:include
 		page="${ application.getContextPath() }/views/common/sideBar.jsp"></jsp:include>
+<jsp:include
+		page="${ application.contextPath }/views/user/comman/login.jsp"/>
 
+<input type="hidden" value="club_info" id="location_web"/>
 	<div class="wrapper">
-		<div class="header">Header</div>
-		<div class="leftCol">LeftCol</div>
-		<div class="rightCol">이런곳에 수정ㅎ면되</div>
+		<div class="header">
+		 <c:if test="${ empty sessionScope.loginUser }">
+				<ul class="toplo">
+					<li class="lil" style="color: #4169E1; font-size: 20px;"><div id="myBtn">로그인</div></li>
+					<li style="font-size: 18px;">또는</li>
+					<li class="lil" style="color: #4169E1; font-size: 20px;"><div><a href="${ application.contextPath }/semi/views/user/login/insert_member.jsp">회원가입</a></div></li>
+
+				</ul>
+			</c:if>
+			<c:if test="${!empty sessionScope.loginUser }">
+			<div id="userInfo">
+				<label><c:out value="${sessionScope.loginUser.pfName }" />
+					님의 방문을 환영합니다.</label>
+				<div class="btn" align="right">
+					<div id="changeInfo" onclick="updateMember();">정보수정</div>
+					<div id="logoutBtn" onclick="logout();">로그아웃</div>
+				</div>
+			</div>
+		</c:if>
+		<br><br><br><br>
+		</div>
+		
+		<div class="leftCol"></div>
+		<div class="rightCol"></div>
 		<div class="midTop">
 			<div class="img_back">
 				<p class="team_name">${club_info.clubName }</p>
@@ -195,24 +244,20 @@
 
 
 			</div>
-			<div style="position: relative;">
-
-				<img
-					src="${ application.getContextPath() }/resources/image/club/club_info.png">
-
-				<div
-					style="left: 100px; width: 450px; bottom: 0px; font-size: 1.8em; font-weight: bold; position: absolute;">
-
-					원하는 적당한 위치를 지정하면 이 글이 그 위치에 나타남. 이미지 위에 겹쳐서 나타남.</div>
-
-			</div>
+			
+<!-- 
+			<img alt="왜 안뜨냐" src="C:\Users\Song\git\re_its_League\web\resources\image\club\club_info.png">
+			<img alt="왜 " src="../../../resources/image/club/club_info.png">
+		 -->
 
 
 			<p class="team_result">역대 전적</p>
-			<p class="team_result_value">30전 12승 18패</p>
+			<p class="team_result_value" id="League_result">30전 12승 18패</p>
 			<input type="hidden" id="clubId" value="${club_info.clubId }">
-			<p class="team_result_value">구단 인원 : 6명</p>
-			<p class="team_result_value">참가 중인 리그 : it's ManLeague busan</p>
+			<input type="hidden" id="clubName" value="${club_info.clubName }">
+			
+			<p class="team_result_value" id="club_member_size">구단 인원 : 6명</p>
+			<p class="team_result_value" id="League_Name">참가 중인 리그 : it's ManLeague busan</p>
 			<br> <br>
 
 			<h4>
@@ -298,6 +343,10 @@
 			
 			$(function(){
 				var teamNumber =$("#clubId").val();
+				var club_member_size = document.getElementById("club_member_size");
+				var club_member = $('#club_member_size');
+				console.log(club_member);
+				var team_count = 0;
 				$.ajax({
 					url:"/semi/club_info_member?teamNumber="+teamNumber,
 					type:"get",
@@ -309,6 +358,7 @@
 						$club_info_table_member.html('');
 						
 						$.each(data,function(index,value){
+							team_count++;
 							var $tr = $('<tr>');
 							
 							var $pfName	= $("<td  style='text-align:center'>").text(value.pfName);
@@ -322,6 +372,9 @@
 							
 							
 							$club_info_table_member.append($tr);
+					
+							club_member.attr('html',team_count);
+							$('#club_member_size').text("구단 인원 : "+team_count + " 명");
 						});
 						
 						
@@ -333,11 +386,17 @@
 			});
 				
 				
+				
 			})
 			
 			
 	// 기본 초기 화면에서 순위 테이블 불러오기
 	var teamNumber =$("#clubId").val();
+	var clubName = $("#clubName").val();
+	console.log(teamNumber);
+	console.log(clubName);
+	
+	
 		$(function(){
 			$.ajax({
 				url:"club_info_rank?teamNumber="+teamNumber,
@@ -350,6 +409,8 @@
 					$club_info_table.html('');
 					
 					$.each(data,function(index,value){
+						
+						
 						var $tr = $('<tr>');
 						
 						var $rankTd	= $("<td  style='text-align:center'>").text(value.rank);
@@ -375,6 +436,12 @@
 						$tr.append($goalResultTd);
 						
 						$club_info_table.append($tr);
+						
+						if(value.clubName==clubName){
+							var team_result = value.round+"전 "+value.win+"승 " +value.lose+"패";
+							console.log(team_result);
+							$('#League_result').text(team_result);
+						}
 					});
 					
 					
@@ -484,6 +551,11 @@
 																$tr.append($RefNameTd);
 
 																$LeagueInfoTable.append($tr);
+																if(value.clubName==clubName){
+																	var team_result = value.round+"전 "+value.win+"승 " +value.lose+"패";
+																	$('#League_result').text(team_result);
+																}
+																$('#League_Name').text("참가 중인 리그 : "+value.lgName);
 															});
 											},
 										error : function(err) {
@@ -539,15 +611,15 @@
 						})
 			</script>
 			<button id="delete_clue" class="w3-btn w3-round memBer">구단삭제</button>
-			<div class="footer">Footer</div>
+			<div class="footer"></div>
 		</div>
 
 
 		<!-- The Modal -->
-		<div id="myModal" class="modal">
+		<div id="member_Modal" class="modal">
 
 			<!-- Modal content -->
-			<div class="modal-content">
+			<div class="member_modal-content ">
 				<span class="close">&times;</span>
 				<h2>선수 관리</h2>
 				<div style="float: left;">
@@ -558,21 +630,56 @@
 					<button name="member_management" id="member_management"
 						class="w3-input w3-border" style="width: 100px;">검색</button>
 				</div>
-				<div>
-					<table id="userListTable">
+				<div style="float:left; width:53%; height:380px; overflow:auto;">
+					<table id="searchListTable">
 						<thead>
-
+						
 						</thead>
-						<tbody class="member_list">
+						<tbody class="member_list_search">
 							<!-- 임의 값 넣기 -->
 							
 						</tbody>
 					</table>
 
 				</div>
+				<div style="float:left; width:47%; height:150px; overflow:auto;">
+				<div style="float:right">
+					<table id="userListTable">
+					<caption>구단 선수</caption>
+						<thead>
+						
+						</thead>
+						<tbody class="member_list">
+							<!-- 임의 값 넣기 -->
+							
+						</tbody>
+					</table>
+					</div>
+				</div>
+				<div style="width:47%; height:150px; overflow:auto;">
+				<div>
+					<table id="inviteListTable">
+					<caption>초대한 선수</caption>
+						<thead>
+						
+						</thead>
+						<tbody class="member_list_search">
+							<!-- 임의 값 넣기 -->
+							
+						</tbody>
+					</table>
+					</div>
+				</div>
 				<br> <br>
+			<div>
+				
 				<button class="w3-input w3-border" id="member_out" name="member_out"
 					style="width: 100px; float: right" >방출</button>
+					<button class="w3-input w3-border" id="member_in" name="member_in"
+					style="width: 100px; float: right; margin-right: 20px;" >초대</button>
+				</div>
+				<br><br>
+				
 			</div>
 
 		</div>
@@ -581,11 +688,11 @@
 	
 			
 		
-	
+				// 선수관리 다이얼로그
 			$(function() {
 
 				// Get the modal
-				var modal = document.getElementById('myModal');
+				var modal = document.getElementById('member_Modal');
 
 				// Get the button that opens the modal
 				var btn = document.getElementById("member");
@@ -626,7 +733,7 @@
 							
 							var $pfName	= $("<td  style='text-align:center'>").text(value.pfName);
 							var $pfEmail = $("<td style='text-align:center'>").text(value.pfEmail);
-							var $checkbox = $("<input type='checkbox' value="+value.pfName+" id='teamcheck' name='teamcheck'>");
+							var $checkbox = $("<input type='checkbox' value="+value.pfId+" id='teamcheck' name='teamcheck'>");
 						
 							$tr.append($pfEmail);
 							$tr.append($pfName);
@@ -645,6 +752,52 @@
 					}
 				
 			});
+				//초대한 선수 목록 띄우기
+				$.ajax({
+					url:"/semi/invite_member_list?teamNumber="+teamNumber,
+					type:"get",
+					success:function(data){
+						console.log(data);
+						
+						var $inviteListTable = $("#inviteListTable tbody");
+						
+						$inviteListTable.html('');
+						
+						$.each(data,function(index,value){
+							var $tr = $('<tr>');
+							
+							var $pfName	= $("<td  style='text-align:center'>").text(value.pfName);
+							var $pfEmail = $("<td style='text-align:center'>").text(value.pfEmail);
+							var $pfCancle = $("<button style='text-align:center' class='w3-btn w3-round' id='membercancle'>X</button>")
+							var $pfhidden = $("<input type='hidden' id='hiiden_value' value="+value.pfId+">");
+							
+							$tr.append($pfEmail);
+							$tr.append($pfName);
+							$tr.append($pfCancle);
+							$tr.append($pfhidden);
+							
+							$inviteListTable.append($tr);
+						});
+						 $("#inviteListTable tr ").click(function(){
+							console.log("취소버튼 클릭");
+	
+							var tr = $(this);
+							var td = tr.children();
+							var hidden_pfId = tr.children('#hiiden_value').val();
+							
+							console.log("hidden : " + hidden_pfId);
+							
+							if(confirm("초대를 취소하시겠습니까?")){
+								
+							}
+						}) 
+						
+					},
+					error: function(err){
+						console.log("실패");
+					}
+				
+			});
 				
 			/* $("#member_out").click(function(){
 				var checkbox_all_value = "";
@@ -656,7 +809,190 @@
 				});
 				console.log(checkbox_all_value);
 			}); */
+			
+			
+			// 멤버 초대하기
+		 	$("#member_in").click(function(){
+		 		var checkbox_all_value = "";
+		 		$("input[name=member_check]:checked").each(function(){
+					var test = $(this).val();
+					checkbox_all_value += test+"/";
+					
+				}); 
+		 		console.log("체크된 값들 : "+checkbox_all_value);
+		 		
+		 		$.ajax({
+					url:"/semi/club_invite?checkbox_all_value="+checkbox_all_value+"&teamNumber="+teamNumber,
+					type:"get",
+					success:function(data){
+						alert(data);
 				
+						
+						
+	
+					},
+					error: function(err){
+						console.log("실패");
+					}
+				
+			}); 
+		 		
+			});
+			// 멤버 추방하기
+			 $("#member_out").click(function(){
+				 var confirm_ok = confirm("체크한 선수를 추방하시겠습니까?");
+				 if(confirm_ok){
+		 		var checkbox_all_value = "";
+		 		$("input[name=teamcheck]:checked").each(function(){
+					var test = $(this).val();
+					checkbox_all_value += test+"/";
+					
+				}); 
+		 		console.log("체크된 값들 : "+checkbox_all_value);
+		 		
+		 		$.ajax({
+					url:"/semi/member_remvoe?checkbox_all_value="+checkbox_all_value+"&teamNumber="+teamNumber,
+					type:"get",
+					success:function(data){
+						alert(data);
+						
+						
+	
+					},
+					error: function(err){
+						console.log("실패");
+					}
+				
+			}); 
+		 		$.ajax({
+					url:"/semi/club_info_member?teamNumber="+teamNumber,
+					type:"get",
+					success:function(data){
+						console.log(data);
+						
+						var $userListTable = $("#userListTable tbody");
+						
+						$userListTable.html('');
+						
+						$.each(data,function(index,value){
+							var $tr = $('<tr>');
+							
+							var $pfName	= $("<td  style='text-align:center'>").text(value.pfName);
+							var $pfEmail = $("<td style='text-align:center'>").text(value.pfEmail);
+							var $checkbox = $("<input type='checkbox' value="+value.pfId+" id='teamcheck' name='teamcheck'>");
+						
+							$tr.append($pfEmail);
+							$tr.append($pfName);
+							$tr.append($checkbox);
+							
+							
+							$userListTable.append($tr);
+						});
+						
+						
+						
+						
+					},
+					error: function(err){
+						console.log("실패");
+					}
+				
+			});
+		 		
+				var club_member_size = document.getElementById("club_member_size");
+				var club_member = $('#club_member_size');
+				console.log(club_member);
+				var team_count = 0;
+		 		$.ajax({
+					url:"/semi/club_info_member?teamNumber="+teamNumber,
+					type:"get",
+					success:function(data){
+						console.log(data);
+						
+						var $club_info_table_member = $("#club_info_table_member tbody");
+						
+						$club_info_table_member.html('');
+						
+						$.each(data,function(index,value){
+							team_count++;
+							var $tr = $('<tr>');
+							
+							var $pfName	= $("<td  style='text-align:center'>").text(value.pfName);
+							var $prAssist = $("<td style='text-align:center'>").text(value.prAssist);
+							var $prGoal = $("<td style='text-align:center'>").text(value.prGoal);
+						
+							
+							$tr.append($pfName);
+							$tr.append($prAssist);
+							$tr.append($prGoal);
+							
+							
+							$club_info_table_member.append($tr);
+					
+							club_member.attr('html',team_count);
+							$('#club_member_size').text("구단 인원 : "+team_count + " 명");
+						});
+						
+						
+					},
+					error: function(err){
+						console.log("실패");
+					}
+				
+			});
+				 }
+		 		
+			}); 
+			
+			
+			
+			
+			//유저 검색 기능
+			var oldVal;
+				$("#search_member").on("propertychange change keyup paste input", function(){
+					var currentVal = $(this).val();
+					if(currentVal == oldVal){
+						return;
+					}
+					oldVal = currentVal;
+					console.log(oldVal);
+					
+					$.ajax({
+						url:"/semi/club_search_member?oldVal="+oldVal,
+						type:"get",
+						success:function(data){
+							console.log(data);
+							
+							var $searchListTable = $("#searchListTable tbody");
+							
+							$searchListTable.html('');
+							
+							$.each(data,function(index,value){
+								var $tr = $('<tr>');
+								
+								var $pfName	= $("<td  style='text-align:center'>").text(value.pfName);
+								var $pfEmail = $("<td style='text-align:center'>").text(value.pfEmail);
+								var $checkbox = $("<input type='checkbox' value="+value.pfId+" id='member_check' name='member_check'>");
+							
+								$tr.append($pfEmail);
+								$tr.append($pfName);
+								$tr.append($checkbox);
+								
+								
+								$searchListTable.append($tr);
+							});
+							
+							
+							
+							
+						},
+						error: function(err){
+							console.log("실패");
+						}
+					
+				});
+			
+				});
 			})
 			
 				

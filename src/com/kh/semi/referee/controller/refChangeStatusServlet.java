@@ -29,18 +29,37 @@ public class refChangeStatusServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String[] applyRefId = request.getParameterValues("check");
+		int pfId = Integer.parseInt(request.getParameter("pfId"));
 		int result = 0;
+		int result_pf_update = 0;
+		System.out.println("pdId :" + pfId +"입니당!");
+		
+		String apply = request.getParameter("sts");
+		System.out.println("apply : " + apply + "---------------------------------");
+		System.out.println(apply.equals("Y"));
 		for(String val : applyRefId) {
 			System.out.println("val :" + val);
 		}
 		
-		result = new RefereeService().refChangeStatus(applyRefId);
+		if(apply.equals("Y")) {
+			result = new RefereeService().refChangeStatus(applyRefId);			
+			result_pf_update = new RefereeService().updatePf(pfId);
+		} else {
+			result = new RefereeService().refApplydel(applyRefId);
+		}
 		
+		
+
+		
+		if(result_pf_update > 0) {
+			System.out.println("업데이트 잘됨");
+		} else {
+			System.out.println("업데이트 잘안됨");
+		}
 		String page = "";
 		System.out.println("result : " + result);
 		if(result > 0) {
-			System.out.println("profile 에 입력완료");
-			page = "views/admin/main/index.jsp";
+			page = "views/admin/referee/adminRefereeMain.jsp";
 		} else {
 			page = "views/common/error.jsp";
 			request.setAttribute("message", "승인 실패!");

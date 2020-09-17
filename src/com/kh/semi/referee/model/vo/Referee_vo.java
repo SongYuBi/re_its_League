@@ -16,13 +16,18 @@ public class Referee_vo implements Serializable{
 	private String license;			// 자격증 유무
 	private Date getLicenseDate;	// 자격증 취득일자
 	private Date endLicenseDate;	// 자격증 만료일
-	private String licenseRating;	// 자격증 급수
+	private String licenseRating;   // 자격증 급수
+	
+	private int pfId;
 	
     public Referee_vo() {}
 
+
+    
+
 	public Referee_vo(int refId, String refName, String refAddress, String refPhone, String refNumber, String refJob,
 			String refCar, String refAccount, Date refDate, String license, Date getLicenseDate, Date endLicenseDate,
-			String licenseRating) {
+			String licenseRating, int pfId) {
 		super();
 		this.refId = refId;
 		this.refName = refName;
@@ -37,7 +42,25 @@ public class Referee_vo implements Serializable{
 		this.getLicenseDate = getLicenseDate;
 		this.endLicenseDate = endLicenseDate;
 		this.licenseRating = licenseRating;
+		this.pfId = pfId;
 	}
+
+
+	
+
+	public int getPfId() {
+		return pfId;
+	}
+
+
+
+
+	public void setPfId(int pfId) {
+		this.pfId = pfId;
+	}
+
+
+
 
 	public int getRefId() {
 		return refId;

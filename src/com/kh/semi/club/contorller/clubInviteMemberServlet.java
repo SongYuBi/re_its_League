@@ -7,21 +7,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.semi.club.model.service.ClubService;
-import com.kh.semi.club.model.vo.Club_vo;
-import com.kh.semi.common.vo.rank_vo;
 
 /**
- * Servlet implementation class clubInfoServlet
+ * Servlet implementation class clubInviteMemberServlet
  */
-@WebServlet("/club_info")
-public class clubInfoServlet extends HttpServlet {
+@WebServlet("/club_invite")
+public class clubInviteMemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public clubInfoServlet() {
+    public clubInviteMemberServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,24 +29,25 @@ public class clubInfoServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String pfIds = request.getParameter("checkbox_all_value");
+		int club_id = Integer.parseInt(request.getParameter("teamNumber"));
+		System.out.println(pfIds+"와 구두ㅏㄴ 오유번호 : " + club_id);
 		
-		int teamNumber = Integer.parseInt(request.getParameter("teamNumber"));
-		System.out.println("teamnumber : "+teamNumber);
+		String[] pfid = pfIds.split("/");
 		
-		Club_vo club_info = new ClubService().getClub_info(teamNumber);
-	
-		System.out.println("club vo :" + club_info );
-		
-		String path="";
-		if(club_info != null) {
-			request.setAttribute("club_info", club_info);
-			path = "views/user/club/club_info.jsp";
-			request.getRequestDispatcher(path).forward(request, response);
-		}else {
-			request.setAttribute("message","로그인 실패");
-			path = "views/common/errorPage.jsp";
-			request.getRequestDispatcher(path).forward(request, response);
+		for(int i = 0 ; i < pfid.length; i++) {
+			System.out.println(i+"번째 : "+pfid[i]);
 		}
+		
+		int result = new ClubService().inviteMember(pfid,club_id);
+		
+		String ment = "";
+		if(result > 0) {
+			ment = result +"명의 선수가 초대되었습니다.";
+		}
+		
+		response.setContentType("application/json; charset=UTF-8");
+		new Gson().toJson(ment,response.getWriter());
 		
 	}
 

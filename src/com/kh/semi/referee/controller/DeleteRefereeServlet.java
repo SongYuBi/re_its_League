@@ -1,29 +1,25 @@
 package com.kh.semi.referee.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.kh.semi.referee.model.service.RefereeService;
-import com.kh.semi.user.model.vo.Profile_vo;
 
 /**
- * Servlet implementation class ScheduleSearchServlet
+ * Servlet implementation class DeleteRefereeServlet
  */
-@WebServlet("/refSchedule.rf")
-public class ScheduleSearchServlet extends HttpServlet {
+@WebServlet("/deleteReferee.rf")
+public class DeleteRefereeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ScheduleSearchServlet() {
+    public DeleteRefereeServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,30 +28,24 @@ public class ScheduleSearchServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	/*	HttpSession session = request.getSession();
+		String[] refId = request.getParameterValues("check");
+		String[] pfId = request.getParameterValues("pfId");
 		
-		Profile_vo loginUser = (Profile_vo)session.getAttribute("loginUser");
-		System.out.println("loginUser : " + loginUser);*/
-		/*int pfId = loginUser.getPfId();*/
-		int pfId = 500;
-		ArrayList schList = null;
-		System.out.println("뭔데이거!!!!!!!!!!!!");
-		schList = new RefereeService().searchSchedule(pfId);
+		int result_ref = new RefereeService().deleteRef(refId);
+		int result_pf = new RefereeService().pfChangeGrade(pfId);
 		
-		String page = "";
 		
-		if(schList != null) {
-			page ="views/referee/league/refereeSchedule.jsp";
-			request.setAttribute("list", schList);
-			
+		
+		String page="";
+		if(result_ref > 0 && result_pf > 0 ) {
+			page="/selectReferee.rf";
 		} else {
-			page ="views/common/errorPage.jsp";
+			page="views/comman/errorPage.jsp";
 		}
 		request.getRequestDispatcher(page).forward(request, response);
-		
-		
 	}
 
+	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

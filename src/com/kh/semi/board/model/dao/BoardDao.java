@@ -131,7 +131,6 @@ public class BoardDao {
 	               listCount=rset.getInt(1);
 	            }
 	         } catch (SQLException e) {
-	            
 	            e.printStackTrace();
 	         }finally {
 	            close(stmt);
@@ -538,49 +537,57 @@ public class BoardDao {
 	   }
 	
 	 //재서 버튼 5개 ajax
-		public ArrayList<Board_vo> qnaCate(Connection con, String qnaCate) {
+	 		public ArrayList<Board_vo> qnaCate(Connection con, String qnaCate) {
 
-			PreparedStatement pstmt = null;
-			ResultSet rset = null;
-			//Qna_vo qv = null;
-			
-			ArrayList<Board_vo>list = null;
-			
-			String query =prop.getProperty("cateType");
-			
-			try {
-				pstmt = con.prepareStatement(query);
-				pstmt.setString(1, qnaCate);
-				
-				rset = pstmt.executeQuery();
-				//객체생성
-				list = new ArrayList<Board_vo>();
-				while(rset.next()) {
-					Board_vo b = new Board_vo();
-					b.setbNo(rset.getInt("BNO"));
-					b.setbTitle(rset.getString("BTITLE"));
-					b.setbCount(rset.getInt("BCOUNT"));
-					b.setbDate(rset.getDate("BDATE"));
-					
-					list.add(b);
-					
-					
-				}
-				
-				
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}finally {
-				close(pstmt);
-				close(rset);
-				
-			}
-			
-			return list;
-			
-			
-		}
+	 			PreparedStatement pstmt = null;
+	 			ResultSet rset = null;
+	 			//Qna_vo qv = null;
+	 			
+	 			ArrayList<Board_vo> list = null;
 
+	 			String query = prop.getProperty("cateType");
+	 			
+	 			try {
+	 				
+	 			
+	 				pstmt = con.prepareStatement(query);
+	 				pstmt.setString(1, qnaCate); //value가 친구를 맞는거  여기서 채워지는거임 들고온거를 채워주는거 
+	 				
+	 				
+	 				
+	 				rset = pstmt.executeQuery();
+	 				
+	 				//객체생성
+	 				list = new ArrayList<Board_vo>();
+	 				
+	 				while(rset.next()) {
+	 					
+	 					Board_vo b = new Board_vo();
+	 					
+	 					
+	 					b.setbNo(rset.getInt("BNO"));
+	 					b.setbTitle(rset.getString("BTITLE"));
+	 					b.setbCount(rset.getInt("BCOUNT"));
+	 					b.setbDate(rset.getDate("BDATE"));
+	 					
+	 					list.add(b);
+	 					
+	 					System.out.println("뽑아방 : " + list);
+	 				}
+	 				
+	 				
+	 			} catch (SQLException e) {
+	 				// TODO Auto-generated catch block
+	 				e.printStackTrace();
+	 			}finally {
+	 				close(pstmt);
+	 				close(rset);
+	 				
+	 			}
+	 			
+	 			return list;
+	 			
+	 			
+	 		}
 
 }

@@ -63,8 +63,8 @@ th {
      <br><br><br>
      
      <label class="comment">
-     <input type="text-area" style="width:1400px; height:200px;">
-     <button type="submit" style="width: 150px; height:200px;">댓글 달기</button>
+     <input type="text-area" id="commentDetail" style="width:1400px; height:200px;">
+     <button type="submit" id="commentBtn" style="width: 150px; height:200px;">댓글 달기</button>
      </label> 
       
       
@@ -84,31 +84,76 @@ th {
 			</h3>
 		</div>
 	</div>
+<script>
+$(document).ready(function(){
+	
+	$("#sendButton").click(function(){
+		// jQuery의 사용자가 아래서 입력한 데이터를 받아오는 방식
+		// javascript는 document.getElementById 이렇게 접근했었음
+		HttpSession session = request.getSession(); 
+		Profile_vo loginUser = (Profile_vo) session.getAttribute("loginUser");
+		var params = "name=" + loginUser
+				+ "&content=" + $("#commentDetail").val()
+				+ "&boardNum=${dto.boardNum}";
+		
+		$.ajax({
+			//민경 아약스 써야대??
+			type:"POST", // input값 보내는거니깐 post형태로 보내기 
+			url:"<%=cp%>/comm/created2.action",   
+			data:params,
+			success:function(args){
+				
+				// 결과 데이터는 이미 표로 가공된 상태로 올 것임 (commentList.jsp로부터)
+				$("#listData").html(args);
+									
+				//ajax부분만 바뀌기 때문에, 사용자가 댓글 [등록하기] 누르고 나면 
+				//입력창에 입력값이 그대로 남아있음 =>  초기화 시켜주는 작업 필요
+				$("#name").val("");
+				$("#content").val("");
+				$("#name").focus; // 다 지우고 name에다가 커서 갖다놓기					
+			},
+			
+			beforeSend:showRequest, // 보내기전에 실행
+			
+			error:function(e) {
+				alert(e.responseText); // 갔다와서 에러가 나면 알람을 띄워라 
+			}
+			
+		});
+		
+	});
+	
+});
 
+function showRequest() {
+	
+	// 사용자가 입력한 데이터 가져와라
+	// 공백 없앤 상태로 변수에 다시 넣어줌 
+	var name = $.trim($("#name").val());
+	var content = $.trim($("#content").val());
+	
+	if(!name) {
+		alert("\n이름을 입력하세요!");
+		$("#name").focus;
+		return false;
+	}
+	
+	if (!content) {
+		alert("\n내용을 입력하세요!");
+		$("#content").focus;
+		return false;
+	}
+	
+	if (!content.length > 200) {
+		alert("\n내용을 200자까지만 입력 가능합니다!");
+		$("#content").focus;
+		return false;
+	}
+	
+	// true가 돌아가야만, 서버로 값을 보냄
+	return true;
+}	
+</script>
 </body>
 </html>
-    <!--  <script type="text/javascript">
-        $(document).ready(function(){
-            $("#list").on("click",function(e){
-                e.preventDefault();
-                fn_openBoardList();
-            })
-            $("#modify").on("click",function(e){
-                e.preventDefault();
-                fn_openBoardModify();
-            })
-        })
-         
-        function fn_openBoardList(){
-            var comSubmit = new ComSubmit();
-            comSubmit.setUrl("<c:url value='/sample/openBoardList.do'/>");
-            comSubmit.submit();
-        }
-        function fn_openBoardModify(){
-            var idx = "${map.IDX}";
-            var comSubmit = new ComSubmit();
-            comSubmit.setUrl("<c:url value='/sample/openBoardModify.do'/>");
-            comSubmit.addParam("IDX",idx);
-            comSubmit.submit();
-        }
-    </script>  -->
+ 

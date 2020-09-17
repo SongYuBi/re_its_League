@@ -11,6 +11,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import static com.kh.semi.common.JDBCTemplate.*;
 import com.kh.semi.club.model.vo.Club_vo;
 import com.kh.semi.common.vo.match_view_vo;
 import com.kh.semi.common.vo.rank_vo;
@@ -234,6 +235,7 @@ public class ClubDao {
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				Profile_vo vo = new Profile_vo();
+				vo.setPfId(rs.getInt("PF_ID"));
 				vo.setPfName(rs.getString("PF_NAME"));
 				vo.setPrAssist(rs.getInt("PR_ASSIST"));
 				vo.setPrGoal(rs.getInt("PR_GOAL"));
@@ -247,6 +249,162 @@ public class ClubDao {
 		}
 		
 		return club_member;
+	}
+
+
+	public ArrayList searchTeamName(Connection con, String club_name,String league_id) {
+		ArrayList club_name_search = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String sql = prop.getProperty("searchTeamName");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, league_id);
+			pstmt.setString(2, club_name);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				rank_vo vo = new rank_vo();
+				vo.setRank(rs.getInt("rank"));
+				vo.setClubName(rs.getString("club_name"));
+				vo.setRound(rs.getInt("round"));
+				vo.setWinScore(rs.getInt("winScore"));
+				vo.setWin(rs.getInt("win"));
+				vo.setDraw(rs.getInt("draw"));
+				vo.setLose(rs.getInt("lose"));
+				vo.setGoal(rs.getInt("goal"));
+				vo.setLoseGoal(rs.getInt("losegoal"));
+				vo.setGoalResult(rs.getInt("goalpoint"));
+				vo.setTeamNumber(rs.getInt("club_id"));
+				club_name_search.add(vo);
+				System.out.println(vo);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+		return club_name_search;
+	}
+
+
+	public ArrayList searchMemberEmail(Connection con, String email) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList member_list = new ArrayList();
+		
+		String sql = prop.getProperty("searchMemberEmail");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, email);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Profile_vo vo = new Profile_vo();
+				vo.setPfId(rs.getInt("PF_ID"));
+				vo.setPfEmail(rs.getString("PF_EMAIL"));
+				vo.setPfName(rs.getString("PF_NAME"));
+				member_list.add(vo);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+		
+		
+		return member_list;
+	}
+
+
+	public int inviteMember(Connection con, String[] pfid, int club_id) {
+		int result = 0;
+		int count = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("inviteMember");
+		
+		for(int i = 0 ;i < pfid.length; i++) {
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, club_id);
+				pstmt.setInt(2, Integer.parseInt(pfid[i]));
+				
+				count = pstmt.executeUpdate();
+				result += count;
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		close(pstmt);
+		
+		return result;
+	}
+
+
+	public int removeMember(Connection con, String[] pfid, int club_id) {
+		int result = 0;
+		int count = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("removeMember");
+		
+		for(int i = 0 ;i < pfid.length; i++) {
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, club_id);
+				pstmt.setInt(2, Integer.parseInt(pfid[i]));
+				
+				count = pstmt.executeUpdate();
+				result += count;
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		close(pstmt);
+		
+		return result;
+	}
+
+
+	public ArrayList inviteMemberList(Connection con, String club_id) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList inviteMemberList = new ArrayList();
+		
+		String sql = prop.getProperty("inviteMemberList");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, club_id);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Profile_vo vo = new Profile_vo();
+				vo.setPfId(rs.getInt("PF_ID"));
+				vo.setPfEmail(rs.getString("PF_EMAIL"));
+				vo.setPfName(rs.getString("PF_NAME"));
+				inviteMemberList.add(vo);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+		return inviteMemberList;
 	}
 
 

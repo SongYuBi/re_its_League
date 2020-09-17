@@ -162,9 +162,12 @@ public class RefereeDao {
 			pstmt.setInt(1, pfId);
 			
 			rset = pstmt.executeQuery();
-			
+			int i = 1;
 			while(rset.next()) {
-				schList.add(rset);
+		
+				schList.add(rset.get));
+				System.out.println(i);
+				i++;
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -173,7 +176,7 @@ public class RefereeDao {
 			close(rset);
 			close(pstmt);
 		}
-		
+		System.out.println("schList : " + schList);
 		
  		return schList;
 	}
@@ -219,6 +222,74 @@ public class RefereeDao {
 		
 		
 		return list;
+	}
+
+	public int refApplydel(String[] applyRefId, Connection con) {
+		// TODO Auto-generated method stub
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("refApplydel");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			for(int i = 0; i < applyRefId.length; i++) {
+				pstmt.setString(1, applyRefId[i]);
+				result += pstmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int deleteRef(String[] refId, Connection con) {
+		// TODO Auto-generated method stub
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteRef");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			for(int i = 0; i < refId.length; i++) {
+				pstmt.setString(1, refId[i]);
+				result += pstmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int pfChangeGrade(String[] pfId, Connection con) {
+		// TODO Auto-generated method stub
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("pfChangeGrade");
+		try {
+			pstmt = con.prepareStatement(query);
+			for(int i = 0; i < pfId.length; i++) {
+				pstmt.setString(1, pfId[i]);
+				result += pstmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 }

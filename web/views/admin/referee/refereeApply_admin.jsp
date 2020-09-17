@@ -54,8 +54,8 @@
 						</tbody>
 					</table>
 					<div class="applyBtn">
-						<button type="submit">승인</button>
-						<button type="reset">취소</button>
+						<button type="submit" name="sts" value="Y">승인</button>
+						<button type="submit" name="sts" value="N">취소</button>
 					</div>
 				</div>
 			</div>
@@ -63,5 +63,10 @@
 		<div class="midBottom"></div>
 		<div class="footer"></div>
 	</div>
+	<script>
+		function deleteApplyRef(){
+			location.href="${ pageContext.request.contextPath }/selectApply.rf"
+		};
+	</script>
 </body>
 </html>

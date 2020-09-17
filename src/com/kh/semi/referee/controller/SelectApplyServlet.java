@@ -33,7 +33,6 @@ public class SelectApplyServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		ArrayList<Referee_vo> list = new RefereeService().selectApplyReferee();
-		
 		String path = "";
 		if(list != null) {
 			path = "views/admin/referee/refereeApply_admin.jsp";

@@ -112,7 +112,7 @@ p {
 					<p class="sidebar-text">HOME</p>
 			</a>
 			</span>
-			 <span class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath }/views/referee/league/refereeGameEvalution.jsp"
+			<span class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath }/views/referee/league/refereeGameEvalution.jsp"
 				id="pagesDropdown" role="button" style="margin-top: -120px;"> <img
 					class="sidebar-image" src="/semi/resources/image/chu/league_un.png"
 					width="40px" style="margin-left: 52px;">

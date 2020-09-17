@@ -33,6 +33,8 @@ public class RefereeInsertServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
+		int pfId = Integer.parseInt(request.getParameter("pfId"));
+		
 		String refName = request.getParameter("refName");
 		String refAdd = request.getParameter("refAdd");
 		String refPhone = request.getParameter("refPhone");
@@ -48,7 +50,6 @@ public class RefereeInsertServlet extends HttpServlet {
 		Date refEndLicenseDate = Date.valueOf(refEndLicense);
 		String refRating = request.getParameter("refRating");
 		
-		System.out.println("pfId : " + pfId);
 		Referee_vo ref = new Referee_vo();
 		ref.setRefName(refName);
 		ref.setRefAddress(refAdd);

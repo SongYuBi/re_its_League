@@ -51,7 +51,7 @@ public class FreeBoardInsertServlet extends HttpServlet {
 		newBoard.setbContent(content);
 		newBoard.setPfId(writer);
 		
-		int result = new BoardService().insertBoard(newBoard);
+		int result = new BoardService().insertBoard2(newBoard);
 		
 		System.out.println("거기게 : " + result);
 		System.out.println("다음 : " + writer);

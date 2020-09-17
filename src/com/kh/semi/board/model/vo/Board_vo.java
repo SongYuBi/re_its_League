@@ -196,7 +196,4 @@ public class Board_vo implements java.io.Serializable{
 	}
 
 
-	
-
-	
-}
+	}

@@ -8,6 +8,10 @@
    <script>
    src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
    </script>
+   <script
+  src="https://code.jquery.com/jquery-3.5.1.min.js"
+  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+  crossorigin="anonymous"></script>
  
 <title>Insert title here</title>
 <style>
@@ -129,7 +133,7 @@ select {
 							<input type="hidden" value="<c:out value="${ b.bid }"/>"> 
 								<td><c:out value="${ b.bNo }" /></td>
 								<td><c:out value="${ b.bTitle }" /></td>
-								<td><c:out value="${ b.bWriter }" /></td>
+								<td><c:out value="${ b.pfName }" /></td>
 								<td><c:out value="${ b.bDate }" /></td>
 							</tr>
 						</c:forEach>

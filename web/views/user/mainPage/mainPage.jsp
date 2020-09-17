@@ -105,12 +105,22 @@ h3 {
 
 tr {
 	height: 100px;
-}
+} 
 
 th {
 	font-size: 2em;
 	text-align: center !important;
+	height : 100px;
 }
+table{
+	width:600px;
+	}
+	
+td {
+	border: 1px solid lightgray;
+	
+	}
+
  .toplo{
  	list-style:none;
     margin:0;
@@ -127,6 +137,7 @@ th {
  .ta{
  	border-bottom:1px solid black;
  }
+ 
 
 </style>
 
@@ -252,13 +263,14 @@ th {
 							<table class="table table-bordered ta tb1"style="margin-top: 40px;" align="center">
 								<thead>
 									<tr>
-										<th style="padding: 10px 10px;"><p>시간</p></th>
-										<th style="padding: 10px 10px;"><p>리그</p></th>
-										<th style="padding: 0 0 30px 0;"><span>팀1</span> vs <span>팀2</span></th>
-										<th style="padding: 10px 10px;"><p>경기장<p></th>
+										<th style="padding: 1em;"><p>시간</p></th>
+										<th style="padding: 1em;"><p>리그</p></th>
+										<th style="padding: 0 0 40px 0; margin-bottom:8px;"><span>팀1</span>  VS  <span>팀2</span></th>
+										<th style="padding: 1em;"><p>경기장<p></th>
 									</tr>
 								</thead>
 								<tbody id="matchList" align="center" style="font-size:20px; font-weight:450;">
+								
 								</tbody>
 							</table>
 						</div>
@@ -386,10 +398,10 @@ th {
 	               
 	               for(var key in data){
 	            	   $tr = $("<tr>");
-	            	   $mDateTd = $("<td>").text(data[key].MATCH_DATE);
-	            	   $mLeagueTd = $("<td>").text(data[key].LG_NAME);
-	            	   $mClubNameTd = $("<td>").text(data[key].CLUB_FID + " VS " + data[key].CLUB_SID);
-	            	   $mStadiumTd = $("<td>").text(data[key].STD_FID + ", " + data[key].STD_SID);
+	            	   $mDateTd = $("<td>").text(data[key].MATCH_DATE).addClass("linebottom");
+	            	   $mLeagueTd = $("<td>").text(data[key].LG_NAME).addClass("linebottom");
+	            	   $mClubNameTd = $("<td>").text(data[key].CLUB_FID + " VS " + data[key].CLUB_SID).addClass("linebottom");
+	            	   $mStadiumTd = $("<td>").text(data[key].STD_FID + ", " + data[key].STD_SID).addClass("linebottom");
 	            	   
 	            	   
 	            	   $tr.append($mDateTd);
@@ -441,10 +453,10 @@ th {
                
                for(var key in data){
             	   $tr = $("<tr>");
-            	   $mDateTd = $("<td>").text(data[key].MATCH_DATE);
-            	   $mLeagueTd = $("<td>").text(data[key].LG_NAME);
-            	   $mClubNameTd = $("<td>").text(data[key].CLUB_FID + " VS " + data[key].CLUB_SID);
-            	   $mStadiumTd = $("<td>").text(data[key].STD_FID + ", " + data[key].STD_SID);
+            	   $mDateTd = $("<td>").text(data[key].MATCH_DATE).addClass("linebottom");
+            	   $mLeagueTd = $("<td>").text(data[key].LG_NAME).addClass("linebottom");
+            	   $mClubNameTd = $("<td>").text(data[key].CLUB_FID + " VS " + data[key].CLUB_SID).addClass("linebottom");
+            	   $mStadiumTd = $("<td>").text(data[key].STD_FID + ", " + data[key].STD_SID).addClass("linebottom");
             	   
             	   $tr.append($mDateTd);
             	   $tr.append($mLeagueTd);
@@ -533,16 +545,18 @@ th {
    			data : {selectArea : selectArea, fullDate : fullDate},
    			type: "get",
    			success : function(data){
+   				
+   				
    				$tbody = $("table tbody");
                 
                 $tbody.html("");
                 
                 for(var key in data){
              	   $tr = $("<tr>");
-             	   $mDateTd = $("<td>").text(data[key].MATCH_DATE);
-             	   $mLeagueTd = $("<td>").text(data[key].LG_NAME);
-             	   $mClubNameTd = $("<td>").text(data[key].CLUB_FID + " VS " + data[key].CLUB_SID);
-             	   $mStadiumTd = $("<td>").text(data[key].STD_FID + ", " + data[key].STD_SID);
+             	   $mDateTd = $("<td>").text(data[key].MATCH_DATE).addClass("linebottom");
+             	   $mLeagueTd = $("<td>").text(data[key].LG_NAME).addClass("linebottom");
+             	   $mClubNameTd = $("<td>").text(data[key].CLUB_FID + " VS " + data[key].CLUB_SID).addClass("linebottom");
+             	   $mStadiumTd = $("<td>").text(data[key].STD_FID + ", " + data[key].STD_SID).addClass("linebottom");
              	   
              	   $tr.append($mDateTd);
              	   $tr.append($mLeagueTd);

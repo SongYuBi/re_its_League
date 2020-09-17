@@ -81,25 +81,26 @@
 		
 		<br>
 			<div class="buttonboxes" align="center">
-	  	 			<button name="qnaCate" id="qnaCate1" type="button" class="btn btn-secondary" style="text-align:center">매치취소</button>
-	  	 			<button name="qnaCate" id="qnaCate2" type="button" class="btn btn-secondary" value="kjk">매치진행</button>
-	  	 			<button name="qnaCate" id="qnaCate3" type="button" class="btn btn-secondary">서비스</button>
-	  	 			<button name="qnaCate" id="qnaCate4" type="button" class="btn btn-secondary">매칭신청</button>
-	  	 			<button name="qnaCate" id="qnaCate5" type="button" class="btn btn-secondary">구장관련</button>
+	  	 			<button name="qnaCate" id="qnaCate1" type="button" class="btn btn-secondary" value="Q1" style="text-align:center">매치취소</button>
+	  	 			<button name="qnaCate" id="qnaCate2" type="button" class="btn btn-secondary" value="Q2">매치진행</button>
+	  	 			<button name="qnaCate" id="qnaCate3" type="button" class="btn btn-secondary" value="Q3">서비스</button>
+	  	 			<button name="qnaCate" id="qnaCate4" type="button" class="btn btn-secondary" value="Q4">매칭신청</button>
+	  	 			<button name="qnaCate" id="qnaCate5" type="button" class="btn btn-secondary" value="Q5">구장관련</button>
 	  	 		</div>
 	  	 		<br>
 	  	 		
 			<table align="center" id="listArea">
 			
+			<thead>
 				<tr class="table-head">
 					<th width="50px">글번호</th>
 					<th width="300px">글제목</th>
 					<th width="100px">조회수</th>
 					<th width="100px">작성일</th>
 				</tr>
-				
-			 
-				<c:forEach var="q" items="${ requestScope.list }">
+				</thead>
+			 <%-- 
+				 <c:forEach var="q" items="${ requestScope.list }">
 					<tr>
 						<!--  -->
 						<td><c:out value="${ q.bNo }"/></td>
@@ -108,8 +109,10 @@
 						<td><c:out value="${ q.bDate }"/></td>
 					</tr>
 				</c:forEach> 
-			
-			
+			 --%>
+			 
+				<tbody>
+				</tbody>
 				</table>
 		</div>
 			<br>
@@ -121,8 +124,73 @@
 	</div>
 	
 	 <script>
+	 	
+	 	
+	 	function writingForm(){
+	 		
+	 		location.href = "${applicationScope.contextPath}/views/user/qna/writingForm.jsp";
+	 	};
+	 	
+	 
+	 	
+	 	$(".btn").click(function(){
+	 		console.log($(this).val());	
+	 		
+
+ 			var qnaCate = $(this).val();
+ 			
+ 
+ 			$.ajax({
+ 				url:"/semi/qnaCate",
+ 				//변수명으로 들어가서 	키값	
+ 				data:{ qnaCate:qnaCate },
+ 				type:"get",
+ 				success: function(data){
+ 					
+ 					console.log(data);
+ 					
+ 					//success data는 나중에 서블릿애서 조회한후에 값은json을 넘기고 view뿌려줌
+ 					var $tableBody = $("#listArea tbody");
+ 					
+ 					$tableBody.html('');
+ 				 	
+ 					$.each(data, function(index, value){
+ 						
+ 						var $tr =$("<tr>");
+ 						var $bno = $("<td>").text(value.bNo);
+ 						var $bTitle = $("<td>").text(value.bTitle);
+ 						var $bCount = $("<td>").text(value.bCount);
+ 						var $bDate = $("<td>").text(value.bDate);
+ 						
+ 						$tr.append($bno);
+ 						$tr.append($bTitle);
+ 						$tr.append($bCount);
+ 						$tr.append($bDate);
+ 						
+ 						$tableBody.append($tr);
+ 						
+ 						
+ 					});
+ 			
+ 					
+ 					 
+ 					
+ 					
+ 					
+ 				},
+ 				error:function(err){
+ 					console.log("떙");
+ 					
+ 					
+ 				}
+ 				
+ 			});
+ 			
+ 
+	 	});
+	 	
 	 	$(function(){
-	 		$("#listArea td").mouseenter(function(){
+	 		$("#listArea tr").mouseenter(function(){
 	 			$(this).parent().css({"background":"darkgrey","cursor":"pointer"});	
 	 		}).mouseout(function(){
 	 			$(this).parent().css({"background":"white"});
@@ -136,67 +204,10 @@
 	 			
 	 			//url을 만들어서 요청
 	 			//get방식적합 /SelectOne.no서블릿을 요청하면소 
-	 			location.href = "${applicationScope.contextPath}/selectOne.qna?num="+num;
+	 			location.href = "${applicationScope.contextPath}/selectOne.qna?bno="+bno;
 	 		//리스트에 보여진 게시물을 클릭했을때 url에 숫자가 나오면은 전송되는거를 확인/*  */
 	 			
 	 		});
-	 	});
-	 	
-	 	function writingForm(){
-	 		
-	 		location.href = "${applicationScope.contextPath}/views/user/qna/writingForm.jsp";
-	 	}
-	 	
-	 
-	 	$(".btn").click(function(){
-	 		console.log($(this).val());	
-	 		/* 
-	 		var qnaCate1 = $("#qnaCate1").val();
-	 		var qnaCate2 = $("#qnaCate2").val();
-	 		var qnaCate3 = $("#qnaCate3").val();
-	 		var qnaCate4 = $("#qnaCate4").val();
-	 		var qnaCate5 = $("#qnaCate5").val();
-	 		
-	 		
-	 		var one = document.getElementById("qnaCate1");
-	 		var one1 = document.getElementById("qnaCate2");
-	 		var one2 = document.getElementById("qnaCate3");
-	 		var one3 = document.getElementById("qnaCate4");
-	 		var one4 = document.getElementById("qnaCate5"); */
-	 		
-	 		/* 
-	 		console.log(one);
-	 		console.log(one1);
-	 		console.log(one2);
-	 		console.log(one3);
-	 		console.log(one4); 
- */
-
- 			var qnaCate = $(this).val();
- 			
- 
- 			$.ajax({
- 				url:"qnaCate",
- 				//변수명으로 들어가서 	키값	
- 				data:{ qnaCate: qnaCate },
- 				type:"get",
- 				success: function(data){
- 					
- 					//success data는 나중에 서블릿애서 조회한후에 값은json을 넘기고 view뿌려줌
- 					var $
- 					
- 					
- 					
- 					
- 				},
- 				error:function(data){
- 					
- 					
- 				}
- 				
- 			});
- 			
- 
 	 	});
 	 </script>
 	 

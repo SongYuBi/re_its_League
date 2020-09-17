@@ -40,6 +40,7 @@ public class QnaSelectOneServlet extends HttpServlet {
 		//num값 전달 
 		//notice를 셀렉트한거는 조회한거 조회수가 없음 
 		Board_vo qna = new BoardService().selectOneByBid(num);
+		
 	
 		System.out.println("뷰 페이지로 보여져라 뿅 : " + qna);
 		

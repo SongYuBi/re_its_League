@@ -9,8 +9,8 @@
 	.outer{
 		width:800px;
 		height:500px;
-		background:black;
-		color:white;
+		background:white;
+		color:black;
 		margin-left:auto;
 		margin-right:auto;
 		margin-top:50px;
@@ -29,8 +29,14 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<jsp:include page="../../common/sideBar.jsp"></jsp:include>
-	<c:if test="${ !empty sessionScope.loginUser and sessionScope.loginUser.userId.equals('admin') }">
+	<jsp:include page="${ application.getContextPath() }/views/common/sideBar.jsp"></jsp:include>
+	
+	<div class="logo" align="center">
+		<img alt="" src="../../../resources/image/logo_jess.png" style="width:20%">
+	</div>
+	
+	
+	<%-- <c:if test="${ !empty sessionScope.loginUser and sessionScope.loginUser.userId.equals('admin') }"> --%>
 	<div class="outer">
 		<br>
 		<h2 align="center">공지 사항 수정</h2>
@@ -81,10 +87,10 @@
 			
 		</div>
 	</div>
-	</c:if>
-	<c:if test="${ empty sessionScope.loginUser or !sessionScope.loginUser.userId.equals('admin') }">
+	<%-- </c:if> --%>
+	<%-- <c:if test="${ empty sessionScope.loginUser or !sessionScope.loginUser.userId.equals('admin') }">
 		<c:set var="msg" value="잘못된 경로로 접근하셨습니다." scope="request"/>
 		<jsp:forward page="../common/errorPage.jsp"/>
-	</c:if>
+	</c:if> --%>
 </body>
 </html>

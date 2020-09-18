@@ -145,7 +145,7 @@ td {
 <body>
 
 	<!-- 로그인 아이디 또는 비밀번호가 틀렸을때 나타나는 다이얼로그 박스 -->
-	<c:if test="${ !empty requestScope.login }">
+<c:if test="${ !empty requestScope.login }">
 
 	<!-- The Modal -->
     <div id="myModal_login" class="modal">

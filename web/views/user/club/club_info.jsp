@@ -207,7 +207,7 @@
 	<jsp:include
 		page="${ application.getContextPath() }/views/common/sideBar.jsp"></jsp:include>
 <jsp:include
-		page="${ application.contextPath }/views/user/comman/login.jsp"/>
+		page="${ application.getContextPath() }/views/user/comman/login.jsp"/>
 
 <input type="hidden" value="club_info" id="location_web"/>
 	<div class="wrapper">
@@ -237,7 +237,7 @@
 		<div class="rightCol"></div>
 		<div class="midTop">
 			<div class="img_back">
-				<p class="team_name">${club_info.clubName }</p>
+				<p class="team_name">${club_info.clubName }  </p>
 
 				<!-- 		<p class="font-white">공식 홈페이지 :</p> -->
 				<!-- 		<p>온라인 샵 :</p> -->
@@ -336,7 +336,7 @@
 				<tbody>
 
 				</tbody>
-			</table>
+			</table> 
 
 			<script>
 			//구단 선수들 초기화면에 뿌려주기

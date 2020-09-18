@@ -15,6 +15,33 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <title>Insert title here</title>
 <style>
+	.button {
+	 
+	  border: none;
+	  color: white;
+	  padding: 5px 15px;
+	  text-align: center;
+	  text-decoration: none;
+	  display: inline-block;
+	  font-size: 16px;
+	  margin: 6px ;
+	  transition-duration: 0.4s;
+	  cursor: pointer;
+	  border-radius:8px;
+	 align:right;
+	  margin-right:30px;
+	
+	}
+	.button5 {
+  background-color: white;
+  color: black;
+  border: 2.5px solid #111B39;
+}
+
+.button5:hover {
+  background-color: #111B39;
+  color: white;
+}
 	
 	.outer{
 		width:800px;
@@ -97,7 +124,7 @@
 	  	 </div>
 	 	 <br>		
 			<div align="center">
-				<button onclick="location.href='${ applicationScope.contextPath }/SelectBoardListServlet'">목록으로 돌아가기</button>
+				<button   class="button button5"  onclick="location.href='${ applicationScope.contextPath }/SelectBoardListServlet'">목록으로 돌아가기</button>
 			</div>
 	  </div>
 	 	 <br>

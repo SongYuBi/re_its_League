@@ -9,6 +9,7 @@ import java.sql.Connection;
 public class UserService {
 
 	UserDao dao = new UserDao();
+	
 	//회원 가입하는 메소드
 	public int InsertUserMember(Profile_vo vo) {
 	 Connection con = getConnection();
@@ -81,6 +82,7 @@ public class UserService {
 		return result;
 	}
 
+	//재서
 	public Profile_vo selectMyPage(int writer) {
 
 		Connection con = getConnection();
@@ -92,5 +94,49 @@ public class UserService {
 		return pv;
 		
 	}
+	//재서	
+	public Profile_vo updateMyInfos(Profile_vo pv) {
+
+		
+		Connection con = getConnection();
+		Profile_vo changeInfo = null; 
+		
+		
+		int result = dao.updateMyInfos(con, pv);
+
+		System.out.println(result);
+		
+		if(result > 0) {
+			
+			changeInfo = dao.selectChangeMyInfos(con, pv);
+			
+			if(changeInfo != null) {
+				commit(con);
+				
+			}else {
+				rollback(con);
+				
+			}
+		}else {
+			rollback(con);
+		}
+	
+		
+		return changeInfo;
+	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

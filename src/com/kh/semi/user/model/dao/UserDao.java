@@ -201,6 +201,7 @@ public class UserDao {
 		return result;
 	}
 
+	//재서
 	public Profile_vo selectMyPage(Connection con, int writer) {
 
 		PreparedStatement pstmt = null;
@@ -259,7 +260,121 @@ public class UserDao {
 		
 	}
 
+	//재서
+	public int updateMyInfos(Connection con, Profile_vo pv) {
+
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		
+		String query = prop.getProperty("changeMyInfos");
+		
+		try {
+			
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, pv.getPfNumber());
+			pstmt.setString(2, pv.getPfEmail());
+			pstmt.setString(3, pv.getPfPhone());
+			pstmt.setString(4, pv.getPfAddress());
+			pstmt.setString(5, pv.getPfGender());
+			pstmt.setInt(6, pv.getPfId());
+			
+			
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			
+			close(pstmt);
+			
+		}
+		
+		return result;
+		
+		
+	}
+	//재서
+	public Profile_vo selectChangeMyInfos(Connection con, Profile_vo pv) {
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		Profile_vo changeMyInfos = null;
+		
+		String query = prop.getProperty("selectAll");
+		
+		System.out.println("뭐댜냐 : " + query);
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, pv.getPfId());
+			pstmt.setString(2, pv.getPfPwd());
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				
+				changeMyInfos = new Profile_vo();
+				
+				changeMyInfos.setPfId(rset.getInt("PF_ID"));
+				changeMyInfos.setPfPwd(rset.getString("PF_PWD"));
+				changeMyInfos.setPfNumber(rset.getString("PF_NUMBER"));
+				changeMyInfos.setPfName(rset.getString("PF_NAME"));
+				changeMyInfos.setPfDate(rset.getDate("PF_DATE"));
+				changeMyInfos.setPfEmail(rset.getString("PF_EMAIL"));
+				changeMyInfos.setPfPhone(rset.getString("PF_PHONE"));
+				changeMyInfos.setPfAddress(rset.getString("PF_ADDRESS"));
+				changeMyInfos.setPfGender(rset.getString("PF_GENDER"));
+				changeMyInfos.setPfGrade(rset.getString("PF_GRADE"));
+				changeMyInfos.setPfModifyDate(rset.getDate("PF_MODIFY_DATE"));
+				
+				
+				
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			close(pstmt);
+			
+		}
+		
+		
+		
+		return changeMyInfos;
+	}
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

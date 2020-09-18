@@ -12,6 +12,33 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <title>Insert title here</title>
 <style>
+.button {
+	 
+	  border: none;
+	  color: white;
+	  padding: 10px 30px;
+	  text-align: center;
+	  text-decoration: none;
+	  display: inline-block;
+	  font-size: 16px;
+	  margin: 6px ;
+	  transition-duration: 0.4s;
+	  cursor: pointer;
+	  border-radius:8px;
+	 align:right;
+	  margin-right:15px;
+	
+	}
+	.button5 {
+  background-color: white;
+  color: black;
+  border: 2.5px solid #111B39;
+}
+
+.button5:hover {
+  background-color: #111B39;
+  color: white;
+}
 	
 	.area-box{
 		
@@ -55,11 +82,12 @@
 	.footer { 
   width: 130%; 
      height: 100px;  
-    background-color:#111B39; }
+    background-color:#111B39;
+     }
     .tableArea{
     	width:100%;
     }
-	
+  
 </style>
 </head>
 <body>
@@ -100,13 +128,13 @@
 				
 					<tr>
 						<tr></tr>
-						<td colspan="6"><input type="text" size="" style="width:1071px; height:50px;" name="title" ></td>
+						<td  id="div-box" colspan="6"><input type="text" size="" style="width:1071px; height:50px;" name="title" ></td>
 						 <br>
 					</tr>
 			
 					<tr>
 						<tr></tr>
-						<td colspan="3">
+						<td id="div-box" colspan="3">
 							<textarea rows="15" cols="150" name="content" style="resize:none;"></textarea>
 						</td>
 					</tr>
@@ -114,11 +142,12 @@
 				</div>
 					<br>
 				<div align="center">
-					<button type="rset" class="btn btn-secondary">취소하기</button>
-					<button type="submit" class="btn btn-secondary">등록하기</button>
+					<button type="rset" class="button button5">취소하기</button>
+					<button type="submit" class="button button5">등록하기</button>
 				</div>	  	 	
 	  	 	</form>
 	  	 </div>
+	  	  <br>
 	 <div class="footer">
 	 	<img alt="" src="../../../resources/image/footer_jess.png" style="width:100%">
 	 </div>

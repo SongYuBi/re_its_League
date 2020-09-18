@@ -14,6 +14,33 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <title>Insert title here</title>
 <style>
+	.button {
+	 
+	  border: none;
+	  color: white;
+	  padding: 10px 30px;
+	  text-align: center;
+	  text-decoration: none;
+	  display: inline-block;
+	  font-size: 16px;
+	  margin: 6px ;
+	  transition-duration: 0.4s;
+	  cursor: pointer;
+	  border-radius:8px;
+	 align:right;
+	  margin-right:30px;
+	
+	}
+	.button5 {
+  background-color: white;
+  color: black;
+  border: 2.5px solid #111B39;
+}
+
+.button5:hover {
+  background-color: #111B39;
+  color: white;
+}
 
 	.outer{
 	width: 800px;
@@ -66,10 +93,7 @@
 		color:white;
 		
 	}
-	.button{
-		text-align:right;
-		
-	}
+	
 	
 </style>
 </head>
@@ -88,11 +112,11 @@
 		
 		<br>
 			<div class="buttonboxes" align="center">
-	  	 			<button name="qnaCate" id="qnaCate" type="button" class="btn btn-secondary" value="Q1" style="text-align:center">매치취소</button>
-	  	 			<button name="qnaCate" id="qnaCate" type="button" class="btn btn-secondary" value="Q2">매치진행</button>
-	  	 			<button name="qnaCate" id="qnaCate" type="button" class="btn btn-secondary" value="Q3">서비스</button>
-	  	 			<button name="qnaCate" id="qnaCate" type="button" class="btn btn-secondary" value="Q4">매칭신청</button>
-	  	 			<button name="qnaCate" id="qnaCate" type="button" class="btn btn-secondary" value="Q5">구장관련</button>
+	  	 			<button name="qnaCate" id="qnaCate" type="button" class="button button5" value="Q1" style="text-align:center">매치취소</button>
+	  	 			<button name="qnaCate" id="qnaCate" type="button" class="button button5" value="Q2">매치진행</button>
+	  	 			<button name="qnaCate" id="qnaCate" type="button" class="button button5" value="Q3">서비스</button>
+	  	 			<button name="qnaCate" id="qnaCate" type="button" class="button button5" value="Q4">매칭신청</button>
+	  	 			<button name="qnaCate" id="qnaCate" type="button" class="button button5" value="Q5">구장관련</button>
 	  	 		</div>
 	  	 		<br>
 	  	 		
@@ -113,7 +137,7 @@
 		</div>
 			<br>
 		 <div class="button">
-		 	<button id="submitBotton" type="button" class="btn btn-secondary" onclick="writingForm();">작성하기</button>
+		 	<button id="submitBotton" type="button" class="button button5" onclick="writingForm();" align="right">작성하기</button>
 		 </div>
 	</form>
 	
@@ -132,7 +156,7 @@
 	 	
 	 	
 	 	//이 버튼을 눌렀을때 
-	 	$(".btn").click(function(){
+	 	$(".button").click(function(){
 	 		console.log($(this).val());	
 
 	 		//선택되는 행의 값을 가져온거를 qnaCate라는 변수에 넣어줌 

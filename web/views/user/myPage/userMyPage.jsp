@@ -17,15 +17,19 @@
 	.who h3{
 			font-weight:bolder;
 	}
-  .input-value{
-  		border:2px solid lightgrey;
-  		height:45px;
-  		width:400px;
-  		border-radius:5px 5px;
+
+  .input-form{
+  	border:2px solid lightgrey;
+    height:45px;
+  	width:400px;
+  	border-radius:5px 5px;
+  		
   }
-  input{
-  	border:0px;
+  .male{
+  	float:left;
+  	margin-left:5px;
   }
+ 
 
 </style>
 </head>
@@ -51,36 +55,70 @@
 	 
 	 <div class="input-tag" >
 	
-	<form action="${ applicationScope.contextPath }/" method="post" id="formId">
+	<form action="${ applicationScope.contextPath }/updatemyInfos.me" method="post" id="formId">
 	
-	    <div class="input-form">
-		<label for="name">연락처</label>
+	<table>
+	
+		<input type="hidden" value="<c:out value='${ requestScope.pv.pfId }'/>"  name="pfId">
 		
+			<label for="name">이름</label>
+		<div class="input-value">
+			<input value="<c:out value="${ requestScope.pv.pfName}"/>" readonly id="pfName" name="pfName">
+		</div>
+	
+		
+			<label for="name">비밀번호</label>
+		<div class="input-value">
+			<input  type="password" value="<c:out value="${ requestScope.pv.pfPwd}"/>" readonly id="pfPwd" name="password">
+		</div>
+	
+		
+			<label for="name">주소</label>
+		<div class="input-value">
+			<input value="<c:out value="${ requestScope.pv.pfAddress}"/>" readonly id="pfAddress" name="pfAddress">
+		</div>
+	
+
+	   
+			<br>
+	
+			<label for="name">주민등록번호</label>
+		<div class="input-value">
+			<input value="<c:out value='${requestScope.pv.pfNumber}'/>" readonly id="pfNumber" name="pfNumber">
+		</div>
+		
+			<br>
+		
+	
+			<label for="name">성별</label>
+		<div class="input-value">
+			<input value="<c:out value="${ requestScope.pv.pfGender}"/>" readonly id="pfGender" name="pfGender">
+		</div>
+		<div class="gender">
+			<input type="checkbox" id="male" name="gender" value="M"><label for="gender">남자</label>
+		
+			<input type="checkbox" id="female" name="gender" value="F"><label for="gender">여자</label>
+		</div>
+
+	<br> 
+
+			<label for="name">핸드폰</label>
 		<div class="input-value">
 		<!-- 서블릿의 넘긴 키값을 가져오는거  -->
-		
-		<input value="<c:out value='${ requestScope.pv.pfPhone }'/>" readonly id="phone">
+			<input value="<c:out value='${ requestScope.pv.pfPhone }'/>" readonly id="phone" name="pfPhone">
 		</div>		 
-		
-	</div>
+	
+		<br>
+	
+			<label for="name">이메일</label>
+		<div class="input-value">
+			<input value="<c:out value="${ requestScope.pv.pfEmail}"/>" readonly id="pfAddress" name="pfEmail">
+		</div>
+	
 	
 	<br>
-	<div class="input-form">
-		<label for="name">주민등록번호</label>
-		<div class="input-value">
-		<span><c:out value="${ requestScope.pv.pfNumber }"/></span>
-		</div>
-	</div>
 	<br>
-	<br>
-	<div class="input-form">
-		<label for="name">주소</label>
-		<div class="input-value">
-		<span><c:out value="${ requestScope.pv.pfAddress }"/></span>
-		</div>
-	</div>
-	<br>
-	<br>
+	</table>
 	</form>
 	</div>
 	
@@ -106,18 +144,33 @@
 
 	$(function(){
 		
+		//최소하기 , 보여주기 버튼 처음부터 숨김으로 가는거 
 		$("#goCancel").hide();
 		$("#goShow").hide();
+		$(".male").hide();
+		$(".female").hide();
 		
-		
+		//수정하기버튼 눌렀을때 수정하기 버튼은 사라지고
+		//취소하기 , 확인하기 버튼은 보여주게하는거 
 		$("#goEdit").click(function(){
 			$(this).hide();
 			$("#goCancel").show();
 			$("#goShow").show();
 			$("#phone").attr("readonly", false);
+			$("#pfNumber").attr("readonly", false);
+			$("#pfAddress").attr("readonly",false); 
+			//readonly는 false로 해제시키는거 , true는 설
+			//attr은 2개의 인자를 쓰면 속성값을 요소에 부여하는거 
+			$("#pfGender").hide();
+			$(".male").show();
+			$(".female").show();
+			
+			
 		});
 			
 			
+		//취소하기 버튼 눌렀을때 취소하기랑 보여지기는 사라지구 
+		//수정하기 버튼은 보여지는거 
 		$("#goCancel").click(function(){
 			$(this).hide();
 			$("#goEdit").show();
@@ -126,6 +179,7 @@
 		
 		});
 		
+		//이제 확인하기 버튼을 눌렀을때 폼태그에 id를 부여한 #formId를 가지고 그 action의 맵핑주소값으로 전송시킴! 
 		$("#goShow").click(function(){
 			$("#formId").submit();
 		});

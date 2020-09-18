@@ -6,12 +6,17 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/noticeMain.css">
+<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/noticeStyle.css">
+<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/noticeDefault.css">
+<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/userDefaultLayout.css">
 <style>
 	.outer {
 		width:800px;
 		height:500px;
-		background:black;
-		color:white;
+		background:white;
+		color:black;
 		margin-top:50px;
 		margin-left:auto;
 		margin-right:auto;
@@ -27,14 +32,16 @@
 </style>
 </head>
 <body>
-	<jsp:include page="../../common/sideBar.jsp"></jsp:include>
-	
-	
-	
-	
-	<c:if test="${ !empty sessionScope.loginUser and sessionScope.loginUser.userId.equals('admin') }">
+	<jsp:include page="${ application.getContextPath() }/views/common/sideBar.jsp"></jsp:include>
+		
+	<%-- <c:if test="${ !empty sessionScope.loginUser and sessionScope.loginUser.userId.equals('admin') }"> --%>
 		<div class="outer">
 			<br>
+			<div class="logo" align="center">
+			<img alt="" src="../../../resources/image/logo_jess.png" style="width:20%">
+			</div>
+		
+		
 			<h2 align="center">공지 사항 작성</h2>
 			<div class="table-area">
 				<form action="${ applicationScope.contextPath }/insert.no" method="post">
@@ -72,11 +79,11 @@
 		
 		
 		
-	</c:if>
-	<c:if test="${ empty sessionScope.loginUser or !sessionScope.loginUser.userId.equals('admin') }">
+	<%-- </c:if> --%>
+	<%-- <c:if test="${ empty sessionScope.loginUser or !sessionScope.loginUser.userId.equals('admin') }">
 		<c:set var="message" value="잘못된 경로로 접근하셨습니다." scope="request"/>
 		<jsp:forward page="../common/errorPage.jsp"/>
-	</c:if>
+	</c:if> --%>
 </body>
 </html>
 

@@ -64,8 +64,8 @@ public class InsertUserServlet extends HttpServlet {
 		String page = "";
 		if(result > 0) {
 			page ="index.jsp";
-			response.sendRedirect(page);
-			System.out.println("유저 회원 가입 완료");
+			request.setAttribute("login", "유저의 회원기입이 완료되었습니다.");
+			request.getRequestDispatcher(page).forward(request, response);
 		}else {
 			page="views/user/login/insert_member_view.jsp";
 			request.setAttribute("doublecheck", "올바른 정보를 입력해주세요.");

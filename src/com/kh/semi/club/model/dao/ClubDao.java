@@ -435,6 +435,79 @@ public class ClubDao {
 	}
 
 
+	public int insert_club(Connection con, String club_name, String area, String club_comment) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("insert_club");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, club_name);
+			pstmt.setString(2, area);
+			pstmt.setString(3, club_comment);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	public int crrval(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+
+		int club_id = 0;
+
+		String query = prop.getProperty("selectCurrval");
+
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+
+			if (rset.next()) {
+				club_id = rset.getInt("CURRVAL");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+
+		return club_id;
+	}
+
+
+	public int insert_club_member(Connection con, int club_id, Profile_vo user_vo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("insert_club_member");
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, club_id);
+			pstmt.setInt(2,user_vo.getPfId());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+
 	
 
 }

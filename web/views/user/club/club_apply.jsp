@@ -4,7 +4,7 @@ pageEncoding="UTF-8"/>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>
+<head><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <style>
 	#div_1{
 		width:400px;
@@ -13,17 +13,16 @@ pageEncoding="UTF-8"/>
 	}
 	.header{
    grid-area: header;
-   background-color: LightSeaGreen ;
- }
+}
   
  .leftCol{
    grid-area: leftCol;
-   background-color: orange;
+ 
  }
   
  .rightCol{
    grid-area: rightCol;
-   background-color: lightblue;
+ 
  }
   
   .midTop{
@@ -45,7 +44,7 @@ pageEncoding="UTF-8"/>
   
  .footer{
    grid-area: footer;
-   background-color: lightgreen;
+ 
  }
  .wrapper {
   display: grid;
@@ -59,38 +58,165 @@ pageEncoding="UTF-8"/>
   "footer footer footer footer";
   grid-gap: 5px;
  }
+ 
+  .lil,.banner{
+ 	cursor:pointer;
+ 	pont-size:20px;
+ 	float: right;
+ 	margin : 2px;
+ }
+  .toplo{
+ 	list-style:none;
+    margin:0;
+    padding:0;
+ }
+  ul li{
+ 	float: right;
+ 	margin : 2px;
+ 	}
+ 	#userInfo{
+ 	float:right;
+ 	}
 </style>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script>
+function validate(){
+	var club_name = document.getElementById("club_name");
+	var club_ment = document.getElementById("club_ment");
+	var local = document.getElementById("area");
+	
+	
+	if(club_name.value==""){
+		alert("구단 이름을 입력해주세요.");
+		club_name.focus();
+		return false;
+	}
+
+	
+	if(local.options[local.selectedIndex].value=="defualt"){
+		alert("지역을 선택해주세요.");
+		area.focus();
+		return false;
+	}
+	
+	if(club_ment.value==""){
+		alert("구단 멘트를 입력해주세요.");
+		club_ment.focus();
+		return false;
+	}
+	
+	
+}
+	
+
+$(function (){
+
+	// Get the modal
+    var modal = document.getElementById('myModal_login');
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];                                          
+
+    // When the user clicks on the button, open the modal 
+   
+        modal.style.display = "block";
+ 
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+      
+
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+})
+	
+	
+</script>
+
+
 </head>
 <body>
 
+	<!-- 로그인 아이디 또는 비밀번호가 틀렸을때 나타나는 다이얼로그 박스 -->
+	<c:if test="${ !empty requestScope.login }">
+
+	<!-- The Modal -->
+    <div id="myModal_login" class="modal">
+ 
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="close">&times;</span>    
+        <br>
+        <br>                                                           
+        	<h4> ${login }</h4>
+	
+	</div>
+
+      </div>
+ 
+</c:if>
+<jsp:include page="${ application.contextPath }/views/user/comman/login.jsp"/>
 	<jsp:include page="${ application.getContextPath() }/views/common/sideBar.jsp"></jsp:include>
 	
 	<div class="wrapper">
-	  <div class="header">Header</div>
-	  <div class="leftCol">LeftCol</div>
-	  <div class="rightCol">이런곳에 수정ㅎ면되</div>
+	  <div class="header">
+	 <c:if test="${ empty sessionScope.loginUser }">
+				<ul class="toplo">
+					<li class="lil" style="color: #4169E1; font-size: 20px;"><div id="myBtn">로그인</div></li>
+					<li style="font-size: 18px;">또는</li>
+					<li class="lil" style="color: #4169E1; font-size: 20px;"><div><a href="${ application.contextPath }/semi/views/user/login/insert_member.jsp">회원가입</a></div></li>
+
+				</ul>
+			</c:if>
+			<c:if test="${!empty sessionScope.loginUser }">
+			<div id="userInfo">
+				<label><c:out value="${sessionScope.loginUser.pfName }" />
+					님의 방문을 환영합니다.</label>
+				<div class="btn" align="right">
+					<div id="changeInfo" onclick="updateMember();">정보수정</div>
+					<div id="logoutBtn" onclick="logout();">로그아웃</div>
+				</div>
+			</div>
+		</c:if>
+</div>
+	  <div class="leftCol"></div>
+	  <div class="rightCol"></div>
 	  <div class="midTop">
 	  <h2>구단 신청 페이지</h2>
 	  <div id="div_1">
+	<form name="isert_club" action="<%= request.getContextPath() %>/isert_club" method="post" onsubmit="return validate();">  
 <label style="float:left;">구단명</label>
 <input type="text" id="club_name" name="club_name" class="w3-input w3-border w3-border-black">
 <br>
 <label style="float:left;">지역 선택</label>
-<select name="fruit" class="w3-input w3-border">
+<select name="arae_local" id="area" class="w3-input w3-border" >
 	<option value="defualt" selected="selected" >지역을 선택해주세요.</option>
-	<option value="서울">서울</option>
-	<option value="인천">인천</option>
-	<option value="대구">대구</option>
+	<option value="S1">서울</option>
+	<option value="GG1">경기</option>
+	<option value="I1">인천</option>
+	<option value="B1">부산</option>
+	<option value="p1">포항</option>
+	<option value="U1">울산</option>
 </select>
 <br>
 <label style="float:left;">소개 멘트</label><br><br>
-<textarea cols="52" rows="10" placeholder="구단을 소개하는 멘트를 입력해주세요." style="resize:none;"></textarea>
+<textarea id="club_ment" name="club_ment"cols="52" rows="10" placeholder="구단을 소개하는 멘트를 입력해주세요." style="resize:none;"></textarea>
 	</div>
 	  </div>
 	  <div class="midBottom"><button class="w3-btn w3-red" id="club_apply">구단 신청</button></div>
+	  </form>
 	  <div class="footer">Footer</div>
 	</div>
 </body>

@@ -84,9 +84,11 @@
                 <li>
                     <a href="${pageContext.request.contextPath }/views/user/club/club_Main.jsp">구단</a>
                 </li>
+                <c:if test="${ !empty sessionScope.loginUser }">
                 <li>
                     <a href="${pageContext.request.contextPath }/views/user/club/club_apply.jsp">구단 신청</a>
                 </li>
+                </c:if>
                 <li>
                     <a href="${pageContext.request.contextPath }/views/user/stadium/stadium_search.jsp">구장 정보</a>
                 </li>

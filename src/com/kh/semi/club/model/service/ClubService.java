@@ -10,6 +10,7 @@ import java.util.Calendar;
 import com.kh.semi.club.model.dao.ClubDao;
 import com.kh.semi.club.model.vo.Club_vo;
 import com.kh.semi.common.vo.rank_vo;
+import com.kh.semi.user.model.vo.Profile_vo;
 
 public class ClubService {
 
@@ -172,6 +173,30 @@ public class ClubService {
 		close(con);
 		
 		return result;
+	}
+
+	public int insert_club(String club_name, String area, String club_comment, Profile_vo user_vo) {
+		Connection con = getConnection();
+		
+		int result = dao.insert_club(con,club_name,area,club_comment);
+		int result2 = 0;
+		if(result > 0 ) {
+			System.out.println("클럽 인설트 완료");
+			int club_id = dao.crrval(con);
+			if(club_id > 0 ) {
+				System.out.println("방금 생성한 클럽 번호 인식완료");
+				 result2 = dao.insert_club_member(con, club_id,user_vo);
+				if( result2 > 0) {
+					System.out.println("club_member에 인원 추가 완료");
+					commit(con);
+				}else {
+					rollback(con);
+				}
+			}
+		}
+		close(con);
+		
+		return result2;
 	}
 
 	

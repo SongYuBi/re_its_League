@@ -7,15 +7,15 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- Remember to include jQuery :) -->
-<!-- <script
+<script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
 
-jQuery Modal
+<!-- jQuery Modal -->
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
- -->
+
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/w3.css" />
@@ -99,21 +99,34 @@ jQuery Modal
 	padding:10px 100px 10px 10px;
 }
 
+#saveBtn {
+	position:absolute;
+	right:12%;
+	bottom:10%;
+}
+
+#cancle {
+	position:absolute;
+	right:6%;
+	bottom:10%;
+}
+
+
 </style>
 </head>
 <body>
 	<div id="open" class="openModal">
 		<div class="open_back">
-			<span class="close">&times;</span>
+			<span class="close" onclick="modalClose();">&times;</span>
 			<div id="mySidebar" class="w3-sidebar w3-itLeague-blue w3-card"
 				style="width: 200px">
-				<button class="w3-button w3-block w3-left-align"
+				<button class="w3-button w3-block w3-left-align" id="home"
 					onclick="myAccFunc1()">포항</button>
 				<div id="demoAcc1" class="w3-bar-block w3-hide w3-white w3-card-4">
 					<a href="#" class="w3-bar-item w3-button">선수1</a> 
 					<a href="#"	class="w3-bar-item w3-button">선수2</a>
 				</div>				
-				<button class="w3-button w3-block w3-left-align"
+				<button class="w3-button w3-block w3-left-align" id="away"
 					onclick="myAccFunc2()">울산</button>
 				<div id="demoAcc2" class="w3-bar-block w3-hide w3-white w3-card-4">
 					<a href="#" class="w3-bar-item w3-button">선수3</a> 
@@ -121,34 +134,38 @@ jQuery Modal
 				</div>				
 			</div>
 		</div>
+		<form id="saveForm" method="post" action="${pageContext.request.contextPath }/insertResult.mr">
 		<div class="input_table">
 			<div>
 				<span class="myth">리그</span>
-				<span>리그명</span>
+				<span id="lgName"></span>
 			</div>
 			<div>
 				<span class="myth">팀</span>
-				<span>포항 <input type="checkbox" value="승"></span>
-				<span>울산 <input type="checkbox" value="승"></span>
+				<span id="home2"></span><input type="radio" value="승" name="win" style="margin-left:10px">
+				&nbsp;<span id="away2"></span><input type="radio" value="승" name="win" style="margin-left:10px">
 			</div>
 			<div>
 				<span class="myth">점수</span>
-				<span>0</span><span>:</span><span>0</span>
+				<span id="score1"><input type="text" style="width:50px"></span><span>&nbsp;:&nbsp;</span><span id="score2"><input type="text" style="width:50px"></span>
 			</div>
 			<div>
 				<span class="myth">장소</span>
-				<span>용산역 아이파크</span>
+				<span id="std"></span>
 			</div>
 			<div>
-				<span class="myth">시간</span>
+				<span class="myth" id="matchTime">시간</span>
 				<span>19:00</span>
 			</div>
 		</div>
+		</form>
+		<button class="save" id="saveBtn">저장하기</button>
+		<button id="cancle">취소</button>
 	</div>
 	<div class="back"></div>
 </body>
 <script>
-	$(document).ready(function() {
+/* 	$(document).ready(function() {
 		$("#myModalbtn").on('click', function() {
 			$("#open").show();
 			$(".back").show();
@@ -159,9 +176,68 @@ jQuery Modal
 			$("#open").hide();
 			$(".back").hide();
 		});
+		
+		console.log("modal");
 
-	});
+	}); */
 
+	
+	function modalOpen(my) {
+		var matchId = $(my).siblings('input').text();
+		var inputTable = $(".input_table");
+		$("#open").show();
+		$(".back").show();
+		console.log("modal open");
+		$.ajax({
+			url:"${pageContext.request.contextPath}/selectOneResult.rs",
+			type:"post",
+			data:{matchId:matchId, date:date, nextMonth:nextMonth},
+			success:function(data){
+				var $home = $("#home");
+				var $away = $("#away");
+				var $home2 = $("#home2");
+				var $away2 = $("#away2");
+				var $lgName = $("#lgName");
+				var $score = $("#score");
+				var $std = $("#std");
+				var $matchTime = $("#matchTime");
+				
+ 				var $matchId_modal = $('<input type="hidden" id="matchId" name="matchId">').val(data[0].matchId);
+				var $fName = $('<input type="hidden" id="home" name="fname">').val(data[0].fName);
+				var $sName = $('<input type="hidden" id="away" name="sname">').val(data[0].sName);
+				var $lgName_tag = $('<input type="hidden" id="lgName" name="lgname">').val(data[0].lgName);
+	
+				
+				$home.html('');
+				$away.html('');
+				$home2.html('');
+				$away2.html('');
+				$lgName.html('');
+				$score.html('');
+				$std.html('');
+				$matchTime.html('');
+				 
+				$home.text(data[0].fName);
+				$away.text(data[0].sName);
+				$home2.text(data[0].fName);
+				$away2.text(data[0].sName);
+				$lgName.text(data[0].lgName);
+				$std.text(data[0].stdName);
+				$std.append($matchId_modal);
+				$std.append($fName);
+				$std.append($sName);
+				$std.append($lgName_tag);
+				 
+			}
+		});
+			
+		
+	}
+	
+	function modalClose() {
+		
+	}
+	
 	function myAccFunc1() {
 		var x = document.getElementById("demoAcc1");
 		if (x.className.indexOf("w3-show") == -1) {
@@ -185,6 +261,29 @@ jQuery Modal
 		}
 	}
 
+	$("#saveBtn").on('click', function(){
+		$("#saveForm").submit(); 
+/* 		var lgName = $("#lgName").text();
+		var away = $("#away").text();
+		var home = $("#home").text();
+		var awayScore = $("#away2").text();
+		var homeScore = $("#home2").text();
+		var matchId = $("#matchId").text();
+		alert(matchId);
+		
+		$.ajax({
+			url:"/insertResult.mr",
+			type:"post",
+			data:{lgName:lgName, away:away, home:home, awayScore:awayScore, homeScore:homeScore, matchId:matchId},
+			success:function(data){
+				
+			} 
+		});*/
+		
+	});
 	
+	$("#cancle").on('click', function(){
+		location.href="${pageContext.request.contextPath}/views/referee/league/refereeGameEvalution.jsp";
+	});
 </script>
 </html>

@@ -336,4 +336,44 @@ public class RefereeDao {
  		return schList;
 	}
 
+	public ArrayList searchScheduleOneFilter(int pfId, String firstDate, String lastDate, Connection con,
+			String matchId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList schList = null;
+		String query = prop.getProperty("selectScheduleOneFilter");
+		
+		System.out.println(query);
+		try {
+			pstmt = con.prepareStatement(query);
+		/*	pstmt.setInt(1, pfId);*/
+			pstmt.setString(1, firstDate);
+			pstmt.setString(2, lastDate);
+			pstmt.setString(3, matchId);
+			schList = new ArrayList<>();
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				RefereeSchedule_vo refV = new RefereeSchedule_vo();
+				refV.setMatchDate(rset.getDate("MATCH_DATE"));
+				refV.setfName(rset.getString("FNAME"));
+				refV.setsName(rset.getString("SNAME"));
+				refV.setRefId(rset.getInt("REF_ID"));
+				refV.setMatchId(rset.getInt("MATCH_ID"));
+				refV.setLgName(rset.getString("LG_NAME"));
+				refV.setPfId(rset.getInt("PF_ID"));
+				refV.setStdName(rset.getString("STD_NAME"));
+				schList.add(refV);
+			
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+ 		return schList;
+	}
+
 }

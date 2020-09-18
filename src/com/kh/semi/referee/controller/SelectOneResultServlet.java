@@ -1,7 +1,6 @@
 package com.kh.semi.referee.controller;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -10,23 +9,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 import com.kh.semi.referee.model.service.RefereeService;
-import com.kh.semi.user.model.vo.Profile_vo;
 
 /**
- * Servlet implementation class ScheduleSearchServlet
+ * Servlet implementation class SelectOneResultServlet
  */
-@WebServlet("/refSchedule_filter.rf")
-public class ScheduleServletFilter extends HttpServlet {
+@WebServlet("/selectOneResult.rs")
+public class SelectOneResultServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ScheduleServletFilter() {
+    public SelectOneResultServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,13 +32,9 @@ public class ScheduleServletFilter extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	/*	HttpSession session = request.getSession();
-		
-		Profile_vo loginUser = (Profile_vo)session.getAttribute("loginUser");
-		System.out.println("loginUser : " + loginUser);*/
-		/*int pfId = loginUser.getPfId();*/
 		String[] date = request.getParameter("date").split("-");
 		String carouselMonth = request.getParameter("nextMonth");
+		String matchId = request.getParameter("matchId");
 		int carMonth = Integer.parseInt(carouselMonth);
 		int year = Integer.parseInt(date[0]);
 		int month = Integer.parseInt(date[1]);
@@ -51,21 +44,20 @@ public class ScheduleServletFilter extends HttpServlet {
 		Calendar cal = Calendar.getInstance();
 		cal.set(year, carMonth-1, 1);
 		int lastDay = cal.getActualMaximum(Calendar.DATE);
-		System.out.println("lastDay :" + lastDay);
-		System.out.println("year : " + year + " month : " + carMonth + " day : " + day);
+		
+		System.out.println("Modal matchId : " + matchId);
 		
 		String lastDate = Integer.toString(year)+"-"+Integer.toString(carMonth)+"-"+Integer.toString(lastDay);
 		String firstDate = Integer.toString(year)+"-"+Integer.toString(carMonth)+"-"+"01";
 		
 		int pfId = 500;
 		ArrayList schList = null;
-		schList = new RefereeService().searchScheduleFilter(pfId, firstDate, lastDate);
+		schList = new RefereeService().searchScheduleOneFilter(pfId, firstDate, lastDate, matchId);
 		
 		System.out.println(schList);
 		
 		response.setContentType("application/json; charset=UTF-8");
 		new Gson().toJson(schList, response.getWriter());
- 		
 	}
 
 	/**

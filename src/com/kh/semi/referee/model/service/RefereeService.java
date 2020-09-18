@@ -143,5 +143,14 @@ public class RefereeService {
  		return schList;
 	}
 
+	public ArrayList searchScheduleOneFilter(int pfId, String firstDate, String lastDate, String matchId) {
+		Connection con = getConnection();
+		
+		ArrayList schList = new RefereeDao().searchScheduleOneFilter(pfId, firstDate, lastDate, con, matchId);
+		
+		close(con);
+ 		return schList;
+	}
+
 
 }

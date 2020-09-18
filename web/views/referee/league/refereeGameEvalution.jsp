@@ -9,8 +9,8 @@
 <link rel="stylesheet"
 	href="${ pageContext.request.contextPath }/resources/css/adminDefaultLayout.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<!-- <script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script> -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 <!-- <script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
@@ -54,7 +54,6 @@
 
 .matchDate {
 	font-weight: 700;
-	border: 1px solid black;
 	padding: 10px;
 }
 
@@ -68,7 +67,7 @@
 	<%-- <jsp:include page="/views/referee/common/adminSideBar.jsp"></jsp:include> --%>
 	<jsp:include
 		page="${ application.contextPath }/views/referee/common/sideBar.jsp"></jsp:include>
-
+	
 	<div class="wrapper_admin">
 		<div class="header">
 			<h1>경기 평가</h1>
@@ -78,7 +77,7 @@
 		<div class="midTop">
 			<hr>
 			<div id="carouselExampleControls" class="carousel slide"
-				data-ride="false">
+				data-ride="carousel" data-interval="false">
 				<div class="carousel-inner" >
 					<div class="carousel-item" id="carouselVal1">
 						<h1 id="carouselValue1" align="center">1</h1>
@@ -118,7 +117,7 @@
 					</div>
 				</div>
 				<a class="carousel-control-prev" href="#carouselExampleControls"
-					role="button" data-slide="prev"> <span
+					role="button" data-slide="prev" data-interval="false"> <span
 					class="carousel-control-prev-icon" aria-hidden="true"></span> <span
 					class="sr-only">Previous</span>
 				</a> <a class="carousel-control-next" href="#carouselExampleControls"
@@ -129,88 +128,49 @@
 			</div>
 
 			<div class="table_area">
-				<div class="matchDate"></div>
-				<div>
-					<table class="table table-striped custab">
+					<table class="table table-striped custab" id="scheduleTb">
 						<thead>
 							<tr>
+								<th>날짜</th>
 								<th>리그</th>
-								<th>경기</th>
+								<th>home</th>
+								<th>away</th>
 								<th>구장</th>
 								<th class="text-center">결과입력</th>
 							</tr>
 						</thead>
-						<tr>
-							<td>A리그</td>
-							<td><span>1팀</span>:<span>2팀</span></td>
-							<td>종합운동장</td>
-							<td class="text-center"><a class='btn btn-info btn-xs'
-								id="myModalbtn"> <span class="glyphicon glyphicon-edit"></span>
-									Edit
-							</a>
-						</tr>
-						<tr>
-							<td>B리그</td>
-							<td><span>1팀</span>:<span>2팀</span></td>
-							<td>용산 아이파크</td>
-							<td class="text-center"><a class='btn btn-info btn-xs'
-								href="#"><span class="glyphicon glyphicon-edit"></span> Edit</a>
-						</tr>
-						<tr>
-							<td>C리그</td>
-							<td><span>1팀</span>:<span>2팀</span></td>
-							<td>용인 참스포츠</td>
-							<td class="text-center"><a class='btn btn-info btn-xs'
-								href="#"><span class="glyphicon glyphicon-edit"></span> Edit</a>
-						</tr>
-					</table>
-
-				</div>
-				<div class="matchDate"></div>
-				<div>
-					<table class="table table-striped custab">
-						<thead>
-							<tr>
-								<th>리그</th>
-								<th>경기</th>
-								<th>구장</th>
-								<th class="text-center">결과입력</th>
-							</tr>
-						</thead>
-						<tr>
-							<td>A리그</td>
-							<td><span>1팀</span>:<span>2팀</span></td>
-							<td>종합운동장</td>
-							<td class="text-center"><a class='btn btn-info btn-xs'
-								href="#"><span class="glyphicon glyphicon-edit"
-									id="modal_btn"></span> Edit</a>
-						</tr>
-						<tr>
-							<td>B리그</td>
-							<td><span>1팀</span>:<span>2팀</span></td>
-							<td>용산 아이파크</td>
-							<td class="text-center"><a class='btn btn-info btn-xs'
-								href="#"><span class="glyphicon glyphicon-edit"></span> Edit</a>
-						</tr>
-						<tr>
-							<td>C리그</td>
-							<td><span>1팀</span>:<span>2팀</span></td>
-							<td>용인 참스포츠</td>
-							<td class="text-center"><a class='btn btn-info btn-xs'
-								href="#"><span class="glyphicon glyphicon-edit"></span> Edit</a>
-						</tr>
-					</table>
-
-				</div>
-
+						<tbody>
+							<td>
+								<a class='btn btn-info btn-xs' id="myModalbtn"> 
+									<span class="glyphicon glyphicon-edit"></span>
+											Edit
+								</a>
+							</td>
+						</tbody>
+					</table>	
 			</div>
 		</div>
 		<div class="midBottom"></div>
 		<div class="footer"></div>
-
+		<jsp:include page="/views/referee/common/matchCreate_Modal.jsp"></jsp:include>
 	</div>
-	<jsp:include page="/views/referee/common/matchCreate_Modal.jsp"></jsp:include>
+	
 	<script>
+	$(document).ready(function() {
+		$("#myModalbtn").on('click', function() {
+			$("#open").show();
+			$(".back").show();
+			console.log("modal open")
+		});
+
+		$(".close").on('click', function() {
+			$("#open").hide();
+			$(".back").hide();
+		});
+		
+		console.log("modal");
+
+	});
 		// 현재 달로 변경해주는 함수
 		$(document).ready(function() {
 			var month = getMonthDate() + 1;
@@ -246,13 +206,235 @@
 			var formatDate = year + "-" + ("0" + month).slice(-2) + "-"
 					+ ("0" + day).slice(-2);
 			return formatDate;
-		}
+		};
 		
 		
 		$(function(){
 			$("#carouselExampleControls").carousel({
-				interval:false
+				interval:'false'
 				
+			});
+		});
+		
+		var defaultDateMonth = getMonthDate();
+		var date = getDate();
+		var nextMonth = defaultDateMonth;
+		
+		$(function loadAjax() {
+	 		$(".carousel-control-next").click(function(){
+	 			nextMonth = nextMonth + 1;
+	 			if(nextMonth > 12) {
+	 				nextMonth = 1;
+	 			}
+	 			console.log(nextMonth);
+				$.ajax({
+					url:"${pageContext.request.contextPath}/refSchedule_filter.rf",
+					type:"get",
+					data:{date:date, nextMonth:nextMonth},
+					success: function(data){
+						var $tablehead = $("thead");
+						var $tableBody = $("#scheduleTb tbody");
+						var $matchDate = $(".matchDate");
+						var nowDate = getDate();
+						$tableBody.html('');
+						$matchDate.html('');
+						console.log(data[1].matchDate.split("-"));
+						
+						// 날짜 중복 제거
+						var listDate =[];
+						$matchDate.text(data[0].matchDate);
+						for(var i=0; i < data.length; i++){
+							listDate.push(data[i].matchDate);
+						}
+						var dupleListDate = [];
+						$.each(listDate, function(i, el){
+							if($.inArray(el, dupleListDate) === -1) {
+								dupleListDate.push(el);
+							}
+						});
+						console.log(dupleListDate);
+						
+						
+						for(var j=0; j < dupleListDate.length; j++){
+							var $dupleDiv = $('<div class="matchDate">').text(dupleListDate[j]);
+							$tableBody.append($dupleDiv);
+							
+							
+							for(var i=0; i < data.length; i++) {
+								if(dupleListDate[j] == data[i].matchDate){
+									var $tr = $('<tr>');
+									var $dateTd = $('<td>');/* .text(data[i].matchDate);*/
+									var $lgTd = $('<td>').text(data[i].lgName);
+									var $fNameTd = $('<td>').text(data[i].fName);
+									var $sNameTd = $('<td>').text(data[i].sName);
+									var $stdName = $('<td>').text(data[i].stdName);
+									var $editBtn = $("<td class='text-center'><a class='btn btn-info btn-xs' id='myModalbtn' onclick='modalOpen(this);'><span class='glyphicon glyphicon-edit'></span>Edit</a></td>");
+									
+									var $matchId = $('<input type="hidden" id="matchId'+(i+1)+'" value="'+i+'">').text(data[i].matchId);
+									
+									$editBtn.append($matchId);
+									$tr.append($dateTd);
+									$tr.append($lgTd);
+									$tr.append($fNameTd);
+									$tr.append($sNameTd);
+									$tr.append($stdName);
+									$tr.append($editBtn);
+									$tableBody.append($tr);
+								} else {
+									continue;
+								}
+								
+							}
+					};
+						
+					}
+				});
+			});
+		
+		});
+		
+		$(function loadAjax() {
+	 		$(".carousel-control-prev").click(function(){
+	 			nextMonth = nextMonth - 1;
+	 			if(nextMonth > 12) {
+	 				nextMonth = 1;
+	 			}
+	 			console.log(nextMonth);
+				$.ajax({
+					url:"${pageContext.request.contextPath}/refSchedule_filter.rf",
+					type:"get",
+					data:{date:date, nextMonth:nextMonth},
+					success: function(data){
+						var $tablehead = $("thead");
+						var $tableBody = $("#scheduleTb tbody");
+						var $matchDate = $(".matchDate");
+						var nowDate = getDate();
+						$tableBody.html('');
+						$matchDate.html('');
+						console.log(data[1].matchDate.split("-"));
+						
+						// 날짜 중복 제거
+						var listDate =[];
+						$matchDate.text(data[0].matchDate);
+						for(var i=0; i < data.length; i++){
+							listDate.push(data[i].matchDate);
+						}
+						var dupleListDate = [];
+						$.each(listDate, function(i, el){
+							if($.inArray(el, dupleListDate) === -1) {
+								dupleListDate.push(el);
+							}
+						});
+						console.log(dupleListDate);
+						
+						
+						for(var j=0; j < dupleListDate.length; j++){
+							var $dupleDiv = $('<div class="matchDate">').text(dupleListDate[j]);
+							$tableBody.append($dupleDiv);
+							
+							
+							for(var i=0; i < data.length; i++) {
+								if(dupleListDate[j] == data[i].matchDate){
+									var $tr = $('<tr>');
+									var $dateTd = $('<td>');/* .text(data[i].matchDate);*/
+									var $lgTd = $('<td>').text(data[i].lgName);
+									var $fNameTd = $('<td>').text(data[i].fName);
+									var $sNameTd = $('<td>').text(data[i].sName);
+									var $stdName = $('<td>').text(data[i].stdName);
+									var $editBtn = $("<td class='text-center'><a class='btn btn-info btn-xs' id='myModalbtn' onclick='modalOpen(this);'><span class='glyphicon glyphicon-edit'></span>Edit</a></td>");
+									
+									var $matchId = $('<input type="hidden" id="matchId'+(i+1)+'" value="'+i+'">').text(data[i].matchId);
+									
+									$editBtn.append($matchId);
+									$tr.append($dateTd);
+									$tr.append($lgTd);
+									$tr.append($fNameTd);
+									$tr.append($sNameTd);
+									$tr.append($stdName);
+									$tr.append($editBtn);
+									$tableBody.append($tr);
+								} else {
+									continue;
+								}
+								
+							}
+					};
+						
+					}
+				});
+			});
+		
+		});
+
+  		$(document).ready(function(){
+ 			nextMonth = nextMonth + 1;
+ 			if(nextMonth > 12) {
+ 				nextMonth = 1;
+ 			}
+ 			console.log(nextMonth);
+			$.ajax({
+				url:"${pageContext.request.contextPath}/refSchedule_filter.rf",
+				type:"get",
+				data:{date:date, nextMonth:nextMonth},
+				success: function(data){
+					var $tablehead = $("thead");
+					var $tableBody = $("tbody");
+					var $matchDate = $(".matchDate");
+					var $table = $("table");
+					var nowDate = getDate();
+					var $tableArea = $(".table_area");
+					$tableBody.html('');
+					$matchDate.html('');
+					console.log(data[1].matchDate.split("-"));
+					
+					// 날짜 중복 제거
+					var listDate =[];
+					$matchDate.text(data[0].matchDate);
+					for(var i=0; i < data.length; i++){
+						listDate.push(data[i].matchDate);
+					}
+					var dupleListDate = [];
+					$.each(listDate, function(i, el){
+						if($.inArray(el, dupleListDate) === -1) {
+							dupleListDate.push(el);
+						}
+					});
+					console.log(dupleListDate);
+					
+					
+					for(var j=0; j < dupleListDate.length; j++){
+						var $dupleDiv = $('<div class="matchDate">').text(dupleListDate[j]);
+						
+						$tableBody.append($dupleDiv);
+						
+						
+						for(var i=0; i < data.length; i++) {
+							if(dupleListDate[j] == data[i].matchDate){
+								var $tr = $('<tr>');
+								var $dateTd = $('<td>');/* .text(data[i].matchDate);*/
+								var $lgTd = $('<td>').text(data[i].lgName);
+								var $fNameTd = $('<td>').text(data[i].fName);
+								var $sNameTd = $('<td>').text(data[i].sName);
+								var $stdName = $('<td>').text(data[i].stdName);
+								var $editBtn = $("<td class='text-center'><a class='btn btn-info btn-xs' id='myModalbtn' onclick='modalOpen(this);'><span class='glyphicon glyphicon-edit'></span>Edit</a></td>");
+								
+								var $matchId = $('<input type="hidden" id="matchId'+(i+1)+'" value="'+i+'">').text(data[i].matchId);
+								
+								$editBtn.append($matchId);
+								$tr.append($dateTd);
+								$tr.append($lgTd);
+								$tr.append($fNameTd);
+								$tr.append($sNameTd);
+								$tr.append($stdName);
+								$tr.append($editBtn);
+								$tableBody.append($tr);
+							} else {
+								continue;
+							}
+						}
+				};
+				
+				}
 			});
 		});
 	</script>

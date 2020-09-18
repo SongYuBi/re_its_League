@@ -23,7 +23,7 @@
 <!-- Custom fonts for this template-->
 <link href="/semi/resources/css/all.min.css" rel="stylesheet" type="text/css">
 <!-- Page level plugin CSS-->
-<link href="/semi/resources/css/dataTables.bootstrap4.css" rel="stylesheet">
+<link href="/semi/resources/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 <link href="/semi/resources/css/sb-admin.css" rel="stylesheet">
 
 <style>

@@ -54,7 +54,7 @@
 
 .matchDate {
 	font-weight: 700;
-	border: 1px solid black;
+	
 	padding: 10px;
 }
 
@@ -129,7 +129,7 @@
 			</div>
 
 			<div class="table_area">
-				<div class="matchDate"></div>
+				<!-- <div class="matchDate"></div> -->
 				<div>
 					<table class="table table-striped custab" id="scheduleTb">
 						<thead>
@@ -224,8 +224,147 @@
 		
 		var defaultDateMonth = getMonthDate();
 		var date = getDate();
-		var nextMonth = defaultDateMonth + 1;
- 		$(".carousel-control-next").click(function(){
+		var nextMonth = defaultDateMonth;
+		
+		$(function loadAjax() {
+	 		$(".carousel-control-next").click(function(){
+	 			nextMonth = nextMonth + 1;
+	 			if(nextMonth > 12) {
+	 				nextMonth = 1;
+	 			}
+	 			console.log(nextMonth);
+				$.ajax({
+					url:"${pageContext.request.contextPath}/refSchedule_filter.rf",
+					type:"get",
+					data:{date:date, nextMonth:nextMonth},
+					success: function(data){
+						var $tablehead = $("thead");
+						var $tableBody = $("#scheduleTb tbody");
+						var $matchDate = $(".matchDate");
+						var nowDate = getDate();
+						$tableBody.html('');
+						$matchDate.html('');
+						console.log(data[1].matchDate.split("-"));
+						
+						// 날짜 중복 제거
+						var listDate =[];
+						$matchDate.text(data[0].matchDate);
+						for(var i=0; i < data.length; i++){
+							listDate.push(data[i].matchDate);
+						}
+						var dupleListDate = [];
+						$.each(listDate, function(i, el){
+							if($.inArray(el, dupleListDate) === -1) {
+								dupleListDate.push(el);
+							}
+						});
+						console.log(dupleListDate);
+						
+						
+						for(var j=0; j < dupleListDate.length; j++){
+							var $dupleDiv = $('<div class="matchDate">').text(dupleListDate[j]);
+							
+							$tableBody.append($dupleDiv);
+							
+							for(var i=0; i < data.length; i++) {
+								if(dupleListDate[j] == data[i].matchDate){
+									var $tr = $('<tr>');
+									var $dateTd = $('<td>');/* .text(data[i].matchDate); */
+									var $lgTd = $('<td>').text(data[i].lgName);
+									var $fNameTd = $('<td>').text(data[i].fName);
+									var $sNameTd = $('<td>').text(data[i].sName);
+									var $stdName = $('<td>').text(data[i].stdName);
+									
+									$tr.append($dateTd);
+									$tr.append($lgTd);
+									$tr.append($fNameTd);
+									$tr.append($sNameTd);
+									$tr.append($stdName);
+									
+									$tableBody.append($tr);
+								} else {
+									continue;
+								}
+								
+							}
+					};
+						
+					}
+				});
+			});
+		
+		});
+		
+		$(function loadAjax() {
+	 		$(".carousel-control-prev").click(function(){
+	 			nextMonth = nextMonth - 1;
+	 			if(nextMonth > 12) {
+	 				nextMonth = 1;
+	 			}
+	 			console.log(nextMonth);
+				$.ajax({
+					url:"${pageContext.request.contextPath}/refSchedule_filter.rf",
+					type:"get",
+					data:{date:date, nextMonth:nextMonth},
+					success: function(data){
+						var $tablehead = $("thead");
+						var $tableBody = $("#scheduleTb tbody");
+						var $matchDate = $(".matchDate");
+						var nowDate = getDate();
+						$tableBody.html('');
+						$matchDate.html('');
+						console.log(data[1].matchDate.split("-"));
+						
+						// 날짜 중복 제거
+						var listDate =[];
+						$matchDate.text(data[0].matchDate);
+						for(var i=0; i < data.length; i++){
+							listDate.push(data[i].matchDate);
+						}
+						var dupleListDate = [];
+						$.each(listDate, function(i, el){
+							if($.inArray(el, dupleListDate) === -1) {
+								dupleListDate.push(el);
+							}
+						});
+						console.log(dupleListDate);
+						
+						
+						for(var j=0; j < dupleListDate.length; j++){
+							var $dupleDiv = $('<div class="matchDate">').text(dupleListDate[j]);
+							
+							$tableBody.append($dupleDiv);
+							
+							for(var i=0; i < data.length; i++) {
+								if(dupleListDate[j] == data[i].matchDate){
+									var $tr = $('<tr>');
+									var $dateTd = $('<td>');/* .text(data[i].matchDate); */
+									var $lgTd = $('<td>').text(data[i].lgName);
+									var $fNameTd = $('<td>').text(data[i].fName);
+									var $sNameTd = $('<td>').text(data[i].sName);
+									var $stdName = $('<td>').text(data[i].stdName);
+									
+									$tr.append($dateTd);
+									$tr.append($lgTd);
+									$tr.append($fNameTd);
+									$tr.append($sNameTd);
+									$tr.append($stdName);
+									
+									$tableBody.append($tr);
+								} else {
+									continue;
+								}
+								
+							}
+					};
+						
+					}
+				});
+			});
+		
+		});
+
+  		$(document).ready(function(){
  			nextMonth = nextMonth + 1;
  			if(nextMonth > 12) {
  				nextMonth = 1;
@@ -236,6 +375,7 @@
 				type:"get",
 				data:{date:date, nextMonth:nextMonth},
 				success: function(data){
+					var $tablehead = $("thead");
 					var $tableBody = $("#scheduleTb tbody");
 					var $matchDate = $(".matchDate");
 					var nowDate = getDate();
@@ -259,12 +399,14 @@
 					
 					
 					for(var j=0; j < dupleListDate.length; j++){
-						$matchDate.text(dupleListDate[j]);
+						var $dupleDiv = $('<div class="matchDate">').text(dupleListDate[j]);
+						
+						$tableBody.append($dupleDiv);
+						
 						for(var i=0; i < data.length; i++) {
 							if(dupleListDate[j] == data[i].matchDate){
-								var $matchDate = $(".matchDate");
 								var $tr = $('<tr>');
-								var $dateTd = $('<td>').text(data[i].matchDate);
+								var $dateTd = $('<td>');/* .text(data[i].matchDate);*/
 								var $lgTd = $('<td>').text(data[i].lgName);
 								var $fNameTd = $('<td>').text(data[i].fName);
 								var $sNameTd = $('<td>').text(data[i].sName);

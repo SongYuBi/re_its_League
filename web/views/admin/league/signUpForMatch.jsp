@@ -32,8 +32,7 @@
 	
 </style>
 <body>
-	<jsp:include
-		page="/views/referee/common/adminSideBar.jsp"></jsp:include>
+<jsp:include page="${ application.contextPath }/views/admin/main/sideBar.jsp"></jsp:include>
 
 	<div class="container">
 		<div class="outer">

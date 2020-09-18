@@ -91,7 +91,7 @@
 	  </div>
 	  
 	  <div class="midTop">
-	  	<div style="border:1px solid blue;width:100%; background:#F8F8F8; height:200px;">
+	  	<div style="border:1px solid #2965FF;width:100%; background:#F8F8F8; height:200px;">
 	  		<span class="league-name">It's Man League</span>
 	  		<select class="selectSt" onchange="selectLeague(this);">
 	  			<option value="SEOUL01">SEOUL01(서울지역)</option>
@@ -108,7 +108,7 @@
 	  	
 	  	<div class="container-my">
         <div class="table-wrapper">
-            <div class="table-title" style="border:1px solid blue;width:100%; background:#F8F8F8; height:350px; margin-top:50px;">
+            <div class="table-title" style="border:1px solid #2965FF;width:100%; background:#F8F8F8; height:350px; margin-top:50px;">
                	<ul class="league-text1" style="margin-left:40px;">
                		<li class="liline">리그명 : <span>lt's Man League Seoul 20</span></li>
                		<li class="liline">주관 : <span>주식회사 It's League</span></li>
@@ -129,7 +129,7 @@
 	  
 	  </div>
 	  <div class="midBottom">
-	 	 <div style="border:1px solid blue;width:100%; background:#F8F8F8; height:340px; margin-top:60px;">
+	 	 <div style="border:1px solid #2965FF;width:100%; background:#F8F8F8; height:340px; margin-top:60px;">
 	 	 	<p class="refundtext">환급 규정</p>
 	 	 	<ol style="clear:both">
 	 	 		<li class="lis"><span class="textspan">신청 후 일주일 이내 취소 시 : 전액환급</span></li>

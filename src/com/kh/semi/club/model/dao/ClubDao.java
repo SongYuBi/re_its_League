@@ -157,12 +157,19 @@ public class ClubDao {
 		ArrayList club_info_rank = new ArrayList();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		String sql = "";
 		
-		String sql = prop.getProperty("club_info_rank");
-		
+
 		try {
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, league_id);
+			if(league_id.equals("all")) {
+				 sql = prop.getProperty("club_info_rank_all");
+					pstmt = con.prepareStatement(sql);
+			}else {
+				 sql = prop.getProperty("club_info_rank");
+					pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, league_id);
+			}
+		
 			
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
@@ -256,13 +263,22 @@ public class ClubDao {
 		ArrayList club_name_search = new ArrayList();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		String sql ="";
 		
-		String sql = prop.getProperty("searchTeamName");
 		
 		try {
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, league_id);
-			pstmt.setString(2, club_name);
+			
+			if(league_id.equals("all")) {
+				sql = prop.getProperty("searchTeamName_all");
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, club_name);
+			}else {
+				sql = prop.getProperty("searchTeamName");
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, league_id);
+				pstmt.setString(2, club_name);
+			}
+			
 			
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
@@ -504,6 +520,57 @@ public class ClubDao {
 		}
 		
 		
+		return result;
+	}
+
+
+	public int removeClub(Connection con, String teamNumber) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("removeClub");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(teamNumber));
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+
+	public int search_club_admin(Connection con,Profile_vo loginUser, int teamNumber) {
+		PreparedStatement pstmt = null;
+		int result= 0;
+		ResultSet rs = null;
+		
+
+		String sql = prop.getProperty("search_club_admin");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, loginUser.getPfId());
+			pstmt.setInt(2, teamNumber);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				result=Integer.parseInt(rs.getString(1));
+				System.out.println("유저 검색 하는데 이사람이 구단주인지? " + result);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+				
+				
 		return result;
 	}
 

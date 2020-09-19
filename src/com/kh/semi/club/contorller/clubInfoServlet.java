@@ -6,10 +6,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.kh.semi.club.model.service.ClubService;
 import com.kh.semi.club.model.vo.Club_vo;
 import com.kh.semi.common.vo.rank_vo;
+import com.kh.semi.user.model.vo.Profile_vo;
 
 /**
  * Servlet implementation class clubInfoServlet
@@ -30,17 +32,28 @@ public class clubInfoServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		Profile_vo user_vo = (Profile_vo)session.getAttribute("loginUser");
+		
+		System.out.println("구단을 클릭한 유저: "+user_vo);
 		
 		int teamNumber = Integer.parseInt(request.getParameter("teamNumber"));
 		System.out.println("teamnumber : "+teamNumber);
 		
-		Club_vo club_info = new ClubService().getClub_info(teamNumber);
+		int if_admin = new ClubService().search_club_admin(teamNumber,user_vo);
+		
+		Club_vo club_info = new ClubService().getClub_info(teamNumber,user_vo);
 	
 		System.out.println("club vo :" + club_info );
 		
+		if(if_admin > 0 ) {
+			System.out.println("구단주 입장.");
+		}
 		String path="";
+		
 		if(club_info != null) {
 			request.setAttribute("club_info", club_info);
+			request.setAttribute("if_admin", if_admin);
 			path = "views/user/club/club_info.jsp";
 			request.getRequestDispatcher(path).forward(request, response);
 		}else {

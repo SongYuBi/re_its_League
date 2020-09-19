@@ -20,46 +20,37 @@
 
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-<script type="text/javascript"
-	src="http://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script type="text/javascript" src="http://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+
 <title>Insert title here</title>
 <style>
 .header {
 	grid-area: header;
 	
 }
-
 .leftCol {
 	grid-area: leftCol;
-
 }
-
 .rightCol {
 	grid-area: rightCol;
 }
-
 .midTop {
 	grid-area: midTop;
 }
-
 .img_back {
-
 	background-image: url("../../../resources/image/club/club_info.png");
 	background-repeat: no-repeat;
 	background-image: cover;
-
 }
-
 .midBottom {
 	grid-area: midBottom;
 	
 }
-
 .footer {
 	grid-area: footer;
 	
 }
-
 .wrapper {
 	display: grid;
 	grid-template-columns: 1fr 4fr 4fr 1fr;
@@ -70,7 +61,6 @@
 		"leftCol midBottom midBottom rightCol" "footer footer footer footer";
 	grid-gap: 5px;
 }
-
 .team_name {
 	font-size: 300%;
 	color: black;
@@ -78,40 +68,33 @@
 	left: 5%;
 	top: 20%;
 }
-
 .team_result {
 	font-size: 200%;
 	color: red;
 }
-
 .main_image {
 	width: 80%;
 	height: 200px;
 }
-
 .rank {
 	position: relative;
 	left: 5%;
 	top: 0%;
 	margin: 10px;
 }
-
 .rank_table {
 	background-color: ligntgray;
 }
-
 .rank-shadow {
 	box-shadow: 0px 2px 2px #333;
 	text-align: center;
 }
-
 .font-white {
 	color: white;
 	position: relative;
 	left: 5%;
 	top: 20%;
 }
-
 .memBer {
 	float: right;
 	margin-top: 10px;
@@ -119,16 +102,13 @@
 	background-color: #2A3682;
 	color: white;
 }
-
 .team_result_value {
 	font-size: 200%;
 }
-
 .cal_font_size {
 	font-size: 200%;
 	text-align: center;
 }
-
 /* The Modal (background) */
 .modal {
 	display: none; /* Hidden by default */
@@ -142,7 +122,6 @@
 	background-color: rgb(0, 0, 0); /* Fallback color */
 	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
-
 /* Modal Content/Box */
 .member_modal-content {
 	background-color: #fefefe;
@@ -153,29 +132,23 @@
 	height: 55%;
 }
 /* The Close Button */
-
-
 .close:hover, .close:focus {
 	color: black;
 	text-decoration: none;
 	cursor: pointer;
 }
-
 .member_list {
 	font-size: 120%;
 }
 .member_list_search{
 	font-size: 100%;
 }
-
 .check_box_size {
 	zoom: 1.5;
 }
-
 .list_margin {
 	
 }
-
  .lil,.banner{
  	cursor:pointer;
  	pont-size:20px;
@@ -201,6 +174,7 @@
 	top: 50%;
  	}
 </style>
+
 
 </head>
 <body>
@@ -275,7 +249,12 @@
 						 
 					</tbody>
 				</table>
+				<%-- <p>${sessionScope.loginUser.pfGrade}</p> --%>
+				<c:if test="${sessionScope.loginUser.pfGrade =='G2' }">
+					<c:if test="${requestScope.if_admin == 1} ">
 				<button id="member" class="w3-btn w3-round memBer">선수관리</button>
+					</c:if>
+				</c:if>
 		</div>
 		<div class="midBottom">
 			<h4 class="rank">순위</h4>
@@ -337,8 +316,13 @@
 
 				</tbody>
 			</table> 
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	
 
+<script type="text/javascript" src="http://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 			<script>
+			
 			//구단 선수들 초기화면에 뿌려주기
 			
 			$(function(){
@@ -471,9 +455,6 @@
 		var month = _month.substring(0,1);
 		console.log(teamNumber);
 		
-		
-		
-		
 		for(var i = 1 ; i < 13; i++){
 			if(month == i ){
 				$.ajax({
@@ -531,9 +512,7 @@
 								success : function(data) {
 										console.log(data);
                                         var $LeagueInfoTable = $("#LeagueInfoTable tbody");
-
 											$LeagueInfoTable.html('');
-
 											$.each(data,function(index,value) {
 																var $tr = $("<tr style='text-align:center'>");
 																var $lgNameTd = $("<td style='text-align:center'>").text(value.lgName);
@@ -542,14 +521,12 @@
 																var $clubSNameTd = $("<td style='text-align:center'>").text(value.clubSName);
 																var $stdNameTd = $("<td style='text-align:center'>").text(value.stdName);
 																var $RefNameTd = $("<td style='text-align:center'>").text(value.ref_name);
-
 																$tr.append($lgNameTd);
 																$tr.append($matchDateTd);
 																$tr.append($clubFNameTd);
 																$tr.append($clubSNameTd);
 																$tr.append($stdNameTd);
 																$tr.append($RefNameTd);
-
 																$LeagueInfoTable.append($tr);
 																if(value.clubName==clubName){
 																	var team_result = value.round+"전 "+value.win+"승 " +value.lose+"패";
@@ -561,21 +538,15 @@
 										error : function(err) {
 											console.log("실패");
 										}
-
 									});
 						}
 					}
-
 				});
-
-				$(
-						function() {
+				$(function() {
 							var today = new Date();
 							var month = today.getMonth() + 1;
 							console.log(month);
-
-							$('#slider-div').slick(
-											{
+							$('#slider-div').slick({
 												slide : 'div', //슬라이드 되어야 할 태그 ex) div, li 
 												infinite : true, //무한 반복 옵션	 
 												slidesToShow : 5, // 한 화면에 보여질 컨텐츠 개수
@@ -605,12 +576,36 @@
 														//위에 옵션이 디폴트 , 여기에 추가하면 그걸로 변경
 														slidesToShow : 2
 													}
-												} ]
-
+												}]
 											});
 						})
-			</script>
-			<button id="delete_clue" class="w3-btn w3-round memBer">구단삭제</button>
+			
+		function delete_club_(){
+			var teamNumber =$("#clubId").val();
+			if(confirm("구단을 삭제 하시겠습니까?")){
+				$.ajax({
+					url:"/semi/club_remove?teamNumber="+teamNumber,
+					type:"get",
+					success:function(data){
+						alert(data);
+						
+						location.href="/semi/";
+					},
+					error: function(err){
+						alert(" 구단 삭제 실패 ");
+					}
+				
+			});
+			}
+		}
+						</script>
+			
+		<c:if test="${sessionScope.loginUser.pfGrade =='G2' }">
+					<c:if test="${requestScope.if_admin == 1} ">
+					<button id="delete_clue" class="w3-btn w3-b round memBer" onclick="delete_club_();">구단삭제</button>
+				</c:if>
+		</c:if>
+			
 			<div class="footer"></div>
 		</div>
 
@@ -687,26 +682,20 @@
 		
 				// 선수관리 다이얼로그
 			$(function() {
-
 				// Get the modal
 				var modal = document.getElementById('member_Modal');
-
 				// Get the button that opens the modal
 				var btn = document.getElementById("member");
-
 				// Get the <span> element that closes the modal
 				var span = document.getElementsByClassName("close")[0];
-
 				// When the user clicks on the button, open the modal 
 				btn.onclick = function() {
 					modal.style.display = "block";
 				}
-
 				// When the user clicks on <span> (x), close the modal
 				span.onclick = function() {
 					modal.style.display = "none";
 				}
-
 				// When the user clicks anywhere outside of the modal, close it
 				window.onclick = function(event) {
 					if (event.target == modal) {
@@ -791,7 +780,6 @@
 									type:"get",
 									success:function(data){
 										alert(data);
-
 										$.ajax({
 											url:"/semi/invite_member_list?teamNumber="+teamNumber,
 											type:"get",

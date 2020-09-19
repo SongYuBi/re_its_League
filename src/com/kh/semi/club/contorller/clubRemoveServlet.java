@@ -1,29 +1,26 @@
 package com.kh.semi.club.contorller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 import com.kh.semi.club.model.service.ClubService;
 
 /**
- * Servlet implementation class clubInfoMemberServlet
+ * Servlet implementation class clubRemoveServlet
  */
-@WebServlet("/club_info_member")
-public class clubInfoMemberServlet extends HttpServlet {
+@WebServlet("/club_remove")
+public class clubRemoveServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public clubInfoMemberServlet() {
+    public clubRemoveServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,14 +29,17 @@ public class clubInfoMemberServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		System.out.println("선수 찾기 시작 !");
-		int teamNumber = Integer.parseInt(request.getParameter("teamNumber"));
-		System.out.println("구단 번호 : "+teamNumber);
-		ArrayList memberList =  new ClubService().club_member_info(teamNumber);
+		String teamNumber = request.getParameter("teamNumber");
 		
-		response.setContentType("application/json; charset=UTF-8");
-		new Gson().toJson(memberList,response.getWriter());
+		System.out.println("삭제될 구단의 ID : " + teamNumber);
+		int result = new ClubService().removeClub(teamNumber);
+		String ment ="";
+		if(result > 0 ) {
+			 ment = "구단이 삭제되었습니다.";
+		}
+		
+			response.setContentType("application/json; charset=UTF-8");
+			new Gson().toJson(ment,response.getWriter());
 		
 	}
 

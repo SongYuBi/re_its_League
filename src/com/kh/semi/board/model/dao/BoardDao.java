@@ -18,7 +18,7 @@ import com.kh.semi.board.model.vo.Qna_vo;
 public class BoardDao {
    
    private Properties prop = new Properties();
-   
+    
    public BoardDao() {
       
       String fileName = BoardDao.class.getResource("/sql/board/board-query.properties").getPath();
@@ -519,6 +519,7 @@ public class BoardDao {
 	               b.setModifyDate(rset.getDate(10));
 	               b.setbCount(rset.getInt(11));
 	               b.setbStatus(rset.getString(12));
+	               b.setbWriter(rset.getInt(13));
 	            }
 	            
 	         } catch (SQLException e) {
@@ -561,6 +562,37 @@ public class BoardDao {
 	      
 	   
 	   }
+	   
+	   //민경 게시글 수정
+	   public int ModifyBoardForCommu(Connection con, Board_vo newBoard) {
+		      PreparedStatement pstmt = null;
+		      int result = 0;
+		      
+		      
+		      String query = prop.getProperty("modifyBoard");
+		      
+		      try {
+		         pstmt = con.prepareStatement(query);
+		         //이거 순서 쿼리문에서 들어가는 순서 맞게해야함 ^^ 
+		         pstmt.setInt(3, newBoard.getBid());
+		         pstmt.setString(1, newBoard.getbTitle());
+		         pstmt.setString(2, newBoard.getbContent());
+		         
+		         result = pstmt.executeUpdate();
+		         System.out.println("dao-result="+result);
+		      } catch (SQLException e) {
+		         // TODO Auto-generated catch block
+		         e.printStackTrace();
+		      }finally {
+		         close(pstmt);
+		         
+		      }
+		      
+		      return result;
+		      
+		      
+		   
+		   }
 
 	 //재서 버튼 5개 ajax
 	 		public ArrayList<Board_vo> qnaCate(Connection con, String qnaCate) {
@@ -624,7 +656,7 @@ public class BoardDao {
 			      try {
 			         pstmt = con.prepareStatement(query);
 			         pstmt.setString(2, reply.getbContent());
-			         pstmt.setString(1, reply.getPfName());
+			         pstmt.setInt(1, reply.getbWriter());
 			         pstmt.setInt(3, reply.getRefBid());
 			         result = pstmt.executeUpdate();
 			         
@@ -640,7 +672,7 @@ public class BoardDao {
 
 			}
 			public ArrayList<Board_vo> selectReplyList(Connection con, int refBid) {
-				  PreparedStatement pstmt = null;
+			      PreparedStatement pstmt = null;
 			      ResultSet rset = null;
 			      ArrayList<Board_vo> list = null;
 			      
@@ -659,7 +691,6 @@ public class BoardDao {
 			            b.setbContent(rset.getString("BCONTENT"));
 			            b.setPfName(rset.getString("PF_NAME"));
 			            b.setRefBid(rset.getInt("REF_BID"));
-			            b.setReplyLevel(rset.getInt("REPLY_LEVEL"));
 			            b.setbDate(rset.getDate("BDATE"));
 			            
 			            list.add(b);
@@ -673,10 +704,53 @@ public class BoardDao {
 			      }
 			      
 			      return list;
-
-			}
-			
-
+			   }
+//			public ArrayList<Board_vo> showReplyList(Connection con, int bid) {
+//				Statement stmt = null;
+//				ResultSet rset = null;
+//				ArrayList<Board_vo> list = null;
+//				
+//			      String query = prop.getProperty("selectReplyList");
+//			try {
+//				stmt = con.createStatement();
+//				
+//				rset = stmt.executeQuery(query);
+//				
+//				list = new ArrayList<Board_vo>();
+//				
+//				while(rset.next()) {
+//					Board_vo b = new Board_vo();
+//					
+//					b.setBid(rset.getInt("BID"));
+//					b.setbType(rset.getInt("bType"));
+//					b.setbNo(rset.getInt("bNo"));
+//					b.setPfId(rset.getInt("pf_Name"));
+//					b.setbTitle(rset.getString("bTitle"));
+//					b.setRefBid(rset.getInt("refBid"));
+//					b.setbContent(rset.getString("bContent"));
+//					b.setbCount(rset.getInt("bCount"));
+//					b.setbDate(rset.getDate("bDate"));
+//					b.setModifyDate(rset.getDate("modify_Date"));
+//					b.setbStatus(rset.getString("b_Status"));
+//					
+//					list.add(b);
+//					
+//				}
+//				
+//				
+//			} catch (SQLException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}finally {
+//				close(stmt);
+//				close(rset);
+//				
+//			}
+//			
+//			
+//			
+//			return list;
+//		}
 
 
 }

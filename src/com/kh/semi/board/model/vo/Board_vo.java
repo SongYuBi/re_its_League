@@ -1,10 +1,10 @@
 package com.kh.semi.board.model.vo;
  
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 
 public class Board_vo implements java.io.Serializable{
-  
+   
 	private int bid;						//게시판 분류 번호)PK_
 	private int bType;						//게시판 분류
 	private int bNo;						//게시판별 번호

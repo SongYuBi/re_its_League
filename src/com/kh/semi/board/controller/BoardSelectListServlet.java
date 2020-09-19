@@ -8,10 +8,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.kh.semi.board.model.service.BoardService;
 import com.kh.semi.board.model.vo.Board_vo;
 import com.kh.semi.board.model.vo.PageInfo;
+import com.kh.semi.user.model.vo.Profile_vo;
 
 /**
  * Servlet implementation class BoardSelectListServlet
@@ -40,6 +42,9 @@ public class BoardSelectListServlet extends HttpServlet {
 	      int startPage;         //한 번에 표시될 페이지가 시작할 페이지
 	      int endPage;         //한 번에 표시될 페이지가 끝나는 페이지
 	      
+	      HttpSession session = request.getSession(); 
+	      Profile_vo loginUser = (Profile_vo) session.getAttribute("loginUser");
+			System.out.println("보여줭" + loginUser);
 	      //게시판은 보통 1페이지부터 시작함
 	      currentPage = 1;
 	      
@@ -91,6 +96,7 @@ public class BoardSelectListServlet extends HttpServlet {
 	      if(list != null) {
 	         path = "views/user/board/freeBoard.jsp";
 	         request.setAttribute("list", list);
+	         request.setAttribute("loginUser", loginUser);
 	         request.setAttribute("pi", pi);
 	         System.out.println("성공이다");
 	      } else {

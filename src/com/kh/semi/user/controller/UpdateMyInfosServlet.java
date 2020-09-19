@@ -37,7 +37,7 @@ public class UpdateMyInfosServlet extends HttpServlet {
 		String phone = request.getParameter("pfPhone");
 		String pfNumber = request.getParameter("pfNumber");
 		String pfAddress = request.getParameter("pfAddress");
-		String pfGender = request.getParameter("gender");
+//		String pfGender = request.getParameter("gender");
 		String pfEmail = request.getParameter("pfEmail");
 		
 		System.out.println(pfName);
@@ -45,7 +45,7 @@ public class UpdateMyInfosServlet extends HttpServlet {
 		System.out.println(phone);
 		System.out.println(pfNumber);
 		System.out.println(pfAddress);
-		System.out.println(pfGender);
+//		System.out.println(pfGender);
 		System.out.println(pfEmail);
 		System.out.println(pfId);
 		
@@ -54,14 +54,27 @@ public class UpdateMyInfosServlet extends HttpServlet {
 		pv.setPfPhone(phone);
 		pv.setPfNumber(pfNumber);
 		pv.setPfAddress(pfAddress);
-		pv.setPfGender(pfGender);
+//		pv.setPfGender(pfGender);
 		pv.setPfEmail(pfEmail);
 		
 		
 		Profile_vo changeInfo = new UserService().updateMyInfos(pv);
 		
 		System.out.println(changeInfo);
+		
+		String path = "";
+		
+		if(changeInfo != null) {
+			
+			 System.out.println("성꽁");
+			 
+			 path = "/selectInfo.myPage";
+			request.setAttribute("changeInfo", changeInfo);
+		}else {
+			System.out.println("에러!!");
+		}
 	
+		request.getRequestDispatcher(path).forward(request, response);
 	}
 
 	/**

@@ -99,6 +99,7 @@ public class UserService {
 
 		
 		Connection con = getConnection();
+		
 		Profile_vo changeInfo = null; 
 		
 		
@@ -121,6 +122,7 @@ public class UserService {
 			rollback(con);
 		}
 	
+		close(con);
 		
 		return changeInfo;
 	}

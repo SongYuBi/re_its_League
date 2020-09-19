@@ -11,6 +11,8 @@ public class RefereeSchedule_vo {
 	private String lgName;
 	private int pfId;
 	private String stdName;
+	private int fid;
+	private int sid;
 	
 	public String getStdName() {
 		return stdName;
@@ -19,13 +21,32 @@ public class RefereeSchedule_vo {
 	public void setStdName(String stdName) {
 		this.stdName = stdName;
 	}
+	
+	
+
+	public int getFid() {
+		return fid;
+	}
+
+	public void setFid(int fid) {
+		this.fid = fid;
+	}
+
+	public int getSid() {
+		return sid;
+	}
+
+	public void setSid(int sid) {
+		this.sid = sid;
+	}
 
 	public RefereeSchedule_vo() {
 		
 	}
 
+
 	public RefereeSchedule_vo(Date matchDate, String fName, String sName, int refId, int matchId, String lgName,
-			int pfId, String stdName) {
+			int pfId, String stdName, int fid, int sid) {
 		super();
 		this.matchDate = matchDate;
 		this.fName = fName;
@@ -35,6 +56,8 @@ public class RefereeSchedule_vo {
 		this.lgName = lgName;
 		this.pfId = pfId;
 		this.stdName = stdName;
+		this.fid = fid;
+		this.sid = sid;
 	}
 
 	public Date getMatchDate() {
@@ -96,8 +119,10 @@ public class RefereeSchedule_vo {
 	@Override
 	public String toString() {
 		return "RefereeSchedule_vo [matchDate=" + matchDate + ", fName=" + fName + ", sName=" + sName + ", refId="
-				+ refId + ", matchId=" + matchId + ", lgName=" + lgName + ", pfId=" + pfId + "]";
+				+ refId + ", matchId=" + matchId + ", lgName=" + lgName + ", pfId=" + pfId + ", stdName=" + stdName
+				+ ", fid=" + fid + ", sid=" + sid + "]";
 	}
+
 	
 	
 }

@@ -322,6 +322,7 @@ public class RefereeDao {
 				refV.setLgName(rset.getString("LG_NAME"));
 				refV.setPfId(rset.getInt("PF_ID"));
 				refV.setStdName(rset.getString("STD_NAME"));
+				
 				schList.add(refV);
 			
 			}
@@ -362,6 +363,8 @@ public class RefereeDao {
 				refV.setLgName(rset.getString("LG_NAME"));
 				refV.setPfId(rset.getInt("PF_ID"));
 				refV.setStdName(rset.getString("STD_NAME"));
+				refV.setFid(rset.getInt("CLUB_FID"));
+				refV.setSid(rset.getInt("CLUB_SID"));
 				schList.add(refV);
 			
 			}

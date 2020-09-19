@@ -140,12 +140,12 @@
 							</tr>
 						</thead>
 						<tbody>
-							<td>
+							<!-- <td>
 								<a class='btn btn-info btn-xs' id="myModalbtn"> 
 									<span class="glyphicon glyphicon-edit"></span>
 											Edit
 								</a>
-							</td>
+							</td> -->
 						</tbody>
 					</table>	
 			</div>

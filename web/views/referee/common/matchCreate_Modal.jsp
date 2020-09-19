@@ -142,12 +142,13 @@
 			</div>
 			<div>
 				<span class="myth">팀</span>
-				<span id="home2"></span><input type="radio" value="승" name="win" style="margin-left:10px">
-				&nbsp;<span id="away2"></span><input type="radio" value="승" name="win" style="margin-left:10px">
+				<span id="home2"></span><input id="homeRadio" type="radio" value="승" name="win" style="margin-left:10px">
+				&nbsp;<span id="away2"></span><input id="awayRadio" type="radio" value="승" name="win" style="margin-left:10px">
+				<span>무승부</span><input id="DrawRadio" type="radio" value=0 name="win" style="margin-left:10px">
 			</div>
 			<div>
 				<span class="myth">점수</span>
-				<span id="score1"><input type="text" style="width:50px"></span><span>&nbsp;:&nbsp;</span><span id="score2"><input type="text" style="width:50px"></span>
+				<span id="score1"><input type="text" name="fidScore" style="width:50px"></span><span>&nbsp;:&nbsp;</span><span id="score2"><input type="text" name="sidScore" style="width:50px"></span>
 			</div>
 			<div>
 				<span class="myth">장소</span>
@@ -201,12 +202,16 @@
 				var $score = $("#score");
 				var $std = $("#std");
 				var $matchTime = $("#matchTime");
+				var $homeRadio = $("#homeRadio").val(data[0].fid);
+				var $awayRadio = $("#awayRadio").val(data[0].sid);
+				
 				
  				var $matchId_modal = $('<input type="hidden" id="matchId" name="matchId">').val(data[0].matchId);
 				var $fName = $('<input type="hidden" id="home" name="fname">').val(data[0].fName);
 				var $sName = $('<input type="hidden" id="away" name="sname">').val(data[0].sName);
 				var $lgName_tag = $('<input type="hidden" id="lgName" name="lgname">').val(data[0].lgName);
-	
+				var $fid = $('<input type="hidden" id="fid" name="fid">').val(data[0].fid);
+				var $sid = $('<input type="hidden" id="sid" name="sid">').val(data[0].sid);
 				
 				$home.html('');
 				$away.html('');
@@ -227,6 +232,8 @@
 				$std.append($fName);
 				$std.append($sName);
 				$std.append($lgName_tag);
+				$std.append($fid);
+				$std.append($sid);
 				 
 			}
 		});

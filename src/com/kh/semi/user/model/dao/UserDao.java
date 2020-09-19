@@ -268,6 +268,7 @@ public class UserDao {
 		
 		
 		String query = prop.getProperty("changeMyInfos");
+		System.out.println("금나와라 : " + query);
 		
 		try {
 			
@@ -277,8 +278,8 @@ public class UserDao {
 			pstmt.setString(2, pv.getPfEmail());
 			pstmt.setString(3, pv.getPfPhone());
 			pstmt.setString(4, pv.getPfAddress());
-			pstmt.setString(5, pv.getPfGender());
-			pstmt.setInt(6, pv.getPfId());
+//			pstmt.setString(5, pv.getPfGender());
+			pstmt.setInt(5, pv.getPfId());
 			
 			
 			
@@ -309,16 +310,21 @@ public class UserDao {
 		String query = prop.getProperty("selectAll");
 		
 		System.out.println("뭐댜냐 : " + query);
+		
 		try {
+			
 			pstmt = con.prepareStatement(query);
+			
 			pstmt.setInt(1, pv.getPfId());
-			pstmt.setString(2, pv.getPfPwd());
+			
 			
 			rset = pstmt.executeQuery();
 			
+		
 			if(rset.next()) {
 				
 				changeMyInfos = new Profile_vo();
+				
 				
 				changeMyInfos.setPfId(rset.getInt("PF_ID"));
 				changeMyInfos.setPfPwd(rset.getString("PF_PWD"));
@@ -333,15 +339,16 @@ public class UserDao {
 				changeMyInfos.setPfModifyDate(rset.getDate("PF_MODIFY_DATE"));
 				
 				
-				
 			}
 			
+			System.out.println("이거 값나오면 짜릣해 :" + changeMyInfos);
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally{
 			close(pstmt);
+			close(rset);
 			
 		}
 		

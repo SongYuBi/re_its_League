@@ -29,7 +29,43 @@
   	float:left;
   	margin-left:5px;
   }
- 
+  #pfName-head{
+  	float:left;
+  	border:0px;
+  	width:98px;
+  }
+  .name-tag{
+  	float:left;
+
+  	
+  }
+  #pfPwd {
+  	margin-left:14px;
+  }
+  .pf-num{
+  	float:left;
+  }
+ #pfGender{
+ 	margin-left:14px;
+ }
+ input{
+ 	height:45px;
+ 	width:200px;
+ 	font-size:30pt;
+ 	border:2px solid  #111B39;
+ 	border-radius: 8px;
+ 	font-family:sans-serif;
+ 	padding:8px;
+ }
+ .pf-address{
+ 	width:400px;
+ }
+ #pfName-head{
+ 	width:108px;
+ }
+ .inner{
+ 	align:center;
+ }
 
 </style>
 </head>
@@ -50,55 +86,60 @@
 	
 	
 	 <div class="who" >
-		 <h3 >최명수 심판님!</h3>
+		 
+		 <h1><input value="<c:out value='${ requestScope.pv.pfName }'/>" id="pfName-head" name="pfName"><p>님!</p></h1>
 	 <br>
 	 
 	 <div class="input-tag" >
 	
 	<form action="${ applicationScope.contextPath }/updatemyInfos.me" method="post" id="formId">
 	
-	<table>
+	<table class="info-table">
 	
 		<input type="hidden" value="<c:out value='${ requestScope.pv.pfId }'/>"  name="pfId">
 		
+		 <div class="name-tag">
 			<label for="name">이름</label>
 		<div class="input-value">
 			<input value="<c:out value="${ requestScope.pv.pfName}"/>" readonly id="pfName" name="pfName">
 		</div>
+		</div>
 	
-		
 			<label for="name">비밀번호</label>
 		<div class="input-value">
 			<input  type="password" value="<c:out value="${ requestScope.pv.pfPwd}"/>" readonly id="pfPwd" name="password">
 		</div>
 	
+
+	   
+			<br>
+		
+		<div class="pf-num">
+			<label for="name">주민등록번호</label>
+		<div class="input-value">
+			<input value="<c:out value='${requestScope.pv.pfNumber}'/>" readonly id="pfNumber" name="pfNumber">
+		</div>
+		</div>
+	
+		<div class="show-gender">
+		<label for="name">성별</label>
+		<div class="input-value">
+			<input value="<c:out value="${ requestScope.pv.pfGender}"/>" readonly id="pfGender" name="pfGender" readonly>
+		</div>
+		</div>
+		<br>
+		
+		
+		<div class="pf-address">
 		
 			<label for="name">주소</label>
 		<div class="input-value">
 			<input value="<c:out value="${ requestScope.pv.pfAddress}"/>" readonly id="pfAddress" name="pfAddress">
 		</div>
-	
-
-	   
-			<br>
-	
-			<label for="name">주민등록번호</label>
-		<div class="input-value">
-			<input value="<c:out value='${requestScope.pv.pfNumber}'/>" readonly id="pfNumber" name="pfNumber">
 		</div>
-		
-			<br>
-		
 	
-			<label for="name">성별</label>
-		<div class="input-value">
-			<input value="<c:out value="${ requestScope.pv.pfGender}"/>" readonly id="pfGender" name="pfGender">
-		</div>
-		<div class="gender">
-			<input type="checkbox" id="male" name="gender" value="M"><label for="gender">남자</label>
 		
-			<input type="checkbox" id="female" name="gender" value="F"><label for="gender">여자</label>
-		</div>
+		
 
 	<br> 
 
@@ -116,13 +157,13 @@
 		</div>
 	
 	
-	<br>
+	
 	<br>
 	</table>
 	</form>
 	</div>
 	
-	<br>
+
 	<br>
 	 
 	 </div>
@@ -131,11 +172,11 @@
 	 </div>
 	
 
-	 <br>
+	
 	<br>
 	<button type="button" class="btn btn-primary" id="goEdit" >수정하기</button>	 
 	<button type="button"  class="btn btn-primary" id="goCancel">취소하기</button>
-	<button type="button"  class="btn btn-primary" id="goShow">확인하기</button>
+	<button type="button"  class="btn btn-primary" id="goShow" onclick="signUp();">확인하기</button>
 	 </div>
 	
 	
@@ -147,8 +188,9 @@
 		//최소하기 , 보여주기 버튼 처음부터 숨김으로 가는거 
 		$("#goCancel").hide();
 		$("#goShow").hide();
-		$(".male").hide();
-		$(".female").hide();
+		
+		$(".gender").hide();
+		
 		
 		//수정하기버튼 눌렀을때 수정하기 버튼은 사라지고
 		//취소하기 , 확인하기 버튼은 보여주게하는거 
@@ -161,9 +203,10 @@
 			$("#pfAddress").attr("readonly",false); 
 			//readonly는 false로 해제시키는거 , true는 설
 			//attr은 2개의 인자를 쓰면 속성값을 요소에 부여하는거 
-			$("#pfGender").hide();
-			$(".male").show();
-			$(".female").show();
+			/* $("#pfGender").hide(); */
+			
+		/* 	$(".gender").show();
+			 */
 			
 			
 		});
@@ -186,6 +229,15 @@
 			
 	});
 	
+</script>
+<script>
+			function signUp(){
+				
+				if(window.confirm("등록하시겠습니까?")){
+				 	alert("등록되었습니다.");
+				}
+			}
+
 </script>
 
 </body>

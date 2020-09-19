@@ -36,7 +36,7 @@ pageEncoding="UTF-8"/>
     	
     }
    div.featureTxt1{
-   		width:11em;
+   		width:20em;
     	word-wrap:break-word;
     	float: left; width: 33%;
     	text-align:center;
@@ -45,7 +45,7 @@ pageEncoding="UTF-8"/>
     	
     }
     div.featureTxt2{
-    	width:15em;
+    	width:20em;
     	word-wrap:break-word;
     	float: left; width: 33%;
     	text-align:center;
@@ -133,11 +133,9 @@ pageEncoding="UTF-8"/>
     <br>
     <div class="outer">
     <div class="row">
-    
-    
-
     	
-    	<img alt="" src="../../../resources/image/main1_jess.png" style="width:100%" onclick="goMain();">
+    	<img alt="" src="../../../resources/image/main1_jess.png" style="width:100%" onclick="goLogin();">
+    	
     </div>
 	<br>
 	<br>

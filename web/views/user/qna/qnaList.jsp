@@ -12,6 +12,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	
 <title>Insert title here</title>
 <style>
 	.button {
@@ -96,13 +97,14 @@
 	
 	
 </style>
+	
 </head>
 <body>
 
 	<jsp:include page="${ application.getContextPath() }/views/common/sideBar.jsp"></jsp:include>
 		
 		
-		<h2>QnA</h2>
+		<h2 align="center">QnA</h2>
 	
 	<div class="outer">
 		<br>
@@ -148,6 +150,7 @@
 	 	//이거는 jquery 버튼 onclick 함수호출해서 이어지게 하는거 	
 	 	function writingForm(){
 	 		
+	 		window.confirm("작성하시겠습니까?");
 	 		//페이지이동~
 	 		location.href = "${applicationScope.contextPath}/views/user/qna/writingForm.jsp";
 	 		

@@ -1,13 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:directive.page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"/>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%    
+    request.setCharacterEncoding("UTF-8");
+    String bTitle = request.getParameter("title");
+    String bContent = request.getParameter("content");
+    int bid = Integer.parseInt(request.getParameter("bid"));
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-<title>Insert title here</title>
-
 <link rel="stylesheet" href="css/bootstrap.css">
  
 <style>
@@ -108,12 +111,8 @@
 		 <br><br><br>
 	<div align="center">
 	<c:if test="${ !empty sessionScope.loginUser }">
-	<script>
-	console.log(loginUser)
-	</script>
 		<div class="row">
-
-			<form id="insertForm" method="post" action="${ applicationScope.contextPath }/insert2.bo">
+			<form id="insertForm" method="post" action="${ applicationScope.contextPath }/modifyBoard.bo?bid=<%=bid%>">
 
 				<table class="table table-striped"
 
@@ -121,19 +120,19 @@
 					<thead>
 						<tr>
 							<th 
-								style="background-color: #eeeeee; text-align: center; height:60px; font-size: 25px;">자유 게시판
-								글쓰기 양식</th>
+								style="background-color: #eeeeee; text-align: center; height:60px; font-size: 25px;">게시글 수정</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							<td><input type="text" class="form-control" placeholder="글 제목" name="title" style="width:100%; height: 40px; font-size: 20px;" maxlength="50"/></td>
+							<td><input type="text" class="form-control" value="<%=bTitle %>" name="title" style="width:100%; height: 40px; font-size: 20px;" maxlength="50"/></td>
 						</tr>
 						<tr>
-							<td><textarea class="form-control" placeholder="글 내용" name="content" maxlength="2048" style="width:100%; height: 650px; font-size: 20px;"></textarea></td>
+							<td><textarea class="form-control" name="content" maxlength="2048" style="width:100%; height: 650px; font-size: 20px;"><%=bContent %></textarea></td>
+							
 
 						</tr>
-
+						
 					</tbody>
 
 				</table>	
@@ -141,7 +140,7 @@
                 <br>
                 <div align="center">
 					<button type="button" class="btn" onclick="goBack();">취소하기</button>
-					<button type="button" class="btn" onclick="submitForm();" >등록하기</button>
+					<button type="button" class="btn" onclick="submitForm();" >수정하기</button>
 				</div>	  
 			</form>
  
@@ -172,4 +171,5 @@
 		}
 	</script>
 </body>
+
 </html>

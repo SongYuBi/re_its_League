@@ -10,7 +10,7 @@ import com.kh.semi.board.model.vo.Board_vo;
 import com.kh.semi.board.model.vo.PageInfo;
 import com.kh.semi.board.model.vo.Qna_vo;
  
-public class BoardService {
+public class BoardService { 
 
    //재서   
    public int insertBoard(Board_vo newBoard) {
@@ -201,6 +201,22 @@ public class BoardService {
 		
 		return result;
 	}
+	//민경 글 수정
+	public int modifyBoard(Board_vo newBoard) {
+		Connection con = getConnection();
+		
+		int result = new BoardDao().ModifyBoardForCommu(con, newBoard);
+		 System.out.println("service-result:"+result);
+		//1이상일 경우는 정보한행이 담김거이므로  commit
+		if(result > 0) {
+			commit(con);
+		}else { //0일 경우에는 rollback	
+			rollback(con);
+		}
+		close(con);
+		
+		return result;
+	}
   
 	//재서버튼 5개 ajax	
 	public ArrayList<Board_vo> qnaCate(String qnaCate) {
@@ -214,6 +230,7 @@ public class BoardService {
 				
 				return list;
 			}
+	
 	public ArrayList<Board_vo> insertReply(Board_vo reply) {
  Connection con = getConnection();
          
@@ -237,6 +254,22 @@ public class BoardService {
          
          return replyList;
 
+	}
+	public ArrayList<Board_vo> showReplyList(int bid) {
+		Connection con = getConnection();
+	      
+        ArrayList<Board_vo> list = new BoardDao().selectReplyList(con,bid);
+        
+        if (list != null) {
+        	commit(con);
+        } else {
+        	rollback(con);
+        }
+        
+        close(con);
+        
+        return list;
+		
 	}
 
 

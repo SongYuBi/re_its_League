@@ -44,7 +44,7 @@
 		
 			<h2 align="center">공지 사항 작성</h2>
 			<div class="table-area">
-				<form action="${ applicationScope.contextPath }/insert.no" method="post">
+				<form action="${ applicationScope.contextPath }/insertNotice.no" method="post">
 					<table align="center">
 						<tr>
 							<td>제목</td>

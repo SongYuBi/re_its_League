@@ -154,7 +154,7 @@ border-bottom:2px solid gray;
 $(function(){
 	// 기본 초기 화면에서 순위 테이블 불러오기
 	$.ajax({
-		url:"/semi/club_main_rank?league=SEOUL01",
+		url:"/semi/club_main_rank?league=all",
 		type:"get",
 		success:function(data){
 			console.log(data);
@@ -243,7 +243,7 @@ $(function(){
 			var $club_info_league = $("#league");
 	
 			var $target = $("select[name='league']");
-			$target.append("<option value='SEOUL01' selected='selected' >리그를 선택해주세요.</option>")
+			$target.append("<option value='all' selected='selected' >모든 구단.</option>")
 			$(data).each(function(i){
 				$target.append("<option value="+data[i].lgId + ">"+data[i].lgName+"</option>")	
 			});
@@ -260,7 +260,7 @@ $(function(){
 	
 	$('#league').change(function(){
 		var league_id = $("#league option:selected").val();
-		alert(league_id);
+		
 		
 		$.ajax({
 			url:"/semi/club_main_rank?league="+league_id,
@@ -488,11 +488,6 @@ $(function(){
 
 		</div>
 
-
-	
-	
-	
-	
 
 	  </div>
 

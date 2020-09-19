@@ -146,7 +146,7 @@ function logout(){
 	var check = window.confirm("로그아웃");
 	var location_web = $('#location_web').val();
 	if(check){
-		location.href ="<%=request.getContextPath()%>/logout.me?loaction_web="+location_web+"&teamNumber="+teamNumber;
+		location.href = "<%=request.getContextPath()%>/logout.me?loaction_web="+location_web+"&teamNumber="+teamNumber;
 		
 	}
 }

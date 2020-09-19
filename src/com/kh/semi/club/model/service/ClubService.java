@@ -26,9 +26,10 @@ public class ClubService {
 		return UserEmailList;
 	}
 
-	public Club_vo getClub_info(int teamNumber) {
+	public Club_vo getClub_info(int teamNumber,Profile_vo loginUser) {
 		// TODO Auto-generated method stub
 		Connection con = getConnection();
+		
 		Club_vo vo = dao.getClub_info(con, teamNumber);
 
 		close(con);
@@ -198,6 +199,33 @@ public class ClubService {
 		
 		return result2;
 	}
+
+	public int removeClub(String teamNumber) {
+		Connection con = getConnection();
+		
+		int result = dao.removeClub(con,teamNumber);
+
+		if(result > 0 ) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		return result;
+	}
+
+	public int search_club_admin(int teamNumber, Profile_vo loginUser) {
+	Connection con = getConnection();
+	
+	int result  = dao.search_club_admin(con,loginUser, teamNumber);
+	
+	close(con);
+	
+		return result;
+	}
+
+	
 
 	
 

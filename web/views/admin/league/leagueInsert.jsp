@@ -1,11 +1,11 @@
 <jsp:directive.page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"/>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!DOCTYPE html>
 <html>
 <head>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
@@ -51,30 +51,300 @@ pageEncoding="UTF-8"/>
 		
 		<!-- 리그입력  div-->
 		<div class="league-div"> 
-		<form action="" method="post">
+		<form action="${applicationScope.contextPath }/insertLeague.lg" method="post">
 			<div>						
                	<ul class="league-text1" style="margin-left:40px;">
                		<li class="liline"><span class="nameTag">리그명 :</span> <input  type="text" class="insertInput" id="leagueName" name="leagueName"></li>
                		<li class="liline"><span class="nameTag">주관 :</span> <input type="text" class="insertInput" id="lgHost" name="lgHost"></li>
-               		<li class="liline"><span class="nameTag">심판1 : </span><select name="firstRef" id="firstRef" style="margin-left:11px;"></select></li>
-               		<li class="liline"><span class="nameTag">심판2 : </span><select name="secondRef" id="secondRef" style="margin-left:11px;"></select></li>
-               		<li class="liline"><span class="nameTag">심판3 : </span><select name="thirdRef" id="thirdRef" style="margin-left:11px;"></select></li>
+               		<li class="liline"><span class="nameTag">심판1 : </span><select name="firstRef" id="firstRef" style="margin-left:11px;"><option>선택</option></select></li>
+               		<li class="liline"><span class="nameTag">심판2 : </span><select name="secondRef" id="secondRef" style="margin-left:11px;"><option>선택</option></select></li>
+               		<li class="liline"><span class="nameTag">심판3 : </span><select name="thirdRef" id="thirdRef" style="margin-left:11px;"><option>선택</option></select></li>
                		<li class="liline"><span class="nameTag">최소 인원 수 : </span><input type="number" min="4" max="10" class="insertInput" id="minPlayer" name="minPlayer" style="margin-left:11px;"></li>
                		<li class="liline"><span class="nameTag">교체선수 : </span><input type="number" min="1" max="5" class="insertInput" id="subPlayer" name="subPlayer" style="margin-left:11px;"></li>
                	</ul>
                	<ul class="league-text2" style="margin-left:40px;">
+               		<li class="liline"><span class="nameTag">리그 넘버 : </span><input type="text" id="leagueId" name="leagueId" class="insertInput"></li>
                		<li class="liline"><span class="nameTag">리그 시작일 : </span><input type="date" id="startDate" name="startDate"></li>
                		<li class="liline"><span class="nameTag">리그 종료일 : </span><input type="date" id="endDate" name="endDate"></li>
-               		<li class="liline"><span class="nameTag">경기장 : </span><select id="stadium" name="stadium"></select></li>
-               		<li class="liline"><span class="nameTag">총원 : </span><input type="number"  min ="8" max="10" class="insertInput" id="player" name="player"></li>
-               		<li class="liline"><span class="nameTag">선발 인원 수 : </span><input type="number" min="4" max="6" class="insertInput" id="playerNum" name="playerNum"></li>
-               		<li class="liline"><span class="nameTag">지역 선택 :</span><select id="area" name="area"></select></li>
+               		<li class="liline"><span class="nameTag">지역 선택 :</span><select id="area" name="area"><option>선택</option></select></li>
+               		<li class="liline"><span class="nameTag">총원 : </span><input type="number"  min ="8" max="10" class="insertInput" id="maxPlayer" name="maxPlayer"></li>
+               		<li class="liline"><span class="nameTag">선발 인원 수 : </span><input type="number" min="4" max="6" class="insertInput" id="player" name="player"></li>
+               		<li class="liline"><span class="nameTag">경기장 : </span><select id="stadium" name="stadium"><option>선택</option></select></li>
                	</ul>
             	</div>
+            	<button type="submit">제출하기</button>
             </form>
 			</div>
 			
 		</div>
-	</div>	
+		
+		<!-- 첫 번쨰 심판 select -->
+		<script type="text/javascript">
+		 	$("#firstRef").on({"mouseenter": function(){
+		 		$.ajax({
+		 			url:"${applicationScope.contextPath}/selectRefereeFirst.lg",
+		 			type:"get",
+		 			success:function(data){
+		 				console.log(data);		
+		 				
+		 				$selectRef = $("#firstRef");
+		 				$selectRef.html("");
+		 				$select = $("<option>").text("선택");
+		 				$selectRef.append($select);
+		 				for(key in data) {
+		 					$refereeName = $("<option>").text(data[key].refName).val(data[key].refId);
+		 					$selectRef.append($refereeName);
+		 				}
+		 				
+		 			},
+		 			error:function(err){
+		 				console.log("첫 번째 심판 조회실패!");
+		 			}
+		 		});
+		 		
+		 	}, "click" : function(){
+		 		$("#firstRef").off("mouseenter");
+		 	}});
+		
+		</script>
+		
+		<!-- 두 번째 심판 -->
+		<script type="text/javascript">
+			 $("#secondRef").on({"mouseenter" : function(){
+				console.log("mouseenter 실행");
+				$.ajax({
+					url:"${applicationScope.contextPath}/selectRefereeFirst.lg",
+					type:"get",
+					success: function(data){
+						//console.log(data);
+						
+						$selectRef = $("#secondRef");
+						$selectRef.html("");
+						$select = $("<option>").text("선택");
+		 				$selectRef.append($select);
+						for(key in data) {
+							if(data[key].refId != $("#firstRef").val()){
+							$refereeName = $("<option>").text(data[key].refName).val(data[key].refId);
+		 					$selectRef.append($refereeName);
+							}else {
+								
+							}
+						}
+						
+						
+					},
+					error:function(err){
+						console.log("두 번쨰 심판 조회 실패!");
+					}
+					
+				});
+			}, "click" : function(){
+				console.log("click 실행");
+				if($("#firstRef").val() === "선택"){
+					alert("첫 번째 심판을 선택 해 주세요")
+					$("#secondRef").mouseenter(function(){
+						$.ajax({
+							url:"${applicationScope.contextPath}/selectRefereeFirst.lg",
+							type:"get",
+							success: function(data){
+								//console.log(data);
+								
+								$selectRef = $("#secondRef");
+								$selectRef.html("");
+								$select = $("<option>").text("선택");
+				 				$selectRef.append($select);
+								for(key in data) {
+									if(data[key].refId != $("#firstRef").val()){
+									$refereeName = $("<option>").text(data[key].refName).val(data[key].refId);
+				 					$selectRef.append($refereeName);
+									}else {
+										
+									}
+								}
+								
+								
+							},
+							error:function(err){
+								console.log("두 번쨰 심판 조회 실패!");
+							}
+							
+						});
+					})
+				}else{
+					$("#secondRef").off("mouseenter");
+					console.log("mouseenter 사라짐")
+				}
+			}}); 
+			
+			
+			
+		</script>
+		
+		
+		<!-- 세 번쨰 심판 -->
+		<script type="text/javascript">
+			$("#thirdRef").on({"mouseenter" : function(){
+				
+				$.ajax({
+					url:"${applicationScope.contextPath}/selectRefereeFirst.lg",
+					type:"get",
+					success: function(data){
+						//console.log(data);
+						
+						$selectRef = $("#thirdRef");
+						$selectRef.html("");
+						$select = $("<option>").text("선택");
+		 				$selectRef.append($select);
+						for(key in data) {
+							if(data[key].refId != $("#firstRef").val()){
+								if(data[key].refId !=$("#secondRef").val()){
+									$refereeName = $("<option>").text(data[key].refName).val(data[key].refId);
+		 							$selectRef.append($refereeName);
+								}
+							}else {
+								
+							}
+						}
+						
+						
+					},
+					error:function(err){
+						console.log("세 번쨰 심판 조회 실패!");
+					}
+					
+				});
+				
+				
+			}, "click" : function(){
+				if($("#firstRef").val() === '선택'){
+					alert("첫 번째 심판을 선택 해 주세요")
+					
+				}else if($("#secondRef").val() === '선택'){
+					alert("두 번째 심판을 선택 해 주세요")
+					
+					
+					$.ajax({
+						url:"${applicationScope.contextPath}/selectRefereeFirst.lg",
+						type:"get",
+						success: function(data){
+							//console.log(data);
+							
+							$selectRef = $("#thirdRef");
+							$selectRef.html("");
+							$select = $("<option>").text("선택");
+			 				$selectRef.append($select);
+							for(key in data) {
+								if(data[key].refId != $("#firstRef").val()){
+									if(data[key].refId !=$("#secondRef").val()){
+										$refereeName = $("<option>").text(data[key].refName).val(data[key].refId);
+			 							$selectRef.append($refereeName);
+									}
+								}else {
+									
+								}
+							}
+							
+							
+						},
+						error:function(err){
+							console.log("세 번쨰 심판 조회 실패!");
+						}
+						
+					});
+					
+				}else{
+					$("#thirdRef").off("mouseenter");
+				}
+				
+			}});
+		
+			
+		</script>
+		
+		
+		
+		
+		
+		<!-- 지역선택 -->
+		<script type="text/javascript">
+		$("#area").on({"mouseenter" : function(){
+			$.ajax({
+				url:"${applicationScope.contextPath}/selectLeagueArea.lg",
+				type:"get",
+				success:function(data){
+					console.log(data);
+					
+					$areaSelect = $("#area");
+					$areaSelect.html("");
+					$choice = $("<option>").text("선택");
+					$areaSelect.append($choice);
+					for(key in data) {
+						$areaOption = $("<option>").text(data[key].areaName).val(data[key].areaCode);
+						$areaSelect.append($areaOption);
+						
+					}
+					
+				},
+				error: function(err){
+					console.log("지역 조회 실패!")
+				}
+				
+			});
+			
+		}, "click" : function(){
+			$("#area").off("mouseenter");
+		}});
+		
+		</script>
+		
+		
+		
+		<!--경기장선택  -->
+		<script type="text/javascript">
+		
+			$("#stadium").on({"mouseenter":function(){
+				
+			var areaCode = $("#area").children(":selected").val();
+			console.log(areaCode);
+				$.ajax({
+					
+					url:"${applicationScope.contextPath}/selectStadium.lg",
+					data:{areaCode:areaCode},
+					type:"get",
+					success:function(data){
+						console.log(data);
+						
+						$select = $("#stadium");
+						$select.html("");
+						$choice = $("<option>").text("선택");
+						$select.append($choice);
+						
+						if(data.length !== 0) {
+							
+							for(key in data){ 
+								$stadiumOption = $("<option>").text(data[key].stdName).val(data[key].stdId);
+								$select.append($stadiumOption);
+							
+							}
+						}else{
+							
+						}
+					},
+					error: function(err){
+						console.log("경기장 조회 실패!");
+					}
+					
+				});
+				
+			}, "click" : function(){
+				if($("#area").children(":selected").text() === "선택"){
+					alert("지역을 선택해 주세요!");
+				}else{
+					$("#stadium").off("mouseenter");
+				}
+				
+			}})
+		
+		</script>
 </body>
 </html>

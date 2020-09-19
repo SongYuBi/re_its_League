@@ -12,6 +12,7 @@ import java.util.HashMap;
 import com.kh.semi.league.model.dao.LeagueDao;
 import com.kh.semi.league.model.vo.League_vo;
 import com.kh.semi.league.model.vo.Match_vo;
+import com.kh.semi.referee.model.vo.Referee_vo;
 
 public class LeagueService {
 
@@ -118,6 +119,39 @@ public class LeagueService {
 		
 		return list;
 			
+		
+	}
+
+	public ArrayList<Referee_vo> selectReferee() {
+		Connection con = getConnection();
+		
+		ArrayList<Referee_vo> list = new LeagueDao().selectReferee(con);
+		
+		close(con);
+		
+		return list;
+		
+	}
+
+	public ArrayList<HashMap<String, Object>> selectAreaForInsert() {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list = new LeagueDao().selectAreaForInsert(con);
+		
+		close(con);
+		
+		return list;
+		
+	}
+
+	public ArrayList<HashMap<String, Object>> selectStadium(String areaCode) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list = new LeagueDao().selectStadium(con, areaCode);
+		
+		close(con);
+		
+		return list;
 		
 	}
 

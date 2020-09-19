@@ -16,6 +16,7 @@ import java.util.Properties;
 
 import com.kh.semi.league.model.vo.League_vo;
 import com.kh.semi.league.model.vo.Match_vo;
+import com.kh.semi.referee.model.vo.Referee_vo;
 import com.sun.corba.se.spi.orbutil.fsm.State;
 import com.sun.org.glassfish.external.statistics.annotations.Reset;
 
@@ -412,6 +413,106 @@ public class LeagueDao {
 			close(rset);
 		}
 		
+		return list;
+		
+	}
+
+	public ArrayList<Referee_vo> selectReferee(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<Referee_vo> list = null;
+		
+		String query = prop.getProperty("selectReferee");
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			list = new ArrayList<Referee_vo>();
+			while(rset.next()) {
+			Referee_vo ref = new Referee_vo();
+				ref.setRefId(rset.getInt("REF_ID"));
+				ref.setRefName(rset.getString("REF_NAME"));
+				
+				list.add(ref);
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		return list;
+		
+	}
+
+	public ArrayList<HashMap<String, Object>> selectAreaForInsert(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		
+		String query = prop.getProperty("selectAreaForInsert");
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			list = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()) {
+				HashMap<String, Object> hmap = new HashMap<String, Object>();
+				
+				hmap.put("areaCode", rset.getString("AREA_CODE"));
+				hmap.put("areaName", rset.getString("AREA_NAME"));
+				
+				list.add(hmap);
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		
+		return list;
+	}
+
+	public ArrayList<HashMap<String,Object>> selectStadium(Connection con, String areaCode) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String,Object>>list = null;
+		
+		String query = prop.getProperty("selectStadium");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, areaCode);
+			
+			rset = pstmt.executeQuery();
+			list = new ArrayList<HashMap<String,Object>>();
+			
+			while(rset.next()) {
+				
+			HashMap<String, Object> hmap = new HashMap<String, Object>();
+			
+			hmap.put("stdId", rset.getString("STD_ID"));
+			hmap.put("stdName", rset.getString("STD_NAME"));
+			
+			list.add(hmap);
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
 		return list;
 		
 	}

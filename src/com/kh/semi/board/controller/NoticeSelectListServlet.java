@@ -53,7 +53,7 @@ public class NoticeSelectListServlet extends HttpServlet {
 	      BoardService bs = new BoardService();
 	      
 	      //전체 목록 갯수 리턴
-	      int listCount = bs.getListCount();
+	      int listCount = bs.getNoticeListCount();
 	      
 	      System.out.println("전체 게시물 목록 갯수 : " + listCount);
 	      
@@ -78,7 +78,7 @@ public class NoticeSelectListServlet extends HttpServlet {
 	      if(maxPage < endPage) {
 	         endPage = maxPage;
 	      }
-	      
+	       
 	      //페이징에 필요한 정보들을 담을 vo
 	      PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
 	      

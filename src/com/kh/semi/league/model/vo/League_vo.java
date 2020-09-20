@@ -18,8 +18,8 @@ public class League_vo implements java.io.Serializable{
 	private String refFid;		//첫 번째 심판 번호(REF_FID) (FK)
 	private String refSid;		//두 번째 심판 번호(REF_SID) (FK)
 	private String refTid;		//세 번째 심판 번호(REF_TID) (FK)
-	private int stdFid;			//첫 번째 구장 고유 번호(STD_FID)(FK)
-	private int stdSid;			//두 번째 구장 고유 번호(STD_SID)(FK)
+	private String stdFid;			//첫 번째 구장 고유 번호(STD_FID)(FK)
+	private String stdSid;			//두 번째 구장 고유 번호(STD_SID)(FK)
 	private String stdFName;	//join 시 사용할 STD_FID 에 해당하는 STD_NAME (JOIN / FK);
 	private String stdSName;	//join 시 사용할 STD_SID 에 해당하는 STD_NAME (JOIN / FK); 
 	
@@ -29,7 +29,7 @@ public class League_vo implements java.io.Serializable{
 
 	public League_vo(String lgId, String lgHost, String lgName, int lgMinPlayer, int lgSubPlayer, int lgMaxPlayer,
 			int lgPlayer, Date lgSDate, Date lgEDate, String lgReward, String areaCode, String refFid, String refSid,
-			String refTid, int stdFid, int stdSid, String stdFName, String stdSName) {
+			String refTid, String stdFid, String stdSid, String stdFName, String stdSName) {
 		super();
 		this.lgId = lgId;
 		this.lgHost = lgHost;
@@ -163,19 +163,19 @@ public class League_vo implements java.io.Serializable{
 		this.refTid = refTid;
 	}
 
-	public int getStdFid() {
+	public String getStdFid() {
 		return stdFid;
 	}
 
-	public void setStdFid(int stdFid) {
+	public void setStdFid(String stdFid) {
 		this.stdFid = stdFid;
 	}
 
-	public int getStdSid() {
+	public String getStdSid() {
 		return stdSid;
 	}
 
-	public void setStdSid(int stdSid) {
+	public void setStdSid(String stdSid) {
 		this.stdSid = stdSid;
 	}
 

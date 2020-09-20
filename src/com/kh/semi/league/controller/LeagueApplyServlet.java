@@ -42,7 +42,7 @@ public class LeagueApplyServlet extends HttpServlet {
 		String path = "";
 		
 		if(result> 0) {
-			path = "views/user/league/leagueJoinForm.jsp";
+			path = "selectLeagueList.lg";
 			response.sendRedirect(path);
 			
 		}else {

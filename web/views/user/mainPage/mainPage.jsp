@@ -138,6 +138,37 @@ td {
  	border-bottom:1px solid black;
  }
  
+ .midTop {
+   grid-area: midTop;
+   width: 1100px;
+   margin-left: 58px;
+}
+
+
+.btn{
+      align:right;
+      padding:800px;
+   }
+   #guest{
+   
+      margin-left:1200px;
+   }
+   #infoNlogout{
+      margin-left:1300px;
+   }
+   .common-header{
+      margin-bottom:50px;
+   }
+   #changeInfo{
+      float:left;
+   }
+       .loginBtns {
+      float:left;
+   }
+ 
+ 
+ 
+ 
 
 </style>
 
@@ -173,7 +204,7 @@ td {
 		page="${ application.contextPath }/views/user/comman/login.jsp"/>
 		<input type="hidden" value="main" id="location_web">
 	<div class="wrapper">
-		<div class="head">
+		<div class="head" id="headWrapper">
 			<div align="right">
 			<c:if test="${ empty sessionScope.loginUser }">
 				<ul class="toplo">
@@ -201,13 +232,13 @@ td {
 		<div class="header">
 			<div class="visual" align="center">
 				<div>
-					<img src="resources/image/sj/mainImage1.jpg" class="banner">
+					<img src="resources/image/sj/header1.png" class="banner">
 				</div>
 				<div>
-					<img src="resources/image/sj/mainImage2.jpg" class="banner">
+					<img src="resources/image/sj/header1.png" class="banner">
 				</div>
 				<div>
-					<img src="resources/image/sj/mainImage3.jpg" class="banner">
+					<img src="resources/image/sj/header1.png" class="banner">
 				</div>
 			</div>
 		</div>
@@ -278,11 +309,18 @@ td {
 				</div>
 			</div>
 		</div>
-		<div class="footer" align="center" >
-			<img src="resources/image/chu/footer.png" style="width:100%;">
-		</div>
+		<div class="footer" align="center">
+
+         <img src="/semi/resources/image/chu/footer.png" width="90%" height="280px" style="margin-right:40px;">
+
+</div>
+
 	</div>
 
+
+
+<script type="text/javascript"
+	src="http://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 	<!-- slider banner -->
 	<script type="text/javascript">
 		$(".visual").slick({
@@ -366,7 +404,7 @@ td {
 	</script>
 
   <script type="text/javascript">
-
+  
       $(function(){
     	  var day = $(".datedivB").children("h3").text();
 		  var date = new Date();
@@ -514,6 +552,10 @@ td {
 	})
 
    </script>
+   
+   
+   
+   
    
    		<!-- SELECT -->
       <script type="text/javascript">

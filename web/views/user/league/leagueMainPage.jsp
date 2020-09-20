@@ -75,6 +75,7 @@ ul, li {
 	text-align: center;
 	font-size: 20px;
 	font-weight: 600;
+	margin-left:80px;
 }
 
 .tc7 {
@@ -85,7 +86,7 @@ ul, li {
 }
 .w1 {
 	width: 20px;
-	margin-left: 0px;
+	margin-left:100px;
 }
 
 .w2 {
@@ -113,12 +114,12 @@ ul, li {
 
 .w7 {
 	width: 150px;
-	margin-left: 50px;
+	margin-left: 100px;
 }
 
 .w8 {
 	width: 100px;
-	margin-left: 50px;
+	margin-left: 100px;
 }
 
 .underLine {
@@ -157,14 +158,27 @@ ul, li {
 	<jsp:include
 		page="${ application.contextPath }/views/common/sideBar.jsp" />
 
+
 	<div class="wrapper">
 		<div class="head">
 			<div align="right">
+			<c:if test="${ empty sessionScope.loginUser }">
 				<ul class="toplo">
 					<li class="lil" style="color: #4169E1; font-size: 20px;">로그인</li>
 					<li style="font-size: 18px;">또는</li>
 					<li class="lil" style="color: #4169E1; font-size: 20px;">회원가입</li>
 				</ul>
+			</c:if>
+			<c:if test="${!empty sessionScope.loginUser }">
+			<div id="userInfo">
+				<label><c:out value="${sessionScope.loginUser.pfName }" />
+					님의 방문을 환영합니다.</label>
+				<div class="btn" align="right">
+					<div id="changeInfo" onclick="updateMember();">정보수정</div>
+					<div id="logoutBtn" onclick="logout();">로그아웃</div>
+				</div>
+			</div>
+		</c:if>
 				<div align="center">
 					<img
 						src="${applicationScope.contextPath }/resources/image/chu/logo.png"
@@ -195,12 +209,13 @@ ul, li {
 					<select class="selop" name="dateSchedule" id="dateSchedule">
 					</select>
 				</div>
-				<button id="searchSchedule" class="searchBtn"
-					onclick="dateSchedule();">검색</button>
+				<button id="searchSchedule" class="searchBtn" onclick="dateSchedule();">검색</button>
 				<!-- 버튼 -->
 				<div
 					style="float: right; margin-right: 50px; margin-top: 50px; margin-left: 20px;">
+					<c:if test="${sessionScope.loginUser.pfGrade eq 'G2' }">
 					<button class="lgBtn" onclick="joinLeague();">리그신청</button>
+					</c:if>
 				</div>
 
 			</div>
@@ -297,7 +312,7 @@ ul, li {
 	<!-- method -->
 	<script type="text/javascript">
 		function joinLeague() {
-			location.href = "${applicationScope.contextPath}/views/user/league/leagueJoinForm.jsp";
+			location.href = "${applicationScope.contextPath}/selectLeagueList.lg";
 		}
 	</script>
 
@@ -577,6 +592,103 @@ ul, li {
 		};
 	</script>
 
+
+	<script type="text/javascript">
+		$(function(){
+			
+			var month = parseInt($("#dateSchedule").find(":selected").val());
+			var league = $("#league-select").find(":selected").val();
+
+			var date = new Date();
+			//현재 년도
+			var year = date.getFullYear();
+
+			if (month < 10) {
+				month = "0" + month;
+			} else {
+				month = "" + month;
+			}
+			var fullDate = year + month;
+
+			console.log(fullDate);
+			console.log(league);
+
+			$.ajax({
+				url : "${applicationScope.contextPath}/selectSchedule.lg",
+				type : "get",
+				data : {
+					league : league,
+					fullDate : fullDate
+				},
+				success : function(data) {
+					console.log(data);
+
+					if (data.length == 0) {
+						window.alert("조회된 리그경기가 없습니다.");
+					}
+
+					if (data.length != 0) {
+						var form = moment(data[0].matchDate);
+						var date = form.format("MM-DD");
+						var month = date.split("-")[0];
+						//리스트 맨 위 날짜 08 09 10
+						$(".fixed-top").text(month + "월");
+
+						console.log(month);
+						console.log(date);
+
+						$liBody = $(".dateList");
+						$liBody.html("");
+
+						for (key in data) {
+
+							//list 날짜 왼쪽 붙일 거 
+							var form = moment(data[key].matchDate);
+							var date = form.format("MM-DD");
+
+							//console.log(date);
+							//console.log(data[key]);
+
+							//리스트에 뿌리기
+							$ul = $("<ul>").addClass("datelist");
+
+							$dateLi = $("<li>").text(date).addClass("w1 tc");
+							$clubFLi = $("<li>").text(data[key].clubNameF)
+									.addClass("w2 tc");
+							$colonLi = $("<li>").text(" : ").addClass("w4 tc");
+							$clubSLi = $("<li>").text(data[key].clubNameS)
+									.addClass("w6 tc");
+							$stdNameLi = $("<li>").text(data[key].stdName)
+									.addClass("w7 tc7");
+							$refNameLi = $("<li>").text(data[key].REFNAME)
+									.addClass("w8 tc");
+
+							$ul.append($dateLi);
+							$ul.append($clubFLi);
+							$ul.append($colonLi);
+							$ul.append($clubSLi);
+							$ul.append($stdNameLi);
+							$ul.append($refNameLi);
+
+							$liBody.append($ul);
+
+						}
+
+					}
+				},
+				error : function(err) {
+					console.log(err);
+				}
+
+			});
+
+				
+				
+				
+			});
+			
+			
+	</script>
 
 
 </body>

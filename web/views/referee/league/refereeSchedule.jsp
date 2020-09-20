@@ -176,7 +176,7 @@
 				var $carouselValue = $("#carouselValue" + i);
 				if (month == $carouselValue.text()) {
 					$("#carouselVal" + i).attr("class", "carousel-item active");
-					console.log($("#carouselVal" + i).text());
+					console.log($("carouselVal" + i).text());
 
 				}
 			}
@@ -262,7 +262,7 @@
 						
 						
 						for(var j=0; j < dupleListDate.length; j++){
-							var $dupleDiv = $('<div class="matchDate">').text(dupleListDate[j]);
+							var $dupleDiv = $('<div class="matchDate">').	text(dupleListDate[j]);
 							
 							$tableBody.append($dupleDiv);
 							

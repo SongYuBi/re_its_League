@@ -244,7 +244,7 @@ public class BoardDao {
 			
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, qv.getBid());
-		//	pstmt.setString(2, qv.getCateType());
+			pstmt.setString(2, qv.getCateType());
 			//title
 		//	pstmt.setString(parameterIndex, x);
 			//content

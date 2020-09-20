@@ -91,6 +91,7 @@ public class BoardService {
          
          Qna_vo qv = new Qna_vo();
          qv.setBid(bid);
+         qv.setCateType(qna.getCateType());
          
          int result2 = bd.insertBoadForQna(con, qv);
          

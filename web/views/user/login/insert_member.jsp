@@ -89,9 +89,9 @@
 	float: left;
 }
 </style>
-				<div align="center">
-					<img src="../../../resources/image/chu/logo.png" style="cursor: pointer; height: 100px;" >
-				</div>
+				 <div id="logo" align="center">
+				 <img  src="/semi/resources/image/chu/logo.png" width="400px" height="150px" style="cursor: pointer" onclick="reHome();">
+			</div>
 </head>
 <body>
 	<jsp:include
@@ -426,8 +426,9 @@ QR코드 등록 정보:삭제 시점으로부터6개월 보관
 			</div>
 		</div>
 		<div class="footer" align="center">
-			<img src="../../../resources/image/chu/footer.png" style="height: 300px; width:1400px;">
-		</div>
+
+         <img src="/semi/resources/image/chu/footer.png" width="1100px" height="280px">
+	  </div>
 	</div>
 	
 <script type="text/javascript">

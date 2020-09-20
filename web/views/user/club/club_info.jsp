@@ -37,6 +37,8 @@
 }
 .midTop {
 	grid-area: midTop;
+	width: 1100px;
+	margin-left: 58px;
 }
 .img_back {
 	background-image: url("../../../resources/image/club/club_info.png");
@@ -45,7 +47,8 @@
 }
 .midBottom {
 	grid-area: midBottom;
-	
+	width: 1100px;
+	margin-left: 58px;
 }
 .footer {
 	grid-area: footer;
@@ -60,6 +63,7 @@
 		"leftCol midTop midTop rightCol"
 		"leftCol midBottom midBottom rightCol" "footer footer footer footer";
 	grid-gap: 5px;
+	
 }
 .team_name {
 	font-size: 300%;
@@ -83,10 +87,12 @@
 	margin: 10px;
 }
 .rank_table {
-	background-color: ligntgray;
+	
 }
 .rank-shadow {
 	box-shadow: 0px 2px 2px #333;
+	background-color: #111B39;
+	color:white;
 	text-align: center;
 }
 .font-white {
@@ -129,7 +135,7 @@
 	padding: 20px;
 	border: 1px solid #888;
 	width: 40%; /* Could be more or less, depending on screen size */
-	height: 55%;
+	height: 70%;
 }
 /* The Close Button */
 .close:hover, .close:focus {
@@ -173,6 +179,32 @@
 	left: 0%;
 	top: 50%;
  	}
+ 	
+ 	.btn{
+		align:right;
+		padding:800px;
+	}
+	#guest{
+	
+		margin-left:1200px;
+	}
+	#infoNlogout{
+		margin-left:1300px;
+	}
+	.common-header{
+		margin-bottom:50px;
+	}
+	#changeInfo{
+		float:left;
+	}
+	    .loginBtns {
+	   float:left;
+	}
+	
+	.club_info_table td{
+		border-bottom:1px solid #ddd;
+		padding:8px;
+	}
 </style>
 
 
@@ -185,7 +217,7 @@
 
 <input type="hidden" value="club_info" id="location_web"/>
 	<div class="wrapper">
-		<div class="header">
+		<%-- <div class="header">
 		 <c:if test="${ empty sessionScope.loginUser }">
 				<ul class="toplo">
 					<li class="lil" style="color: #4169E1; font-size: 20px;"><div id="myBtn">로그인</div></li>
@@ -206,7 +238,48 @@
 		</c:if>
 		<br><br><br><br>
 		</div>
+ --%>		
+ 
+	  <div class=header>
 		
+		 <div id="logo" align="center">
+				 <img  src="/semi/resources/image/chu/logo.png" width="400px" height="150px" style="cursor: pointer" onclick="reHome();">
+			</div>
+			
+		
+		<div  class="head" id="headWrapper">
+
+				<div class="btns" style="font-size:20px; color:gray; font-weight:600px;">
+				<c:if test="${ empty sessionScope.loginUser }">
+				<ul class="toplo">
+					<li class="lil" style="color: #4169E1; font-size: 20px;"><div id="myBtn">로그인</div></li>
+					<li class="lil"style="font-size: 18px;">또는</li>
+					<li class="lil" style="color: #4169E1; font-size: 20px;"><div><a href="${ application.contextPath }/semi/views/user/login/insert_member.jsp">회원가입</a></div></li>
+				</ul> 
+				
+				</c:if>
+				</div>
+			
+				<c:if test="${!empty sessionScope.loginUser }">
+		
+			
+				<div class="guest" id="guest" style="font-size:20px;">
+				<label><c:out value="${sessionScope.loginUser.pfName }" />
+					님의 방문을 환영합니다.</label>
+				</div>	
+					
+				<div class="btn" id="infoNlogout" style="font-size:19px; color: gray; font-weight: 600;">
+					<div id="changeInfo" onclick="updateMember();">정보수정 </div>
+					<div class= "loginBtns" id="bar"><label> | </label></div>
+					<div id="logoutBtn" onclick="logout();"> 로그아웃</div>
+				</div>
+
+		</c:if>
+			
+			</div>
+			
+			</div>
+	  
 		<div class="leftCol"></div>
 		<div class="rightCol"></div>
 		<div class="midTop">
@@ -226,41 +299,43 @@
 
 
 			<p class="team_result">역대 전적</p>
-			<p class="team_result_value" id="League_result">30전 12승 18패</p>
+			<p class="team_result_value" id="League_result">0전 0승 0패</p>
 			<input type="hidden" id="clubId" value="${club_info.clubId }">
 			<input type="hidden" id="clubName" value="${club_info.clubName }">
 			
-			<p class="team_result_value" id="club_member_size">구단 인원 : 6명</p>
-			<p class="team_result_value" id="League_Name">참가 중인 리그 : it's ManLeague busan</p>
+			<p class="team_result_value" id="club_member_size">구단 인원 : 0명</p>
+			<p class="team_result_value" id="League_Name">참가 중인 리그 : 없음</p>
 			<br> <br>
 
 			<h4>
 				선수 리스트
-				</h2>
+				</h4>
 				<table id="club_info_table_member" class="w3-table" border="1" style="width:500px; text-align: center;">
 					<thead>
-					<tr bgcolor="lightgray" border="1" class="rank-shadow" >
+					<tr bgcolor="lightgray"  class="rank-shadow" >
 						<th width="100px" style="text-align:center">이름</th>
 						<th width="200px" style="text-align:center">어시스트</th>
 						<th width="100px" style="text-align:center">골</th>
 					</tr>
-					</thaed>
+					</thead>
 					<tbody>
 						 
 					</tbody>
 				</table>
-				<%-- <p>${sessionScope.loginUser.pfGrade}</p> --%>
-				<c:if test="${sessionScope.loginUser.pfGrade =='G2' }">
-					<c:if test="${requestScope.if_admin == 1} ">
-				<button id="member" class="w3-btn w3-round memBer">선수관리</button>
+			
+				
+				<c:if test="${sessionScope.loginUser.pfGrade eq 'G2' }">
+					<c:if test="${requestScope.if_admin eq 1}">
+					<button id="member" class="w3-btn w3-round memBer">선수관리</button>
 					</c:if>
 				</c:if>
 		</div>
+		<br>
 		<div class="midBottom">
 			<h4 class="rank">순위</h4>
-			<table id="club_info_table" class="w3-table" border="1">
+			<table id="club_info_table" class="w3-table club_info_table">
 				<thead  style="text-align:center">
-				<tr bgcolor="lightgray" border="1" class="rank-shadow">
+				<tr bgcolor="#111B39"  class="rank-shadow">
 					<th width="100px"  style="text-align:center">순위</th>
 					<th width="200px"  style="text-align:center">구단</th>
 					<th width="100px"  style="text-align:center">경기수</th>
@@ -272,21 +347,21 @@
 					<th width="100px"  style="text-align:center">실점</th>
 					<th width="100px"  style="text-align:center">득실</th>
 				</tr>
-				</thaed>
+				</thead>
 				
 				<tbody >
 				
 				</tbody>
 			</table>
-	
-
-
+	<br>
+			<br>
+<br>
 		
 			<h4 class="rank">경기 일정</h4>
 			<!-- stlye 은 slick 영역 확인용 -->
-			<div style="padding: 50px 100px; background-color: gray;">
+			<div style="padding: 50px 100px; background-color: #111B39; color:white;">
 				<div id="slider-div">
-					<div class="cal_font_size" value="1">1월</div>
+					<div class="cal_font_size" >1월</div>
 					<div class="cal_font_size">2월</div>
 					<div class="cal_font_size">3월</div>
 					<div class="cal_font_size">4월</div>
@@ -300,8 +375,8 @@
 					<div class="cal_font_size">12월</div>
 				</div>
 			</div>
-
-			<table id="LeagueInfoTable" border="1" class="w3-table">
+<br>
+			<table id="LeagueInfoTable"  class="w3-table club_info_table" background-color: #111B39; color:white;>
 				<thead>
 					<tr>
 						<th width="100px" style='text-align:center'>리그명</th>
@@ -315,9 +390,15 @@
 				<tbody>
 
 				</tbody>
-			</table> 
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+			</table>
+		
+			<c:if test="${sessionScope.loginUser.pfGrade eq 'G2' }">
+					<c:if test="${requestScope.if_admin eq 1}">
+				<button id="delete_clue" class="w3-btn w3-b round memBer" onclick="delete_club_();">구단삭제</button>
+					</c:if>
+				</c:if>
+			
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	
 
 <script type="text/javascript" src="http://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
@@ -335,34 +416,44 @@
 					url:"/semi/club_info_member?teamNumber="+teamNumber,
 					type:"get",
 					success:function(data){
-						console.log(data);
-						
-						var $club_info_table_member = $("#club_info_table_member tbody");
-						
-						$club_info_table_member.html('');
-						
-						$.each(data,function(index,value){
-							team_count++;
+						if(data ==""){
+							var $club_info_table_member = $("#club_info_table_member tbody");
+							var $pfName	= $("<td style='text-align:center' colspan='3'>").text("구단에 소속된 선수가 없습니다.");
 							var $tr = $('<tr>');
-							
-							var $pfName	= $("<td  style='text-align:center'>").text(value.pfName);
-							var $prAssist = $("<td style='text-align:center'>").text(value.prAssist);
-							var $prGoal = $("<td style='text-align:center'>").text(value.prGoal);
-						
-							
 							$tr.append($pfName);
-							$tr.append($prAssist);
-							$tr.append($prGoal);
-							
-							
 							$club_info_table_member.append($tr);
-					
-							club_member.attr('html',team_count);
-							$('#club_member_size').text("구단 인원 : "+team_count + " 명");
-						});
+							
+						}else{
+							console.log("길이 : "+data);
+							
+							var $club_info_table_member = $("#club_info_table_member tbody");
+							
+							$club_info_table_member.html('');
+							
+							$.each(data,function(index,value){
+								team_count++;
+								var $tr = $('<tr>');
+								
+								var $pfName	= $("<td  style='text-align:center'>").text(value.pfName);
+								var $prAssist = $("<td style='text-align:center'>").text(value.prAssist);
+								var $prGoal = $("<td style='text-align:center'>").text(value.prGoal);
+							
+								
+								$tr.append($pfName);
+								$tr.append($prAssist);
+								$tr.append($prGoal);
+								
+								
+								$club_info_table_member.append($tr);
 						
-						
-					},
+								club_member.attr('html',team_count);
+								$('#club_member_size').text("구단 인원 : "+team_count + " 명");
+							});
+							
+							
+				
+						}
+								},
 					error: function(err){
 						console.log("실패");
 					}
@@ -386,7 +477,15 @@
 				url:"club_info_rank?teamNumber="+teamNumber,
 				type:"get",
 				success:function(data){
-					console.log(data);
+					if(data ==""){
+						var $club_info_table = $("#club_info_table tbody");
+						var $pfName	= $("<td style='text-align:center' colspan='10'>").text("구단이 리그에 소속되지 않았습니다.");
+						var $tr = $('<tr>');
+						$tr.append($pfName);
+						$club_info_table.append($tr);
+						
+					}else{
+					console.log("순위 테이블 :"+data);
 					
 					var $club_info_table = $("#club_info_table tbody");
 					
@@ -428,7 +527,7 @@
 						}
 					});
 					
-					
+					}
 				},
 				error: function(err){
 					console.log("실패");
@@ -453,7 +552,7 @@
 		var tema = "<%=request.getParameter("clubId")%>";
 		var _month = $(this).text();
 		var month = _month.substring(0,1);
-		console.log(teamNumber);
+		console.log("월넘어간다 : "+teamNumber);
 		
 		for(var i = 1 ; i < 13; i++){
 			if(month == i ){
@@ -510,30 +609,40 @@
 									url : "searchTeamMatch?month=" + month+ "&teamNumber=" + teamNumber,
 								   type : "get",
 								success : function(data) {
-										console.log(data);
-                                        var $LeagueInfoTable = $("#LeagueInfoTable tbody");
-											$LeagueInfoTable.html('');
-											$.each(data,function(index,value) {
-																var $tr = $("<tr style='text-align:center'>");
-																var $lgNameTd = $("<td style='text-align:center'>").text(value.lgName);
-																var $matchDateTd = $("<td style='text-align:center'>").text(value.matchDate);
-																var $clubFNameTd = $("<td style='text-align:center'>").text(value.clubFName);
-																var $clubSNameTd = $("<td style='text-align:center'>").text(value.clubSName);
-																var $stdNameTd = $("<td style='text-align:center'>").text(value.stdName);
-																var $RefNameTd = $("<td style='text-align:center'>").text(value.ref_name);
-																$tr.append($lgNameTd);
-																$tr.append($matchDateTd);
-																$tr.append($clubFNameTd);
-																$tr.append($clubSNameTd);
-																$tr.append($stdNameTd);
-																$tr.append($RefNameTd);
-																$LeagueInfoTable.append($tr);
-																if(value.clubName==clubName){
-																	var team_result = value.round+"전 "+value.win+"승 " +value.lose+"패";
-																	$('#League_result').text(team_result);
-																}
-																$('#League_Name').text("참가 중인 리그 : "+value.lgName);
-															});
+									if(data ==""){
+										var $LeagueInfoTable = $("#LeagueInfoTable tbody");
+										var $pfName	= $("<td style='text-align:center' colspan='6'>").text("구단이 리그에 소속되지 않았습니다.");
+										var $tr = $('<tr>');
+										$tr.append($pfName);
+										$LeagueInfoTable.append($tr);
+										
+									}else{
+											console.log("달력 돌리기 : "+data);
+	                                        var $LeagueInfoTable = $("#LeagueInfoTable tbody");
+												$LeagueInfoTable.html('');
+												$.each(data,function(index,value) {
+																	var $tr = $("<tr style='text-align:center'>");
+																	var $lgNameTd = $("<td style='text-align:center'>").text(value.lgName);
+																	var $matchDateTd = $("<td style='text-align:center'>").text(value.matchDate);
+																	var $clubFNameTd = $("<td style='text-align:center'>").text(value.clubFName);
+																	var $clubSNameTd = $("<td style='text-align:center'>").text(value.clubSName);
+																	var $stdNameTd = $("<td style='text-align:center'>").text(value.stdName);
+																	var $RefNameTd = $("<td style='text-align:center'>").text(value.ref_name);
+																	$tr.append($lgNameTd);
+																	$tr.append($matchDateTd);
+																	$tr.append($clubFNameTd);
+																	$tr.append($clubSNameTd);
+																	$tr.append($stdNameTd);
+																	$tr.append($RefNameTd);
+																	$LeagueInfoTable.append($tr);
+																	if(value.clubName==clubName){
+																		var team_result = value.round+"전 "+value.win+"승 " +value.lose+"패";
+																		$('#League_result').text(team_result);
+																	}
+																	$('#League_Name').text("참가 중인 리그 : "+value.lgName);
+																});	
+										}
+										
 											},
 										error : function(err) {
 											console.log("실패");
@@ -598,16 +707,15 @@
 			});
 			}
 		}
-						</script>
+		</script>
 			
-		<c:if test="${sessionScope.loginUser.pfGrade =='G2' }">
-					<c:if test="${requestScope.if_admin == 1} ">
-					<button id="delete_clue" class="w3-btn w3-b round memBer" onclick="delete_club_();">구단삭제</button>
-				</c:if>
-		</c:if>
-			
-			<div class="footer"></div>
+	  </div>		
 		</div>
+		<div class="footer" align="center">
+
+         <img src="/semi/resources/image/chu/footer.png" width="1100px" height="280px">
+
+</div>
 
 
 		<!-- The Modal -->
@@ -635,7 +743,7 @@
 
 				</div>
 				<div style="float:left; width:47%; height:150px; overflow:auto;">
-				<div style="float:right">
+				<div>
 					<table id="userListTable">
 					<caption>구단 선수</caption>
 						<thead>
@@ -653,11 +761,11 @@
 					<table id="inviteListTable">
 					<caption>초대한 선수</caption>
 						<thead>
-						
+							
 						</thead>
 						<tbody class="member_list_search">
 							<!-- 임의 값 넣기 -->
-							
+							<td> 선수가 없음</td>
 						</tbody>
 					</table>
 					</div>
@@ -708,7 +816,16 @@
 					url:"/semi/club_info_member?teamNumber="+teamNumber,
 					type:"get",
 					success:function(data){
-						console.log(data);
+						if(data ==""){
+							var $userListTable = $("#userListTable tbody");
+							var $pfName	= $("<td style='text-align:center' colspan='2'>").text("선수가 없습니다.");
+							var $tr = $('<tr>');
+							$tr.append($pfName);
+							$userListTable.append($tr);
+							
+						}else{
+						
+						console.log("유저들 불러오기 : "+data);
 						
 						var $userListTable = $("#userListTable tbody");
 						
@@ -731,7 +848,7 @@
 						
 						
 						
-						
+						}
 					},
 					error: function(err){
 						console.log("실패");
@@ -743,7 +860,16 @@
 					url:"/semi/invite_member_list?teamNumber="+teamNumber,
 					type:"get",
 					success:function(data){
-						console.log(data);
+						if(data ==""){
+							var $inviteListTable = $("#inviteListTable tbody");
+							var $pfName	= $("<td style='text-align:center' colspan='2'>").text("선수가 없습니다.");
+							var $tr = $('<tr>');
+							$tr.append($pfName);
+							$inviteListTable.append($tr);
+							
+						}else{
+						
+						console.log("초대한 선수 목록 띄우기 : "+data);
 						
 						var $inviteListTable = $("#inviteListTable tbody");
 						
@@ -901,7 +1027,7 @@
 							}); 
 							}
 						}) 
-						
+						}
 					},
 					error: function(err){
 						console.log("실패");
@@ -1181,7 +1307,7 @@
 						url:"/semi/club_search_member?oldVal="+oldVal,
 						type:"get",
 						success:function(data){
-							console.log(data);
+							console.log("유저 검색 기능"+data);
 							
 							var $searchListTable = $("#searchListTable tbody");
 							

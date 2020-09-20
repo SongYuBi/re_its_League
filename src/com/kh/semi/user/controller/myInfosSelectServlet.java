@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.kh.semi.club.model.service.ClubService;
+import com.kh.semi.club.model.vo.Club_vo;
 import com.kh.semi.user.model.service.UserService;
 import com.kh.semi.user.model.vo.Profile_vo;
 
@@ -42,13 +44,17 @@ public class myInfosSelectServlet extends HttpServlet {
     	//Profile_vo 반환값 
     	Profile_vo pv = new UserService().selectMyPage(writer);
     	
+		/*
+		 * Club_vo club_co = new UserService().search_club(pv);
+		 */	int teamNumber = new UserService().serach_teamNumber(pv);
+    	
     	String path = "";
     	
     	if(pv != null) {
     		path = "views/user/myPage/userMyPage.jsp";
     		//셋해서 넘겨야 뷰페이제 get해서 받아줘야함 
     		request.setAttribute("pv", pv);
-    		
+    		request.setAttribute("teamNumber",teamNumber);
     	}else {
     		System.out.println("실패");
     	}

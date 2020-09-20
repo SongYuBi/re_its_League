@@ -50,17 +50,11 @@ public class LoginUserServlet extends HttpServlet {
 		if(loginUser != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", loginUser);
-			
-			path = "index.jsp";
-			
-//			if(location_web.equals("club_main")) {
-//				path = request.getContextPath()+"/views/user/club/club_Main.jsp";
-//			}else if(location_web.equals("club_info")) {
-//				path = request.getContextPath()+"/views/user/club/club_info.jsp";
-//			}
-//			else {
-//				 path = "index.jsp";
-//			}
+			if(loginUser.getPfGrade().equals("G1")) {
+				path = "views/admin/main/index.jsp";
+			}else if(loginUser.getPfGrade().equals("G4")) {
+				path = "views/refree/main/refereeMain.jsp";
+			}
 			 path = "index.jsp";
 			response.sendRedirect(path);
 	

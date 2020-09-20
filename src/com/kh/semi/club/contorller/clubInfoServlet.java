@@ -37,6 +37,11 @@ public class clubInfoServlet extends HttpServlet {
 		
 		System.out.println("구단을 클릭한 유저: "+user_vo);
 		
+		if(user_vo==null) {
+			 user_vo = new Profile_vo();
+			 user_vo.setPfId(125);
+		}
+		
 		int teamNumber = Integer.parseInt(request.getParameter("teamNumber"));
 		System.out.println("teamnumber : "+teamNumber);
 		

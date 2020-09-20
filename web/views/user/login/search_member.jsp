@@ -38,17 +38,14 @@ pageEncoding="UTF-8"/>
 	}
 	.header{
    grid-area: header;
-   background-color: LightSeaGreen ;
  }
   
  .leftCol{
    grid-area: leftCol;
-   background-color: orange;
  }
   
  .rightCol{
    grid-area: rightCol;
-   background-color: lightblue;
  }
   
   .midTop{
@@ -204,9 +201,15 @@ function validate() {
 	<jsp:include page="${ application.getContextPath() }/views/common/sideBar.jsp"></jsp:include>
 	
 	<div class="wrapper">
-	  <div class="header">Header</div>
-	  <div class="leftCol">LeftCol</div>
-	  <div class="rightCol">이런곳에 수정ㅎ면되</div>
+	  <div class="header">
+	  <div id="logo" align="center">
+				 <img  src="/semi/resources/image/chu/logo.png" width="400px" height="150px" style="cursor: pointer" onclick="reHome();">
+			</div>
+			<br>	<br>	<br>	
+		
+	  </div>
+	  <div class="leftCol"></div>
+	  <div class="rightCol"></div>
 	  <div class="midTop"><h2>비밀 번호 변경</h2>
 	  <div id="div_1">
 	  
@@ -261,7 +264,10 @@ function validate() {
 	</div>
 	  </div>
 	  <div class="midBottom">
-	  <div class="footer"></div>
+<div class="footer" align="center">
+<br><br><br><br>
+         <img src="/semi/resources/image/chu/footer.png" width="1100px" height="280px">
+	  </div>
 	</div>
 	</form>
 	

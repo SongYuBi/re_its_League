@@ -517,4 +517,85 @@ public class LeagueDao {
 		
 	}
 
+	public int insertLeague(Connection con, League_vo lg) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		
+		String query = prop.getProperty("insertLeague");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+				pstmt.setString(1, lg.getLgId());
+				pstmt.setString(2, lg.getLgHost());
+				pstmt.setString(3, lg.getLgName());
+				pstmt.setInt(4, lg.getLgMinPlayer());
+				pstmt.setInt(5, lg.getLgSubPlayer());
+				pstmt.setInt(6, lg.getLgMaxPlayer());
+				pstmt.setInt(7, lg.getLgPlayer());
+				pstmt.setDate(8, lg.getLgSDate());
+				pstmt.setDate(9, lg.getLgEDate());
+				pstmt.setString(10, lg.getLgReward());
+				pstmt.setString(11, lg.getAreaCode());
+				pstmt.setString(12, lg.getRefFid());
+				pstmt.setString(13, lg.getRefSid());
+				pstmt.setString(14, lg.getRefTid());
+				pstmt.setString(15, lg.getStdFid());
+				pstmt.setString(16, lg.getStdSid());
+				
+				result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectLeagueList(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		
+		String query = prop.getProperty("selectLeagueList");
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			list = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()) {
+				HashMap<String, Object> hmap = new HashMap<String, Object>();
+				hmap.put("leagueId", rset.getString("LG_ID"));
+				hmap.put("leagueHost", rset.getString("LG_HOST"));
+				hmap.put("leagueName", rset.getString("LG_NAME"));
+				hmap.put("leagueMinPlayer",rset.getInt("LG_MIN_PLAYER"));
+				hmap.put("leagueSubPlayer",rset.getInt("LG_SUB_PLAYER"));
+				hmap.put("leagueMaxPlayer",rset.getInt("LG_MAX_PLAYER"));
+				hmap.put("leaguePlayer", rset.getInt("LG_PLAYER"));
+				hmap.put("leagueSDate", rset.getDate("LG_SDATE"));
+				hmap.put("leagueEDate", rset.getDate("LG_EDATE"));
+				hmap.put("leagueReward",rset.getString("LG_REWARD"));
+				hmap.put("leagueAreaCode", rset.getString("AREA_CODE"));
+				hmap.put("leagueRefFid", rset.getString("FIRST_REF"));
+				hmap.put("leagueRefSid", rset.getString("SECOND_REF"));
+				hmap.put("leagueRefTid", rset.getString("THIRD_REF"));
+				hmap.put("leagueStdFName",rset.getString("FIRST_STD"));
+				hmap.put("leagueStdSName",rset.getString("SECOND_STD"));
+				
+				
+				list.add(hmap);
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		return list;
+	}
+
 }

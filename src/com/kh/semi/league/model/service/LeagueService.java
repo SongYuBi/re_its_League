@@ -155,6 +155,31 @@ public class LeagueService {
 		
 	}
 
+	public int insertLeague(League_vo lg) {
+		Connection con = getConnection();
+		
+		int result = new LeagueDao().insertLeague(con, lg);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		return result;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectLeagueList() {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list = new LeagueDao().selectLeagueList(con);
+		
+		close(con);
+		
+		return list;
+		
+	}
+
 	
 
 

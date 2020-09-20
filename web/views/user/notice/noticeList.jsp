@@ -74,9 +74,9 @@ table {
 							</select> <input type="text" name="stx" value="" required="" id="stx"
 								class="frm_input required" size="15" maxlength="20"> <input
 								type="submit" value="검색" class="btn_search">
-							<%-- <c:if test="${ !empty sessionScope.loginUser and sessionScope.loginUser.userId.equals('admin') }"> --%>
-								<button class="btn_search" onclick="location.href='../notice/noticeInsertForm.jsp'">작성하기</button>
-							<%-- </c:if> --%>
+							<c:if test="${ !empty sessionScope.loginUser }"> 
+							<button class="btn_search" onclick="location.href='views/user/notice/noticeInsertForm.jsp'">작성하기</button>
+							</c:if>
 						</form>
 					</fieldset>
 				</div>
@@ -94,7 +94,7 @@ table {
 						<tbody>
 							<c:forEach var="b" items="${ requestScope.list }">
 								<tr>
-									<input type="hidden" value="<c:out value="${ b.bid }"/>">
+									<td><input type="hidden" value="<c:out value='${ b.bid }'/>"></td>
 									<td><c:out value="${ b.bNo }" /></td>
 									<td><c:out value="${ b.bTitle }" /></td>
 									<td><c:out value="${ b.pfName }" /></td>
@@ -139,20 +139,22 @@ table {
       </div>
     </div>
 
+
+
 	<script>
 		$(function() {
-			$("#listArea td").mouseenter(function(){
-				$(this).parent().css({"background":"darkgray", "cursor":"pointer"});
+			 $("#listArea td").mouseenter(function(){
+				$(this).parent().css({"background":"lightgray", "cursor":"pointer"});
 			}).mouseout(function(){
-				$(this).parent().css({"background":"black"});
+				$(this).parent().css({"background":"white"});
 			}).click(function(){
-				var num = $(this).parent().children().eq(0).text();
+				var num = $(this).parent().find("input").val();
 				
-				console.log(num);
+				console.log(num);	
 				
-				location.href = "${applicationScope.contextPath}/SelectOne.no?num=" + num;
+				location.href = "${applicationScope.contextPath}/selectNoticeOne.no?num=" + num;
 			});
-		});
+		}); 
 	</script>
 </body>
 </html>

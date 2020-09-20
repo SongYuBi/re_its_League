@@ -78,13 +78,29 @@
 	<jsp:include page="/views/common/sideBar.jsp"/>
 	
 	<div class="wrapper">
-	<div class="head">head
-		<div align="center">it`s league</div>
-		<div align="right">
-			<span>로그인</span>
-			<span>또는</span>
-			<span>회원가입</span>
-		</div> 
+	<div class="head"><div align="right">
+			<c:if test="${ empty sessionScope.loginUser }">
+				<ul class="toplo">
+					<li class="lil" style="color: #4169E1; font-size: 20px;"><div id="myBtn">로그인</div></li>
+					<li style="font-size: 18px;">또는</li>
+					<li class="lil" style="color: #4169E1; font-size: 20px;"><div><a href="${ application.contextPath }/semi/views/user/login/insert_member.jsp">회원가입</a></div></li>
+
+				</ul>
+			</c:if>
+			<c:if test="${!empty sessionScope.loginUser }">
+			<div id="userInfo">
+				<label><c:out value="${sessionScope.loginUser.pfName }" />
+					님의 방문을 환영합니다.</label>
+				<div class="btn" align="right">
+					<div id="changeInfo" onclick="updateMember();">정보수정</div>
+					<div id="logoutBtn" onclick="logout();">로그아웃</div>
+				</div>
+			</div>
+		</c:if>
+				<div align="center">
+					<img src="resources/image/chu/logo.png" style="cursor: pointer" onclick="reHome();">
+				</div>
+			</div>
 	</div>
 	  <div class="header" style="margin-top:100px;">
 	  	<span style="font-size:40px; font-weight:bold;">리그신청</span>
@@ -92,17 +108,11 @@
 	  
 	  <div class="midTop">
 	  	<div style="border:1px solid #2965FF;width:100%; background:#F8F8F8; height:200px;">
-	  		<span class="league-name">It's Man League</span>
+	  		<span class="league-name">${requestScope.list[0].leagueName }</span>
 	  		<select class="selectSt" onchange="selectLeague(this);">
-	  			<option value="SEOUL01">SEOUL01(서울지역)</option>
-	  			<option value="SEOUL02">SEOUL02(서울지역)</option>
-	  			<option value="SEOUL03">SEOUL03(서울지역)</option>
-	  			<option value="GYEONGGI01">GYEONGGI01(경기지역)</option>
-	  			<option value="GYEONGGI02">GYEONGGI02(경기지역)</option>
-	  			<option value="GYEONGGI03">GYEONGGI03(경기지역)</option>
-	  			<option value="INCHEON01">INCHEON01(인천지역)</option>
-	  			<option value="INCHEON02">INCHEON02(인천지역)</option>
-	  			<option value="INCHEON03">INCHEON03(인천지역)</option>
+	  			<c:forEach var="list" items="${requestScope.list }">
+	  				<option value="${list.leagueId }">${list.leagueId }</option>
+	  			</c:forEach>
 	  		</select>		
 	  	</div>
 	  	
@@ -110,17 +120,17 @@
         <div class="table-wrapper">
             <div class="table-title" style="border:1px solid #2965FF;width:100%; background:#F8F8F8; height:350px; margin-top:50px;">
                	<ul class="league-text1" style="margin-left:40px;">
-               		<li class="liline">리그명 : <span>lt's Man League Seoul 20</span></li>
-               		<li class="liline">주관 : <span>주식회사 It's League</span></li>
-               		<li class="liline">심판 : <span>김근엄, 김진지, 김상식</span></li>
-               		<li class="liline">최소 인원 수 : <span>6명</span></li>
-               		<li class="liline">교체선수 : <span>5명</span></li>
+               		<li class="liline">리그명 : <span>${requestScope.list[0].leagueName }</span></li>
+               		<li class="liline">주관 : <span>${requestScope.list[0].leagueHost }</span></li>
+               		<li class="liline">심판 : <span>${requestScope.list[0].leagueRefFid}, ${requestScope.list[0].leagueRefSid }, ${requestScope.list[0].leagueRefTid }</span></li>
+               		<li class="liline">최소 인원 수 : <span>${requestScope.list[0].leagueMinplayer }</span></li>
+               		<li class="liline">교체선수 : <span>${requestScope.list[0].leagueSubPlayer }</span></li>
                	</ul>
                	<ul class="league-text2" style="margin-left:40px;">
-               		<li class="liline">리그 기간 : <span>2020-06-01</span>&nbsp;~ &nbsp;<span>2020-08-31</span></li>
-               		<li class="liline">경기장 : <span>강북 이내 제휴 경기장</span></li>
-               		<li class="liline">총원 : <span>10명</span></li>
-               		<li class="liline">선발 인원 수 : <span>5명</span></li>
+               		<li class="liline">리그 기간 : <span>${requestScope.list[0].leagueSDate }</span>&nbsp;~ &nbsp;<span>${requestScope.list[0].leagueEDate }</span></li>
+               		<li class="liline">경기장 : <span>${requestScope.list[0].leagueStdFName }, ${requestScope.list[0].leagueStdSName }</span></li>
+               		<li class="liline">총원 : <span>${requestScope.list[0].leagueMaxPlayer }</span></li>
+               		<li class="liline">선발 인원 수 : <span>${requestScope.list[0].leaguePlayer }</span></li>
                	</ul>
             </div>
                 
@@ -149,7 +159,7 @@
 	 	</c:if>
 	  </div>
 	  <div class="footer" align="center" style="margin-top:20px; height:300px;">
-	  	<img src="${applicationScope.contextPath }/resources/image/chu/footer.png">
+	  	<img src="${applicationScope.contextPath }/resources/image/chu/footer.png" width=100%;>
 	  </div>
 	</div>
 	
@@ -226,6 +236,11 @@
 				
 			}
 			
+		}
+		
+		function reHome(){
+			
+			location.href="${applicationScope.contextPath}/index.jsp";
 		}
 	</script>
 </body>

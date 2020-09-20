@@ -38,7 +38,7 @@ public class MemberDao {
 		try {
 			stmt = con.createStatement();
 			rset = stmt.executeQuery(query);
-			list = new ArrayList<>();
+			list = new ArrayList<Profile_vo>();
 			
 			while(rset.next()) {
 				Profile_vo user = new Profile_vo();
@@ -68,6 +68,77 @@ public class MemberDao {
 			close(rset);
 		}
 		return list;
+	}
+	public int selectNew(Connection con) {
+		int count = 0;
+		Statement stmt = null;
+		ResultSet rset= null;
+		
+		String query = prop.getProperty("countNew");
+		System.out.println(query);
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			while(rset.next()) {
+				count=rset.getInt(1);
+				System.out.println(count);
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		return count;
+	}
+	public int selectExile(Connection con) {
+		int count1 = 0;
+		Statement stmt = null;
+		ResultSet rset= null;
+		
+		String query = prop.getProperty("countExile");
+		System.out.println(query);
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			while(rset.next()) {
+				count1=rset.getInt(1);
+				System.out.println(count1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		return count1;
+	}
+	public int countTotal(Connection con) {
+		int count2 = 0;
+		Statement stmt = null;
+		ResultSet rset= null;
+		
+		String query = prop.getProperty("countAll");
+		System.out.println(query);
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			while(rset.next()) {
+				count2=rset.getInt(1);
+				System.out.println(count2);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		return count2;
 	}
 
 }

@@ -35,9 +35,11 @@ public class NoticeInsertServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String title = request.getParameter("title");
-		String writer = request.getParameter("writer");
+		int writer = Integer.parseInt(request.getParameter("pfName"));
 		String date = request.getParameter("date");
 		String content = request.getParameter("content");
+		
+		System.out.println("입력 " + writer);
 		
 		java.sql.Date day = null;
 		
@@ -51,6 +53,7 @@ public class NoticeInsertServlet extends HttpServlet {
 		
 		Board_vo newNotice = new Board_vo();
 		newNotice.setbTitle(title);
+		newNotice.setPfId(writer);
 		newNotice.setbContent(content);
 		newNotice.setbDate(day);
 		
@@ -60,7 +63,7 @@ public class NoticeInsertServlet extends HttpServlet {
 		
 		String path = "";
 		if(result > 0) {
-			path = "selectList.no";
+			path = "noticeList.no";
 			response.sendRedirect(path);
 		} else {
 			path = "views/common/errorPage.jsp";

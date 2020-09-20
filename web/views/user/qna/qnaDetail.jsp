@@ -13,6 +13,21 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+   integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+   crossorigin="anonymous"></script>
+<link
+   href="https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap"
+   rel="stylesheet">
+<link rel="stylesheet"
+   href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script
+   src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+   src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+   src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <title>Insert title here</title>
 <style>
 	.button {
@@ -52,8 +67,8 @@
 		
 	}
 	 td{
-		border:2px solid lightgrey;
-		border-style: ridge;
+		border:2px solid lightgrey;/* 
+		border-style: ridge; */
 		width:200px;
 	} 
 	.tableArea{
@@ -68,16 +83,118 @@
 		height:250px;
 	}
 	
-	.footer { 
-  width: 100%; 
-     
-    background-color:#111B39; }
+    
+    	.btns {
+   position:static;
+   margin-left:1400px;
+   width:300px;
+}
+.loginBtns {
+   float:left;
+}
+.menu{
+  float:left;
+}
+
+ .lil,.banner{
+ 	cursor:pointer;
+ 	pont-size:20px;
+ 	float: right;
+ 	margin : 2px;
+ }
+  .toplo{
+ 	list-style:none;
+    margin:0;
+    padding:0;
+ }
+  ul li{
+ 	float: right;
+ 	margin : 2px;
+ 	}
+ 	#userInfo{
+ 	float:right;
+ 	}
+ 	
+ 	#member_out{
+ 		position: relative;
+	left: 0%;
+	top: 50%;
+ 	}
+
+	}.btn{
+		align:right;
+		padding:800px;
+	}
+	#guest{
+	
+		margin-left:1400px;
+	}
+	#infoNlogout{
+		margin-left:1500px;
+	}
+	.common-header{
+		margin-bottom:50px;
+	}#changeInfo{
+		float:left;
+	}
+	 
 	
 </style>
 </head>
 <body>
 
 	<jsp:include page="${ application.getContextPath() }/views/common/sideBar.jsp"></jsp:include>
+	
+	<jsp:include
+		page="${ application.getContextPath() }/views/user/comman/login.jsp"/>
+		
+		
+		  <div class=common-header>
+		
+		<div id="logo" align="center">
+				 <img  src="/semi/resources/image/chu/logo.png" width="400px" height="150px" style="cursor: pointer" onclick="reHome();">
+			</div>
+			
+		
+		<div  class="head" id="headWrapper">
+
+				<div class="btns" style="font-size:20px; color:gray; font-weight:600px;">
+				<c:if test="${ empty sessionScope.loginUser }">
+				<ul class="toplo">
+					<li class="lil" style="color: #4169E1; font-size: 20px;"><div id="myBtn">로그인</div></li>
+					<li class="lil"style="font-size: 18px;">또는</li>
+					<li class="lil" style="color: #4169E1; font-size: 20px;"><div><a href="${ application.contextPath }/semi/views/user/login/insert_member.jsp">회원가입</a></div></li>
+				</ul> 
+				
+				</c:if>
+				</div>
+			
+				<c:if test="${!empty sessionScope.loginUser }">
+		
+			
+				<div class="guest" id="guest" style="font-size:20px;">
+				<label><c:out value="${sessionScope.loginUser.pfName }" />
+					님의 방문을 환영합니다.</label>
+				</div>	
+					
+				<div class="btn" id="infoNlogout" style="font-size:19px; color: gray; font-weight: 600;">
+					<div id="changeInfo" onclick="updateMember();">정보수정 </div>
+					<div class= "loginBtns" id="bar"><label> | </label></div>
+					<div id="logoutBtn" onclick="logout();"> 로그아웃</div>
+				</div>
+
+		</c:if>
+			
+			</div>
+			
+			</div>
+			
+			<hr style="height: 3px; background: black;">
+			
+	
+	
+	
+	
 	
 	<div class="outer">
 	
@@ -128,10 +245,18 @@
 			</div>
 	  </div>
 	 	 <br>
-	 <div class="footer">
-	 	<img alt="" src="../../../resources/image/footer_jess.png" style="width:100%">
-	 </div>
+	
 	</div>
+		<br>
+		
+		
+		
+	<footer>
+      <div id="footer" align="center">
+         <img src="/semi/resources/image/chu/footer.png" width="1100px" height="280px">
+       </div>
+    </footer>
+	
 </body>
 </html>
 

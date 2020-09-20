@@ -49,13 +49,13 @@
 
 		<article id="bo_v" style="width:100%">
     	<header>
-        	<h1 id="bo_v_title"><c:out value="${ requestScope.notice.nTitle }"/></h1>
+        	<h1 id="bo_v_title"><c:out value="${ requestScope.board.bTitle }"/></h1>
     	</header>
 		<hr class="bg2_1">
     	<section id="bo_v_info">
-        	작성자 <strong><span class="sv_member"><c:out value="${ requestScope.notice.nickName }"/></span></strong>
-        	작성일 <strong><span><c:out value="${ requestScope.notice.nDate }"/></span></strong>
-        	조회<strong>nn회</strong>
+        	작성자 <strong><span class="sv_member"><c:out value="${ requestScope.board.pfName }"/></span></strong>
+        	작성일 <strong><span><c:out value="${ requestScope.board.bDate }"/></span></strong>
+        	조회<strong><span><c:out value="${ requestScope.board.bCount }"/></span></strong>
         	댓글<strong>nn건</strong>
     	</section>
 
@@ -68,24 +68,24 @@
       		<!-- 본문 내용 시작 { -->
 	        <div id="bo_v_con">
 				<table>
-					<%-- <tr>
+				 <tr>
 						<td>제목 </td>
-						<td colspan="3"><input type="text" size="50" name="title" value="<c:out value="${ requestScope.notice.nTitle }"/>" readonly></td>
+						<td colspan="3"><input type="text" size="50" name="title" value="<c:out value="${ requestScope.board.bTitle }"/>" readonly></td>
 					</tr>
 					<tr>
 						<td>작성자 </td>
 						<td>
-							<input type="text" value="<c:out value="${ requestScope.notice.nickName }"/>" name="writer" readonly>
+							<input type="text" value="<c:out value="${ requestScope.board.pfName }"/>" name="writer" readonly>
 						</td>
 						<td>작성일</td>
-						<td><input type="date" name="date" value="<c:out value="${ requestScope.notice.nDate }"/>" readonly></td>
-					</tr> --%>
+						<td><input type="date" name="date" value="<c:out value="${ requestScope.board.bDate }"/>" readonly></td>
+					</tr>
 					<tr>
 						<td>내용 </td>
 					</tr>
 					<tr>
 						<td colspan="4">
-							<textarea name="content" cols="60" rows="15" style="resize:none;" readonly><c:out value="${ requestScope.notice.nContent }"/></textarea>
+							<textarea name="content" cols="60" rows="15" style="resize:none;" readonly><c:out value="${ requestScope.board.bContent }"/></textarea>
 						</td>
 					</tr>
 				</table>

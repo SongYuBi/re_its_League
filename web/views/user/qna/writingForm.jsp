@@ -1,6 +1,10 @@
 
  <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+    <%@  taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    
+    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -59,11 +63,15 @@
 		margin-left:auto;
 		margin-right:auto;
 	}
-	.outer{
-		margin-left:90px;
-		margin-right:90px;
-	}
+	 .outer{
+	width: 1100px;
+	height:500px;
+	margin-top:50px;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom:150px;
 	
+	}
 	#box1{
 		text-align:center;
 		 width:700px;
@@ -118,28 +126,128 @@
    		line-height:30px;
      	}
   
+  
+  	.btns {
+   position:static;
+   margin-left:1400px;
+   width:300px;
+	}
+	.loginBtns {
+	   float:left;
+	}
+	.menu{
+	  float:left;
+	}
+
+ .lil,.banner{
+ 	cursor:pointer;
+ 	pont-size:20px;
+ 	float: right;
+ 	margin : 2px;
+ }
+  .toplo{
+ 	list-style:none;
+    margin:0;
+    padding:0;
+ }
+  ul li{
+ 	float: right;
+ 	margin : 2px;
+ 	}
+ 	#userInfo{
+ 	float:right;
+ 	}
+ 	
+ 	#member_out{
+ 		position: relative;
+	left: 0%;
+	top: 50%;
+ 	}
+
+	}.btn{
+		align:right;
+		padding:800px;
+	}
+	#guest{
+	
+		margin-left:1400px;
+	}
+	#infoNlogout{
+		margin-left:1500px;
+	}
+	.common-header{
+		margin-bottom:50px;
+	}
+	#changeInfo{
+		float:left;	
+	}
+  
+  
+  
+  
+  
 </style>
 </head>
 <body>
 
 	<jsp:include page="${ application.getContextPath() }/views/common/sideBar.jsp"></jsp:include>
 	
+	<jsp:include
+		page="${ application.getContextPath() }/views/user/comman/login.jsp"/>
+		
+		
+		  <div class=common-header>
+		
+		<div id="logo" align="center">
+				 <img  src="/semi/resources/image/chu/logo.png" width="400px" height="150px" style="cursor: pointer" onclick="reHome();">
+			</div>
+			
+		
+		<div  class="head" id="headWrapper">
+
+				<div class="btns" style="font-size:20px; color:gray; font-weight:600px;">
+				<c:if test="${ empty sessionScope.loginUser }">
+				<ul class="toplo">
+					<li class="lil" style="color: #4169E1; font-size: 20px;"><div id="myBtn">로그인</div></li>
+					<li class="lil"style="font-size: 18px;">또는</li>
+					<li class="lil" style="color: #4169E1; font-size: 20px;"><div><a href="${ application.contextPath }/semi/views/user/login/insert_member.jsp">회원가입</a></div></li>
+				</ul> 
+				
+				</c:if>
+				</div>
+			
+				<c:if test="${!empty sessionScope.loginUser }">
+		
+			
+				<div class="guest" id="guest" style="font-size:20px;">
+				<label><c:out value="${sessionScope.loginUser.pfName }" />
+					님의 방문을 환영합니다.</label>
+				</div>	
+					
+				<div class="btn" id="infoNlogout" style="font-size:19px; color: gray; font-weight: 600;">
+					<div id="changeInfo" onclick="updateMember();">정보수정 </div>
+					<div class= "loginBtns" id="bar"><label> | </label></div>
+					<div id="logoutBtn" onclick="logout();"> 로그아웃</div>
+				</div>
+
+		</c:if>
+			
+			</div>
+			
+			</div>
+			
+			<hr style="height: 3px; background: black;">
+			
+	
 	<div class="outer">
 	
 	
-	
-	<div class="logo" align="center">
-		<img alt="" src="../../../resources/image/logo_jess.png" style="width:20%">
-	</div>
-
-	  
-	  
 	  <div class="midTop">
 	  	<br>
 	  	 		<h2 font-weight="bold" align="center">QnA</h2>
 	  	 
 	  	 <div class="tableArea" align="center">
-	  	 <br>
+	  	
 				 <div class="text-area">
 	  	 	<form action="/semi/insert.qna" method="post">
 				<table class="area-box">
@@ -184,13 +292,20 @@
 	  	 	</form>
 	  	 </div>
 	  	  <br>
-	 <div class="footer">
-	 	<img alt="" src="../../../resources/image/footer_jess.png" style="width:100%">
-	 </div>
+	
 	  </div>
 	 	 <br>		
 	 	 <br>
 	</div>
+	
+	
+	<footer>
+      <div id="footer" align="center">
+         <img src="/semi/resources/image/chu/footer.png" width="1100px" height="280px">
+       </div>
+    </footer>
+    
+    
 </body>
 <script>
 	function signUp(){

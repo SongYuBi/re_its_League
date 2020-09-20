@@ -34,6 +34,8 @@ public class SelectApplyServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		ArrayList<Referee_vo> list = new RefereeService().selectApplyReferee();
 		String path = "";
+		
+		System.out.println("우아!!! : " + list);
 		if(list != null) {
 			path = "views/admin/referee/refereeApply_admin.jsp";
 			request.setAttribute("list", list);
@@ -44,7 +46,6 @@ public class SelectApplyServlet extends HttpServlet {
 		
 		request.getRequestDispatcher(path).forward(request, response);
 		
-
 	}
 
 	/**

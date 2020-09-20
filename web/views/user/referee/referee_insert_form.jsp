@@ -16,7 +16,10 @@
 </head>
 <body>
 	<div class="wrapper">
-		<div class="header">${ sessionScope.loginUser.pfName }</div>
+		<div class="head">
+			<img src="${ applicationScope.contextPath }/resources/image/logo_jess.png">
+		</div>
+		<div class="header">${ sessionScope.loginUser.pfName }님 반갑습니다.</div>
 		<div class="leftCol"></div>
 		<div class	="rightCol"></div>
 		<div class="midTop">

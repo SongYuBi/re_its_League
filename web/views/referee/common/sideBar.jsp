@@ -1,4 +1,4 @@
-<jsp:directive.page language="java"
+	<jsp:directive.page language="java"
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" />
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${ pageContext.request.contextPath }" scope="application"/>
@@ -92,8 +92,8 @@ p {
 		<ul class="navbar-nav ml-auto ml-md-0">
 
 			<li class="nav-item dropdown no-arrow">
-				<a class="nav-link"	href="#" id="userDropdown" role="button"> 
-					<i class="fas fa-user-circle fa-fw"></i>
+				<a class="nav-link"	href="#" id="userDropdown" role="button" style="color:black;"> 
+					<!-- <i class="fas fa-user-circle fa-fw"></i> -->
 					<c:out value="${ sessionScope.loginUser.pfName } 님"></c:out>
 				</a>	
 			</li>
@@ -143,7 +143,7 @@ p {
 
 		
 				<!-- Custom scripts for all pages -->
-				<!-- <script src="/semi/resources/js/sb-admin.min.js"></script> -->
+				<!-- <script src="/semi/resources/js/sb-admin.min.js"></script>
 
 				<!-- Demo scripts for this page -->
 				<!-- <script src="/semi/resources/js/datatables-demo.js"></script>

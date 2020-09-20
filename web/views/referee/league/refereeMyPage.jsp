@@ -25,6 +25,7 @@
 .first_form > div {
 	margin:10px;
 }
+
 .first_form > div > p{
 	font-weight:600;
 	

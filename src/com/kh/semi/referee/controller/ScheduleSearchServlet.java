@@ -33,12 +33,12 @@ public class ScheduleSearchServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	/*	HttpSession session = request.getSession();
+		HttpSession session = request.getSession();
 		
 		Profile_vo loginUser = (Profile_vo)session.getAttribute("loginUser");
-		System.out.println("loginUser : " + loginUser);*/
-		/*int pfId = loginUser.getPfId();*/
-		int pfId = 500;
+		System.out.println("loginUser : " + loginUser);
+		int pfId = loginUser.getPfId();
+		/*int pfId = 500;*/
 		ArrayList schList = null;
 		schList = new RefereeService().searchSchedule(pfId);
 		

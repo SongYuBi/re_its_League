@@ -157,10 +157,9 @@ public class RefereeDao {
 		ArrayList schList = null;
 		String query = prop.getProperty("selectSchedule");
 		
-		System.out.println(query);
 		try {
 			pstmt = con.prepareStatement(query);
-		/*	pstmt.setInt(1, pfId);*/
+			pstmt.setInt(1, pfId);
 			schList = new ArrayList<>();
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
@@ -344,7 +343,6 @@ public class RefereeDao {
 		ArrayList schList = null;
 		String query = prop.getProperty("selectScheduleOneFilter");
 		
-		System.out.println(query);
 		try {
 			pstmt = con.prepareStatement(query);
 		/*	pstmt.setInt(1, pfId);*/

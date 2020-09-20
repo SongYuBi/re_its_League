@@ -25,19 +25,22 @@ public class RefereeMatchDao {
 			e.printStackTrace();
 		}
 	}
-	public int insertMatchResult(Connection con, Result_vo team1, Result_vo team2) {
+	public int insertMatchResult(Connection con, Result_vo team1, Result_vo team2, int matchId) {
 		// TODO Auto-generated method stub
 		PreparedStatement pstmtTeam1 = null;
 		PreparedStatement pstmtTeam2 = null;
+		PreparedStatement pstmtMr = null;
 		int result = 0;
 		int result1 = 0;
 		int result2 = 0;
 		
-		String query = prop.getProperty("insertMatchResult");
+		String queryMatchResult = prop.getProperty("insertMatchResult");
+		String queryMr = prop.getProperty("insertMatchRecord");
 		
 		try {
-			pstmtTeam1 = con.prepareStatement(query);
-			pstmtTeam2 = con.prepareStatement(query);
+			pstmtMr = con.prepareStatement(queryMr);
+			pstmtTeam1 = con.prepareStatement(queryMatchResult);
+			pstmtTeam2 = con.prepareStatement(queryMatchResult);
 			
 			pstmtTeam1.setString(1, team1.getResWin());
 			pstmtTeam1.setString(2, team1.getResLose());
@@ -52,7 +55,8 @@ public class RefereeMatchDao {
 			pstmtTeam2.setInt(4, team2.getResGoal());
 			pstmtTeam2.setInt(5, team2.getResLoseGoal());
 			pstmtTeam2.setInt(6, team2.getClubId());
-		
+			
+			pstmtMr.setInt(1, matchId);
 			result1 = pstmtTeam1.executeUpdate();
 			result2 = pstmtTeam2.executeUpdate();
 			

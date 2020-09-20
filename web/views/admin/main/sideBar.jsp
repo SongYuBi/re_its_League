@@ -32,6 +32,7 @@
 	width: 150px;
 }
 
+
 .sidebar .nav-link {
 	min-width: 150px;
 	min-height: 200px;
@@ -112,17 +113,20 @@ p {
 					width="40px" style="margin-left: 52px;">
 					<p class="sidebar-text">리그 관리</p>
 			</a>
-				<div class="dropdown-menu" aria-labelledby="pagesDropdown"></div> <br>
-			</span> <span class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath }/views/admin/referee/adminRefereeMain.jsp"
-				style="margin-top: -90px; margin-left: -22px;"> 
-				<img class="sidebar-image"
-					src="/semi/resources/image/chu/referee_un.png" width="60px">
+			</span> 
+			<span class="nav-item dropdown"> 
+			<a class="nav-link dropdown-toggle mytoggle" href="#" id="pagesDropdown" role="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-top: -70px;"> 
+			<img class="sidebar-image" src="/semi/resources/image/chu/user_un.png" width="60px">
 					<p class="sidebar-text">심판 관리</p>
 			</a>
+			<div class="dropdown-menu" aria-labelledby="pagesDropdown" x-placement="bottom-start" style="position:absolute; width:50px;
+			will-change: transform; rop; 0px; left; 0px; margin-top:-20px; transform: translate3d(0px, 63px, 0px);">
+				<a class="dropdown-item" href="${pageContext.request.contextPath }/selectApply.rf">심판 승인</a>
+				<a class="dropdown-item" href="${pageContext.request.contextPath }/selectReferee.rf">심판 추가 삭제</a>
+				</div>
 			</span> 
-			
-			<span class="nav-item dropdown"> 
-			<a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-top: -70px;"> 
+			<span class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle mytoggle2" href="#" id="pagesDropdown" role="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-top: -70px;"> 
 			<img class="sidebar-image" src="/semi/resources/image/chu/user_un.png" width="60px">
 					<p class="sidebar-text">회원 관리</p>
 			</a>
@@ -167,23 +171,36 @@ p {
 			</span>
 		</div>
 		
-		   <!-- Bootstrap core JavaScript-->
-				<script src="/semi/resources/js/jquery.min.js"></script>
-				<script src="/semi/resources/js/bootstrap.bundle.min.js"></script>
 
-				<!-- Core plugin JavaScript-->
-				<script src="/semi/resources/js/jquery.easing.min.js"></script>
+            <!-- Bootstrap core JavaScript -->
+             <script src="/semi/resources/js/jquery.min.js"></script>
+            <script src="/semi/resources/js/bootstrap.bundle.min.js"></script>
 
-				<!-- Page level plugin JavaScript-->
-				<script src="/semi/resources/js/Chart.min.js"></script>
-				<script src="/semi/resources/js/jquery.dataTables.js"></script>
-				<script src="/semi/resources/js/dataTables.bootstrap4.js"></script>
+            <!-- Core plugin JavaScript -->
+            <script src="/semi/resources/js/jquery.easing.min.js"></script>
 
-				<!-- Custom scripts for all pages-->
-				<script src="/semi/resources/js/sb-admin.min.js"></script>
+            <!-- Page level plugin JavaScript -->
+            <script src="/semi/resources/js/Chart.min.js"></script>
+            <script src="/semi/resources/js/jquery.dataTables.js"></script>
+            <script src="/semi/resources/js/dataTables.bootstrap4.js"></script>
+
+            <!-- Custom scripts for all pages -->
+            <script src="/semi/resources/js/sb-admin.min.js"></script>
 
 				
+		<script>
+			var changeNum = 0;
+			$(".mytoggle").on('click', function(){
+				if(changeNum == 0){
+					$(".mytoggle2").css("margin-top", "30px");
+					changeNum = 1;
+				} else {
+					$(".mytoggle2").css("margin-top", "-70px");
+					changeNum = 0;
+				}
 				
-</script>
+			});
+		</script>
+
 </body>
 </html>

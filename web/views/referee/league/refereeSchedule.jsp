@@ -9,8 +9,8 @@
 <link rel="stylesheet"
 	href="${ pageContext.request.contextPath }/resources/css/adminDefaultLayout.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<!-- <script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script> -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 <!-- <script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
@@ -32,7 +32,7 @@
 }
 
 .header {
-	background: gray;
+	background: #212529;
 }
 
 #myCarousel {
@@ -71,14 +71,16 @@
 
 	<div class="wrapper_admin">
 		<div class="header">
-			<h1>스케줄 관리</h1>
+			<h1 style="color: #b1adad;
+			    margin-top: revert;
+			    margin-left: 30px;">스케줄 관리</h1>
 		</div>
 		<div class="leftCol"></div>
 		<div class="rightCol"></div>
 		<div class="midTop">
 			<hr>
 			<div id="carouselExampleControls" class="carousel slide"
-				data-ride="false">
+				data-ride="false" data-interval="false">
 				<div class="carousel-inner" >
 					<div class="carousel-item" id="carouselVal1">
 						<h1 id="carouselValue1" align="center">1</h1>
@@ -118,7 +120,7 @@
 					</div>
 				</div>
 				<a class="carousel-control-prev" href="#carouselExampleControls"
-					role="button" data-slide="prev"> <span
+					role="button" data-slide="prev" data-interval="false"> <span
 					class="carousel-control-prev-icon" aria-hidden="true"></span> <span
 					class="sr-only">Previous</span>
 				</a> <a class="carousel-control-next" href="#carouselExampleControls"
@@ -244,7 +246,7 @@
 						var nowDate = getDate();
 						$tableBody.html('');
 						$matchDate.html('');
-						console.log(data[1].matchDate.split("-"));
+						
 						
 						// 날짜 중복 제거
 						var listDate =[];

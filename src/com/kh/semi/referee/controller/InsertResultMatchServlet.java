@@ -69,7 +69,7 @@ public class InsertResultMatchServlet extends HttpServlet {
 			loseTeam.setResGoal(sidScore);
 			loseTeam.setResLoseGoal(fidScore);
 			
-			result = new RefereeMatchService().insertMatchResult(winTeam, loseTeam);
+			result = new RefereeMatchService().insertMatchResult(winTeam, loseTeam, matchId);
 			
 		} else if(win == sid){
 			// sid 팀이 이겼을 경우
@@ -87,7 +87,7 @@ public class InsertResultMatchServlet extends HttpServlet {
 			loseTeam.setResGoal(sidScore);
 			loseTeam.setResLoseGoal(fidScore);
 			
-			result = new RefereeMatchService().insertMatchResult(winTeam, loseTeam);
+			result = new RefereeMatchService().insertMatchResult(winTeam, loseTeam, matchId);
 		} else {
 			// 무승부일 경우
 			DrawTeamFid.setClubId(fid);
@@ -104,7 +104,7 @@ public class InsertResultMatchServlet extends HttpServlet {
 			DrawTeamSid.setResGoal(sidScore);
 			DrawTeamSid.setResLoseGoal(fidScore);
 			
-			result = new RefereeMatchService().insertMatchResult(DrawTeamFid, DrawTeamSid);
+			result = new RefereeMatchService().insertMatchResult(DrawTeamFid, DrawTeamSid, matchId);
 		}
 		
 		

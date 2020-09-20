@@ -70,11 +70,13 @@
 	
 	<div class="wrapper_admin">
 		<div class="header">
-			<h1>경기 평가</h1>
+			<h1 style="color: #b1adad;
+			    margin-top: revert;
+			    margin-left: 30px;">경기 결과 입력</h1>
 		</div>
 		<div class="leftCol"></div>
 		<div class="rightCol"></div>
-		<div class="midTop">
+		<div class="midTop">	
 			<hr>
 			<div id="carouselExampleControls" class="carousel slide"
 				data-ride="carousel" data-interval="false">

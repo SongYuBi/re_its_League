@@ -1,5 +1,5 @@
 <jsp:directive.page language="java"
-	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" />
+   contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" />
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
@@ -10,7 +10,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
 
@@ -28,8 +28,8 @@
 <link href="/semi/resources/css/sb-admin.css" rel="stylesheet">
 <style>
 p {
-	font-size: 20px;
-	margin-left: 5px;
+   font-size: 20px;
+   margin-left: 5px;
 }
 </style>
 

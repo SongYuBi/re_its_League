@@ -2,6 +2,13 @@
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" />
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page import= "java.util.ArrayList, com.kh.semi.exile.model.vo.Exile_vo"%> 
+
+<%  
+	ArrayList <Exile_vo> list = (ArrayList<Exile_vo>) request.getAttribute("list");
+	Exile_vo loginUser = (Exile_vo)session.getAttribute("loginUser");
+%> 
+
 
 <html lang="en">
 <head>
@@ -271,37 +278,41 @@
 							<button type="button">탈퇴</button>
 						</div>
 
-						<table class="table table-bordered" summary="목록">
-							<colgroup>
-								<col width="10%" />
-								<col width="20%" />
-								<col width="20%" />
-								<col width="20%" />
-								<col width="20%" />
-								<col width="*" />
-							</colgroup>
+						  <table class="table table-bordered" id="dataTable" width="100%"
+							cellspacing="0">
 
-							<thead>
+                      <thead>
+                      
+                      <tr>
+                      
+                      <th scope="col" class="ft"><input type="checkbox" id="check_all" /></th>
+                      
+                      <th scope="col">회원 ID</th>
+                      
+                                        <th scope="col">구단</th>
+                      
+                                        <th scope="col">등록일자</th>
+                      
+                                        <th scope="col" class="lt">등록사유</th>
+                                      
+                      
+                      </tr>
+                      
+                      </thead>
+                      <tbody>
+								<% for(Exile_vo p : list) { %>
 								<tr>
-									<th scope="col" class="ft"><input type="checkbox"
-										id="check_all" /></th>
-									<th scope="col">회원 ID</th>
-									<th scope="col">회원 탈퇴일</th>
-									<th scope="col">구분</th>
-									<th scope="col" class="lt">탈퇴사유</th>
+									<td><input type="checkbox" id="check_one" /></td>
+							    	<td><%= p.getPfEmail() %></td>
+									<td><%= p.getClub_name() %></td>
+									<td><%= p.getExileDate() %></td>
+									<td><%= p.getExileReason() %></td>
 								</tr>
-							</thead>
-
-							<tbody>
-								<tr>
-									<th><input type="checkbox" id="check_one"></th>
-									<th>mkchu125</th>
-									<th>최강도봉</th>
-									<th>20.09.08</th>
-									<th>폭력</th>
-								</tr>
-							</tbody>
-						</table>
+								<%}%> 
+								</tbody>
+                      
+	                      </table>
+                                                                            
 					</div>
 				</div>
 			</div>

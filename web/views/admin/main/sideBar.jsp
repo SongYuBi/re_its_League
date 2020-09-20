@@ -104,7 +104,7 @@ p {
 				href="index.html"> <img class="sidebar-image"
 					src="/semi/resources/image/chu/home_un.png" width="60px"
 					style="margin-top: -10px;">
-					<p class="sidebar-text">HOME</p>
+					<p class="sidebar-text" href="${pageContext.request.contextPath }/views/admin/main/index.jsp">HOME</p>
 			</a>
 			</span> <span class="nav-item"> <a class="nav-link" href="../league/LeagueManagement.jsp"
 				id="pagesDropdown" role="button" style="margin-top: -120px;"> <img
@@ -128,11 +128,12 @@ p {
 			</a>
 			<div class="dropdown-menu" aria-labelledby="pagesDropdown" x-placement="bottom-start" style="position:absolute; width:50px;
 			will-change: transform; rop; 0px; left; 0px; margin-top:-20px; transform: translate3d(0px, 63px, 0px);">
-				<a class="dropdown-item" href="/semi/views/admin/member/user.jsp">회원관리</a>
-				<a class="dropdown-item" href="/semi/views/admin/member/exile.jsp">추방 관리</a>
-				<a class="dropdown-item" href="/semi/views/admin/member/withdraw.jsp">탈퇴 관리</a>
+				<a class="dropdown-item" href="${pageContext.request.contextPath }/selectAll">회원관리</a>
+				<a class="dropdown-item" href="${pageContext.request.contextPath }/selectExileMember">추방 관리</a>
+				<a class="dropdown-item" href="${pageContext.request.contextPath }/selectWithdraw">탈퇴 관리</a>
 				</div>
 			</span> 
+			
 			
 			<span class="nav-item"> 
 			<a class="nav-link" href="#" style="margin-top: -70px;"> 
@@ -166,22 +167,23 @@ p {
 			</span>
 		</div>
 		
-		        <!-- Bootstrap core JavaScript-->
+		   <!-- Bootstrap core JavaScript-->
 				<script src="/semi/resources/js/jquery.min.js"></script>
 				<script src="/semi/resources/js/bootstrap.bundle.min.js"></script>
 
-		
+				<!-- Core plugin JavaScript-->
+				<script src="/semi/resources/js/jquery.easing.min.js"></script>
+
+				<!-- Page level plugin JavaScript-->
+				<script src="/semi/resources/js/Chart.min.js"></script>
+				<script src="/semi/resources/js/jquery.dataTables.js"></script>
+				<script src="/semi/resources/js/dataTables.bootstrap4.js"></script>
+
 				<!-- Custom scripts for all pages-->
 				<script src="/semi/resources/js/sb-admin.min.js"></script>
 
-				<!-- Demo scripts for this page-->
-				<script src="/semi/resources/js/datatables-demo.js"></script>
-				<script src="/semi/resources/js/chart-area-demo.js"></script>
 				
-<script>
-	function applyReferee(){
-		console.log("하위!")
-	}
+				
 </script>
 </body>
 </html>

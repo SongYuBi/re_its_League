@@ -79,30 +79,8 @@ select {
 }
 </style>
 </head>
-<header> <br>
-<br>
-<div id="headWrapper" align="center">
-	<div id="logo">
-		<img src="/semi/resources/image/chu/logo.png" width="400px"
-			height="150px">
-	</div>
-	<div class="btns"
-		style="font-size: 20px; color: gray; font-weight: 600;">
-		<div class="loginBtns" id="loginBtn" onclick="login();">
-			<label>로그인 </label>
-		</div>
-		<div class="loginBtns" id="bar">
-			<label>|</label>
-		</div>
-		<div class="loginBtns" id="memberJoinBtn" onclick="memberJoin();">
-			<label> 회원가입</label>
-		</div>
-	</div>
-</div>
-<br clear="both">
-</header>
 
-<hr style="height: 3px; background: black;">
+<jsp:include page="header.jsp"></jsp:include>
 <body>
 	<jsp:include page="../../common/sideBar.jsp"></jsp:include>
 	<h1 align="center"></h1>

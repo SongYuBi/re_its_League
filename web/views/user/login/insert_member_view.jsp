@@ -13,12 +13,10 @@ pageEncoding="UTF-8"/>
 	}
 	.header{
    grid-area: header;
-   background-color: LightSeaGreen ;
  }
   
  .leftCol{
    grid-area: leftCol;
-   background-color: orange;
  }
   
  .rightCol{
@@ -282,9 +280,15 @@ function validate() {
 	<jsp:include page="${ application.getContextPath() }/views/common/sideBar.jsp"></jsp:include>
 	
 	<div class="wrapper">
-	  <div class="header">Header</div>
-	  <div class="leftCol">LeftCol</div>
-	  <div class="rightCol">이런곳에 수정ㅎ면되</div>
+	  <div class="header">
+	  <div id="logo" align="center">
+				 <img  src="/semi/resources/image/chu/logo.png" width="400px" height="150px" style="cursor: pointer" onclick="reHome();">
+			</div>
+			
+			<br><br><br>
+			</div>
+	  <div class="leftCol"></div>
+	  <div class="rightCol"></div>
 	  <div class="midTop">
 	  <div id="div_1">
 	
@@ -318,15 +322,16 @@ function validate() {
 </div>
 <input type="hidden" value="" id="result_email" name="result_email">
 <br>
+<br>
 <label style="float:left;">비밀번호</label>
 <input type="password" id="password" name="password" class="w3-input w3-border w3-border-black"  maxlength="12">
-
+<br>
 <label style="float:left;">비밀번호 확인</label>
 <input type="password" id="password_re" name="password_re" class="w3-input w3-border w3-border-black"  maxlength="12">
-
+<br>
 <label style="float:left;">이름</label>
 <input type="text" id="name" name="name" class="w3-input w3-border w3-border-black" maxlength="20" >
-
+<br>
 <label style="float:left;" >주민등록번호</label>
 <br><br>
 <div style="float:left;">
@@ -353,7 +358,7 @@ function validate() {
 <label style="float:left;">주소</label>
 <input type="text" id="address" name="address" class="w3-input w3-border w3-border-black">
 
-
+<br>
 
 <label style="float:left;">전화번호</label><br><br>
 <input type='tel' name='phone1' id='phone1'  size="4" maxlength="3" class=" w3-border w3-border-black" style="width:100px; height:35px;"/> &nbsp&nbsp - &nbsp&nbsp
@@ -369,12 +374,18 @@ function validate() {
   
 	  
 
-	  <div class="footer">
+	  <div class="footer" align="center">
 	  <br><br><br>
 	  
+
+      
 	  <input type="submit" value="가입하기" class="w3-btn w3-red" id="insert_member">
 	  </form>
+	  
+	  <br><br>
 	  <!-- <button class="w3-btn w3-red" id="insert_member">가입하기</button></div> --></div>
+	   <img src="/semi/resources/image/chu/footer.png" width="1100px" height="280px">
+	  <br>
 	</div>
 </div>
 	

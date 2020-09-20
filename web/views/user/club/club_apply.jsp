@@ -77,6 +77,28 @@ pageEncoding="UTF-8"/>
  	#userInfo{
  	float:right;
  	}
+ 	
+ 	.btn{
+		align:right;
+		padding:800px;
+	}
+	#guest{
+	
+		margin-left:1200px;
+	}
+	#infoNlogout{
+		margin-left:1300px;
+	}
+	.common-header{
+		margin-bottom:50px;
+	}
+	#changeInfo{
+		float:left;
+	}
+	    .loginBtns {
+	   float:left;
+	}
+	
 </style>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <meta charset="UTF-8">
@@ -171,27 +193,45 @@ $(function (){
 	<jsp:include page="${ application.getContextPath() }/views/common/sideBar.jsp"></jsp:include>
 	
 	<div class="wrapper">
-	  <div class="header">
-	 <c:if test="${ empty sessionScope.loginUser }">
+	 <div class=header>
+		
+		 <div id="logo" align="center">
+				 <img  src="/semi/resources/image/chu/logo.png" width="400px" height="150px" style="cursor: pointer" onclick="reHome();">
+			</div>
+			
+		
+		<div  class="head" id="headWrapper">
+
+				<div class="btns" style="font-size:20px; color:gray; font-weight:600px;">
+				<c:if test="${ empty sessionScope.loginUser }">
 				<ul class="toplo">
 					<li class="lil" style="color: #4169E1; font-size: 20px;"><div id="myBtn">로그인</div></li>
-					<li style="font-size: 18px;">또는</li>
+					<li class="lil"style="font-size: 18px;">또는</li>
 					<li class="lil" style="color: #4169E1; font-size: 20px;"><div><a href="${ application.contextPath }/semi/views/user/login/insert_member.jsp">회원가입</a></div></li>
-
-				</ul>
-			</c:if>
-			<c:if test="${!empty sessionScope.loginUser }">
-			<div id="userInfo">
+				</ul> 
+				
+				</c:if>
+				</div>
+			
+				<c:if test="${!empty sessionScope.loginUser }">
+		
+			
+				<div class="guest" id="guest" style="font-size:20px;">
 				<label><c:out value="${sessionScope.loginUser.pfName }" />
 					님의 방문을 환영합니다.</label>
-				<div class="btn" align="right">
-					<div id="changeInfo" onclick="updateMember();">정보수정</div>
-					<div id="logoutBtn" onclick="logout();">로그아웃</div>
+				</div>	
+					
+				<div class="btn" id="infoNlogout" style="font-size:19px; color: gray; font-weight: 600;">
+					<div id="changeInfo" onclick="updateMember();">정보수정 </div>
+					<div class= "loginBtns" id="bar"><label> | </label></div>
+					<div id="logoutBtn" onclick="logout();"> 로그아웃</div>
 				</div>
-			</div>
+
 		</c:if>
-</div>
-	  <div class="leftCol"></div>
+			
+			</div>
+			
+			</div>	  <div class="leftCol"></div>
 	  <div class="rightCol"></div>
 	  <div class="midTop">
 	  <h2>구단 신청 페이지</h2>
@@ -217,7 +257,11 @@ $(function (){
 	  </div>
 	  <div class="midBottom"><button class="w3-btn w3-red" id="club_apply">구단 신청</button></div>
 	  </form>
-	  <div class="footer">Footer</div>
+	  <div class="footer" align="center">
+
+         <img src="/semi/resources/image/chu/footer.png" width="1100px" height="280px">
+
+</div>
 	</div>
 </body>
 </html>

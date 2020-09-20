@@ -10,7 +10,7 @@
 <style>
 	.header{
    grid-area: header;
- 
+  grid-column: auto / span 4; 
  }
  
  th>td{
@@ -39,12 +39,14 @@
   
   .midTop{
    grid-area: midTop;
- 
+ width: 1100px;
+	margin-left: 58px;
  }
   
  .midBottom{
    grid-area: midBottom;
-  
+  width: 1100px;
+	margin-left: 58px;
  }
   
  .footer{
@@ -57,7 +59,7 @@
   /* grid-template-rows: 50px 100px 100px 30px; */
   grid-auto-rows: minmax(100px, auto);
   grid-template-areas:
-  "header header header header"
+  "header  header header  header"
   "leftCol midTop midTop rightCol"
   "leftCol midBottom midBottom rightCol"
   "footer footer footer footer";
@@ -142,10 +144,33 @@ border-bottom:2px solid gray;
  	
  #search_club{
  	position:relative;
- 	left:72%;
+ 	left:65%;
  	top: 40%;
  	margin-bottom: 5px;
  }
+ 
+ 
+ .btn{
+		align:right;
+		padding:800px;
+	}
+	#guest{
+	
+		margin-left:1200px;
+	}
+	#infoNlogout{
+		margin-left:1300px;
+	}
+	.common-header{
+		margin-bottom:50px;
+	}
+	#changeInfo{
+		float:left;
+	}
+	    .loginBtns {
+	   float:left;
+	}
+	
 </style>
 
 	
@@ -429,9 +454,8 @@ $(function(){
 	<jsp:include page="${ application.contextPath }/views/user/comman/login.jsp"/>
 	
 	<input type="hidden" value="club_main" id="location_web"/>
-	
 	<div class="wrapper">
-	  <div class="header">
+	  <%-- <div class="header">
 	 <c:if test="${ empty sessionScope.loginUser }">
 				<ul class="toplo">
 					<li class="lil" style="color: #4169E1; font-size: 20px;"><div id="myBtn">로그인</div></li>
@@ -455,7 +479,48 @@ $(function(){
 	  	<p id="text_header_date">2020.07.31 기준</p>
 	 
 	  	
-	  </div>
+	  </div> --%>
+	  
+	  <div class=header>
+		
+		<div id="logo" align="center">
+				 <img  src="/semi/resources/image/chu/logo.png" width="400px" height="150px" style="cursor: pointer" onclick="reHome();">
+			</div>
+			
+		
+		<div  class="head" id="headWrapper">
+
+				<div class="btns" style="font-size:20px; color:gray; font-weight:600px;">
+				<c:if test="${ empty sessionScope.loginUser }">
+				<ul class="toplo">
+					<li class="lil" style="color: #4169E1; font-size: 20px;"><div id="myBtn">로그인</div></li>
+					<li class="lil"style="font-size: 18px;">또는</li>
+					<li class="lil" style="color: #4169E1; font-size: 20px;"><div><a href="${ application.contextPath }/semi/views/user/login/insert_member.jsp">회원가입</a></div></li>
+				</ul> 
+				
+				</c:if>
+				</div>
+			
+				<c:if test="${!empty sessionScope.loginUser }">
+		
+			
+				<div class="guest" id="guest" style="font-size:20px;">
+				<label><c:out value="${sessionScope.loginUser.pfName }" />
+					님의 방문을 환영합니다.</label>
+				</div>	
+					
+				<div class="btn" id="infoNlogout" style="font-size:19px; color: gray; font-weight: 600;">
+					<div id="changeInfo" onclick="updateMember();">정보수정 </div>
+					<div class= "loginBtns" id="bar"><label> | </label></div>
+					<div id="logoutBtn" onclick="logout();"> 로그아웃</div>
+				</div>
+
+		</c:if>
+			
+			</div>
+			
+			</div>
+	  
 	  <div class="leftCol"></div>
 	  <div class="rightCol"></div>
 	  <div class="midTop">
@@ -480,7 +545,7 @@ $(function(){
 					<th width="100px" height="50px" style="text-align: center;">실점</th>
 					<th width="100px" height="50px" style="text-align: center;">득실</th>
 				</tr>
-				</thaed>
+				</thead>
 				<tbody class="w3-table">
 					
 				</tbody>
@@ -491,7 +556,10 @@ $(function(){
 
 	  </div>
 
-	  <div class="footer"></div>
-	</div>
+	  <div class="footer" align="center">
+
+         <img src="/semi/resources/image/chu/footer.png" width="1100px" height="280px">
+	  </div>
+	
 </body>
 </html>

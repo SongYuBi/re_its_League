@@ -155,8 +155,8 @@
 		<div class="input-value">
 			<input value="<c:out value="${ requestScope.pv.pfEmail}"/>" readonly id="pfAddress" name="pfEmail">
 		</div>
-	
-	
+			<input type="hidden" value="${requestScope.pv.pfId }" id="pfId_hidden" name="pfId_hidden"/>
+			<input type="hidden" value="${requestScope.teamNumber }" id="teamnumber_hidden" name="teamnumber_hidden"/>
 	
 	<br>
 	</table>
@@ -177,6 +177,7 @@
 	<button type="button" class="btn btn-primary" id="goEdit" >수정하기</button>	 
 	<button type="button"  class="btn btn-primary" id="goCancel">취소하기</button>
 	<button type="button"  class="btn btn-primary" id="goShow" onclick="signUp();">확인하기</button>
+	<button type="button"  class="btn btn-primary" id="goMyClub" onclick="myClub();">내 구단으로 가기</button>
 	 </div>
 	
 	
@@ -236,6 +237,17 @@
 				if(window.confirm("등록하시겠습니까?")){
 				 	alert("등록되었습니다.");
 				}
+			}
+			
+			function myClub(){
+				var pfid = $('#pfId_hidden').val();
+				var teamNumber = $('#teamnumber_hidden').val();
+				console.log(pfid);
+				console.log(teamNumber);
+				
+				location.href="/semi/club_info?teamNumber="+teamNumber;
+				
+				
 			}
 
 </script>

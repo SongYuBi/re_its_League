@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 import static com.kh.semi.common.JDBCTemplate.*;
+
+import com.kh.semi.club.model.vo.Club_vo;
 import com.kh.semi.user.model.vo.Profile_vo;
 
 public class UserDao {
@@ -355,6 +357,63 @@ public class UserDao {
 		
 		
 		return changeMyInfos;
+	}
+
+	public int search_team(Connection con, Profile_vo pv) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String sql = prop.getProperty("search_team");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, pv.getPfId());
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				System.out.println(rs.getString(1));
+				result = Integer.parseInt(rs.getString(1));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		return result;
+	}
+
+	public Club_vo my_team_info(Connection con, int teamNumber) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Club_vo vo = null;
+		
+		String sql = prop.getProperty("my_team_info");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, teamNumber);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+			vo.setClubId(rs.getInt(1));
+			vo.setClubComment(rs.getString(2));
+			vo.setAreaCode(rs.getString(3));
+			vo.setClubName(rs.getString(4));
+			
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		return vo;
 	}
 
 

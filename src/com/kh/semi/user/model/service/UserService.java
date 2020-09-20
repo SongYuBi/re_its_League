@@ -1,5 +1,6 @@
 package com.kh.semi.user.model.service;
 
+import com.kh.semi.club.model.vo.Club_vo;
 import com.kh.semi.user.model.dao.UserDao;
 import com.kh.semi.user.model.vo.Profile_vo;
 
@@ -125,6 +126,30 @@ public class UserService {
 		close(con);
 		
 		return changeInfo;
+	}
+	// 내가 만든 구단을 찾아서 띄워주기 위해서 팀 vo와 자신의 팀을 찾는 메소드
+	public Club_vo search_club(Profile_vo pv) {
+		Connection con = getConnection();
+		Club_vo vo = new Club_vo();
+		// 나의 팀 찾기
+		int teamNumber = dao.search_team(con,pv);
+		
+		if(teamNumber > 0) {
+			// 구단의 정보 받아오기
+			vo = dao.my_team_info(con,teamNumber);
+		}
+		
+		close(con);
+		return vo;
+	}
+
+	public int serach_teamNumber(Profile_vo pv) {
+		// TODO Auto-generated method stub
+		Connection con = getConnection();
+		int teamNumber = dao.search_team(con,pv);
+		close(con);
+		
+		return teamNumber;
 	}
 
 }

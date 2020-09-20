@@ -575,6 +575,28 @@ public class ClubDao {
 	}
 
 
+	public int update_user_g2(Connection con, Profile_vo user_vo) {
+		PreparedStatement pstmt = null;
+		int result= 0;
+		
+		String sql= prop.getProperty("update_user_g2");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1,user_vo.getPfId());
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		return result;
+	}
+
+
 	
 
 }

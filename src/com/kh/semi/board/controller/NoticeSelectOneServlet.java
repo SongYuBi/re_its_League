@@ -14,7 +14,7 @@ import com.kh.semi.board.model.vo.Board_vo;
 /**
  * Servlet implementation class NoticeSelectOneServlet
  */
-@WebServlet("/selectOne.no")
+@WebServlet("/selectNoticeOne.no")
 public class NoticeSelectOneServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -31,10 +31,24 @@ public class NoticeSelectOneServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int num = Integer.parseInt(request.getParameter("num"));
-		
-		Board_vo notice = new BoardService().selectONeNoticeByBid(num);
-		
-		System.out.println(notice);
+	      System.out.println("NoticeSelectOneServlet 호출 성공");
+	      System.out.println("num : " + num);
+	      
+	      Board_vo board = new BoardService().selectNoticeOne(num);
+	      
+	      System.out.println("select board detail : " + board);
+	      
+	      String page="";
+	      if(board != null) {
+	         page = "views/user/noitce/noticeDetail.jsp";
+	         
+	         request.setAttribute("board",board);
+	      }else {
+	         
+	         page = "views/common/errorPage.jsp";
+	         request.setAttribute("message","게시판 상세 조회 실패");
+	      }
+	      request.getRequestDispatcher(page).forward(request, response);
 	}
 
 	/**

@@ -54,44 +54,45 @@ input.underline {
 		<div class="leftCol"></div>
 		<div class="rightCol"></div>
 		<div class="midTop">
-			<hr class="line_myPage">
+			
 			<form class="first_form">
 				<div>
 					<p>연락처</p>
 				</div>
 				<div>
-					<input class="underline" type="text">
+					<input class="underline" type="text" value="010-3369-8022"> 
+				
 				</div>
 				<div>
 					<p>주민등록번호</p>
 				</div>
 				<div>
-					<input class="underline" type="text">
+					<input class="underline" type="text" value="1302414">
 				</div>
 				<div>
 					<p>주소</p>
 				</div>
 				<div>
-					<input class="underline" type="text">
+					<input class="underline" type="text" value="서울시 관악구 사당동 아이파크 103동 201호">
 				</div>
 				<div>
 					<p>계좌</p>
 				</div>
 				<div>
-					<input class="underline" type="text">
+					<input class="underline" type="text" value="국민 7289123-12323443">
 				</div>
-				<hr class="line_myPage_double">
+				
 				<div>
 					<p>직업</p>
-					<input class="underline" type="text">
+					<input class="underline" type="text" value="채육교사">
 				</div>
 				<div>
 					<p>급수</p>
-					<input class="underline" type="text">
+					<input class="underline" type="text" value="3급">
 				</div>
 				<div>
 					<p>차량유무</p>
-					<input class="underline" type="text">
+					<input class="underline" type="text" value="Y">
 				</div>
 			</form>
 

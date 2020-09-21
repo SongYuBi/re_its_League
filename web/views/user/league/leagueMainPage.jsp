@@ -101,7 +101,7 @@ ul, li {
 
 .w4 {
 	width: 20px;
-	margin-left: 0px;
+	margin-left: 60px;
 }
 
 .w5 {
@@ -110,6 +110,7 @@ ul, li {
 
 .w6 {
 	width: 100px;
+	margin-left:50px;
 }
 
 .w7 {

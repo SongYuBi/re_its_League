@@ -53,11 +53,13 @@ public class LoginUserServlet extends HttpServlet {
 			if(loginUser.getPfGrade().equals("G1")) {
 				path = "views/admin/main/index.jsp";
 			}else if(loginUser.getPfGrade().equals("G4")) {
-				path = "views/refree/main/refereeMain.jsp";
+				path =  "/semi/refSchedule.rf";
 			}
-			response.sendRedirect(path);
 			
-		}else {
+			response.sendRedirect(path);
+	
+		} else {
+
 			request.setAttribute("login","아이디 또는 비밀번호를 확인해주세요.");
 			
 			path = "index.jsp";

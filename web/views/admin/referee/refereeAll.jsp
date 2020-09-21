@@ -13,7 +13,7 @@
 <title>심판 관리 페이지</title>
 <style>
 	.header {
-		place-self:center;
+		background:#212529;
 	}
 	
 </style>
@@ -22,11 +22,13 @@
 	<jsp:include page="${ application.contextPath }/views/admin/main/sideBar.jsp"></jsp:include>
 	<div class="wrapper_admin">
 		<div class="header">
-			<h1>심판 관리 페이지</h1>
+			<h1 style="color: #b1adad;
+			    margin-top: revert;
+			    margin-left: 30px;">심판 지원자 목록</h1>
 		</div>
 		<div class="leftCol"></div>
 		<div class="rightCol"></div>
-		<div class="midTop">
+		<div class="midTop" style="margin-top:80px;">
 		<form action="${applicationScope.contextPath}/deleteReferee.rf" method="post">
 		<div class="table_area">
 			<div class="matchDate"></div>

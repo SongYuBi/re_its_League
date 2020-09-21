@@ -109,12 +109,12 @@ public class InsertResultMatchServlet extends HttpServlet {
 		
 		
 		String page = "";
-		if(result > 0) {
+		/*if(result > 0) {*/
 			page = "views/referee/league/refereeGameEvalution.jsp";
 			request.setAttribute("matchId", matchId);
-		} else {
+		/*} else {
 			page = "views/common/errorPage.jsp";
-		}
+		}*/
 		request.getRequestDispatcher(page).forward(request, response);
 		
 	}

@@ -6,6 +6,10 @@ pageEncoding="UTF-8"/>
 <html>
 <head>
 <style>
+
+.btn{
+	border-radius: 5px 5px;
+}
 	#div_1{
 		width:400px;
 		height:600px;
@@ -294,28 +298,28 @@ function validate() {
 	
 <label style="float:left;">이메일</label><br><br>
   <div style="float:left;">
-<input type="Email" id="Email" name="Email" class="w3-input w3-border w3-border-black"  maxlength="30" style="width:300px;">
+<input type="Email" id="Email" name="Email" class="w3-input w3-border w3-border-black btn"  maxlength="30" style="width:300px;">
 </div>
 
 <div>
-<button class="w3-btn w3-red" id="double_check" onclick="double_check_();">중복 확인</button><br>
+<button class="w3-btn btn" id="double_check" style="background-color: #111B39; color:white;" onclick="double_check_();">중복 확인</button><br>
 <br>
 <label style="float:left;">이메일 인증</label><br><br>
 <div style="float:left;">
-<input type="Email" id="email_check" name="email_check" class="w3-input w3-border" style="width:250px;">
+<input type="Email" id="email_check" name="email_check" class="w3-input w3-border btn" style="width:250px;">
 </div >
 
 <div>
-<button class="w3-btn w3-red" id="check" onclick="email_certification();">인증번호 받기</button><br>
+<button class="w3-btn btn" id="check" style="background-color: #111B39; color:white;" onclick="email_certification();">인증번호 받기</button><br>
 <br>
 <div style="float:left;">
 <label style="float:left;">인증번호 확인</label><br><br>
 <input type="hidden" value="false" id="email_check_btn">
 	<input type="hidden" value="" id="email_certification_result">
 	<input type="hidden" value="false" id="certification">
-<input type="text" id="certification_number" class="w3-input w3-border" style="width:250px;"></div>
+<input type="text" id="certification_number" class="w3-input w3-border btn" style="width:250px;"></div>
 <div><br><br>
-<button class="w3-btn w3-red" id="check" style="width: 125px;" onclick="email_certification_result();">확인</button><br>
+<button class="w3-btn btn" id="check" style="width: 125px; background-color: #111B39; color:white;" onclick="email_certification_result();">확인</button><br>
 </div>
 
  <form name="insertUser" action="<%= request.getContextPath() %>/insertUser.me" method="post" onsubmit="return validate();">
@@ -324,18 +328,18 @@ function validate() {
 <br>
 <br>
 <label style="float:left;">비밀번호</label>
-<input type="password" id="password" name="password" class="w3-input w3-border w3-border-black"  maxlength="12">
+<input type="password" id="password" name="password" class="w3-input w3-border w3-border-black btn"  maxlength="12">
 <br>
 <label style="float:left;">비밀번호 확인</label>
-<input type="password" id="password_re" name="password_re" class="w3-input w3-border w3-border-black"  maxlength="12">
+<input type="password" id="password_re" name="password_re" class="w3-input w3-border w3-border-black btn"  maxlength="12">
 <br>
 <label style="float:left;">이름</label>
-<input type="text" id="name" name="name" class="w3-input w3-border w3-border-black" maxlength="20" >
+<input type="text" id="name" name="name" class="w3-input w3-border w3-border-black btn" maxlength="20" >
 <br>
 <label style="float:left;" >주민등록번호</label>
 <br><br>
 <div style="float:left;">
-<input type="text" id="Jumin_1" name="Jumin_1" class="w3-input w3-border w3-border-black" style="float:left"  maxlength="6">
+<input type="text" id="Jumin_1" name="Jumin_1" class="w3-input w3-border w3-border-black btn" style="float:left"  maxlength="6">
 </div>
 
 <div style="float:left;">
@@ -343,27 +347,27 @@ function validate() {
 </div>
 
 <div style="float:right;">
-<input type="text"  style="float:left" id="Jumin_2" name="Jumin_2" class="w3-input w3-border w3-border-black"  maxlength="7">
+<input type="text"  style="float:left" id="Jumin_2" name="Jumin_2" class="w3-input w3-border w3-border-black btn"  maxlength="7">
 </div>
 
 <br><br>
 <div style="padding:5px;">
 <label style="float:left;">성별</label><br>
 
-<label>남</label><input class="w3-radio" id="male" type="radio" value="M" name="gender" class="gender"> 
+<label>남</label><input class="w3-radio" id="male" type="radio" value="M" name="gender" class="gender "> 
 
 <label>여</label><input  class="w3-radio" id="female" type="radio" value="W" name="gender" class="gender"><br>
 </div>
 
 <label style="float:left;">주소</label>
-<input type="text" id="address" name="address" class="w3-input w3-border w3-border-black">
+<input type="text" id="address" name="address" class="w3-input w3-border w3-border-black btn">
 
 <br>
 
 <label style="float:left;">전화번호</label><br><br>
-<input type='tel' name='phone1' id='phone1'  size="4" maxlength="3" class=" w3-border w3-border-black" style="width:100px; height:35px;"/> &nbsp&nbsp - &nbsp&nbsp
-        <input type='tel' name='phone2' id='phone1' size="4" maxlength="4" class=" w3-border w3-border-black"  style="width:100px; height:35px;" />&nbsp&nbsp  - &nbsp&nbsp
-        <input type='tel' name='phone3' id='phone1'  size="4" maxlength="4" class=" w3-border w3-border-black"  style="width:100px; height:35px;" />
+<input type='tel' name='phone1' id='phone1'  size="4" maxlength="3" class=" w3-border w3-border-black btn" style="width:100px; height:35px;"/> &nbsp&nbsp - &nbsp&nbsp
+        <input type='tel' name='phone2' id='phone1' size="4" maxlength="4" class=" w3-border w3-border-black btn"  style="width:100px; height:35px;" />&nbsp&nbsp  - &nbsp&nbsp
+        <input type='tel' name='phone3' id='phone1'  size="4" maxlength="4" class=" w3-border w3-border-black btn"  style="width:100px; height:35px;" />
 <br><br>
 
 </div>
@@ -379,7 +383,7 @@ function validate() {
 	  
 
       
-	  <input type="submit" value="가입하기" class="w3-btn w3-red" id="insert_member">
+	  <input type="submit" value="가입하기" class="w3-btn btn" style="background-color: #111B39; color:white;" id="insert_member">
 	  </form>
 	  
 	  <br><br>

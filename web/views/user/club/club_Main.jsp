@@ -175,7 +175,10 @@ border-bottom:2px solid gray;
 
 	
 <script>
-
+function reHome(){
+		location.href = "${applicationScope.contextPath}/index.jsp";
+		
+	}
 $(function(){
 	// 기본 초기 화면에서 순위 테이블 불러오기
 	$.ajax({

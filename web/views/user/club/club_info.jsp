@@ -785,7 +785,10 @@
 		</div>
 
 		<script>
-	
+		function reHome(){
+	   		location.href = "${applicationScope.contextPath}/index.jsp";
+	   		
+	   	}
 			
 		
 				// 선수관리 다이얼로그

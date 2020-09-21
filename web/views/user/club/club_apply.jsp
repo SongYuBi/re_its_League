@@ -98,6 +98,9 @@ pageEncoding="UTF-8"/>
 	    .loginBtns {
 	   float:left;
 	}
+	.border_ra{
+	border-radius: 5px 5px;
+	}
 	
 </style>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -163,7 +166,10 @@ $(function (){
         }
     }
 })
-	
+		function reHome(){
+   		location.href = "${applicationScope.contextPath}/index.jsp";
+   		
+   	}
 	
 </script>
 
@@ -238,10 +244,10 @@ $(function (){
 	  <div id="div_1">
 	<form name="isert_club" action="<%= request.getContextPath() %>/isert_club" method="post" onsubmit="return validate();">  
 <label style="float:left;">구단명</label>
-<input type="text" id="club_name" name="club_name" class="w3-input w3-border w3-border-black">
+<input type="text" id="club_name" name="club_name" class="w3-input w3-border w3-border-black border_ra">
 <br>
 <label style="float:left;">지역 선택</label>
-<select name="arae_local" id="area" class="w3-input w3-border" >
+<select name="arae_local" id="area" class="w3-input w3-border border_ra" >
 	<option value="defualt" selected="selected" >지역을 선택해주세요.</option>
 	<option value="S1">서울</option>
 	<option value="GG1">경기</option>
@@ -255,7 +261,7 @@ $(function (){
 <textarea id="club_ment" name="club_ment"cols="52" rows="10" placeholder="구단을 소개하는 멘트를 입력해주세요." style="resize:none;"></textarea>
 	</div>
 	  </div>
-	  <div class="midBottom"><button class="w3-btn w3-red" id="club_apply">구단 신청</button></div>
+	  <div class="midBottom"><button class="w3-btn border_ra" style="background-color: #111B39; color:white;" id="club_apply">구단 신청</button></div>
 	  </form>
 	  <div class="footer" align="center">
 

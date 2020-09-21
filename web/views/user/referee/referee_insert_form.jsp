@@ -11,7 +11,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
+	input, select {
+		height:30px;
+		font-size:1.1em;
+	}
 	
+	p {
+		font-size:1.1em;
+	}
 </style>
 </head>
 <body>
@@ -19,37 +26,40 @@
 		<div class="head">
 			<img src="${ applicationScope.contextPath }/resources/image/logo_jess.png">
 		</div>
-		<div class="header">${ sessionScope.loginUser.pfName }님 반갑습니다.</div>
+		<div class="header">
+			<br>
+			<span style="font-size:x-large">${ sessionScope.loginUser.pfName }</span>님 반갑습니다.
+		</div>
 		<div class="leftCol"></div>
 		<div class	="rightCol"></div>
 		<div class="midTop">
 		<form id="joinForm" action="${ applicationScope.contextPath }/insertReferee.pf" method="post">
 			<div class="referee_div">
-				<p class="referee_p"><br>이름 : <input type="text" id="" name="refName" value="${ sessionScope.loginUser.pfName }">
+				<p class="referee_p">이름 : <br><br><input type="text" id="" name="refName" value="${ sessionScope.loginUser.pfName }">
 					<input type="hidden" name="pfId" value=${ sessionScope.loginUser.pfId }>
 				</p>
 			</div>
 			<div class="referee_div">
-				<p class="referee_p">주소 : <br><input type="text" name="refAdd" value="${ sessionScope.loginUser.pfAddress }"></p>
+				<p class="referee_p">주소 : <br><br><input type="text" name="refAdd" value="${ sessionScope.loginUser.pfAddress }"></p>
 			</div>
 			<div class="referee_div">
-				<p class="referee_p">연락처 : <br><input type="text" name="refPhone" value="${ sessionScope.loginUser.pfPhone }"></p>
+				<p class="referee_p">연락처 : <br><br><input type="text" name="refPhone" value="${ sessionScope.loginUser.pfPhone }"></p>
 			</div>
 			<div class="referee_div">
-				<p class="referee_p">주민등록번호 : <br><input type="text" name="refNumber" value="${ sessionScope.loginUser.pfNumber }"></p>
+				<p class="referee_p">주민등록번호 : <br><br><input type="text" name="refNumber" value="${ sessionScope.loginUser.pfNumber }"></p>
 			</div>
 			<div class="referee_div">
-				<p class="referee_p">현재 직업 : <br><input type="text" name="refJob"></p>
+				<p class="referee_p">현재 직업 : <br><br><input type="text" name="refJob"></p>
 			</div>
 			<div class="referee_div">
-				<p class="referee_p">차량 유무 : <br><input type="text" name="refCar"></p>
+				<p class="referee_p">차량 유무 : <br><br><input type="text" name="refCar"></p>
 			</div>
 			<div class="referee_div">
-				<p class="referee_p">계좌 번호 : <br><input type="text" name="refAccount"></p>
+				<p class="referee_p">계좌 번호 : <br><br><input type="text" name="refAccount"></p>
 			</div>
 			<div class="referee_div">
 				<p class="referee_p">자격증 유무 : 
-					<br>
+					<br><br>
 					<select name="refLicense">
 						<option value="Y">유</option>
 						<option value="N">무</option>
@@ -57,14 +67,14 @@
 				</p>
 			</div>
 			<div class="referee_div">
-				<p class="referee_p">자격증 취득일자 : <br><input type="date" name="refGetLicense"></p>
+				<p class="referee_p">자격증 취득일자 : <br><br><input type="date" name="refGetLicense"></p>
 			</div>
 			<div class="referee_div">
-				<p class="referee_p">자격증 만료일 : <br><input type="date" name="refEndLicense"></p>
+				<p class="referee_p">자격증 만료일 : <br><br><input type="date" name="refEndLicense"></p>
 			</div>
 			<div class="referee_div">
 				<p class="referee_p">자격증 급수 : 
-					<br>
+					<br><br>
 					<select name="refRating">
 						<option value="R1">R1</option>
 						<option value="R2">R2</option>
@@ -75,6 +85,7 @@
 				</p>
 			</div>
 		</form>
+		<br>
 				<button id="joinBtn" onclick="insert_ref()">지원하기</button>
 				<button id="goMain" onclick="goMain()">취소하기</button>
 		</div>

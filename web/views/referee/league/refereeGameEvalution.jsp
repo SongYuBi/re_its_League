@@ -32,7 +32,7 @@
 }
 
 .header {
-	background: gray;
+	background:#212529;
 }
 
 #myCarousel {

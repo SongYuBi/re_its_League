@@ -17,6 +17,7 @@
 <meta name="author" content="">
 
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<script src="https://kit.fontawesome.com/1baa271722.js" crossorigin="anonymous"></script>
 
 <!-- Bootstrap core CSS-->
 <link href="/semi/resources/css/bootstrap.min.css" rel="stylesheet">
@@ -92,9 +93,12 @@ p {
 		<ul class="navbar-nav ml-auto ml-md-0">
 
 			<li class="nav-item dropdown no-arrow">
-				<a class="nav-link"	href="#" id="userDropdown" role="button" style="color:black;"> 
-					<!-- <i class="fas fa-user-circle fa-fw"></i> -->
-					<c:out value="${ sessionScope.loginUser.pfName } 님"></c:out>
+				<a class="nav-link"	href="#" id="userDropdown" role="button"> 
+				<i class="fa fa-user-circle" aria-hidden="true" style="display:inline; font-size:30px; color:#111B39">
+					<c:if test="${ !empty sessionScope.loginUser }">
+						&nbsp;<span >${ sessionScope.loginUser.pfName } </span>님  | <span onclick="logout();" style="font-size:20px; color:white">로그아웃</span> 
+					</c:if>
+				</i>
 				</a>	
 			</li>
 		</ul>
@@ -154,6 +158,14 @@ p {
 				location.href="${ applicationScope.contextPath }/selectReferee.rf";
 				console.log("버튼! 눌림!")
 				
+			}
+			
+			function logout(){
+				var check = window.confirm("로그아웃");
+				if(check){
+					location.href = "<%=request.getContextPath()%>/logout.me";
+					
+				}
 			}
 		</script>
 </body>

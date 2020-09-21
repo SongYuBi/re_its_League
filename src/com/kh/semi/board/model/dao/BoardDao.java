@@ -752,5 +752,177 @@ public class BoardDao {
 //			return list;
 //		}
 
+			//류승완 공지사항 리스트
+			public ArrayList<Board_vo> selectNoticeList(Connection con, PageInfo pi) {
+				PreparedStatement pstmt = null;
+		        ResultSet rset = null;
+		        ArrayList<Board_vo> list = null;
+		        
+		        String query = prop.getProperty("selectNoticeList");
+		        System.out.println(query);
+		        
+		        try {
+		           pstmt = con.prepareStatement(query);
+		           
+		           int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+		           int endRow = startRow + pi.getLimit() - 1;
+		           System.out.println(startRow);
+		           System.out.println(endRow);
+		           pstmt.setInt(1, startRow);
+		           pstmt.setInt(2, endRow);
+		           
+		           rset = pstmt.executeQuery();
+		           
+		           list = new ArrayList<Board_vo>();
+		           
+		           while(rset.next()) {
+		              Board_vo b = new Board_vo();
+		              
+		              b.setBid(rset.getInt(2));
+		              b.setbType(rset.getInt(3));
+		              b.setbNo(rset.getInt(4));
+		              b.setPfName(rset.getString(5));
+		              b.setbTitle(rset.getString(6));
+		              b.setbContent(rset.getString(7));
+		              b.setbCount(rset.getInt(8));
+		              b.setbDate(rset.getDate(9));
+		              b.setModifyDate(rset.getDate(10));
+		              b.setbStatus(rset.getString(11));
+		              System.out.println(b);
+		              
+		              list.add(b);
+		           }
+		        
+		        } catch (SQLException e) {
+		           e.printStackTrace();
+		        } finally {
+		           close(pstmt);
+		           close(rset);
+		        }
+		        System.out.println(list);
+		        
+		        
+		        return list;
+			}
+			
+			
+			//류승완 공지사항 리스트 카운트
+			public int getNoticeListCount(Connection con) {
+				Statement stmt  = null;
+				int listCount = 0;
+				ResultSet rset = null;
+			         
+				String query = prop.getProperty("noticeListCount");
+			         
+			         try {
+			            stmt = con.createStatement();
+			            rset = stmt.executeQuery(query);
+			            
+			            if(rset.next()) {
+			               listCount=rset.getInt(1);
+			            }
+			         } catch (SQLException e) {
+			            e.printStackTrace();
+			         }finally {
+			            close(stmt);
+			            close(rset);
+			         }
+			         
+			     return listCount;
+			}
+			
+			//류승완 공지사항 인서트
+			public int insertNotice(Connection con, Board_vo newNotice) {
+				PreparedStatement pstmt = null;
+				int result = 0;
+				
+				String query = prop.getProperty("insertNotice");
+			      
+				try {
+					pstmt = con.prepareStatement(query);
+					pstmt.setInt(1, newNotice.getPfId());
+					pstmt.setString(2, newNotice.getbTitle());
+					pstmt.setString(3, newNotice.getbContent());
+			         
+					result = pstmt.executeUpdate();
+					System.out.println("dao-result= " + result);
+					
+					
+			      } catch (SQLException e) {
+			         e.printStackTrace();
+			      }finally {
+			         close(pstmt);
+			         
+			      }
+			      
+			      return result;
+			}
+			
+			//류승완 공지사항 조회수
+			public int updateNoticeCount(Connection con, int num) {
+				Statement stmt  = null;
+		        int listCount = 0;
+		        ResultSet rset = null;
+		        
+		        String query = prop.getProperty("updateNoticeCount");
+		        
+		        try {
+		           stmt = con.createStatement();
+		           rset = stmt.executeQuery(query);
+		           
+		           if(rset.next()) {
+		              listCount=rset.getInt(1);
+		           }
+		        } catch (SQLException e) {
+		           e.printStackTrace();
+		        }finally {
+		           close(stmt);
+		           close(rset);
+		        }
+		        
+		        return listCount;
+			}
+			
+			//류승완 공지사항 상세보기
+			public Board_vo selectNoticeOne(Connection con, int num) {
+				PreparedStatement pstmt = null;
+		        ResultSet rset = null;
+		        Board_vo b = null;
+		        
+		        String query = prop.getProperty("selectNoticeOne");
+		        
+		        try {
+		           pstmt = con.prepareStatement(query);
+		           pstmt.setInt(1, num);
+		           
+		           rset = pstmt.executeQuery();
+		             
+		           while(rset.next()) {
+		               b = new Board_vo();
+		              
+		              b.setBid(rset.getInt(1));
+		              b.setbType(rset.getInt(2));
+		              b.setbNo(rset.getInt(3));
+		              b.setPfName(rset.getString(4));
+		              b.setbTitle(rset.getString(5));
+		              b.setbContent(rset.getString(6));
+		              b.setRefBid(rset.getInt(7));
+		              b.setReplyLevel(rset.getInt(8));
+		              b.setbDate(rset.getDate(9));
+		              b.setModifyDate(rset.getDate(10));
+		              b.setbCount(rset.getInt(11));
+		              b.setbStatus(rset.getString(12));
+		              b.setbWriter(rset.getInt(13));
+		           }
+		           
+		        } catch (SQLException e) {
+		           e.printStackTrace();
+		        } finally {
+		           close(rset);
+		           close(pstmt);
+		        }
+		        
+		        return b;
+			}
 
 }

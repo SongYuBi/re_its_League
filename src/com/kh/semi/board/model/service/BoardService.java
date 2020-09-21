@@ -272,7 +272,72 @@ public class BoardService {
         return list;
 		
 	}
-
+	
+	
+	//류승완 공지사항 리스트 
+		public ArrayList<Board_vo> selectNoticeList(PageInfo pi) {
+			Connection con = getConnection();
+	        
+	        ArrayList<Board_vo> list = new BoardDao().selectNoticeList(con, pi);
+	        
+	        close(con);
+	        
+	        return list;
+		}
+		
+		//류승완 공지사항 인서트
+		public int insertNotice(Board_vo newNotice) {
+			Connection con = getConnection();
+			
+			int result = new BoardDao().insertNotice(con, newNotice);
+			 System.out.println("service-result:" + result);
+			//1이상일 경우는 정보한행이 담김거이므로  commit
+			if(result > 0) {
+				commit(con);
+			}else { //0일 경우에는 rollback	
+				rollback(con);
+			}
+			close(con);
+			
+			return result;
+		}
+		
+		//류승완 공지사항 리스트 카운트
+		public int getNoticeListCount() {
+			Connection con = getConnection();
+	         
+			int listCount = new BoardDao().getNoticeListCount(con);
+	         
+			close(con);
+			
+			return listCount;
+		}
+		
+		//류승완 공지사항 디테일
+		public Board_vo selectNoticeOne(int num) {
+			Connection con = getConnection();
+	        
+	        BoardDao bd = new BoardDao();
+	        int result = bd.updateNoticeCount(con, num);
+	        
+	        Board_vo board = null;
+	        if(result > 0) {
+	           board = bd.selectNoticeOne(con, num);
+	           
+	           if(board != null) {
+	              commit(con);
+	           } else {
+	              rollback(con);
+	           }
+	        } else {
+	           rollback(con);
+	        }
+	        
+	        close(con);
+	        
+	        return board;
+			
+		}
 
 }
 

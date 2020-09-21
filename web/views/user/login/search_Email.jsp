@@ -8,6 +8,9 @@ pageEncoding="UTF-8"/>
 <style>
 
 
+.btn{
+	border-radius: 5px 5px;
+}
 
  /* The Modal (background) */
         .modal {
@@ -177,12 +180,12 @@ function validate() {
 	  <div id="div_1">
 
 <label style="float:left;">이름</label>
-<input type="text" id="name" name="name" class="w3-input w3-border w3-border-black" maxlength="20" >
-<br>
+<input type="text" id="name" name="name" class="w3-input w3-border w3-border-black btn" maxlength="20" >
+<br><br>
 <label style="float:left;" >주민등록번호</label>
 <br><br>
 <div style="float:left;">
-<input type="text" id="Jumin_1" name="Jumin_1" class="w3-input w3-border w3-border-black" style="float:left" maxlength="6">
+<input type="text" id="Jumin_1" name="Jumin_1" class="w3-input w3-border w3-border-black btn" style="float:left" maxlength="6">
 </div>
 
 <div style="float:left;">
@@ -190,13 +193,13 @@ function validate() {
 </div>
 
 <div style="float:right;">
-<input type="text"  style="float:left" id="Jumin_2" name="Jumin_2" class="w3-input w3-border w3-border-black" maxlength="7">
+<input type="text"  style="float:left" id="Jumin_2" name="Jumin_2" class="w3-input w3-border w3-border-black btn" maxlength="7">
 </div>
 <br><br><br>
 
 
 
-	<input type="submit" value="이메일 찾기" class="w3-btn w3-red" id="password_search">
+	<input type="submit" value="이메일 찾기" class="w3-btn btn" style="background-color: #111B39; color:white;"id="password_search">
 	
 </form>
 	</div>
@@ -211,7 +214,10 @@ function validate() {
 	
 	
 	<script>
-
+	function reHome(){
+   		location.href = "${applicationScope.contextPath}/index.jsp";
+   		
+   	}
 	$(function (){
 
 		// Get the modal

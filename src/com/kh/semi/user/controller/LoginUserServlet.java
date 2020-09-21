@@ -56,10 +56,10 @@ public class LoginUserServlet extends HttpServlet {
 				path =  "/semi/refSchedule.rf";
 			}
 			
-			
 			response.sendRedirect(path);
 	
 		} else {
+
 			request.setAttribute("login","아이디 또는 비밀번호를 확인해주세요.");
 			
 			path = "index.jsp";

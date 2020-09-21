@@ -96,7 +96,7 @@
                     <a href="${pageContext.request.contextPath }/views/user/event/eventBoard.jsp">이벤트</a>
                 </li>
                 <li>
-                    <a href="${pageContext.request.contextPath }/views/user/notice/noticeList.jsp">공지 사항</a>
+                    <a href="${pageContext.request.contextPath }/noticeList.no">공지 사항</a>
                 </li>
                 <li>
                     <a href="${pageContext.request.contextPath }/selectList.bo">자유게시판</a>

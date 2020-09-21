@@ -67,18 +67,20 @@
 		
 	}
 	 td{
-		border:2px solid lightgrey;/* 
+		border:2px solid black;/* 
 		border-style: ridge; */
 		width:200px;
 	} 
 	.tableArea{
-		border:2px solid lightgrey;
+		/* border:2px solid lightgrey; */
 		width:810px;
 		height:350px;
 		margin:0 auto;
-		border-style: ridge;
+	/* 	background-color:lightgrey; */
+/* 		border-style: ridge; */
 		
 	}
+	.tableArea
 	#content{
 		height:250px;
 	}
@@ -137,7 +139,12 @@
 	}#changeInfo{
 		float:left;
 	}
-	 
+	 .tr-header{
+	 	background-color: white;
+	 	color:black;
+	 	padding:5px;
+	 	text-align:center;
+	 }
 	
 </style>
 </head>
@@ -210,24 +217,25 @@
 	  	<br>
 	  	 		<h2 font-weight="bold" align="center">QnA상세보기</h2>
 	  	 
+	  	<br>
 	  	 <div class="tableArea" align="center">
 	  	 
 				 <div class="text-area">
 	  	 	
 				<table class="area-box" width="800px">
-					<tr>
+					<tr class="tr-header">
 						<td>분야</td>
 						<td><span><c:out value="${ requestScope.board.bNo }"/></span></td>
 						<td>제목</td>
 						<td colspan="3"><span><c:out value="${ requestScope.board.bTitle }"/></span></td>
 					</tr>
-					<tr>
+					<tr class="tr-header">
 						<td>조회수</td>
 						<td><span><c:out value="${ requestScope.board.bCount }"/></span></td>
 						 <td>작성	일</td>
 						 <td><span><c:out value="${ requestScope.board.bDate }"/></span></td>
 					</tr>
-				<tr>
+				<tr class="tr-header">
 					<td colspan="6">내용</td>
 				</tr>
 				<tr>
@@ -245,11 +253,12 @@
 			</div>
 	  </div>
 	 	 <br>
-	
+	<br>
 	</div>
 		<br>
 		
-		
+		<br>
+		<br>
 		
 	<footer>
       <div id="footer" align="center">

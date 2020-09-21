@@ -432,6 +432,11 @@ QR코드 등록 정보:삭제 시점으로부터6개월 보관
 	</div>
 	
 <script type="text/javascript">
+function reHome(){
+		location.href = "${applicationScope.contextPath}/index.jsp";
+		
+	}
+
 	function nextpage(){
 		var check1 = 0;
 		var check2 = 0;

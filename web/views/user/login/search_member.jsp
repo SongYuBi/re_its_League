@@ -43,6 +43,10 @@ pageEncoding="UTF-8"/>
  .leftCol{
    grid-area: leftCol;
  }
+ 
+.btn{
+	border-radius: 5px 5px;
+}
   
  .rightCol{
    grid-area: rightCol;
@@ -174,6 +178,11 @@ function validate() {
 
 	
 }
+
+function reHome(){
+		location.href = "${applicationScope.contextPath}/index.jsp";
+		
+	}
 </script>
 
 </head>
@@ -215,10 +224,10 @@ function validate() {
 	  
 <label style="float:left;">이메일 인증</label><br><br>
 <div style="float:left;">
-<input type="Email" id='Email' name="email_check" class="w3-input w3-border">
+<input type="Email" id='Email' name="email_check" class="w3-input w3-border btn">
 </div >
 <div>
-<button class="w3-btn w3-red" id="check" onclick="email_certification();">인증번호 받기</button><br><input type="hidden" value="false" id="email_check">
+<button class="w3-btn btn" style="background-color: #111B39; color:white;" id="check" onclick="email_certification();">인증번호 받기</button><br><input type="hidden" value="false" id="email_check">
 </div>
 <br>
 <div style="float:left;">
@@ -226,19 +235,19 @@ function validate() {
 <input type="hidden" value="false" id="email_check_btn">
 	<input type="hidden" value="" id="email_certification_result">
 	<input type="hidden" value="false" id="certification">
-<input type="text" id="certification_number" class="w3-input w3-border" style="width:250px;"></div>
+<input type="text" id="certification_number" class="w3-input w3-border btn" style="width:250px;"></div>
 <div><br><br>
-<button class="w3-btn w3-red" id="check" style="width: 125px;" onclick="email_certification_result();">확인</button><br>
+<button class="w3-btn btn" id="check" style="width: 125px; background-color: #111B39; color:white;" onclick="email_certification_result();">확인</button><br>
 </div>
 <form name="searchPassword" action="<%= request.getContextPath() %>/search_password.me" method="post" onsubmit="return validate();">
 <br>
 <label style="float:left;">이름</label>
-<input type="text" id="name" name="name" class="w3-input w3-border w3-border-black" maxlength="20">
+<input type="text" id="name" name="name" class="w3-input w3-border w3-border-black btn" maxlength="20">
 <br>
 <label style="float:left;" >주민등록번호</label>
 <br><br>
 <div style="float:left;">
-<input type="text" id="Jumin_1" name="Jumin_1" class="w3-input w3-border w3-border-black" style="float:left" maxlength="6">
+<input type="text" id="Jumin_1" name="Jumin_1" class="w3-input w3-border w3-border-black btn" style="float:left" maxlength="6">
 </div>
 
 <div style="float:left;">
@@ -246,21 +255,21 @@ function validate() {
 </div>
 
 <div style="float:right;">
-<input type="text"  style="float:left" id="Jumin_2" name="Jumin_2" class="w3-input w3-border w3-border-black" maxlength="7">
+<input type="text"  style="float:left" id="Jumin_2" name="Jumin_2" class="w3-input w3-border w3-border-black btn" maxlength="7">
 </div>
 <br><br><br>
 
 
 <br>
 <label style="float:left;">새로운 비밀번호</label>
-<input type="password" id="password" name="password" class="w3-input w3-border w3-border-black" maxlength="12">
+<input type="password" id="password" name="password" class="w3-input w3-border w3-border-black btn" maxlength="12">
 <br>
 <label style="float:left;">새로운 비밀번호 확인</label>
-<input type="password" id="password_re" name="password_re" class="w3-input w3-border w3-border-black" maxlength="12">	
+<input type="password" id="password_re" name="password_re" class="w3-input w3-border w3-border-black btn" maxlength="12">	
 <br><br>
 
 	<!-- <button class="w3-btn w3-red" id="password_search">변경하기</button></div> -->
-	  <input type="submit" value="변경하기" class="w3-btn w3-red" id="password_search">
+	  <input type="submit" value="변경하기" class="w3-btn btn" style="background-color: #111B39; color:white;" id="password_search">
 	</div>
 	  </div>
 	  <div class="midBottom">

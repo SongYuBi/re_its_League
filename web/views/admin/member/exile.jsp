@@ -98,7 +98,8 @@
                   
                 </div>
                   </div>
-                
+                </div>
+                </div>
 
             <!-- DataTables Example -->
           <div class="card mb-3" style="margin-top: 20px;">
@@ -163,7 +164,8 @@
               </div>
             </div>
             </div>
-
+            </div>
+			</div>
 
     <!-- Custom scripts for all pages-->
     <script src="/semi/resources/js/sb-admin.min.js"></script>

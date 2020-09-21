@@ -1,4 +1,4 @@
-<jsp:directive.page language="java"
+ <jsp:directive.page language="java"
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" />
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${ pageContext.request.contextPath }" scope="application"/>
@@ -15,6 +15,7 @@
 <meta name="author" content="">
 
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<script src="https://kit.fontawesome.com/1baa271722.js" crossorigin="anonymous"></script>
 
 <!-- Bootstrap core CSS-->
 <link href="/semi/resources/css/bootstrap.min.css" rel="stylesheet">
@@ -89,12 +90,18 @@ p {
 		<!-- search icon -->
 		<ul class="navbar-nav ml-auto ml-md-0">
 
-			<li class="nav-item dropdown no-arrow"><a class="nav-link"
-				href="#" id="userDropdown" role="button"> <i
-					class="fas fa-user-circle fa-fw"></i>
+			<li class="nav-item dropdown no-arrow">
+			<a class="nav-link" href="#" id="userDropdown" role="button" style="color:#111B39"> 
+				<i class="fa fa-user-circle" aria-hidden="true" style="display:inline; font-size:30px">
+					<c:if test="${ !empty sessionScope.loginUser }">
+						&nbsp;<span>${ sessionScope.loginUser.pfName } </span>님  | <span onclick="logout();" style="font-size:20px">로그아웃</span> 
+					</c:if>
+					<c:if test="${ empty sessionScope.loginUser }">
+						&
+					</c:if>
+				</i>
 			</a></li>
 		</ul>
-
 	</nav>
 
 	<div id="wrapper">
@@ -192,7 +199,7 @@ p {
 			var changeNum = 0;
 			$(".mytoggle").on('click', function(){
 				if(changeNum == 0){
-					$(".mytoggle2").css("margin-top", "30px");
+					$(".mytoggle2").css("margin-top", "60px");
 					changeNum = 1;
 				} else {
 					$(".mytoggle2").css("margin-top", "-70px");
@@ -200,6 +207,14 @@ p {
 				}
 				
 			});
+			
+			function logout(){
+				var check = window.confirm("로그아웃");
+				if(check){
+					location.href = "<%=request.getContextPath()%>/logout.me";
+					
+				}
+			};
 		</script>
 
 </body>

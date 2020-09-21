@@ -46,19 +46,20 @@ public class LoginUserServlet extends HttpServlet {
 		Profile_vo loginUser = new UserService().loginCheck(vo);
 		System.out.println(loginUser);
 		
-		String path ="";
+		String path ="index.jsp";
 		if(loginUser != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", loginUser);
 			if(loginUser.getPfGrade().equals("G1")) {
 				path = "views/admin/main/index.jsp";
 			}else if(loginUser.getPfGrade().equals("G4")) {
-				path = "views/refree/main/refereeMain.jsp";
+				path =  "/semi/refSchedule.rf";
 			}
-			 path = "index.jsp";
+			
 			response.sendRedirect(path);
 	
-		}else {
+		} else {
+
 			request.setAttribute("login","아이디 또는 비밀번호를 확인해주세요.");
 			
 			path = "index.jsp";
